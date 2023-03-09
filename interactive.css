@@ -1,0 +1,9 @@
+.interactive{
+    transition:background-color 0.5s;
+    border-radius: 10px;
+
+}
+
+.interactive:hover{
+    background-color: #70b4bb;
+}

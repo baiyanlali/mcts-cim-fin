@@ -7,7 +7,7 @@
   <meta name="description"
     content="An interactive article on using genetic algorithms to solve the 8-Queens problem. Learn how the choice of representation and operators affects your genetic algorithm.">
   <meta charset="utf8">
-  <title>Bare Demo of Immersive Articles for the IEEE Computational Intelligence Magazine
+  <title>Playing with Monte-Carlo Tree Search
   </title>
 
   <!-- Stylesheet for IEEE Xplore immersive article -->
@@ -20,10 +20,43 @@
     </script>
 
   <!-- Example chessboard immersive app -->
-  <script type="text/javascript"
-    src="https://xploreqa.ieee.org/assets/vendor/jquery/jquery-3.5.1.min.js"></script>
-  <link rel="stylesheet" href="chessboard/chessboard.css">
-  <script type="text/javascript" src="chessboard/chessboard.js"></script>
+  <script type="text/javascript" src="./jquery-3.5.1.js"></script>
+
+
+  <script src="./p5.min.js"></script>
+  <script src="./tween.umd.js"></script>
+
+  <script src="./mcts-viz/draw_tree.js"></script>
+  <script src="./mcts-viz/lib/tree.js"></script>
+  <script src="./mcts-viz/interactive.js"></script>
+  <script type="module" src="./mcts-viz/tree_vis.js"></script>
+  <script src="./mcts-viz/lib/tictactoe.js"></script>
+  <script src="./mcts-viz/lib/mcts.js"></script>
+  <script src="./mcts-viz/sketch.js"></script>
+  <script src="./sokoban/SokobanRepresentation.js"></script>
+  <script src="./mcts-viz/TTTRepresentation.js"></script>
+
+  <link rel="stylesheet" href="./katex.min.css">
+  <script src="./katex.min.js"></script>
+
+  <script defer src="./auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <script src="./pseudocode.min.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="interactive.css">
+  <link rel="stylesheet" type="text/css" href="pseudocode.min.css">
+
+  <script type="text/json">
+    {
+      "katex":{
+        "delimiters":[
+          {"left": "$$", "right": "$$", "display": true},
+          {"left": "$", "right": "$", "display": false}
+        ]
+      }
+    }
+  </script>
 
 </head>
 
@@ -35,12 +68,11 @@
       <div class="container">
         <!-- Page title -->
         <h1>
-          Bare Demo of Immersive Articles for the IEEE Computational Intelligence Magazine
+          Playing with Monte-Carlo Tree Search
         </h1>
         <!-- Subheading -->
         <p class="subhead">
-          This and the index.html file define the components of your paper [title, text, heads, etc.].
-          <b>CRITICAL:</b> Do Not Use Symbols, Special Characters, Footnotes, or Math in Paper Title or Abstract.
+          An interactive article providing an accessible explanation of how Monte-Carlo Tree Search (MCTS) works. Tic-Tac-Toe and Sokoban will be provided to show the procedure of MCTS.
         </p>
         <!-- Header info general wrapper -->
         <div class="header-info">
@@ -50,15 +82,15 @@
             <div class="header-authors">
               <h2>Authors</h2>
               <ul>
-                <li>Alexander Dockhorn | Leibniz University, Hannover</li>
-                <li>John Doe | IEEE, New York</li>
-                <li>Jane Doe | IEEE, New York</li>
+                <li>YunLong Zhao | Southern University of Science and Technology</li>
+                <li>Chengpeng Hu | Southern University of Science and Technology</li>
+                <li>Jialin Liu | Southern University of Science and Technology</li>
               </ul>
             </div>
             <!-- Published info section -->
             <div class="header-published">
               <h2>Published</h2>
-              <p>Dec. 1, 2022</p>
+              <p>Dec. 1, 2023</p>
             </div>
           </div>
           <!-- Header legend section -->
@@ -81,19 +113,19 @@
               <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             </li>
             <li>
-              <a href="#easeofuse">Ease of Use</a>
+              <a href="#games">Games</a>
               <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             </li>
             <li>
-              <a href="#commonmistakes">Some Common Mistakes</a>
+              <a href="#algorithm">Algorithm</a>
               <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             </li>
             <li>
-              <a href="#authors">Authors and Affiliations</a>
+              <a href="#practice">Practise</a>
               <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             </li>
             <li>
-              <a href="#hints">Hints and General Advice</a>
+              <a href="#conclusion">Conclusion</a>
             </li>
           </ul>
         </div>
@@ -107,9 +139,9 @@
         <!-- Section title -->
         <h2>I. Introduction</h2>
         <p>
-          This demo file is intended to serve as a "starter file" for IEEE Computational Intelligence
-          Magazine papers produced under html using interactive.html version 0.1 and later.
-          I wish you the best of success.
+          Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in solving sequential decision problems<d-cite bibtex-key="browne2012survey"></d-cite>.
+          By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
+          Because of few low requirements for domain knowledge and its simplicity, MCTS has achieved significant success in various domains, such as Go<d-cite bibtex-key="silver2017mastering"></d-cite>, video games<d-cite bibtex-key="perez2016general"></d-cite>, and chemical synthesis<d-cite bibtex-key="segler2018planning"></d-cite>.
         </p>
         <p style="text-align: right">
           Alexander Dockhorn<br>
@@ -158,7 +190,7 @@
       <ul id="Units">
         <li> Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as "3.5-inch disk drive".</li>
         <li> Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.</li>
-        <li class="inline-math"> Do not mix complete spellings and abbreviations of units: $$Wb/m^2$$ or "webers per square meter", not $$webers/m^2$$. Spell out units when they appear in text: ". . . a few henries", not ". . . a few H".</li>
+        <li class="inline-math"> Do not mix complete spellings and abbreviations of units: $$Wb/m^2$$ or "webers per square meter", not $$webers/m^2$$. Spell out units when they appear in text: ". . . a few henries", not ". . . a few H" like $$hello=\pi$$.</li>
         <li> Use a zero before decimal points: "0.25", not ".25". </li>
         <li class="inline-math"> Use $$cm^3$$, not $$cc$$.</li>
       </ul>
@@ -389,6 +421,15 @@
       <section class="references">
         <h2>References</h2>
         <ol>
+
+          <li id="ref_1">
+            Data-Driven Documents / d3.js
+            <br>
+            <span>
+              <a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
+            </span>
+          </li>
+          
           <li id="ref_1">
             Data-Driven Documents / d3.js
             <br>
