@@ -184,6 +184,7 @@ export default class SokobanGame {
             this.show_result()
         }
 
+        if(this.machineControlsArea)
         this.machineControlsArea.style.display=""
     }
 
@@ -221,6 +222,7 @@ export default class SokobanGame {
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         interactive.setMCTS(monteCarlo, MCTS_search)
 
+        if(this.machineControlsArea)
         this.machineControlsArea.style.display="none"
 
         this.makeMove(MCTS_search.move)
@@ -232,6 +234,7 @@ export default class SokobanGame {
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
 
+        if(this.machineControlsArea)
         this.machineControlsArea.style.display="none"
 
         interactive.setMCTS(monteCarlo, MCTS_search)
