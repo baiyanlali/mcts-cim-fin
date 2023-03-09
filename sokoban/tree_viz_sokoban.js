@@ -28,16 +28,18 @@ export const vis_sokoban = (s) => {
 
     s.setup = () => {
         s.textFont("Courier");
-        s.createCanvas(900, 430);
+        // s.createCanvas(900, 430);
         let canvas_id = s._userNode.id
         s.mctsTimeoutSlider = s.select("#"+canvas_id+"_"+"mcts_timeout_slider");
         s.mctsTimeoutSpan = s.select("#"+canvas_id+"_"+"mcts_timeout_span");
 
-        // s.changebtn = s.createButton("click me")
-        // s.changebtn.position(800, 200)
-        // s.changebtn.mousePressed(()=>{
-        //     console.log("aha")
-        // })
+        s.canvas_div = s._userNode
+
+        let height =s.canvas_div.clientHeight
+        let width = s.canvas_div.clientWidth
+
+        s.createCanvas(width, height)
+
 
         s.info_position = {y: 0}
         s.tween = null

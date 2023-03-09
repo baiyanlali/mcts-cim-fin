@@ -56,11 +56,6 @@
         ]
       }
     }
-
-
-
-
-
     </script>
 
 </head>
@@ -88,7 +83,7 @@
                     <div class="header-authors">
                         <h2>Authors</h2>
                         <ul>
-                            <li>YunLong Zhao | Southern University of Science and Technology</li>
+                            <li>Yunlong Zhao | Southern University of Science and Technology</li>
                             <li>Chengpeng Hu | Southern University of Science and Technology</li>
                             <li>Jialin Liu | Southern University of Science and Technology</li>
                         </ul>
@@ -127,7 +122,7 @@
                         <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     </li>
                     <li>
-                        <a href="#practice">Practise</a>
+                        <a href="#practise">Practise</a>
                         <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     </li>
                     <li>
@@ -146,11 +141,11 @@
             <h2>I. Introduction</h2>
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
-                solving sequential decision problems[<a href="#browne2012survey">7</a>].
+                solving sequential decision problems[<a href="#browne2012survey">1</a>].
                 By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
                 Because of few low requirements for domain knowledge and its simplicity, MCTS has achieved significant
-                success in various domains, such as Go[<a href="#silver2017mastering">7</a>], video games[<a
-                    href="#perez2016general">7</a>], and chemical synthesis[<a href="#segler2018planning">7</a>].
+                success in various domains, such as Go[<a href="#silver2017mastering">2</a>], video games[<a
+                    href="#perez2016general">3</a>], and chemical synthesis[<a href="#segler2018planning">4</a>].
             </p>
             <p>
                 MCTS combines the concepts of tree search and reinforcement learning to address situations where local
@@ -163,7 +158,7 @@
                 propagated back to update the statistics of the nodes on the trajectory.
                 MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
                 upper confidence bound (UCB)
-                [<a href="#kocsis2006bandit">7</a>]
+                [<a href="#kocsis2006bandit">5</a>]
                 , that balance exploitation and exploration within a given computational budget.
             </p>
 
@@ -230,7 +225,7 @@
             </p>
 
             <p>
-                The interactive interface is based on[<a href="#mcts-viz">7</a>]. The game interfaces and data
+                The interactive interface is based on[<a href="#mcts-viz">6</a>]. The game interfaces and data
                 representations of Tic-Tac-Toe and Sokoban are presented below. You can
                 activate either game by hovering your mouse pointer over its corresponding image. Detailed gameplay
                 instructions for each game are included in its description.
@@ -337,7 +332,7 @@
                         game as the first or second player by clicking the corresponding button above. The objective of
                         the game is to connect three of your pieces in a row, column, or diagonal. The right panel
                         presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
-                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by "h" and "m",
+                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by 'h' and 'm',
                         respectively.
                     </div>
                 </div>
@@ -419,7 +414,6 @@
 
         </section>
 
-
         <section id="algorithm">
 
             <h2>Algorithm</h2>
@@ -428,7 +422,7 @@
                 <img src="image/MCTS.png" alt="Main steps of MCTS."
                      style="margin: auto auto; width: 100%; display: block"/>
                 <div class="caption" style="width: 100%; display: block"><b>Figure 4:</b><br> Main steps of MCTS (Figure
-                    2 from [<a href="#browne2012survey">7</a>]
+                    2 from [<a href="#browne2012survey">1</a>]
                     ). Nodes and branches represent state and action, respectively. Wins and visited time are usually
                     the values of a node.
                 </div>
@@ -447,7 +441,7 @@
             <p>
                 Starting from the root node, which usually represents the current state, MCTS employs a traversal
                 strategy to explore the tree and identify the final node that is expected to lead to an optimal
-                solution, as estimated by the selection strategy. It is known as the "exploration-exploitation dilemma"
+                solution, as estimated by the selection strategy. It is known as the 'exploration-exploitation dilemma'
                 that MCTS encounters. The dilemma considers a general problem of choosing actions that seems to be
                 optimal at current state or taking a wide step to explore some unknown area to potentially discover
                 better solutions. Three selection strategies are described as follows.
@@ -459,7 +453,7 @@
                     the node that has the highest reward with probability $1- \epsilon$.
                 </li>
                 <li>Upper confidence bound (UCB)
-                    [<a href="#kocsis2006bandit">7</a>]
+                    [<a href="#kocsis2006bandit">5</a>]
                     measures the uncertainty of the expected reward of an action. The average rewards and visited times
                     of actions form the upper confidence bound, seeing Eq(1).
                 </li>
@@ -539,11 +533,9 @@
                         }
                     </script>
 
-
                     <div style="position: relative;">
-                        <div style="position: relative; width:auto; margin-bottom: 20px; padding: 1em;">
-
-                            <div class="interactive" style="position: absolute; width:fit-content; height: 550px; margin-bottom: 20px; border: solid 1px black; padding: 1em;">
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
 
@@ -620,8 +612,8 @@
 
                             </div>
 
-                            <div class="interactive" style="position: relative; width:fit-content; height: 550px ; margin-left: 250px; margin-bottom: 20px; border: solid 1px black; padding: 1em;">
-                                <div style="border: solid 1px lightgrey; height: 110px; display: none">
+                            <div class="interactive-ttt-right">
+                                <div style="border: solid 1px lightgrey; height: 0px; display: none">
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
                                         <b>Current action</b>:
                                         <br>
@@ -650,7 +642,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div id="selection_tree_vis"></div>
+                                <div id="selection_tree_vis" class="tree_vis"></div>
                             </div>
                         </div>
                     </div>
@@ -668,8 +660,759 @@
             </div>
 
 
+            <h3>Expansion</h3>
+
+            <p>
+                Expansion is the process of exploring new states and adding new nodes to the tree.
+                An expandable node is the one that still has available actions to explore. When a node is selected for
+                expansion, the algorithm creates new child nodes based on the available action. If the selected node has
+                no available actions, the selection strategy continues searching until an expandable or terminal node is
+                found. The number of expanded nodes usually depends on the available action space and the computation
+                budget.
+            </p>
+
+            <p>
+                The expansion algorithm is as below.
+            </p>
+
+            <pre id="expansion_pseudo">
+              \begin{algorithm}
+              \caption{Expansion}
+              \begin{algorithmic}
+              \PROCEDURE{Expand}{node}
+              \STATE Sample $a$ from unvisited actions of $node$
+              \STATE $new\_node$ $\gets$ $node$ after taking action $a$
+              \STATE $node.children.append(new\_node)$
+              \STATE \Return $new\_node$
+              \ENDPROCEDURE
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+
+            <p>You can test the expansion algorithm in the interactive panel below.</p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Procedure of Expansion.
+                    </div>
+
+                    <div>
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
+
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+
+                                    window.expansion_p5 = new p5(s, "expansion")
+                                    window.expansion_tree_vis_p5 = new p5(vis, "expansion_tree_vis");
+                                    window.expansion_interactive = new TTTInteractive(expansion_tree_vis_p5, "expansion", expansion_p5)
+                                    expansion_p5.mouseClicked = () => {
+                                    }
+                                    expansion_p5.handleOver = () => {
+                                    }
+                                    expansion_interactive.setupInteractive()
+                                </script>
+                                <div id="expansion"></div>
+
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion')">
+                                    Make random board
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="next_show_action(expansion_interactive, expansion_p5, 'expansion')">
+                                    Next Expansion
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="click_next_action(expansion_interactive, expansion_p5)">Next Step
+                                </button>
+
+
+                                <p id="expansion_starting_player_area">
+                                    <b style="display: none">Who will start the game?</b>
+                                    <br>
+                                    <button onclick="expansion_p5.selectStartingPlayer(0)" style="display: none">HUMAN
+                                        (You!)
+                                    </button>
+                                    <button onclick="expansion_p5.selectStartingPlayer(1)" style="display: none">
+                                        MACHINE
+                                    </button>
+                                </p>
+                                <p id="expansion_whoseturn_area">
+                                    <b>Whose turn?</b> <span id="expansion_whoseturn">HUMAN</span>
+                                    <b>Current Action:</b> <span id="expansion_current_action"></span>
+                                </p>
+                                <div id="expansion_machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <button onclick="expansion_p5.machineRandomMove()">Make random move</button>
+                                        <br>
+                                        <button onclick="expansion_p5.machineMctsMove(expansion_interactive)">Make MCTS
+                                            move
+                                        </button>
+                                        <br>
+                                        <button onclick="expansion_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="expansion_mcts_timeout_slider" type="range" min="10" max="2000"
+                                               value="30" step="10"/>
+                                        <br>
+                                        <span id="expansion_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                                <div id="expansion_game_over_area">
+                                    <b>The winner is...</b> <span id="expansion_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="expansion_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive-ttt-right">
+                                <div style="border: solid 1px lightgrey; height: 0px; display: none">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current action</b>:
+                                        <br>
+                                        <span id="expansion_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="expansion_current_action_kind">---</span>
+                                        <br>
+                                        <button id="expansion_btn_next_action" disabled>next action &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="expansion_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="expansion_btn_next_iteration" disabled>next iteration &gt;&gt;
+                                        </button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="expansion_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="expansion_btn_make_play"
+                                                disabled>make play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="expansion_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="caption"><b>Figure 6:</b><br> Clicking 'Next Expansion' will automatically move to the
+                        next expansion step in the Monte Carlo search.<br>
+                        The expanded node is highlighted with a green border.
+                    </div>
+                </div>
+            </div>
+
+
+            <h3>Simulation</h3>
+
+            <p>
+                Simulation is a crucial component of the MCTS algorithm, which involves rolling out various gameplays
+                from the expanded node.
+                The choice of simulation policy has a large impact on the final result.
+                A common strategy for selecting actions is to use a random policy due to its simplicity, which chooses
+                actions uniformly at random at successive states.
+                The simulation continues until a terminal state is reached. The results of the simulation, such as the
+                final state or a reward value, is then collected and used to update the values of the node. However, the
+                random policy can be highly inefficient, which has led to the development of more advanced techniques,
+                such as rule-based simulation and learning methods.
+            </p>
+
+            <p>
+                The simulation algorithm is as below.
+            </p>
+
+            <pre id="simulation_pseudo">
+              \begin{algorithm}
+              \caption{Simulation}
+              \begin{algorithmic}
+              \PROCEDURE{Simulate}{node}
+              \STATE $r \gets 0$
+              \While{not terminated}
+                \STATE Sample $a$ from available action space of $node$
+                \STATE $new\_node$ $\gets$ $node$ after taking action $a$
+                \STATE $r \gets r+evaluate(new\_node)$
+                \STATE $node$ $\gets$ $new\_node$
+              \ENDWHILE
+              \STATE \Return $r$
+              \ENDPROCEDURE
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+
+            <p>You can try out the simulation process in the interactive panel below.</p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Procedure of Simulation.
+                    </div>
+
+
+                    <div>
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
+
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+
+                                    window.simulation_p5 = new p5(s, "simulation")
+                                    window.simulation_tree_vis_p5 = new p5(vis, "simulation_tree_vis");
+                                    window.simulation_interactive = new TTTInteractive(simulation_tree_vis_p5, "simulation", simulation_p5)
+                                    simulation_p5.mouseClicked = () => {
+                                    }
+                                    simulation_p5.handleOver = () => {
+                                    }
+                                    simulation_interactive.setupInteractive()
+                                </script>
+                                <div id="simulation"></div>
+
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="make_random_board(simulation_interactive, simulation_p5, 'simulation')">
+                                    Make random board
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="next_show_action(simulation_interactive, simulation_p5, 'simulation')">
+                                    Next Simulation
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="click_next_action(simulation_interactive, simulation_p5)">Next Step
+                                </button>
+
+                                <p id="simulation_starting_player_area" style="display: none">
+                                    <b style="display: none">Who will start the game?</b>
+                                    <br>
+                                    <button onclick="simulation_p5.selectStartingPlayer(0)" style="display: none">HUMAN
+                                        (You!)
+                                    </button>
+                                    <button onclick="simulation_p5.selectStartingPlayer(1)" style="display: none">
+                                        MACHINE
+                                    </button>
+                                </p>
+
+                                <p id="simulation_whoseturn_area">
+                                    <b>Whose turn?</b> <span id="simulation_whoseturn">HUMAN</span>
+                                    <b>Current Action:</b> <span id="simulation_current_action"></span>
+                                </p>
+                                <div id="simulation_machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <button onclick="simulation_p5.machineRandomMove()">Make random move</button>
+                                        <br>
+                                        <button onclick="simulation_p5.machineMctsMove(simulation_interactive)">Make
+                                            MCTS move
+                                        </button>
+                                        <br>
+                                        <button onclick="simulation_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="simulation_mcts_timeout_slider" type="range" min="10" max="2000"
+                                               value="30" step="10"/>
+                                        <br>
+                                        <span id="simulation_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                                <div id="simulation_game_over_area">
+                                    <b>The winner is...</b> <span id="simulation_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="simulation_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive-ttt-right">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: none">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current action</b>:
+                                        <br>
+                                        <span id="simulation_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="simulation_current_action_kind">---</span>
+                                        <br>
+                                        <button id="simulation_btn_next_action" disabled>next action &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="simulation_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="simulation_btn_next_iteration" disabled>next iteration &gt;&gt;
+                                        </button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="simulation_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="simulation_btn_make_play"
+                                                disabled>make play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="simulation_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="caption"><b>Figure 7:</b><br> Clicking 'Next Simulation' will automatically move to the
+                        next simulation step in the MCTS.<br>
+                        The node being simulated is connected with a dotted line.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Backpropagation</h3>
+
+            <p>
+                During the backpropagation phase of MCTS, the statistics gathered during simulation are propagated back
+                along the path up the tree from the expanded node. This involves updating the visitation counts and
+                values, such as rewards and wins, for all nodes along the path from the expanded node to the root node
+                of the tree. Considering Tic-Tac-Toe, players A and B take turns making moves. When MCTS determines the
+                next move for player A, it obtains the action that leads to win with the highest probability in the
+                current state. The tree is built with different layers representing the players, so the expandable
+                states belong to player B, i.e., those where B would make a move next. If, after simulating a number of
+                future moves, it is determined that A wins the game, the visitation count for each of the nodes in the
+                visited path will be incremented by one. It is notable that since Tic-Tac-Toe is a two-player
+                competitive game, the value update mechanism of nodes is different compared with the single player case.
+                For example, wins for nodes that belong to player A will be incremented by one, while wins for nodes
+                that belong to player B will be decremented, if player A wins the game according to the simulation. All
+                updates are limited to nodes that trace back from the expanded node for the simulation.
+            </p>
+
+            <p>The backpropagation algorithm is as below.</p>
+
+            <pre id="back_pseudo">
+              \begin{algorithm}
+              \caption{Backpropagation}
+              \begin{algorithmic}
+              \PROCEDURE{Backpropagation}{$node$, $value$}
+
+                \STATE $node.visit$ $\gets$ $node.visit+1$
+
+                \IF{node is root}
+                  \RETURN
+                \ENDIF
+
+                \STATE $node.value$ $\gets$ $node.value+value$
+                \STATE Backpropagation(node.parent, value)
+
+              \ENDPROCEDURE
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+
+            <p>You can test the backpropagation algorithm in the interactive panel below.</p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Procedure of Backpropagation.
+                    </div>
+
+                    <div>
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
+
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+
+                                    window.backpropagration_p5 = new p5(s, "backpropagration")
+                                    window.backpropagration_tree_vis_p5 = new p5(vis, "backpropagration_tree_vis");
+                                    window.backpropagration_interactive = new TTTInteractive(backpropagration_tree_vis_p5, "backpropagration", backpropagration_p5)
+                                    backpropagration_p5.mouseClicked = () => {
+                                    }
+                                    backpropagration_p5.handleOver = () => {
+                                    }
+                                    backpropagration_interactive.setupInteractive()
+                                </script>
+                                <div id="backpropagration"></div>
+
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="make_random_board(backpropagration_interactive, backpropagration_p5, 'backpropagation')">
+                                    Make random board
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="next_show_action(backpropagration_interactive, backpropagration_p5, 'backpropagation')">
+                                    Next Backpropagation
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="click_next_action(backpropagration_interactive, backpropagration_p5)">
+                                    Next Step
+                                </button>
+
+
+                                <p id="backpropagration_starting_player_area">
+                                    <b style="display: none">Who will start the game?</b>
+                                    <br>
+                                    <button onclick="backpropagration_p5.selectStartingPlayer(0)" style="display: none">
+                                        HUMAN (You!)
+                                    </button>
+                                    <button onclick="backpropagration_p5.selectStartingPlayer(1)" style="display: none">
+                                        MACHINE
+                                    </button>
+                                </p>
+                                <p id="backpropagration_whoseturn_area">
+                                    <b>Whose turn?</b> <span id="backpropagration_whoseturn">HUMAN</span>
+                                    <b>Current Action:</b> <span id="backpropagation_current_action"></span>
+                                </p>
+                                <div id="backpropagration_machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <button onclick="backpropagration_p5.machineRandomMove()">Make random move
+                                        </button>
+                                        <br>
+                                        <button onclick="backpropagration_p5.machineMctsMove(backpropagration_interactive)">
+                                            Make MCTS move
+                                        </button>
+                                        <br>
+                                        <button onclick="backpropagration_p5.machineGreedyMove()">Make Greedy move
+                                        </button>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="backpropagration_mcts_timeout_slider" type="range" min="10"
+                                               max="2000" value="30" step="10"/>
+                                        <br>
+                                        <span id="backpropagration_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                                <div id="backpropagration_game_over_area">
+                                    <b>The winner is...</b> <span id="backpropagration_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="backpropagration_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive-ttt-right">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: none">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current action</b>:
+                                        <br>
+                                        <span id="backpropagration_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="backpropagration_current_action_kind">---</span>
+                                        <br>
+                                        <button id="backpropagration_btn_next_action" disabled>next action &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="backpropagration_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="backpropagration_btn_next_iteration" disabled>next iteration &gt;&gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="backpropagration_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="backpropagration_btn_make_play"
+                                                disabled>make play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="backpropagration_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="caption"><b>Figure 8:</b><br> Clicking 'Next Backpropagation' will automatically move to
+                        the next backpropagation step in MCTS.<br>
+                        The node being back propagated is highlighted with a blue border.
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                By integrating the four essential components of selection, expansion, simulation, and backpropagation, a
+                succinct and cohesive algorithm for the complete MCTS process can be constructed.
+            </p>
+
+            <pre id="mcts_pseudo">
+              \begin{algorithm}
+              \caption{MCTS}
+              \begin{algorithmic}
+              \PROCEDURE{Mcts}{root}
+              \While{not end\_condition}
+                \State $node$ $\gets$ $Select(root)$
+                \State $node$ $\gets$ $Expand(node)$
+                \State $value$ $\gets$ Simulate($node$)
+                \State Backpropagation($node$, $value$)
+              \EndWhile
+              \Return Highest visit value node in $root.children$
+              \EndProcedure
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+
         </section>
 
+        <section id="practise">
+            <h2>Practise</h2>
+
+            <p>
+                MCTS is a powerful algorithm that can effectively handle various types of games, including adversarial
+                games such as Tic-Tac-Toe and puzzle games such as Sokoban. In the following sections, we will delve
+                into how MCTS works in these two games and provide interactive components to illustrate its
+                effectiveness.
+            </p>
+
+            <p>
+                For the Sokoban game, choose 'Human' or 'Machine' to decide who goes first. During the player's turn,
+                click on the highlighted area on the board to make a move. During the machine's turn, you can select one
+                of three decision-making modes for the machine: random, greedy, and MCTS. In MCTS, you can slide the
+                slider to select the number of iterations. The higher the number of iterations is, the better decisions
+                the AI will make. In the MCTS panel on the right, choose 'Next Step' to view the MCTS' steps at each
+                stage or select 'Next Iteration' to see the situation after each iteration, including selection,
+                expansion, simulation, and backpropagation. The tree displays the current MCTS information. You can also
+                select 'Visualize Last Step' to directly view the final step and each node's value. Finally, click 'Make
+                Play' to let the machine make a move on the board.
+            </p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Tic-Tac-Toe: MCTS can be used in competitive games.
+                    </div>
+
+                    <div>
+
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
+
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+
+                                    window.vs_p5 = new p5(s, "vs")
+                                    window.vs_tree_vis_p5 = new p5(vis, "vs_tree_vis");
+                                    window.vs_interactive = new TTTInteractive(vs_tree_vis_p5, "vs", vs_p5)
+                                    vs_interactive.setupInteractive()
+                                </script>
+                                <div id="vs"></div>
+                                <p id="vs_starting_player_area">
+                                    <b>Who will start the game?</b>
+                                    <br>
+                                    <button onclick="vs_p5.selectStartingPlayer(0)">HUMAN (You!)</button>
+                                    <button onclick="vs_p5.selectStartingPlayer(1)">MACHINE</button>
+                                </p>
+                                <p id="vs_whoseturn_area">
+                                    <b>Whose turn?</b> <span id="vs_whoseturn">HUMAN</span>
+                                </p>
+                                <div id="vs_machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <button onclick="vs_p5.machineRandomMove()">Make random move</button>
+                                        <br>
+                                        <button onclick="vs_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <br>
+                                        <button onclick="vs_p5.machineMctsMove(vs_interactive)">Make MCTS move</button>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="vs_mcts_timeout_slider" type="range" min="10" max="2000" value="30"
+                                               step="10"/>
+                                        <br>
+                                        <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                                <div id="vs_game_over_area">
+                                    <b>The winner is...</b> <span id="vs_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="vs_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive-ttt-right" style="flex-direction: column">
+                                <div style="border: solid 1px lightgrey; height: 110px">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current step</b>:
+                                        <br>
+                                        <span id="vs_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="vs_current_action_kind">---</span>
+                                        <br>
+                                        <button id="vs_btn_next_action" disabled>next step &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="vs_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="vs_btn_next_iteration" disabled>next iteration &gt;&gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="vs_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="vs_btn_make_play" disabled>make
+                                            play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="vs_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="caption"><b>Figure 9:</b><br> Human VS Machine.
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                In Sokoban, selecting 'Auto Play' enables the MCTS to run automatically. 'Auto Play' can automatically
+                execute MCTS. At each step, the Monte Carlo tree will select the optimal solution it found.
+                Alternatively, you can use 'Make MCTS Move' to view each step of the search in detail on the right
+                panel. You can also choose to play manually by moving the mouse to the game and using W, A, S, D, or
+                arrow keys to move.
+            </p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Sokoban: MCTS can be used to solve Sokoban. Sokoban is a puzzle game.
+                    </div>
+
+                    <div>
+                        <script type="module" src="./sokoban/tree_viz_sokoban.js"></script>
+                        <script src="./sokoban/sokoban_interactive.js"></script>
+                        <script src="./sokoban/sokoban_mcts.js"></script>
+                        <script type="module">
+                            import {vis_sokoban} from "./sokoban/tree_viz_sokoban.js";
+                            import SokobanGame from "./sokoban/SokobanGame.js";
+
+                            window.mcts_sokobanGame = new SokobanGame("mcts-")
+                            window.soko_mcts_tree_vis_p5 = new p5(vis_sokoban, "soko_mcts_tree_vis");
+                            window.soko_mcts_interactive = new SokobanInteractive(soko_mcts_tree_vis_p5, "soko_mcts", mcts_sokobanGame)
+                            window.soko_mcts_interactive.setupInteractive()
+                            mcts_sokobanGame.init()
+                        </script>
+
+                        <div class="four_procedure">
+                            <div id="mcts-sokobangamediv" class="interactive-ttt-left">
+                                <p>Game: <b>Sokoban</b></p>
+
+                                <p id="mcts-sokobangame"></p>
+
+                                <div id="mcts-p5_game"></div>
+
+                                <p id="mcts-sokobangame_reset">
+                                    Clear! Step Used: <span id="mcts-sokobangame_step"></span>
+                                    <button onclick="mcts_sokobanGame.init()">Reset</button>
+                                </p>
+
+
+                                <div id="machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <button onclick="mcts_sokobanGame.machineRandomMove()">Make random move</button>
+                                        <br>
+                                        <button onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">Make
+                                            MCTS move
+                                        </button>
+                                        <br>
+                                        <button onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+                                        </button>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="10"
+                                               max="2000" value="30" step="10"/>
+                                        <br>
+                                        <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="interactive-ttt-right">
+                                <div style="border: solid 1px lightgrey; height: 110px">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current step</b>:
+                                        <br>
+                                        <span id="soko_mcts_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="soko_mcts_current_action_kind">---</span>
+                                        <br>
+                                        <button id="soko_mcts_btn_next_action" disabled>next step &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="soko_mcts_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="soko_mcts_btn_next_iteration" disabled>next iteration &gt;&gt;
+                                        </button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="soko_mcts_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="soko_mcts_btn_make_play"
+                                                disabled>make play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="soko_mcts_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="caption"><b>Figure 10:</b><br> Machine/MCTS solves puzzle game.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>
+                As a summary, this paper provides a comprehensive explanation of the basic procedure of MCTS. Four main
+                components, Selection, Expansion, Simulation, Backpropagation are described in detail. To fully demonstrate
+                the workflow of MCTS in different cases, two classic games, Tic-Tac-Toe and Sokoban are used. Additionally,
+                several selection strategies are discussed in the immersive part.
+                More details about MCTS and its ingredients can be found in
+                [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>]
+                .
+            </p>
+        </section>
 
         <section class="references">
             <h2>References</h2>
@@ -726,31 +1469,31 @@
             pseudocode.renderElement(document.getElementById("selection_pseudo"),
                 {
                     lineNumber: false,
-                    noEnd:true
+                    noEnd: true
                 })
 
             pseudocode.renderElement(document.getElementById("expansion_pseudo"),
                 {
                     lineNumber: false,
-                    noEnd:true
+                    noEnd: true
                 })
 
             pseudocode.renderElement(document.getElementById("simulation_pseudo"),
                 {
                     lineNumber: false,
-                    noEnd:true
+                    noEnd: true
                 })
 
             pseudocode.renderElement(document.getElementById("back_pseudo"),
                 {
                     lineNumber: false,
-                    noEnd:true
+                    noEnd: true
                 })
 
             pseudocode.renderElement(document.getElementById("mcts_pseudo"),
                 {
                     lineNumber: false,
-                    noEnd:true
+                    noEnd: true
                 })
         </script>
 

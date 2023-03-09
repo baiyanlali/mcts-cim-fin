@@ -23,13 +23,30 @@ export const vis = (s) => {
     s.crossImg = s.loadImage("image/tic-tac-toe/cross1.png")
   }
 
+  s.windowResized = ()=>{
+    let height =s.canvas_div.clientHeight
+    let width = s.canvas_div.clientWidth
+    console.log("height: ", height, " width: ", width)
+    console.log(s.canvas_div)
+    s.resizeCanvas(width, height)
+  }
+
   s.setup = () => {
     s.textFont("Courier");
-    if(s._userNode.id === "selection_tree_vis" || s._userNode.id === "expansion_tree_vis" || s._userNode.id === "simulation_tree_vis" || s._userNode.id === "backpropagration_tree_vis"){
-      s.createCanvas(900, 550)
-    }else {
-      s.createCanvas(900, 430)
-    }
+
+    s.canvas_div = s._userNode
+
+    let height =s.canvas_div.clientHeight
+    let width = s.canvas_div.clientWidth
+
+    // if(s._userNode.id === "selection_tree_vis" || s._userNode.id === "expansion_tree_vis" || s._userNode.id === "simulation_tree_vis" || s._userNode.id === "backpropagration_tree_vis"){
+    //   s.createCanvas(width, height)
+    // }else {
+    //   s.createCanvas(width, height)
+    // }
+
+    s.createCanvas(width, height)
+
     s.info_position = {y: 0}
     s.tween = null
   };
