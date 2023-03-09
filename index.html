@@ -57,6 +57,10 @@
       }
     }
 
+
+
+
+
     </script>
 
 </head>
@@ -148,316 +152,524 @@
                 success in various domains, such as Go[<a href="#silver2017mastering">7</a>], video games[<a
                     href="#perez2016general">7</a>], and chemical synthesis[<a href="#segler2018planning">7</a>].
             </p>
-            <p style="text-align: right">
-                Alexander Dockhorn<br>
-                December 1, 2022
-            </p>
-        </section>
-
-        <section id="easeofuse">
-            <h2>II. Ease of Use</h2>
-
-            <h3>Maintaining the Integrity of the Specifications</h3>
-            <p id="maintainingintegrity">
-                The index.html file is used to format your interactive paper and style the text. All margins,
-                column widths, line spaces, and text fonts are prescribed; please do not
-                alter them. You may note peculiarities. For example, the limited width of the article. This measurement
-                and others are deliberate, using specifications that anticipate your paper
-                as one part of the entire computational intelligence magazine and its online pendant on IEEE Xplore,
-                and not as an independent document. Please do not revise any of the current designations.
-            </p>
-
-            <h3>Prepare Your Paper Before Styling</h3>
-            <p id="Prepare">
-                Before you begin to format your paper, first write and save the content as a
-                separate text file. Complete all content and organizational editing before
-                formatting. Please note subsections <a href="#Abbreviations">Abbrevations and Acronyms</a> to
-                <a href="#SCM">Some Common Mistakes</a> below for more information on
-                proofreading, spelling and grammar.
+            <p>
+                MCTS combines the concepts of tree search and reinforcement learning to address situations where local
+                optimal actions may not lead to global optimal performance.
+                The four core components of MCTS are <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>.
+                The basic procedure of MCTS involves building a tree with nodes that represent visited states and
+                selecting the node with the highest probability of reaching an optimal outcome.
+                The selected node is then expanded according to the available action space.
+                Once a simulation, starting from the expanded node, terminates, the results of the simulation are
+                propagated back to update the statistics of the nodes on the trajectory.
+                MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
+                upper confidence bound (UCB)
+                [<a href="#kocsis2006bandit">7</a>]
+                , that balance exploitation and exploration within a given computational budget.
             </p>
 
             <p>
-                Keep your text and graphic files separate until after the text has been
-                formatted and styled. Do not number text heads, this will be done during the
-                transfer to IEEEXplore for you.
+                In this paper, we introduce the underlying mechanism of MCTS and provide corresponding immersive
+                interaction for two representative games: Tic-Tac-Toe, a two-player competitive game and Sokoban, a
+                single-player puzzle game. The paper is organised as follows. Section <a href="#games">Games</a>
+                introduces the Tic-Tac-Tow and Sokoban, Section <a href="#algorithm">Algorithm</a> provides the details
+                of the MCTS algorithm, Section <a href="#practise">Practise</a> gives an interactive environment for
+                experimenting MCTS , Section <a href="#conclusion">Conclusion</a> concludes the paper.
             </p>
 
+        </section>
 
-            <h3>Abbreviations and Acronyms</h3>
-            <p id="Abbreviations">
-                Define abbreviations and acronyms the first time they are used in the text,
-                even after they have been defined in the abstract. Abbreviations such as
-                IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use
-                abbreviations in the title or heads unless they are unavoidable.
+        <section id="games">
+            <h2>II. Games</h2>
+
+
+            <p>
+                A classic two-player board game, Tic-Tac-Toe, and a single-player video game, Sokoban, are used as
+                illustrative examples. Figure 1 shows screenshots of the two games.
             </p>
 
-            <h3>Units</h3>
-            <ul id="Units">
-                <li> Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used
-                    as secondary units (in parentheses). An exception would be the use of English units as identifiers
-                    in trade, such as "3.5-inch disk drive".
+            <div class="l-body" style="width: 100%;">
+                <div class="l-body" style="width: 100%; display: flex">
+                    <img src="image/ttt.png" alt="Tic-Tac-Toe Game."
+                         style="margin: auto auto; width: 30%; display: block"/>
+                    <img src="image/sokoban.png" alt="Sokoban Game."
+                         style="margin: auto auto; width: 30%; display: block"/>
+                </div>
+                <div class="caption" style="width: 100%; display: block"><b>Figure 1:</b><br> Tic-Tac-Toe (left) and
+                    Sokoban (right)
+                </div>
+            </div>
+
+
+            <ul>
+                <li>
+                    Tic-Tac-Toe is a two-player competitive board game. Players take turns drawing their own marker
+                    (usually X or O) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
+                    three placed markers can be connected together vertically, horizontally, or diagonally. But if all
+                    squares are filled but neither player has won, the game ends in a draw.
                 </li>
-                <li> Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This
-                    often leads to confusion because equations do not balance dimensionally. If you must use mixed
-                    units, clearly state the units for each quantity that you use in an equation.
+                <li>
+                    Sokoban is a classic video game in which a player must strategically push boxes to their designated
+                    positions in order to win. The game is set on a fixed board made up of different tiles, as
+                    demonstrated in Figure 1 (right). The player can move through empty spaces and push boxes onto
+                    spaces without obstacles such as walls and other fixed boxes.
                 </li>
-                <li class="inline-math"> Do not mix complete spellings and abbreviations of units: $$Wb/m^2$$ or "webers
-                    per square meter", not $$webers/m^2$$. Spell out units when they appear in text: ". . . a few
-                    henries", not ". . . a few H" like $$hello=\pi$$.
-                </li>
-                <li> Use a zero before decimal points: "0.25", not ".25".</li>
-                <li class="inline-math"> Use $$cm^3$$, not $$cc$$.</li>
             </ul>
 
-            <h3>Equations</h3>
-            <p id="Equations" class="inline-math">
-                The interactive article does not require to number equations, however they can be
-                linked using the tag &lta href="#id"&gt &lt/a&gt and a corresponding id of the element to be linked.
-                To make your equations more compact, you may use the solidus (~/~), the exp function, or
-                appropriate exponents. Italicize Roman symbols for quantities and variables,
-                but not Greek symbols. Use a long dash rather than a hyphen for a minus
-                sign. Punctuate equations with commas or periods when they are part of a
-                sentence, as in: $$a+b=\gamma$$.
-            </p>
 
-            <p class="inline-math tex2jax_ignore">
-                Be sure that the symbols in your equation have been defined before or immediately following
-                the equation. To define inline equations you can surround them with double-$ symbol as in $$1+1=2$$
-                and add the 'class="inline-math' to the surrounding tags.
-            </p>
+            <h3>Modelling</h3>
 
 
-            <h3>Figures and Tables</h3>
-            <p id="FiguresTables">
-                Place figures and tables close to the paragraph in which they are discussed.
-                Captions should be below the figures and tables.
-                Insert figures and tables after they are cited in the text.
-                Use the abbreviation "Fig. 1", even at the beginning of a sentence.
-            </p>
-
-
-            <div class="formula-wrapper">
-                <table class="formula" style="margin: auto auto">
-                    <tbody>
-                    <tr>
-                        <th style="width: 150px">Column 1</th>
-                        <th style="width: 250px; text-align: center">Column 2 of fixed width</th>
-                        <th style="width: 250px; text-align: left">Column 3 aligned left</th>
-                    </tr>
-                    <tr>
-                        <td>Data 1,1</td>
-                        <td style="text-align:center">Data 1,2</td>
-                        <td style="text-align:center">a very very very very very long centered text</td>
-                    </tr>
-                    <tr>
-                        <td>$$1\times 1 = 1$$</td>
-                        <td style="text-align:center">$$\pi$$</td>
-                        <td style="text-align:right">$$\binom{n}{k} =\prod _{j=1}^{k}{\frac {n+1-j}{j}}$$</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="caption">
-                    <b>Table 1:</b> This is an example of a table caption.
-                </div>
-            </div>
-
-            <div class="static">
-                <img src="img/fig1.png" alt="Alternative text in case the image cannot be loaded."
-                     style="margin: auto auto; width: max-content; display: block"/>
-                <div class="caption"><b>Figure 1:</b> Example of a figure caption.</div>
-            </div>
-
-            <p class="inline-math">
-                <b>Figure Labels:</b> Use words rather than symbols or abbreviations
-                when writing Figure axis labels to avoid confusing the reader. As an example, write the quantity
-                "Magnetization", or "Magnetization, $$M$$", not just "$$M$$". If including
-                units in the label, present them within parentheses. Do not label axes only
-                with units. In the example, write "Magnetization ($$A/m$$)" or "Magnetization
-                $$\{A[m(1)]\}$$", not just "$$A/m$$". Do not label axes with a ratio of
-                quantities and units. For example, write "Temperature ($$K$$)", not
-                "Temperature/$$K$$".
-            </p>
-
-            <h3>Interactive Figures and Code</h3>
-            <p id="InteractiveCode">
-                Note, that in contrast to classical papers,
-                the web article can include animations, videos, sounds, etc..
-                Due to technical constraints, it will not be possible to embed iframes!
+            <p>
+                MCTS is typically used to solve sequential decision problems, which are often formulated as a Markov
+                decision process (MDP). The four components of an MDP are state $S$, action $A$, transition model $P$
+                and reward $R$. An MCTS policy $\pi$ takes an action in a given state s, then obtains a reward $R$ and
+                the next state of the environments according to the transition model. The policy is expected to optimise
+                the policy and maximise the long-term expected reward. For example, in Tic-Tac-Toe as shown in Figure 1
+                (left), the game board is the state of the game, represented as nodes in the game tree, and the marker
+                placed by a player is considered an action taken by that player.
             </p>
 
             <p>
-                Finally, you can freely use javascript libraries as long as they can
-                be included self-contained in the files you submit. Meaning, scripts cannot be
-                imported using an url. This should ensure a consistent presentation of the
-                article. Interactive components can be embedded as figure. and should be formatted as such.
-                Libraries such as d3.js [<a href="#ref_1">1</a>] and three.js[<a href="#ref_2">2</a>]
-                may be helpful in producing interactive
-                visualizations, but do not let your own creativity be limited by these recommendations.
+                The interactive interface is based on[<a href="#mcts-viz">7</a>]. The game interfaces and data
+                representations of Tic-Tac-Toe and Sokoban are presented below. You can
+                activate either game by hovering your mouse pointer over its corresponding image. Detailed gameplay
+                instructions for each game are included in its description.
             </p>
+
+            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ grid.</p>
 
             <div class="framed">
+
+                <script>
+                    let myp5 = new p5(s, "show");
+
+                    //common usage in game mod in order to change a function behaviour.
+                    let ori_state_trans = myp5.stateTransition
+
+                    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+                    myp5.stateTransition = async s => {
+                        await ori_state_trans(s)
+                        if (s === GameStates.WAITING_MACHINE_MOVE) {
+                            myp5.whoseTurn = PLAYER.MACHINE;
+                            myp5.whoseturnArea.show();
+                            myp5.whoseTurnSpan.html(myp5.whoseTurn === PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+                            myp5.machineControlsArea.hide()
+                            await sleep(500)
+                            myp5.machineMctsMove()
+                        }
+                    }
+
+                    const ttt_repre = new p5(ttt_representation, "ttt_repre")
+
+                    myp5.onMakeMove = (s) => {
+                        ttt_repre.board = s.TTT_BOARD.grid
+                    }
+
+                    let after_setup = async () => {
+                        await sleep(1000)
+                        ttt_repre.board = myp5.TTT_BOARD
+                        ttt_repre.drawBoard()
+                    }
+
+                    // after_setup()
+
+
+                </script>
+
                 <div class="inside">
                     <div class="eyebrow">
-                        You can add an introductory text for interactive elements to motivate users to check out the
-                        following block.
+                        An introduction to the Tic-Tac-Toe game and its representation.
                     </div>
 
-                    <div id="board-letsplay" style="width: 320px; margin: auto auto 10px;"></div>
-                    <div class="caption"><b>Figure 2:</b><br> Example of an interactive figure: Introducing the 8-Queens
-                        problem. Drag and drop queens to change their position. Try to position all queens
-                        such that no two queens share the same row, column, or diagonal. Queens that threaten each other
-                        will be highlighted in red. In case you found a solution all queens will be highlighted in
-                        green.
+                    <div class="interactive"
+                         style="position: relative; width: fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
+
+                        Game: <b>Tic-Tac-Toe</b>
+                        <div>
+                            <p id="show_starting_player_area">
+                                <b>Who will play first?</b>
+                                <br>
+                                <button onclick="myp5.selectStartingPlayer(0)">HUMAN (You!)</button>
+                                <br>
+                                <button onclick="myp5.selectStartingPlayer(1)">MACHINE</button>
+                            </p>
+
+                            <p id="show_whoseturn_area">
+                                <b>Whose turn?</b> <span id="show_whoseturn">HUMAN</span>
+                            </p>
+
+                            <div id="show_game_over_area">
+                                <b>The winner is...</b> <span id="show_game_over_winner">HUMAN</span>!
+                                <br>
+                                <button onclick="myp5.reset()">Restart game</button>
+                            </div>
+
+                            <div id="show_machine_controls_area" style="display: none">
+                                <b>Machine controls:</b>
+                                <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                    <button onclick="myp5.machineRandomMove()">Make random move</button>
+                                    <br>
+                                    <button onclick="myp5.machineMctsMove()">Make MCTS move</button>
+                                    <br>
+                                    <button onclick="myp5.machineGreedyMove()">Make Greedy move</button>
+                                    <br>
+                                    Run MCTS for:
+                                    <br>
+                                    <input id="show_mcts_timeout_slider" type="range" min="10" max="2000" value="1000"
+                                           step="10"/>
+                                    <br>
+                                    <span id="show_mcts_timeout_span"><b>1</b></span> iterations
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex;">
+                            <div id="show"></div>
+                            <div id="ttt_repre" style="width: 180px; margin: auto"></div>
+                        </div>
+
                     </div>
 
-                    <script type="module" src="chessboard/chessboard_lets_play.js"></script>
+
+                    <div class="caption"><b>Figure 2:</b><br> Tic-Tac-Toe: You can select whether you want to play the
+                        game as the first or second player by clicking the corresponding button above. The objective of
+                        the game is to connect three of your pieces in a row, column, or diagonal. The right panel
+                        presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
+                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by "h" and "m",
+                        respectively.
+                    </div>
                 </div>
             </div>
 
             <p>
-                Note, that we recommend to place the script import just behind the corresponding interactive figure,
-                such that we can easily match them later on.
+                The Sokoban game is represented by an $n \times n$ matrix, where $n$ represents the size of the game
+                board. The matrix uses 0, 1, 2, 3, and 5 to indicate empty spaces, walls, boxes, targets, and the
+                player, respectively.
             </p>
+
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        An introduction to the Sokoban game and its representation.
+                    </div>
+
+                    <div id="sokobangamediv" class="interactive"
+                         style="position: relative; width:fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
+
+                        <p>Game: <b>Sokoban</b></p>
+                        <p id="sokobangame"></p>
+                        <div style="display: flex">
+                            <div id="p5_game"></div>
+                            <div id="soko_repre" style="width: 200px"></div>
+                        </div>
+
+
+                        <p id="sokobangame_reset">
+
+                            Clear! Step Used: <span id="sokobangame_step"></span>
+                            <button onclick="sokobanGame.init()"> Reset</button>
+                        </p>
+
+                        <script type="module">
+                            import SokobanGame from "./sokoban/SokobanGame.js";
+
+                            const sokobanGame = new SokobanGame()
+                            window.sokobanGame = sokobanGame
+                            sokobanGame.init()
+
+                            const soko_repre = new p5(sokoban_representation, "soko_repre")
+
+                            let after_setup = async () => {
+                                await sleep(1000)
+                                soko_repre.board = sokobanGame.sokoban.board
+                                soko_repre.drawBoard()
+                            }
+
+                            after_setup()
+
+
+                            sokobanGame.onMakeAction = (s) => {
+                                soko_repre.board = s.sokoban.board
+                            }
+
+
+                            window.randomMove = function () {
+                                sokobanGame.machineRandomMove()
+                            }
+
+                            window.machineMctsMove = function () {
+                                sokobanGame.machineMctsMove()
+                            }
+
+                        </script>
+                    </div>
+
+
+                    <div class="caption"><b>Figure 3:</b><br> To play, first move your mouse to the game panel and then
+                        use the W, S, A, D, or arrow keys on your keyboard to move the character. The objective is to
+                        push all the boxes to the green points (targets) to win the game.
+                    </div>
+                </div>
+            </div>
+
+
         </section>
 
 
-        <h2 id="commonmistakes">Some Common Mistakes</h2>
+        <section id="algorithm">
 
-        <ul id="SCM">
-            <li>The word "data" is plural, not singular.</li>
-            <li class="inline-math">The subscript for the permeability of vacuum $$\mu_{0}$$, and other common
-                scientific constants, is zero with subscript formatting, not a lowercase letter "o".
-            </li>
-            <li>In American English, commas, semicolons, periods, question and exclamation marks are located within
-                quotation marks only when a complete thought or name is cited, such as a title or full quotation. When
-                quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase,
-                punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end
-                of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is
-                punctuated within the parentheses.)
-            </li>
-            <li>A graph within a graph is an "inset", not an "insert". The word alternatively is preferred to the word
-                "alternately" (unless you really mean something that alternates).
-            </li>
-            <li>Do not use the word "essentially" to mean "approximately" or "effectively".</li>
-            <li>In your paper title, if the words "that uses" can accurately replace the word "using", capitalize the
-                "u"; if not, keep using lower-cased.
-            </li>
-            <li>Be aware of the different meanings of the homophones "affect" and "effect", "complement" and
-                "compliment", "discreet" and "discrete", "principal" and "principle".
-            </li>
-            <li>Do not confuse "imply" and "infer".</li>
-            <li>The prefix "non" is not a word; it should be joined to the word it modifies, usually without a hyphen.
-            </li>
-            <li>There is no period after the "et" in the Latin abbreviation "et al.".</li>
-            <li>The abbreviation "i.e." means "that is", and the abbreviation "e.g." means "for example".</li>
-        </ul>
-        <p>
-            An excellent style manual for science writers is [<a href="#ref_3">3</a>].
-        </p>
+            <h2>Algorithm</h2>
 
-        <h2 id="authors">Authors and Affiliations</h2>
-        <p>
-            A minimum of one author is required for all articles. Author names
-            should be listed from top to bottom.
-            This is the author sequence that will be used in future citations
-            and by indexing services. Names should not be listed in groups by
-            affiliation. Please keep your affiliations as succinct as possible (for
-            example, do not differentiate among departments of the same organization).
-        </p>
+            <div class="l-body" style="width: 100%;">
+                <img src="image/MCTS.png" alt="Main steps of MCTS."
+                     style="margin: auto auto; width: 100%; display: block"/>
+                <div class="caption" style="width: 100%; display: block"><b>Figure 4:</b><br> Main steps of MCTS (Figure
+                    2 from [<a href="#browne2012survey">7</a>]
+                    ). Nodes and branches represent state and action, respectively. Wins and visited time are usually
+                    the values of a node.
+                </div>
+            </div>
 
-        <h2 id="hints">Hints and General Advice</h2>
-        <h3>Identify the Headings</h3>
-        <p id="Headings">
-            Headings, or heads, are organizational devices that guide the reader through
-            your paper. There are two types: component heads and text heads.
-        </p>
-
-        <p>
-            Component heads identify the different components of your paper and are not
-            topically subordinate to each other. Examples include Acknowledgments and
-            References and, for these, the correct style has been implemented and
-            this template and is defined by the IEEE. Do not make any adjustments. Use
-            "figure caption" for your Figure captions, and "table head" for your
-            table title. Run-in heads, such as "Abstract", will require you to apply a
-            style (in this case, italic) in addition to the styles provided to differentiate the head from the text.
-        </p>
-
-        <p>
-            Text heads organize the topics on a relational, hierarchical basis. For
-            example, the paper title is the primary text head because all subsequent
-            material relates and elaborates on this one topic. If there are two or more
-            sub-topics, the next level head (uppercase Roman numerals) should be used
-            and, conversely, if there are not at least two sub-topics, then no subheads
-            should be introduced.
-        </p>
-
-        <h3>HTML-Specific Advice</h3>
-
-        <ul>
-            <li> &lt h1&gt : Page title</li>
-            <li> &lt p class="subhead"&gt : Subheading</li>
-            <li> &lt div class="header-authors"&gt : Authors grid</li>
-            <li> &lt div class="header-published"&gt : Published date information</li>
-            <li> &lt div class="contents box"&gt : Table of contents</li>
-            <li> &lt section id="introduction"&gt : Sections from table of contents. Allows for inclusion of in-line
-                references
-            </li>
-            <li> &lt figure class="text-center"&gt : Tagging for images with caption</li>
-            <li class="tex2jax_ignore"> &lt p class="inline-math"&gt : Allows for handling of MathJax expressions. Use
-                $$ – some equation here – $$ to add an expression
-            </li>
-            <li> &lt p class="math-left"&gt and &lt p class="math-right"&gt : Enables left/right alignment of an
-                expression
-            </li>
-            <li> &lt div class="static"&gt : Supports static illustrations with caption</li>
-            <li> &lt div class="framed"&gt : Each interactive element and scripts will be surrounded with this tagging
-            </li>
-            <li> &lt div class="formula-wrapper"&gt : Allows for adding content into styled and responsive table</li>
-            <li> &lt section class="references"&gt : Reference list</li>
-        </ul>
-
-        <p>
-            Similar to LaTeX, using the same id multiple times may result
-            in unintended behavior when linking to said id.
-        </p>
+            <p>
+                The MCTS follows a workflow that illustrated in Figure 4. It involves four main components:
+                <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>. The specific four
+                steps will be discussed in detail in the subsequent sections. Interactive components are provided to
+                demonstrate the four steps of MCTS intuitively.
+            </p>
 
 
-        <h3>Acknowledgment</h3>
-        <p id="Acknowledgment" class="inline-math">
-            The preferred spelling of the word "acknowledgment" in America is without
-            an "e" after the "g". Avoid the stilted expression "one of us (R. B.
-            G.) thanks $$\ldots$$". Instead, try "R. B. G. thanks $$\ldots$$". Put sponsor
-            acknowledgments in the acknowledgement section in the appendix.
-        </p>
+            <h3>Selection</h3>
 
-        <h3 id="References">References</h3>
-        <p class="inline-math">
-            Please number citations consecutively within brackets [<a href="#ref_4">4</a>]. The
-            sentence punctuation follows the bracket [<a href="#ref_4">4</a>]. Refer simply to the reference
-            number, as in [<a href="#ref_4">4</a>]---do not use "Ref. [<a href="#ref_4">4</a>]"
-            or "reference [<a href="#ref_4">4</a>]" except at
-            the beginning of a sentence: "Reference [<a href="#ref_4">4</a>] was the first $$\ldots$$"
-        </p>
+            <p>
+                Starting from the root node, which usually represents the current state, MCTS employs a traversal
+                strategy to explore the tree and identify the final node that is expected to lead to an optimal
+                solution, as estimated by the selection strategy. It is known as the "exploration-exploitation dilemma"
+                that MCTS encounters. The dilemma considers a general problem of choosing actions that seems to be
+                optimal at current state or taking a wide step to explore some unknown area to potentially discover
+                better solutions. Three selection strategies are described as follows.
+            </p>
 
-        <p>
-            Unless there are six authors or more give all authors' names; do not use
-            "et al.". Papers that have not been published, even if they have been
-            submitted for publication, should be cited as "unpublished" [<a href="#ref_5">5</a>]. Papers
-            that have been accepted for publication should be cited as "in press" [<a href="#ref_6">6</a>].
-            Capitalize only the first word in a paper title, except for proper nouns and element symbols.
-        </p>
+            <ul>
+                <li>A random strategy selects nodes randomly.</li>
+                <li>$\epsilon$-greedy strategy selects nodes randomly with probability $\epsilon$. Otherwise, it chooses
+                    the node that has the highest reward with probability $1- \epsilon$.
+                </li>
+                <li>Upper confidence bound (UCB)
+                    [<a href="#kocsis2006bandit">7</a>]
+                    measures the uncertainty of the expected reward of an action. The average rewards and visited times
+                    of actions form the upper confidence bound, seeing Eq(1).
+                </li>
+            </ul>
 
-        <p>
-            For papers published in translation journals, please give the English
-            citation first, followed by the original foreign-language citation [<a href="#ref_7">7</a>].
-        </p>
 
-        <p style="color: red">
-            The IEEE interactive article template contains guidance text for composing and formatting of interactive
-            articles.
-            Please ensure that all template text is removed from your article prior to submission.
-            Failure to remove the template text from your paper may result in your paper not being published.
-        </p>
+            <p>
+                $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}} \qquad (1)$$
+                where $x_i$ is the averaged reward of action $i$, $c$ is the exploration coefficient, $n$ is the total
+                visited times and $n_i$ is the number of times that the action $i$ is selected.
+                The node with the highest UCB value will be selected.
+            </p>
+
+            <p>
+                UCB is the most commonly used selection strategy in MCTS, called as Upper Confidence Bound for Trees
+                (UCT). It balances the exploration and exploitation by considering both reward and visited times of a
+                node. $x_i$ estimates the current collected experience, e.g., the optimal action that has been taken,
+                while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the frequency that a nodes is visited. The less frequently
+                visited node has larger possibility to be chosen so that more unknown area will be explored. The
+                coefficient $c$ controls the importance of exploration.
+            </p>
+
+            <p>
+                The selection algorithm is shown below.
+            </p>
+
+            <pre id="selection_pseudo">
+              \begin{algorithm}
+              \caption{Selection}
+              \begin{algorithmic}
+              \PROCEDURE{Select}{$root$}
+              \STATE Set $node$ $\gets$ $root$
+              \WHILE {$node$ is not leaf and $node$ is not fully explored}
+              \STATE $node$ $\gets$ Node with the highest UCB value(Eq.(1)) among $node.children$
+              \ENDWHILE
+              \STATE \Return $node$
+              \ENDPROCEDURE
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+
+            <p>You can try out the selection procedure in the interactive panel below.</p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Procedure of Selection.
+                    </div>
+
+                    <script type="module">
+                        window.make_random_board = (interactive, p5, show_action) => {
+
+                            interactive.reset()
+                            interactive.have_board = true
+                            p5.random_board(1)
+                            p5.makeMctsMove(interactive)
+                            let action = interactive.clickNextAction(show_action)
+                            p5.current_action = document.getElementById(show_action + "_current_action")
+                            console.log(show_action + "_current_action")
+                            p5.current_action.textContent = action.kind
+                            // selection_interactive.clickVisualizeLastStep()
+                        }
+
+                        window.next_show_action = (interactive, p5, show_action) => {
+                            if (interactive.have_board === true) {
+                                let action = interactive.nextUntil(show_action)
+                                p5.current_action.textContent = action.kind
+                            }
+                        }
+
+                        window.click_next_action = (interactive, p5) => {
+                            if (interactive.have_board === true) {
+                                let action = interactive.clickNextAction(true)
+                                p5.current_action.textContent = action.kind
+                            }
+                        }
+                    </script>
+
+
+                    <div style="position: relative;">
+                        <div style="position: relative; width:auto; margin-bottom: 20px; padding: 1em;">
+
+                            <div class="interactive" style="position: absolute; width:fit-content; height: 550px; margin-bottom: 20px; border: solid 1px black; padding: 1em;">
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+
+                                    window.selection_p5 = new p5(s, "selection")
+
+                                    selection_p5.mouseClicked = () => {
+                                    }
+                                    selection_p5.handleOver = () => {
+                                    }
+
+                                    window.selection_tree_vis_p5 = new p5(vis, "selection_tree_vis");
+                                    window.selection_interactive = new TTTInteractive(selection_tree_vis_p5, "selection", selection_p5)
+                                    selection_interactive.setupInteractive()
+                                </script>
+                                <div id="selection"></div>
+
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="make_random_board(selection_interactive, selection_p5, 'selection')">
+                                    Make random board
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="next_show_action(selection_interactive, selection_p5, 'selection')">
+                                    Next Selection
+                                </button>
+                                <br>
+                                <br>
+                                <button style="position: relative; left: 50%; height: 10%; width: 80%; transform: translate(-50%)"
+                                        onclick="click_next_action(selection_interactive, selection_p5)">Next Step
+                                </button>
+
+                                <p id="selection_starting_player_area">
+                                    <b style="display: none">Who will start the game?</b>
+                                    <br>
+                                    <button onclick="selection_p5.selectStartingPlayer(0)" style="display: none">HUMAN
+                                        (You!)
+                                    </button>
+                                    <button onclick="selection_p5.selectStartingPlayer(1)" style="display: none">
+                                        MACHINE
+                                    </button>
+                                </p>
+                                <p id="selection_whoseturn_area">
+                                    <b>Whose turn?</b> <span id="selection_whoseturn">HUMAN</span>
+                                    <b>Current Action:</b> <span id="selection_current_action"></span>
+                                </p>
+                                <div id="selection_machine_controls_area">
+                                    <b>Machine controls:</b>
+                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
+                                        <br>
+                                        <button onclick="selection_p5.machineRandomMove()">Make random move</button>
+                                        <br>
+                                        <button onclick="selection_p5.machineMctsMove(selection_interactive)">Make MCTS
+                                            move
+                                        </button>
+                                        <br>
+                                        <button onclick="selection_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <br>
+
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="selection_mcts_timeout_slider" type="range" min="10" max="2000"
+                                               value="30" step="10"/>
+                                        <br>
+                                        <span id="selection_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+                                <div id="selection_game_over_area">
+                                    <b>The winner is...</b> <span id="selection_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="selection_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive" style="position: relative; width:fit-content; height: 550px ; margin-left: 250px; margin-bottom: 20px; border: solid 1px black; padding: 1em;">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: none">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current action</b>:
+                                        <br>
+                                        <span id="selection_current_action_count">(0/0)</span>
+                                        <br>
+                                        <span id="selection_current_action_kind">---</span>
+                                        <br>
+                                        <button id="selection_btn_next_action" disabled>next action &gt;</button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="selection_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="selection_btn_next_iteration" disabled>next iteration &gt;&gt;
+                                        </button>
+                                    </div>
+                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
+                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+                                                id="selection_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 200px; height: 45%;" id="selection_btn_make_play"
+                                                disabled>make play
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="selection_tree_vis"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="caption"><b>Figure 5:</b><br> By clicking the 'Make random board' button, you can
+                        randomly generate a Tic-Tac-Toe game state.<br>
+                        By clicking the 'Next Selection' button, you can automatically move to the next step in MCTS'
+                        selection process.<br>
+                        By clicking the 'Next Step' button, you can proceed to the next step in the current
+                        selection.<br>
+                        The node that is currently selected is highlighted with a red border.
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
 
         <section class="references">
             <h2>References</h2>
@@ -466,102 +678,82 @@
                 <li id="browne2012survey">
                     A survey of monte carlo tree search methods
                     <span>
-              Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, Vol 4(1), pp. 1--43. IEEE.
-            </span>
+                        Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, Vol 4(1), pp. 1--43. IEEE.
+                    </span>
                 </li>
 
                 <li id="segler2018planning">
                     Mastering the game of Go without human knowledge
                     <span>
-              Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., Hubert, T., Baker, L., Lai, M., Bolton, A., Chen, Y., Lillicrap, T., Hui, F., Sifre, L., Diessche, G.v.d., Graepel, T. and Hassabis, D., 2017. Nature, Vol 550(7676), pp. 354--359. Nature Publishing Group.
-            </span>
+                        Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., Hubert, T., Baker, L., Lai, M., Bolton, A., Chen, Y., Lillicrap, T., Hui, F., Sifre, L., Diessche, G.v.d., Graepel, T. and Hassabis, D., 2017. Nature, Vol 550(7676), pp. 354--359. Nature Publishing Group.
+                    </span>
                 </li>
 
                 <li id="perez2016general">
                     General video game AI: Competition, challenges and opportunities
                     <span>
-              Perez-Liebana, D., Samothrakis, S., Togelius, J., Schaul, T. and Lucas, S.M., 2016. Thirtieth AAAI Conference on Artificial Intelligence, pp. 1--3.
-            </span>
+                        Perez-Liebana, D., Samothrakis, S., Togelius, J., Schaul, T. and Lucas, S.M., 2016. Thirtieth AAAI Conference on Artificial Intelligence, pp. 1--3.
+                    </span>
                 </li>
 
                 <li id="silver2017mastering">
                     Planning chemical syntheses with deep neural networks and symbolic AI
                     <span>
-              Segler, M.H., Preuss, M. and Waller, M.P., 2018. Nature, Vol 555(7698), pp. 604--610. Nature Publishing Group.
-            </span>
+                        Segler, M.H., Preuss, M. and Waller, M.P., 2018. Nature, Vol 555(7698), pp. 604--610. Nature Publishing Group.
+                    </span>
                 </li>
 
                 <li id="kocsis2006bandit">
                     Bandit based Monte-carlo planning
                     <span>
-              Kocsis, L. and Szepesvari, C., 2006. European conference on Machine Learning, pp. 282--293.
-            </span>
+                        Kocsis, L. and Szepesvari, C., 2006. European conference on Machine Learning, pp. 282--293.
+                    </span>
                 </li>
 
                 <li id="mcts-viz">
                     Visualization of MCTS algorithm applied to Tic-tac-toe
                     <span>
-              <a href="https://github.com/vgarciasc/mcts-viz/"
-                 target="_blank">https://github.com/vgarciasc/mcts-viz/</a>
-            </span>
+                      <a href="https://github.com/vgarciasc/mcts-viz/"
+                         target="_blank">https://github.com/vgarciasc/mcts-viz/</a>
+                    </span>
                 </li>
 
-                <li id="browne2012survey">
-                    A survey of monte carlo tree search methods
-                    <span>
-              Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, Vol 4(1), pp. 1--43. IEEE.
-            </span>
-                </li>
-
-                <li id="ref_1">
-                    Data-Driven Documents / d3.js
-                    <br>
-                    <span>
-              <a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
-            </span>
-                </li>
-                <li id="ref_2">
-                    three.js / editor
-                    <br>
-                    <span>
-              three.js <a href="https://threejs.org/" target="_blank">https://threejs.org/</a>
-            </span>
-                </li>
-                <li id="ref_3">
-                    The Technical Writer's Handbook
-                    <br>
-                    <span>
-              Young, M., 1989. University Science Books.
-            </span>
-                </li>
-                <li id="ref_4">
-                    Choosing Representation, Mutation, and Crossover in Genetic Algorithms
-                    <span>
-              A. Dockhorn and S. Lucas, IEEE Computational Intelligence Magazine, vol. 17, no. 4, pp. 52-53, 1 Nov. 2022. DOI:<a
-                            href="https://ieeexplore.ieee.org/document/9942691" target="_blank">
-              10.1109/MCI.2022.3199626</a>
-            </span>
-                </li>
-                <li id="ref_5">
-                    Title of paper if known
-                    <span>
-              Elissa, K.. unpublished.
-            </span>
-                </li>
-                <li id="ref_6">
-                    Title of paper with only first word capitalized
-                    <span>
-              Nicole, R., (in press). J. Name Stand. Abbrev.
-            </span>
-                </li>
-                <li id="ref_7">
-                    Electron spectroscopy studies on magneto-optical media and plastic substrate interface
-                    <span>
-              Y. Yorozu, M.H. and Tagawa, Y., 1987. , Vol 2, pp. 740--741. IEEE Transl. J. Magn. Japan.
-            </span>
-                </li>
             </ol>
         </section>
+
+        <script>
+
+            pseudocode.renderElement(document.getElementById("selection_pseudo"),
+                {
+                    lineNumber: false,
+                    noEnd:true
+                })
+
+            pseudocode.renderElement(document.getElementById("expansion_pseudo"),
+                {
+                    lineNumber: false,
+                    noEnd:true
+                })
+
+            pseudocode.renderElement(document.getElementById("simulation_pseudo"),
+                {
+                    lineNumber: false,
+                    noEnd:true
+                })
+
+            pseudocode.renderElement(document.getElementById("back_pseudo"),
+                {
+                    lineNumber: false,
+                    noEnd:true
+                })
+
+            pseudocode.renderElement(document.getElementById("mcts_pseudo"),
+                {
+                    lineNumber: false,
+                    noEnd:true
+                })
+        </script>
+
     </div>
 
 </article><!-- End of aticle -->
