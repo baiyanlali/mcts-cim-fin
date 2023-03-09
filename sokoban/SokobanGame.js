@@ -116,6 +116,7 @@ export default class SokobanGame {
         this.sokobanGame = new p5(sketch_sokoban, screenID+"p5_game")
         // console.log(screenID+"p5_game")
         this.that = this;
+        this.screenID = screenID;
         this.screen = screenID + "sokobangame"
         this.screendiv =screenID + "sokobangamediv"
         this.sokoban = new Sokoban()
@@ -139,6 +140,7 @@ export default class SokobanGame {
         document.getElementById(this.screen + "_reset").style.display = "none"
         this.sokoban = new Sokoban()
         this.show_board(this.sokoban.board)
+        this.machineControlsArea = document.getElementById(this.screen+"_"+"machine_controls_area");
     }
 
     onMouseOver() {
@@ -168,8 +170,9 @@ export default class SokobanGame {
 
 
     makeAction(action){
-        this.step ++
-        this.sokoban.make_action(action)
+        this.sokoban.make_action(action, ()=>{
+            this.step ++
+        })
         this.show_board()
         if(this.onMakeAction!==null)
             this.onMakeAction(this)
@@ -180,6 +183,8 @@ export default class SokobanGame {
             // document.getElementById(this.screen+"_reset").onclick = ()=>{this.init()}
             this.show_result()
         }
+
+        this.machineControlsArea.style.display=""
     }
 
     show_board() {
@@ -216,6 +221,8 @@ export default class SokobanGame {
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         interactive.setMCTS(monteCarlo, MCTS_search)
 
+        this.machineControlsArea.style.display="none"
+
         this.makeMove(MCTS_search.move)
         // this.endMove(MCTS_search.move.player)
     }
@@ -224,6 +231,9 @@ export default class SokobanGame {
         let monteCarlo = new SokobanMCTS(this.sokoban)
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+
+        this.machineControlsArea.style.display="none"
+
         interactive.setMCTS(monteCarlo, MCTS_search)
     }
 

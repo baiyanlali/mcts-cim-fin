@@ -195,7 +195,7 @@ export default class Sokoban {
     }
 
     //假设目前
-    make_action(dir){
+    make_action(dir, onDone=null){
         if(this.is_legal_action(dir)===false)return
         // console.log("move")
         const target_position = add(this.player_position, dir)
@@ -218,6 +218,10 @@ export default class Sokoban {
             if(this.get_board_element(end)===0){
                 this.set_board_element(end, 3)
             }
+        }
+
+        if(onDone!==null){
+            onDone()
         }
 
     }
