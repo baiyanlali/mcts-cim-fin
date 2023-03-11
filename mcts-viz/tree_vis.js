@@ -26,8 +26,8 @@ export const vis = (s) => {
   s.windowResized = ()=>{
     let height =s.canvas_div.clientHeight
     let width = s.canvas_div.clientWidth
-    console.log("height: ", height, " width: ", width)
-    console.log(s.canvas_div)
+    // console.log("height: ", height, " width: ", width)
+    // console.log(s.canvas_div)
     s.resizeCanvas(width, height)
   }
 

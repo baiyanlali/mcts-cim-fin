@@ -332,7 +332,7 @@
                         game as the first or second player by clicking the corresponding button above. The objective of
                         the game is to connect three of your pieces in a row, column, or diagonal. The right panel
                         presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
-                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by 'h' and 'm',
+                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by "1" and "-1",
                         respectively.
                     </div>
                 </div>
@@ -441,7 +441,7 @@
             <p>
                 Starting from the root node, which usually represents the current state, MCTS employs a traversal
                 strategy to explore the tree and identify the final node that is expected to lead to an optimal
-                solution, as estimated by the selection strategy. It is known as the 'exploration-exploitation dilemma'
+                solution, as estimated by the selection strategy. It is known as the "exploration-exploitation dilemma"
                 that MCTS encounters. The dilemma considers a general problem of choosing actions that seems to be
                 optimal at current state or taking a wide step to explore some unknown area to potentially discover
                 better solutions. Three selection strategies are described as follows.
@@ -648,11 +648,11 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 5:</b><br> By clicking the 'Make random board' button, you can
+                    <div class="caption"><b>Figure 5:</b><br> By clicking the "Make random board" button, you can
                         randomly generate a Tic-Tac-Toe game state.<br>
-                        By clicking the 'Next Selection' button, you can automatically move to the next step in MCTS'
+                        By clicking the "Next Selection" button, you can automatically move to the next step in MCTS'
                         selection process.<br>
-                        By clicking the 'Next Step' button, you can proceed to the next step in the current
+                        By clicking the "Next Step" button, you can proceed to the next step in the current
                         selection.<br>
                         The node that is currently selected is highlighted with a red border.
                     </div>
@@ -810,7 +810,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 6:</b><br> Clicking 'Next Expansion' will automatically move to the
+                    <div class="caption"><b>Figure 6:</b><br> Clicking "Next Expansion" will automatically move to the
                         next expansion step in the Monte Carlo search.<br>
                         The expanded node is highlighted with a green border.
                     </div>
@@ -975,7 +975,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 7:</b><br> Clicking 'Next Simulation' will automatically move to the
+                    <div class="caption"><b>Figure 7:</b><br> Clicking "Next Simulation" will automatically move to the
                         next simulation step in the MCTS.<br>
                         The node being simulated is connected with a dotted line.
                     </div>
@@ -1144,7 +1144,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 8:</b><br> Clicking 'Next Backpropagation' will automatically move to
+                    <div class="caption"><b>Figure 8:</b><br> Clicking "Next Backpropagation" will automatically move to
                         the next backpropagation step in MCTS.<br>
                         The node being back propagated is highlighted with a blue border.
                     </div>
@@ -1186,15 +1186,15 @@
             </p>
 
             <p>
-                For the Sokoban game, choose 'Human' or 'Machine' to decide who goes first. During the player's turn,
+                For the Sokoban game, choose "Human" or "Machine" to decide who goes first. During the player's turn,
                 click on the highlighted area on the board to make a move. During the machine's turn, you can select one
                 of three decision-making modes for the machine: random, greedy, and MCTS. In MCTS, you can slide the
                 slider to select the number of iterations. The higher the number of iterations is, the better decisions
-                the AI will make. In the MCTS panel on the right, choose 'Next Step' to view the MCTS' steps at each
-                stage or select 'Next Iteration' to see the situation after each iteration, including selection,
+                the AI will make. In the MCTS panel on the right, choose "Next Step" to view the MCTS' steps at each
+                stage or select "Next Iteration" to see the situation after each iteration, including selection,
                 expansion, simulation, and backpropagation. The tree displays the current MCTS information. You can also
-                select 'Visualize Last Step' to directly view the final step and each node's value. Finally, click 'Make
-                Play' to let the machine make a move on the board.
+                select "Visualize Last Step" to directly view the final step and each node's value. Finally, click "Make
+                Play" to let the machine make a move on the board.
             </p>
 
             <div class="framed">
@@ -1293,9 +1293,9 @@
             </div>
 
             <p>
-                In Sokoban, selecting 'Auto Play' enables the MCTS to run automatically. 'Auto Play' can automatically
+                In Sokoban, selecting "Auto Play" enables the MCTS to run automatically. "Auto Play" can automatically
                 execute MCTS. At each step, the Monte Carlo tree will select the optimal solution it found.
-                Alternatively, you can use 'Make MCTS Move' to view each step of the search in detail on the right
+                Alternatively, you can use "Make MCTS Move" to view each step of the search in detail on the right
                 panel. You can also choose to play manually by moving the mouse to the game and using W, A, S, D, or
                 arrow keys to move.
             </p>

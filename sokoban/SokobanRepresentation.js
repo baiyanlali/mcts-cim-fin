@@ -20,14 +20,28 @@ const sokoban_representation = (s)=>{
         for (let i = 0; i < s.board.length; i++) {
             for (let j = 0; j < s.board.length; j++) {
                 let tile = s.board[i][j]
-                s.fill(tile / 5 * 255)
-                s.noStroke()
-                s.rect(j * tileSize, i * tileSize, tileSize, tileSize)
-                s.fill(255 - tile/ 5 * 255)
-                s.textSize(textSize)
-                s.textAlign(s.CENTER, s.CENTER)
-                s.text(tile, j * tileSize + tileSize/2, i* tileSize + tileSize/2)
-                // s.text(tile, j * tileSize , i* tileSize )
+                // s.fill(tile / 5 * 255)
+                if(tile===5){
+                    s.fill(0)
+                    s.rect(j * tileSize, i * tileSize, tileSize, tileSize)
+                    s.fill(255)
+                    s.textSize(textSize)
+                    s.textAlign(s.CENTER, s.CENTER)
+                    s.text(tile, j * tileSize + tileSize/2, i* tileSize + tileSize/2 + 3)
+                }else{
+
+                    s.fill(255)
+                    // s.noStroke()
+                    s.rect(j * tileSize, i * tileSize, tileSize, tileSize)
+                    // s.fill(255 - tile/ 5 * 255)
+                    s.fill(0)
+                    s.textSize(textSize)
+                    s.textAlign(s.CENTER, s.CENTER)
+                    s.text(tile, j * tileSize + tileSize/2, i* tileSize + tileSize/2 + 3)
+                    // s.text(tile, j * tileSize , i* tileSize )
+                }
+
+
             }
         }
     }
