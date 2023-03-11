@@ -83,9 +83,9 @@
                     <div class="header-authors">
                         <h2>Authors</h2>
                         <ul>
-                            <li>Yunlong Zhao | SUSTech, Guangdong</li>
-                            <li>Chengpeng Hu | SUSTech, Guangdong</li>
-                            <li>Jialin Liu | SUSTech, Guangdong</li>
+                            <li>Yunlong Zhao | Southern University of Science and Technology</li>
+                            <li>Chengpeng Hu | Southern University of Science and Technology</li>
+                            <li>Jialin Liu | Southern University of Science and Technology</li>
                         </ul>
                     </div>
                     <!-- Published info section -->
@@ -141,11 +141,11 @@
             <h2>I. Introduction</h2>
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
-                solving sequential decision problems[<a href="#browne2012survey">1</a>].
+                solving sequential decision problems [<a href="#browne2012survey">1</a>].
                 By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
                 Because of few low requirements for domain knowledge and its simplicity, MCTS has achieved significant
-                success in various domains, such as Go[<a href="#silver2017mastering">2</a>], video games[<a
-                    href="#perez2016general">3</a>], and chemical synthesis[<a href="#segler2018planning">4</a>].
+                success in various domains, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
+                    href="#perez2016general">3</a>], and chemical synthesis [<a href="#segler2018planning">4</a>].
             </p>
             <p>
                 MCTS combines the concepts of tree search and reinforcement learning to address situations where local
@@ -157,8 +157,7 @@
                 Once a simulation, starting from the expanded node, terminates, the results of the simulation are
                 propagated back to update the statistics of the nodes on the trajectory.
                 MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
-                upper confidence bound (UCB)
-                [<a href="#kocsis2006bandit">5</a>]
+                upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>]
                 , that balance exploitation and exploration within a given computational budget.
             </p>
 
@@ -225,7 +224,7 @@
             </p>
 
             <p>
-                The interactive interface is based on[<a href="#mcts-viz">6</a>]. The game interfaces and data
+                The interactive interface is based on [<a href="#mcts-viz">6</a>]. The game interfaces and data
                 representations of Tic-Tac-Toe and Sokoban are presented below. You can
                 activate either game by hovering your mouse pointer over its corresponding image. Detailed gameplay
                 instructions for each game are included in its description.
@@ -328,7 +327,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 2:</b><br> Tic-Tac-Toe: You can select whether you want to play the
+                    <div class="caption"><b>Fig. 2:</b><br> Tic-Tac-Toe: You can select whether you want to play the
                         game as the first or second player by clicking the corresponding button above. The objective of
                         the game is to connect three of your pieces in a row, column, or diagonal. The right panel
                         presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
@@ -455,7 +454,7 @@
                 <li>Upper confidence bound (UCB)
                     [<a href="#kocsis2006bandit">5</a>]
                     measures the uncertainty of the expected reward of an action. The average rewards and visited times
-                    of actions form the upper confidence bound, seeing Eq(1).
+                    of actions form the upper confidence bound, seeing Eq. (1).
                 </li>
             </ul>
 
@@ -487,7 +486,7 @@
               \PROCEDURE{Select}{$root$}
               \STATE Set $node$ $\gets$ $root$
               \WHILE {$node$ is not leaf and $node$ is not fully explored}
-              \STATE $node$ $\gets$ Node with the highest UCB value(Eq.(1)) among $node.children$
+              \STATE $node$ $\gets$ Node with the highest UCB value(Eq. (1)) among $node.children$
               \ENDWHILE
               \STATE \Return $node$
               \ENDPROCEDURE
@@ -1456,6 +1455,7 @@
                 <li id="mcts-viz">
                     Visualization of MCTS algorithm applied to Tic-tac-toe
                     <span>
+                        vgarciasc.
                       <a href="https://github.com/vgarciasc/mcts-viz/"
                          target="_blank">https://github.com/vgarciasc/mcts-viz/</a>
                     </span>
