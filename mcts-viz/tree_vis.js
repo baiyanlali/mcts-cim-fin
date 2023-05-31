@@ -1,5 +1,6 @@
 
 export const vis = (s) => {
+  s.show_simple = true;
   let tree = null;
   let initial_board = null;
 
@@ -18,6 +19,8 @@ export const vis = (s) => {
 
   let node_size = {x: 50, y: 55};
 
+  const show_txt = node_size.x * 1.8
+
   s.preload = ()=>{
     s.circleImg = s.loadImage("image/tic-tac-toe/circle1.png")
     s.crossImg = s.loadImage("image/tic-tac-toe/cross1.png")
@@ -26,9 +29,9 @@ export const vis = (s) => {
   s.windowResized = ()=>{
     let height =s.canvas_div.clientHeight
     let width = s.canvas_div.clientWidth
-    // console.log("height: ", height, " width: ", width)
+    console.log("height: ", height, " width: ", width)
     // console.log(s.canvas_div)
-    s.resizeCanvas(width, height)
+    s.resizeCanvas(width, height - 20)
   }
 
   s.setup = () => {
@@ -45,13 +48,18 @@ export const vis = (s) => {
     //   s.createCanvas(width, height)
     // }
 
-    s.createCanvas(width, height)
+    s.createCanvas(width, height - 20)
 
     s.info_position = {y: 0}
     s.tween = null
+
+    s.checkBox = s.createCheckbox('Show Detail', true)
   };
 
   s.draw = () => {
+
+    s.show_simple = !s.checkBox.checked()
+
     s.handleHover();
 
     s.background(255)
@@ -145,7 +153,7 @@ export const vis = (s) => {
         })
       }
 
-      if(hovered_node == null){
+      if(hovered_node == null || s.last_info === null){
         s.pop()
         return
       }
@@ -202,9 +210,12 @@ export const vis = (s) => {
     }
 
   	s.push();
-  	s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x * 2,
+    if(!s.show_simple)
+  	  s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x * 2,
   		          node.data.y       * (1 + node_distance.y) * node_size.y);
-
+    else
+      s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x,
+  		          node.data.y       * (1 + node_distance.y) * node_size.y);
     s.toggleNodeColors(node);
 
   	//draw node content
@@ -215,12 +226,22 @@ export const vis = (s) => {
 
 
     if (node.data.should_show_collapse_btn) {
-      s.fill(0);
-      s.circle(node_size.x + 10, node_size.y, node_size.x / 4);
-      s.fill(255);
-      s.textAlign(s.CENTER, s.CENTER);
-      s.strokeWeight(0);
-      s.text(node.data.collapsed ? "+" : "-", node_size.x + 10, node_size.y + 1);
+      if(!s.show_simple){
+        s.fill(0);
+        s.circle(node_size.x + 10, node_size.y, node_size.x / 4);
+        s.fill(255);
+        s.textAlign(s.CENTER, s.CENTER);
+        s.strokeWeight(0);
+        s.text(node.data.collapsed ? "+" : "-", node_size.x + 10, node_size.y + 1);
+      }else{
+        s.fill(0);
+        s.circle(node_size.x / 2, node_size.y, node_size.x / 4);
+        s.fill(255);
+        s.textAlign(s.CENTER, s.CENTER);
+        s.strokeWeight(0);
+        s.text(node.data.collapsed ? "+" : "-", node_size.x / 2, node_size.y + 1);
+      }
+
     }
 
   	s.pop();
@@ -234,7 +255,8 @@ export const vis = (s) => {
         if(child.data.simulated_board){
           s.drawingContext.setLineDash([5,5])
         }
-        s.bezier(
+        if(!s.show_simple){
+            s.bezier(
             (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_size.x / 8,
             (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
@@ -244,6 +266,19 @@ export const vis = (s) => {
             (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x * 2 + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y,
         )
+        }else{
+          s.bezier(
+            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x,
+            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_size.x / 8,
+            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x,
+            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y/2 * node_size.y + node_size.x * 2 / 8,
+            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x ,
+            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y - node_distance.y/2 * node_size.y,
+            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x,
+            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y,
+        )
+        }
+
 
         s.drawingContext.setLineDash([])
       }
@@ -251,7 +286,6 @@ export const vis = (s) => {
 
   }
 
-  const show_txt = node_size.x * 1.5
 
   s.drawNode = (board, value, visits, node) => {
     if (node.data.simulated_board) {
@@ -271,8 +305,13 @@ export const vis = (s) => {
       s.strokeWeight(2);
       s.stroke(255, 0, 0);
     }
-    
-    s.rect(0, 0, node_size.x + show_txt, node_size.y, 5);
+
+    if(s.show_simple){
+      s.rect(0, 0, node_size.x, node_size.y, 5);
+    }else{
+      s.rect(0, 0, node_size.x + show_txt, node_size.y, 5);
+    }
+
 
     if (node.data.best_move) {
       s.strokeWeight(0.5);
@@ -319,39 +358,54 @@ export const vis = (s) => {
     // s.translate(0, (node_size.y - node_size.x) / 10);
     s.translate(node_size.x, 0);
 
-    if (!node.isRoot()) {
-      let uct = UCB1(node, s.tree.getParent(node)).toFixed(2);
-      if (isNaN(uct)) {
-        uct = "--";
+    const text_width = 45
+
+
+      if (!node.isRoot()) {
+        let uct = UCB1(node, s.tree.getParent(node)).toFixed(2);
+        if (isNaN(uct)) {
+          uct = "--";
+        }
+
+
+        if (node === hovered_node) {
+          node.uct_txt = uct
+          node.vis_txt = visits
+          node.val_txt = value
+        }
+
+        if(!s.show_simple) {
+
+          s.textAlign(s.LEFT, s.TOP);
+          s.text(" val: ", 0, 0);
+          s.text(" vis: ", 0, (node_size.y) / 4);
+          s.text(" uct: ", 0, 2 * (node_size.y) / 4);
+          s.textAlign(s.RIGHT, s.TOP);
+          s.text("  " + value + " ", text_width + node_size.x, 0);
+          s.text("  " + visits + " ", text_width + node_size.x, (node_size.y) / 4);
+          s.text("  " + uct + " ", text_width + node_size.x, 2 * (node_size.y) / 4);
+        }
+      } else {
+        if (node === hovered_node) {
+          node.vis_txt = visits
+          node.val_txt = value
+        }
+        if(!s.show_simple) {
+
+          s.textAlign(s.LEFT, s.TOP);
+          // s.text(" val: ", 0, 0);
+          s.text(" vis: ", 0, (node_size.y) / 4);
+          s.textAlign(s.RIGHT, s.TOP);
+          // s.text("  "+value + " ", 30 + node_size.x, 0);
+          s.text("  " + visits + " ", text_width + node_size.x, (node_size.y) / 4);
+        }
+
+        // s.textAlign(s.LEFT, s.CENTER);
+        // s.text(" vis:", 0, 0);
+        // s.textAlign(s.RIGHT, s.CENTER);
+        // s.text(visits + " ", 0, 0);
       }
 
-
-      if(node === hovered_node){
-        node.uct_txt = uct
-        node.vis_txt = visits
-        node.val_txt = value
-      }
-
-      s.textAlign(s.LEFT, s.TOP);
-      s.text(" val: ", 0, 0);
-      s.text(" vis: ", 0, (node_size.y) / 4);
-      s.text(" uct: ", 0, 2 * (node_size.y) / 4);
-      s.textAlign(s.RIGHT, s.TOP);
-      s.text("  "+value + " ", 30 + node_size.x, 0);
-      s.text("  "+visits + " ", 30 + node_size.x, (node_size.y) / 4);
-      s.text("  "+uct + " ", 30 + node_size.x, 2 * (node_size.y) / 4);
-    } else {
-
-
-      if(node === hovered_node){
-        node.vis_txt = visits
-      }
-
-      s.textAlign(s.LEFT, s.TOP);
-      s.text(" vis:", 0, (node_size.y) / 2);
-      s.textAlign(s.RIGHT, s.TOP);
-      s.text(visits + " ", 0, (node_size.y) / 2);
-    }
     
     s.pop();
 
@@ -468,10 +522,19 @@ export const vis = (s) => {
     if (s.mouseX > 0 && s.mouseY > 0 && s.mouseX < s.width && s.mouseY < s.height && s.tree) {
       for (var i = 0; i < s.tree.nodes.length; i++) {
         let node = s.tree.nodes[i];
-        let bounds = {
+        let bounds = {};
+        if(!s.show_simple)
+        bounds = {
           x_min:  (node.data.final_x * (1 + node_distance.x) * node_size.x * 2) * offset.zoom + offset.x,
           y_min:  (node.data.y       * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
-          width:  node_size.x * 2 * offset.zoom,
+          width:  node_size.x * 1.8 * offset.zoom,
+          height: node_size.y * offset.zoom
+        };
+        else
+        bounds = {
+          x_min:  (node.data.final_x * (1 + node_distance.x) * node_size.x) * offset.zoom + offset.x,
+          y_min:  (node.data.y       * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
+          width:  node_size.x * offset.zoom,
           height: node_size.y * offset.zoom
         };
 

@@ -1,6 +1,9 @@
 import {SokobanTile} from "./sokoban.js";
+import {vis} from "../mcts-viz/tree_vis.js";
 
 export const vis_sokoban = (s) => {
+
+
     let tree = null;
     let initial_board = null;
 
@@ -183,6 +186,7 @@ export const vis_sokoban = (s) => {
         s.tree = tree;
     }
 
+    // s.postorder_draw_tree = vis(s)
 
     s.postorder_draw_tree = (node, model) => {
         let children = s.tree.getChildren(node);
