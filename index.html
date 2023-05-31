@@ -15,9 +15,19 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!-- MathJax javascript library and implementation file/s -->
-    <script type="text/javascript" async
-            src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">
-    </script>
+        <script type="text/javascript" async
+                src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">
+        </script>
+    <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
+    <!--    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
+    <!--    <script type="text/javascript" async-->
+    <!--            src="./MathJax.js">-->
+    <!--    </script>-->
+
+<!--    <script type="text/javascript" async-->
+<!--            src="./MathJaxIEEE.js">-->
+<!--    </script>-->
+
 
     <!-- Example chessboard immersive app -->
     <script type="text/javascript" src="./jquery-3.5.1.js"></script>
@@ -56,6 +66,7 @@
         ]
       }
     }
+
     </script>
 
 </head>
@@ -154,7 +165,7 @@
                 The basic procedure of MCTS involves building a tree with nodes that represent visited states and
                 selecting the node with the highest probability of reaching an optimal outcome.
                 The selected node is then expanded according to the available action space.
-                Once a simulation, starting from the expanded node, terminates, the results of the simulation are
+                Once a simulation terminates, the results of the simulation are
                 propagated back to update the statistics of the nodes on the trajectory.
                 MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
                 upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>]
@@ -331,7 +342,7 @@
                         game as the first or second player by clicking the corresponding button above. The objective of
                         the game is to connect three of your pieces in a row, column, or diagonal. The right panel
                         presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
-                        symbolized by empty spaces. Your pieces and the ones of machine are denoted by "1" and "-1",
+                        symbolized by empty spaces. Your pieces and the ones of AI opponent are denoted by "1" and "-1",
                         respectively.
                     </div>
                 </div>
@@ -1186,14 +1197,14 @@
 
             <p>
                 For the Sokoban game, choose "Human" or "Machine" to decide who goes first. During the player's turn,
-                click on the highlighted area on the board to make a move. During the machine's turn, you can select one
-                of three decision-making modes for the machine: random, greedy, and MCTS. In MCTS, you can slide the
+                click on the highlighted area on the board to make a move. During the AI's turn, you can select one
+                of three decision-making modes for the AI: random, greedy, and MCTS. In MCTS, you can slide the
                 slider to select the number of iterations. The higher the number of iterations is, the better decisions
                 the AI will make. In the MCTS panel on the right, choose "Next Step" to view the MCTS' steps at each
                 stage or select "Next Iteration" to see the situation after each iteration, including selection,
                 expansion, simulation, and backpropagation. The tree displays the current MCTS information. You can also
                 select "Visualize Last Step" to directly view the final step and each node's value. Finally, click "Make
-                Play" to let the machine make a move on the board.
+                Play" to let the AI make a move on the board.
             </p>
 
             <div class="framed">
@@ -1404,8 +1415,10 @@
             <h2>Conclusion</h2>
             <p>
                 As a summary, this paper provides a comprehensive explanation of the basic procedure of MCTS. Four main
-                components, Selection, Expansion, Simulation, Backpropagation are described in detail. To fully demonstrate
-                the workflow of MCTS in different cases, two classic games, Tic-Tac-Toe and Sokoban are used. Additionally,
+                components, Selection, Expansion, Simulation, Backpropagation are described in detail. To fully
+                demonstrate
+                the workflow of MCTS in different cases, two classic games, Tic-Tac-Toe and Sokoban are used.
+                Additionally,
                 several selection strategies are discussed in the immersive part.
                 More details about MCTS and its ingredients can be found in
                 [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>]

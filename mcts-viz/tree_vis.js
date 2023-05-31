@@ -265,14 +265,14 @@ export const vis = (s) => {
     }
 
     if (node.data.best_move) {
-      s.strokeWeight(3);
+      s.strokeWeight(2);
       s.stroke(255, 0, 0);
     }
     
     s.rect(0, 0, node_size.x, node_size.y, 5);
 
     if (node.data.best_move) {
-      s.strokeWeight(1);
+      s.strokeWeight(0.5);
       s.stroke(0);
     }
 
@@ -311,7 +311,7 @@ export const vis = (s) => {
 
     
     s.push();
-    s.textSize(tile_size * 0.4);
+    s.textSize(tile_size * 0.6);
 
     s.translate(0, (node_size.y - node_size.x) / 10);
     
@@ -375,22 +375,22 @@ export const vis = (s) => {
   s.toggleActionColors = (action_kind) => {
     switch (action_kind) {
       case "selection":
-        s.strokeWeight(2);
+        s.strokeWeight(1);
         s.stroke(180, 30, 30);
         s.fill(180, 30, 30);
         break;
       case "backpropagation":
-        s.strokeWeight(2);
+        s.strokeWeight(1);
         s.stroke(30, 30, 180);
         s.fill(30, 30, 180);
         break;
       case "expansion":
-        s.strokeWeight(2);
+        s.strokeWeight(1);
         s.stroke(30, 180, 30);
         s.fill(30, 180, 30);
         break;
       case "simulation":
-        s.strokeWeight(2);
+        s.strokeWeight(1);
         s.stroke(30, 180, 180);
         s.fill(30, 180, 180);
         break;
