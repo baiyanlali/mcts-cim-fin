@@ -42,6 +42,12 @@ export const vis_sokoban = (s) => {
         s.canvas_div = s._userNode
     };
 
+    s.originDraw = s.draw
+
+    s.draw = () => {
+        s.originDraw()
+        s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value());
+    }
 
     s.drawGame = (board) => {
         s.fill(0);
