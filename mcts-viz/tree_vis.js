@@ -14,9 +14,9 @@ export const vis = (s) => {
   let hovered_node = null;
   let hovered_node_pos = {x: 0, y: 0};
 
-  let node_distance = {x: 0.75, y: 0.75};
+  let node_distance = {x: 0.5, y: 0.75};
 
-  let node_size = {x: 50, y: 90};
+  let node_size = {x: 50, y: 55};
 
   s.preload = ()=>{
     s.circleImg = s.loadImage("image/tic-tac-toe/circle1.png")
@@ -202,7 +202,7 @@ export const vis = (s) => {
     }
 
   	s.push();
-  	s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x,
+  	s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x * 2,
   		          node.data.y       * (1 + node_distance.y) * node_size.y);
 
     s.toggleNodeColors(node);
@@ -216,11 +216,11 @@ export const vis = (s) => {
 
     if (node.data.should_show_collapse_btn) {
       s.fill(0);
-      s.circle(node_size.x / 2, node_size.y, node_size.x / 4);
+      s.circle(node_size.x + 10, node_size.y, node_size.x / 4);
       s.fill(255);
       s.textAlign(s.CENTER, s.CENTER);
       s.strokeWeight(0);
-      s.text(node.data.collapsed ? "+" : "-", node_size.x / 2, node_size.y + 1);
+      s.text(node.data.collapsed ? "+" : "-", node_size.x + 10, node_size.y + 1);
     }
 
   	s.pop();
@@ -235,13 +235,13 @@ export const vis = (s) => {
           s.drawingContext.setLineDash([5,5])
         }
         s.bezier(
-            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x,
+            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_size.x / 8,
-            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x,
-            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y/2 * node_size.y + node_size.x / 8,
-            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x,
+            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
+            (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y/2 * node_size.y + node_size.x * 2 / 8,
+            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x * 2 + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y - node_distance.y/2 * node_size.y,
-            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x,
+            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x * 2 + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y,
         )
 
@@ -251,12 +251,15 @@ export const vis = (s) => {
 
   }
 
+  const show_txt = node_size.x * 1.5
+
   s.drawNode = (board, value, visits, node) => {
     if (node.data.simulated_board) {
       board = node.data.simulated_board;
     }
 
     let tile_size = node_size.x / 3;
+
 
     if (node.id == hovered_node_id) {
       s.fill(200);
@@ -269,7 +272,7 @@ export const vis = (s) => {
       s.stroke(255, 0, 0);
     }
     
-    s.rect(0, 0, node_size.x, node_size.y, 5);
+    s.rect(0, 0, node_size.x + show_txt, node_size.y, 5);
 
     if (node.data.best_move) {
       s.strokeWeight(0.5);
@@ -277,17 +280,17 @@ export const vis = (s) => {
     }
 
 
-    for (var j = 0; j < 3; j++) {
-      for (var i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      for (let i = 0; i < 3; i++) {
         let tile = board.grid[i * 3 + j];
         let draw_tile = null
 
-        if (tile == "h") {
+        if (tile === "h") {
             // s.fill(100, 100, 240);
           s.fill("#00cec9")
           draw_tile = s.crossImg
 
-        } else if (tile == "m") {
+        } else if (tile === "m") {
           s.fill("#fab1a0")
           draw_tile = s.circleImg
             // s.fill(240, 100, 100);
@@ -311,10 +314,11 @@ export const vis = (s) => {
 
     
     s.push();
-    s.textSize(tile_size * 0.6);
+    s.textSize(tile_size * 0.8);
 
-    s.translate(0, (node_size.y - node_size.x) / 10);
-    
+    // s.translate(0, (node_size.y - node_size.x) / 10);
+    s.translate(node_size.x, 0);
+
     if (!node.isRoot()) {
       let uct = UCB1(node, s.tree.getParent(node)).toFixed(2);
       if (isNaN(uct)) {
@@ -329,13 +333,13 @@ export const vis = (s) => {
       }
 
       s.textAlign(s.LEFT, s.TOP);
-      s.text(" val:", 0, node_size.x);
-      s.text(" vis:", 0, node_size.x + (node_size.y - node_size.x) / 4);
-      s.text(" uct:", 0, node_size.x + 2 * (node_size.y - node_size.x) / 4);
+      s.text(" val: ", 0, 0);
+      s.text(" vis: ", 0, (node_size.y) / 4);
+      s.text(" uct: ", 0, 2 * (node_size.y) / 4);
       s.textAlign(s.RIGHT, s.TOP);
-      s.text(value + " ", node_size.x, node_size.x);
-      s.text(visits + " ", node_size.x, node_size.x + (node_size.y - node_size.x) / 4);
-      s.text(uct + " ", node_size.x, node_size.x + 2 * (node_size.y - node_size.x) / 4);
+      s.text("  "+value + " ", 30 + node_size.x, 0);
+      s.text("  "+visits + " ", 30 + node_size.x, (node_size.y) / 4);
+      s.text("  "+uct + " ", 30 + node_size.x, 2 * (node_size.y) / 4);
     } else {
 
 
@@ -344,16 +348,16 @@ export const vis = (s) => {
       }
 
       s.textAlign(s.LEFT, s.TOP);
-      s.text(" vis:", 0, node_size.x + (node_size.y - node_size.x) / 4);
+      s.text(" vis:", 0, (node_size.y) / 2);
       s.textAlign(s.RIGHT, s.TOP);
-      s.text(visits + " ", node_size.x, node_size.x + (node_size.y - node_size.x) / 4);
+      s.text(visits + " ", 0, (node_size.y) / 2);
     }
     
     s.pop();
 
     if (node.data.simulated_board) {
       let winner_icon = node.data.simulated_board.checkWin();
-      s.text(winner_icon == "v" ? "DRAW" : ("WINNER: " + winner_icon), 0, node_size.y * 1.25);
+      s.text(winner_icon === "v" ? "DRAW" : ("WINNER: " + winner_icon), 0, node_size.y * 1.25);
     }
   }
 
@@ -409,7 +413,7 @@ export const vis = (s) => {
 
     if(s.focusTween === undefined || s.focusTween === null)
       s.focusTween = new TWEEN.Tween(offset)
-          .to({x: - node.data.final_x * (1 + node_distance.x) * node_size.x + s.width  / 2, y: - node.data.y * (1 + node_distance.y) * node_size.y + s.height / 4, zoom: 1}, 300)
+          .to({x: - node.data.final_x * (1 + node_distance.x) * 2 * node_size.x + s.width  / 2, y: - node.data.y * (1 + node_distance.y) * node_size.y + s.height / 4, zoom: 1}, 300)
           .easing(TWEEN.Easing.Quadratic.Out)
           .onComplete(
           ()=>{
@@ -465,9 +469,9 @@ export const vis = (s) => {
       for (var i = 0; i < s.tree.nodes.length; i++) {
         let node = s.tree.nodes[i];
         let bounds = {
-          x_min:  (node.data.final_x * (1 + node_distance.x) * node_size.x) * offset.zoom + offset.x,
+          x_min:  (node.data.final_x * (1 + node_distance.x) * node_size.x * 2) * offset.zoom + offset.x,
           y_min:  (node.data.y       * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
-          width:  node_size.x * offset.zoom,
+          width:  node_size.x * 2 * offset.zoom,
           height: node_size.y * offset.zoom
         };
 
