@@ -54,6 +54,8 @@ export const vis = (s) => {
     s.tween = null
 
     s.checkBox = s.createCheckbox('Show Detail', true)
+
+    s.last_info = {}
   };
 
   s.draw = () => {
@@ -286,6 +288,40 @@ export const vis = (s) => {
 
   }
 
+  s.drawGame = (board) =>{
+    let tile_size = node_size.x / 3
+    for (let j = 0; j < 3; j++) {
+      for (let i = 0; i < 3; i++) {
+        let tile = board.grid[i * 3 + j];
+        let draw_tile = null
+
+        if (tile === "h") {
+            // s.fill(100, 100, 240);
+          s.fill("#00cec9")
+          draw_tile = s.crossImg
+
+        } else if (tile === "m") {
+          s.fill("#fab1a0")
+          draw_tile = s.circleImg
+            // s.fill(240, 100, 100);
+        } else {
+            // s.fill(220, 220, 220);
+          s.fill("#dfe6e9");
+        }
+
+        // s.strokeWeight(0);
+        s.rect(j * tile_size, i* tile_size, tile_size, tile_size, 5);
+
+        if(draw_tile!==null){
+          s.image(draw_tile, j * tile_size, i *  tile_size, tile_size, tile_size)
+        }
+
+        s.fill(0);
+        // s.textAlign(s.CENTER, s.CENTER);
+      }
+    }
+  }
+
 
   s.drawNode = (board, value, visits, node) => {
     if (node.data.simulated_board) {
@@ -318,38 +354,7 @@ export const vis = (s) => {
       s.stroke(0);
     }
 
-
-    for (let j = 0; j < 3; j++) {
-      for (let i = 0; i < 3; i++) {
-        let tile = board.grid[i * 3 + j];
-        let draw_tile = null
-
-        if (tile === "h") {
-            // s.fill(100, 100, 240);
-          s.fill("#00cec9")
-          draw_tile = s.crossImg
-
-        } else if (tile === "m") {
-          s.fill("#fab1a0")
-          draw_tile = s.circleImg
-            // s.fill(240, 100, 100);
-        } else {
-            // s.fill(220, 220, 220);
-          s.fill("#dfe6e9");
-        }
-
-        // s.strokeWeight(0);
-        s.rect(j * tile_size, i* tile_size, tile_size, tile_size, 5);
-
-        if(draw_tile!==null){
-          s.image(draw_tile, j * tile_size, i *  tile_size, tile_size, tile_size)
-        }
-
-        s.fill(0);
-        // s.textAlign(s.CENTER, s.CENTER);
-      }
-    }
-    
+    s.drawGame(board)
 
     
     s.push();
