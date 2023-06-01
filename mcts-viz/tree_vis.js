@@ -1,6 +1,7 @@
 
 export const vis = (s) => {
   s.show_simple = true;
+  s.info_duration = 30;
   let tree = null;
   let initial_board = null;
 
@@ -8,7 +9,7 @@ export const vis = (s) => {
   let zMin = 0.05;
   let zMax = 9.00;
   let sensitivity = 0.001;
-  let offset = {"x": 20, "y": 20, zoom: 1.00};
+  let offset = {x: 20, y: 20, zoom: 1.00};
   let dragging = false;
   let lastMouse = {"x": 0, "y": 0};
   let hovered_node_id = -1;
@@ -29,8 +30,6 @@ export const vis = (s) => {
   s.windowResized = ()=>{
     let height =s.canvas_div.clientHeight
     let width = s.canvas_div.clientWidth
-    console.log("height: ", height, " width: ", width)
-    // console.log(s.canvas_div)
     s.resizeCanvas(width, height - 20)
   }
 
@@ -42,12 +41,6 @@ export const vis = (s) => {
     let height =s.canvas_div.clientHeight
     let width = s.canvas_div.clientWidth
 
-    // if(s._userNode.id === "selection_tree_vis" || s._userNode.id === "expansion_tree_vis" || s._userNode.id === "simulation_tree_vis" || s._userNode.id === "backpropagration_tree_vis"){
-    //   s.createCanvas(width, height)
-    // }else {
-    //   s.createCanvas(width, height)
-    // }
-
     s.createCanvas(width, height - 20)
 
     s.info_position = {y: 0}
@@ -56,15 +49,18 @@ export const vis = (s) => {
     s.checkBox = s.createCheckbox('Show Detail', true)
 
     s.last_info = {}
+
+    s.frameRate(60)
   };
 
   s.draw = () => {
+    TWEEN.update();
 
     s.show_simple = !s.checkBox.checked()
 
     s.handleHover();
 
-    s.background(255)
+    s.background(255);
     s.push();
 
     s.translate(offset.x, offset.y);
@@ -77,8 +73,6 @@ export const vis = (s) => {
     s.pop();
 
     s.updateNodeInfo()
-
-    // console.log(info_position.y)
   };
 
   s.info_position = {y: 0}
@@ -94,7 +88,7 @@ export const vis = (s) => {
 
     if(hovered_node_id !== -1){
       if(s.tween===null){
-        s.tween = new TWEEN.Tween(s.info_position).to({y: 0}, 50).easing(TWEEN.Easing.Quadratic.In)
+        s.tween = new TWEEN.Tween(s.info_position).to({y: 0}, s.info_duration).easing(TWEEN.Easing.Quadratic.In)
         s.tween.start()
         s.tween.onComplete(()=>{
           s.tween = null
@@ -148,7 +142,7 @@ export const vis = (s) => {
     }
     else{
       if(s.tween===null){
-        s.tween = new TWEEN.Tween(s.info_position).to({y: -textSize*3 - 5}, 50).easing(TWEEN.Easing.Quadratic.Out)
+        s.tween = new TWEEN.Tween(s.info_position).to({y: -textSize*3 - 5}, s.info_duration).easing(TWEEN.Easing.Quadratic.Out)
         s.tween.start()
         s.tween.onComplete(()=>{
           s.tween = null
@@ -189,7 +183,6 @@ export const vis = (s) => {
       }
     }
 
-    TWEEN.update()
 
     s.pop()
   }
@@ -199,9 +192,10 @@ export const vis = (s) => {
   }
 
   s.postorder_draw_tree = (node, model) => {
+    //TODO: 解决展开缩减节点后视角跳动的问题
   	let children = s.tree.getChildren(node);
     if (!node.data.collapsed) {
-    	for (var i = 0; i < children.length; i++) {
+    	for (let i = 0; i < children.length; i++) {
     		let child = children[i];
 
     		let child_model = model.copy();
@@ -213,7 +207,7 @@ export const vis = (s) => {
 
   	s.push();
     if(!s.show_simple)
-  	  s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x * 2,
+  	  s.translate(node.data.final_x * (1 + 1.8 + node_distance.x) * node_size.x,
   		          node.data.y       * (1 + node_distance.y) * node_size.y);
     else
       s.translate(node.data.final_x * (1 + node_distance.x) * node_size.x,
@@ -259,13 +253,13 @@ export const vis = (s) => {
         }
         if(!s.show_simple){
             s.bezier(
-            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
+            (node.data.final_x * (1 + 1.8 +node_distance.x) + 1) * node_size.x + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_size.x / 8,
-            (node.data.final_x * (1+node_distance.x) + 0.5) * node_size.x * 2 + 10,
+            (node.data.final_x * (1 + 1.8 +node_distance.x) + 1) * node_size.x + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y/2 * node_size.y + node_size.x * 2 / 8,
-            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x * 2 + 10,
+            (child.data.final_x * (1+1.8 + node_distance.x) + 1) * node_size.x + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y - node_distance.y/2 * node_size.y,
-            (child.data.final_x * (1 + node_distance.x) + 1/2) * node_size.x * 2 + 10,
+            (child.data.final_x * (1+1.8 + node_distance.x) + 1) * node_size.x + 10,
             (node.data.y) * (1 + node_distance.y) * node_size.y + node_size.y + node_distance.y * node_size.y,
         )
         }else{
@@ -470,18 +464,40 @@ export const vis = (s) => {
       y: onMouse ? (s.mouseY - hovered_node_pos.y) : (s.height / 2),
     };
 
-    if(s.focusTween === undefined || s.focusTween === null)
-      s.focusTween = new TWEEN.Tween(offset)
-          .to({x: - node.data.final_x * (1 + node_distance.x) * 2 * node_size.x + s.width  / 2, y: - node.data.y * (1 + node_distance.y) * node_size.y + s.height / 4, zoom: 1}, 300)
-          .easing(TWEEN.Easing.Quadratic.Out)
-          .onComplete(
+    let target_offset = {
+      x: 0,
+      y: - node.data.y * (1 + node_distance.y) * node_size.y + s.height / 4,
+      zoom: 1
+    }
+
+    if(!s.show_simple){
+      target_offset.x = - node.data.final_x * (1 + 1.8 + node_distance.x) * node_size.x + s.width  / 2
+    }else{
+      target_offset.x = - node.data.final_x * (1 + node_distance.x) * node_size.x + s.width  / 2
+    }
+
+    // target_offset.x = offset.x
+
+
+    if(s.focusTween === undefined ){
+      s.focusTween = null
+      offset = target_offset
+    }
+    else if(s.focusTween === null){
+        console.log("start",offset)
+        s.focusTween = new TWEEN.Tween(offset)
+          .to(target_offset, 50)
+          .easing(TWEEN.Easing.Linear.None)
+        s.focusTween.start()
+        s.focusTween.onComplete(
           ()=>{
             s.focusTween = null
-          }).start()
+          })
+        s.focusTween.onUpdate((obj)=>{console.log(obj)})
+    }
 
-    // offset.x = - node.data.final_x * (1 + node_distance.x) * node_size.x + s.width  / 2;// + centered.x;
-    // offset.y = - node.data.y       * (1 + node_distance.y) * node_size.y + s.height / 2;// + centered.y;
-    // offset.zoom = 1;
+
+
   }
 
   s.setInteractive = (interactive)=>{
@@ -525,14 +541,14 @@ export const vis = (s) => {
 
   s.handleHover = () => {
     if (s.mouseX > 0 && s.mouseY > 0 && s.mouseX < s.width && s.mouseY < s.height && s.tree) {
-      for (var i = 0; i < s.tree.nodes.length; i++) {
+      for (let i = 0; i < s.tree.nodes.length; i++) {
         let node = s.tree.nodes[i];
         let bounds = {};
         if(!s.show_simple)
         bounds = {
-          x_min:  (node.data.final_x * (1 + node_distance.x) * node_size.x * 2) * offset.zoom + offset.x,
+          x_min:  (node.data.final_x * (1 + 1.8 + node_distance.x) * node_size.x) * offset.zoom + offset.x,
           y_min:  (node.data.y       * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
-          width:  node_size.x * 1.8 * offset.zoom,
+          width:  node_size.x * 2.8 * offset.zoom,
           height: node_size.y * offset.zoom
         };
         else
