@@ -1,4 +1,19 @@
 
+export const ActionColor = {
+    Selection: "#B41E1E",
+    selection: "#B41E1E",
+    PSelection: "#df745a",
+    pselection: "#df745a",
+    BackPropagation: "#1E1EB4",
+    backPropagation: "#1E1EB4",
+    backpropagation:"#1E1EB4",
+    Expansion: "#1EB41E",
+    expansion: "#1EB41E",
+    Simulation: "#1EB4B4",
+    simulation: "#1EB4B4",
+    White: "#FFFFFF"
+  }
+
 export const vis = (s) => {
   s.show_simple = true;
   s.info_duration = 30;
@@ -431,7 +446,7 @@ export const vis = (s) => {
 
       for (let child of children) {
         if(child.data.expanded){
-          action_kind = "selection";
+          action_kind = "pselection";
         }
       }
 
@@ -440,27 +455,34 @@ export const vis = (s) => {
     // s.focusNode(node)
   }
 
+
+
   s.toggleActionColors = (action_kind) => {
     switch (action_kind) {
       case "selection":
         s.strokeWeight(1);
-        s.stroke(180, 30, 30);
-        s.fill(180, 30, 30);
+        s.stroke("#B41E1E");
+        s.fill("#B41E1E");
+        break;
+      case "pselection": // parent selection
+        s.strokeWeight(1);
+        s.stroke("#df745a");
+        s.fill("#df745a");
         break;
       case "backpropagation":
         s.strokeWeight(1);
-        s.stroke(30, 30, 180);
-        s.fill(30, 30, 180);
+        s.stroke("#1E1EB4");
+        s.fill("#1E1EB4");
         break;
       case "expansion":
         s.strokeWeight(1);
-        s.stroke(30, 180, 30);
-        s.fill(30, 180, 30);
+        s.stroke("#1EB41E");
+        s.fill("#1EB41E");
         break;
       case "simulation":
         s.strokeWeight(1);
-        s.stroke(30, 180, 180);
-        s.fill(30, 180, 180);
+        s.stroke("#1EB4B4");
+        s.fill("#1EB4B4");
         break;
       default:
         s.fill(0);

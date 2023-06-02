@@ -516,6 +516,9 @@
                     </div>
 
                     <script type="module">
+
+                        import {ActionColor} from "./mcts-viz/tree_vis.js";
+
                         window.make_random_board = (interactive, p5, show_action, min_step = 1) => {
 
                             interactive.reset()
@@ -526,13 +529,19 @@
                             p5.current_action = document.getElementById(show_action + "_current_action")
                             // console.log(show_action + "_current_action")
                             p5.current_action.textContent = action.kind
+                            p5.current_action.style.color = ActionColor[action.kind]
+                            p5.current_action.style.backgroundColor = ActionColor.White
                             // selection_interactive.clickVisualizeLastStep()
                         }
 
                         window.next_show_action = (interactive, p5, show_action) => {
                             if (interactive.have_board === true) {
                                 let action = interactive.nextUntil(show_action)
+                                if(action === null || action === undefined)
+                                    return
                                 p5.current_action.textContent = action.kind
+                                p5.current_action.style.color = ActionColor[action.kind]
+                                p5.current_action.style.backgroundColor = ActionColor.White
                             }
                         }
 
@@ -540,6 +549,10 @@
                             if (interactive.have_board === true) {
                                 let action = interactive.clickNextAction(true)
                                 p5.current_action.textContent = action.kind
+                                console.log(ActionColor[action.kind])
+                                console.log(action.kind)
+                                p5.current_action.style.color = ActionColor[action.kind]
+                                p5.current_action.style.backgroundColor = ActionColor.White
                             }
                         }
                     </script>
