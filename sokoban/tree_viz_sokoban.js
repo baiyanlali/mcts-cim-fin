@@ -24,7 +24,7 @@ export const vis_sokoban = (s) => {
 
     vis(s)
 
-    s.preload = () =>{
+    s.preload = () => {
         s.box = s.loadImage('image/sokoban/Box.png')
         s.destination = s.loadImage('image/sokoban/Destination.png')
         s.player = s.loadImage('image/sokoban/Player.png')
@@ -36,8 +36,8 @@ export const vis_sokoban = (s) => {
     s.setup = () => {
         s.originSetup()
         let canvas_id = s._userNode.id
-        s.mctsTimeoutSlider = s.select("#"+canvas_id+"_"+"mcts_timeout_slider");
-        s.mctsTimeoutSpan = s.select("#"+canvas_id+"_"+"mcts_timeout_span");
+        s.mctsTimeoutSlider = s.select("#" + canvas_id + "_" + "mcts_timeout_slider");
+        s.mctsTimeoutSpan = s.select("#" + canvas_id + "_" + "mcts_timeout_span");
 
         s.canvas_div = s._userNode
     };
@@ -75,7 +75,7 @@ export const vis_sokoban = (s) => {
                         break
                 }
 
-                if(object_on_current_tile!== null)
+                if (object_on_current_tile !== null)
                     s.image(object_on_current_tile, j * tile_size, i * tile_size, tile_size, tile_size)
             }
         }

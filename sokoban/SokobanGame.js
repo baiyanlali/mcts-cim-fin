@@ -22,9 +22,9 @@ function decide_emoji(mapcode) {
     return ret
 }
 
-const sketch_sokoban = (s) =>{
+const sketch_sokoban = (s) => {
 
-    s.preload = () =>{
+    s.preload = () => {
 
         s.box = s.loadImage('image/sokoban/Box.png')
         s.destination = s.loadImage('image/sokoban/Destination.png')
@@ -44,17 +44,17 @@ const sketch_sokoban = (s) =>{
         s.clear()
         s.hasSetup = true
 
-        if(s.onSetup !== null){
+        if (s.onSetup !== null) {
             s.onSetup(s.onSetupParams[0], s.onSetupParams[1])
         }
     }
 
-    s.draw = ()=>{
+    s.draw = () => {
     }
 
     s.drawBoard = (board, end) => {
 
-        if(s.hasSetup === false){
+        if (s.hasSetup === false) {
             s.onSetup = s.drawBoard
             s.onSetupParams = [board, end]
             return
@@ -63,7 +63,7 @@ const sketch_sokoban = (s) =>{
         // s.noSmooth()
 
         let tileNum = Math.max(board.length, board[0].length)
-        s.tileSize = (s.width - 20)/tileNum;
+        s.tileSize = (s.width - 20) / tileNum;
         s.clear()
         for (let i = 0; i < tileNum; i++) {
             for (let j = 0; j < tileNum; j++) {
@@ -79,7 +79,7 @@ const sketch_sokoban = (s) =>{
                         object_on_current_tile = s.wall
                         break
                     case SokobanTile.Box:
-                        if( s.hasEndPositions([i, j], end))
+                        if (s.hasEndPositions([i, j], end))
                             object_on_current_tile = s.boxEnd
                         else
                             object_on_current_tile = s.box
@@ -91,13 +91,13 @@ const sketch_sokoban = (s) =>{
                 }
 
 
-                if(object_on_current_tile!== null)
+                if (object_on_current_tile !== null)
                     s.image(object_on_current_tile, j * s.tileSize, i * s.tileSize, s.tileSize, s.tileSize)
             }
         }
     }
 
-    s.hasEndPositions = (pos, end)=>{
+    s.hasEndPositions = (pos, end) => {
         for (let i = 0; i < end.length; i++) {
             let end_position = end[i]
             if (end_position[0] === pos[0] && end_position[1] === pos[1]) return true
@@ -112,22 +112,24 @@ export default class SokobanGame {
     screen;
     screendiv;
     that;
+
     constructor(screenID = "") {
-        this.sokobanGame = new p5(sketch_sokoban, screenID+"p5_game")
+        this.sokobanGame = new p5(sketch_sokoban, screenID + "p5_game")
         // console.log(screenID+"p5_game")
         this.that = this;
         this.screenID = screenID;
         this.screen = screenID + "sokobangame"
-        this.screendiv =screenID + "sokobangamediv"
+        this.screendiv = screenID + "sokobangamediv"
         this.sokoban = new Sokoban()
         // this.show_board(this.sokoban.board)
         this.div = document.getElementById(this.screendiv)
 
-        this.div.onmouseover = ()=>{
+        this.div.onmouseover = () => {
             this.onMouseOver()
         }
-        this.div.onmouseout = () =>{
-            window.onkeydown = () => {}
+        this.div.onmouseout = () => {
+            window.onkeydown = () => {
+            }
         }
 
         this.onMakeAction = null
@@ -140,7 +142,7 @@ export default class SokobanGame {
         document.getElementById(this.screen + "_reset").style.display = "none"
         this.sokoban = new Sokoban()
         this.show_board(this.sokoban.board)
-        this.machineControlsArea = document.getElementById(this.screen+"_"+"machine_controls_area");
+        this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
     }
 
     onMouseOver() {
@@ -148,15 +150,15 @@ export default class SokobanGame {
         let that = this
         window.onkeydown = function (ev) {
 
-            if(that.sokoban.checkWin()) return true
+            if (that.sokoban.checkWin()) return true
 
-            if(ev.key === "w" || ev.key === "ArrowUp"){
+            if (ev.key === "w" || ev.key === "ArrowUp") {
                 that.makeAction(that.sokoban.UP)
-            }else if(ev.key === "s" || ev.key === "ArrowDown"){
+            } else if (ev.key === "s" || ev.key === "ArrowDown") {
                 that.makeAction(that.sokoban.DOWN)
-            }else if(ev.key === "a" || ev.key === "ArrowLeft"){
+            } else if (ev.key === "a" || ev.key === "ArrowLeft") {
                 that.makeAction(that.sokoban.LEFT)
-            }else if(ev.key==="d" || ev.key === "ArrowRight"){
+            } else if (ev.key === "d" || ev.key === "ArrowRight") {
                 that.makeAction(that.sokoban.RIGHT)
             }
 
@@ -164,19 +166,19 @@ export default class SokobanGame {
         }
     }
 
-    makeMove(action){
+    makeMove(action) {
         this.makeAction(action)
     }
 
 
-    makeAction(action){
-        this.sokoban.make_action(action, ()=>{
-            this.step ++
+    makeAction(action) {
+        this.sokoban.make_action(action, () => {
+            this.step++
         })
         this.show_board()
-        if(this.onMakeAction!==null)
+        if (this.onMakeAction !== null)
             this.onMakeAction(this)
-        if(this.sokoban.checkWin()){
+        if (this.sokoban.checkWin()) {
             // document.getElementById(this.screen).innerHTML +=
             //     "<br>Clear!<br>" +
             //     "<button id="+this.screen+"_reset type='submit'>Reset</button>"
@@ -184,8 +186,8 @@ export default class SokobanGame {
             this.show_result()
         }
 
-        if(this.machineControlsArea)
-        this.machineControlsArea.style.display=""
+        if (this.machineControlsArea)
+            this.machineControlsArea.style.display = ""
     }
 
     show_board() {
@@ -193,18 +195,18 @@ export default class SokobanGame {
         this.sokobanGame.drawBoard(this.sokoban.board, this.sokoban.end_positions)
     }
 
-    show_result = () =>{
-        document.getElementById(this.screen+"_reset").style.display = ""
-        $('#'+this.screen+'_step').text(this.step)
+    show_result = () => {
+        document.getElementById(this.screen + "_reset").style.display = ""
+        $('#' + this.screen + '_step').text(this.step)
         this.step = 0
     }
 
-    machineRandomMove=()=>{
+    machineRandomMove = () => {
         this.sokoban.makeRandomMove()
 
         this.show_board();
 
-        if(this.sokoban.checkWin()){
+        if (this.sokoban.checkWin()) {
             this.show_result()
             // document.getElementById(this.screen).innerHTML +=
             //     "<br>Clear!<br> Step used: " + this.step +
@@ -222,26 +224,26 @@ export default class SokobanGame {
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         interactive.setMCTS(monteCarlo, MCTS_search)
 
-        if(this.machineControlsArea)
-        this.machineControlsArea.style.display="none"
+        if (this.machineControlsArea)
+            this.machineControlsArea.style.display = "none"
 
         this.makeMove(MCTS_search.move)
         // this.endMove(MCTS_search.move.player)
     }
 
-    machineMctsMove=(interactive)=>{
+    machineMctsMove = (interactive) => {
         let monteCarlo = new SokobanMCTS(this.sokoban)
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
 
-        if(this.machineControlsArea)
-        this.machineControlsArea.style.display="none"
+        if (this.machineControlsArea)
+            this.machineControlsArea.style.display = "none"
 
         interactive.setMCTS(monteCarlo, MCTS_search)
     }
 
-    autoPlay = async (interactive)=>{
-        while (!this.sokoban.checkWin()){
+    autoPlay = async (interactive) => {
+        while (!this.sokoban.checkWin()) {
             this.makeMctsMove(interactive)
             await sleep(500)
         }
@@ -252,7 +254,7 @@ export default class SokobanGame {
         let result_http = ""
         for (let i = 0; i < this.sokoban.board.length; i++) {
             for (let j = 0; j < this.sokoban.board[0].length; j++) {
-                result_http += decide_emoji(this.sokoban.get_board_element([i,j]))
+                result_http += decide_emoji(this.sokoban.get_board_element([i, j]))
             }
             result_http += "<br>"
         }
@@ -261,6 +263,6 @@ export default class SokobanGame {
 
 }
 
-const sleep = (delay) => new Promise((resolve)=>setTimeout(resolve, delay))
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
 

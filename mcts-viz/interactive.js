@@ -48,32 +48,32 @@ class TTTInteractive {
                 this.updateInterface();
                 this.sendDrawTree(null);
 
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = true;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = true;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = true;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = true;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = true;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = true;
                 break;
             case VisualizationStates.VISUALIZING:
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = false;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = false;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = false;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = false;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = false;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = false;
                 break;
             case VisualizationStates.LAST_STEP:
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = true;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = true;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = true;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = true;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = true;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = false;
                 break;
         }
     }
 
 
     setupInteractive() {
-        document.getElementById(this.id+"_"+"btn_next_action").addEventListener("click", this.clickNextAction);
-        document.getElementById(this.id+"_"+"btn_next_iteration").addEventListener("click", this.clickNextIteration);
-        document.getElementById(this.id+"_"+"btn_last_step").addEventListener("click", this.clickVisualizeLastStep);
-        document.getElementById(this.id+"_"+"btn_make_play").addEventListener("click", this.clickMakePlay);
+        document.getElementById(this.id + "_" + "btn_next_action").addEventListener("click", this.clickNextAction);
+        document.getElementById(this.id + "_" + "btn_next_iteration").addEventListener("click", this.clickNextIteration);
+        document.getElementById(this.id + "_" + "btn_last_step").addEventListener("click", this.clickVisualizeLastStep);
+        document.getElementById(this.id + "_" + "btn_make_play").addEventListener("click", this.clickMakePlay);
         this.transitionToState(VisualizationStates.NONE);
     }
 
@@ -117,10 +117,10 @@ class TTTInteractive {
             iteration_progress_bar = "(" + this.currentIterationIdx + "/" + (this.action_trace.length - 1) + ")";
         }
 
-        document.getElementById(this.id+"_"+"current_action_kind").innerHTML = action_kind;
-        document.getElementById(this.id+"_"+"current_action_kind").className = action_kind;
-        document.getElementById(this.id+"_"+"current_action_count").innerHTML = action_progress_bar;
-        document.getElementById(this.id+"_"+"current_iteration_count").innerHTML = iteration_progress_bar;
+        document.getElementById(this.id + "_" + "current_action_kind").innerHTML = action_kind;
+        document.getElementById(this.id + "_" + "current_action_kind").className = action_kind;
+        document.getElementById(this.id + "_" + "current_action_count").innerHTML = action_progress_bar;
+        document.getElementById(this.id + "_" + "current_iteration_count").innerHTML = iteration_progress_bar;
     }
 
 
@@ -192,7 +192,7 @@ class TTTInteractive {
 // CONTROL
 
 
-    clickNextAction=(send_tree = true)=> {
+    clickNextAction = (send_tree = true) => {
         if (this.isLastStep()) {
             this.transitionToState(VisualizationStates.LAST_STEP);
             return;
@@ -220,7 +220,7 @@ class TTTInteractive {
     }
 
 
-    clickNextIteration= (send_tree = true)=> {
+    clickNextIteration = (send_tree = true) => {
         if (this.isLastStep()) {
             this.transitionToState(VisualizationStates.LAST_STEP);
             return;
@@ -235,7 +235,7 @@ class TTTInteractive {
     }
 
 
-    clickVisualizeLastStep=()=> {
+    clickVisualizeLastStep = () => {
         for (var i = this.currentIterationIdx; i < this.action_trace.length; i++) {
             this.clickNextIteration(this.send_tree = false);
         }
@@ -255,13 +255,13 @@ class TTTInteractive {
         this.tree_vis_p5.focusNode(this.tree_vis_p5.tree.getRoot());
     }
 
-    nextUntil = (until = "selection")=>{
+    nextUntil = (until = "selection") => {
         let action = this.clickNextAction(false)
-        if(action===undefined)return action
+        if (action === undefined) return action
 
-        while (action.kind!==until){
+        while (action.kind !== until) {
             action = this.clickNextAction(false)
-            if(action===undefined)return action
+            if (action === undefined) return action
         }
 
 
@@ -272,17 +272,17 @@ class TTTInteractive {
     }
 
 
-    clickMakePlay=()=> {
+    clickMakePlay = () => {
         this.myp5.makeMove(this.best_move);
         this.myp5.endMove(this.best_move.player);
         this.transitionToState(VisualizationStates.NONE);
     }
 
-    makeFakePlay = () =>{
+    makeFakePlay = () => {
         this.myp5.makeFakeMove(this.best_move);
     }
 
-    reset = ()=>{
+    reset = () => {
         this.transitionToState(VisualizationStates.NONE)
     }
 
@@ -292,7 +292,7 @@ class TTTInteractive {
             && this.currentActionIdx === this.action_trace[this.action_trace.length - 1].length - 1;
     }
 
-    toggleCollapse=(node)=> {
+    toggleCollapse = (node) => {
         let reconstructed_node = this.reconstructed_tree.nodes.find((f) => f.data.action_id == node.data.action_id);
         reconstructed_node.data.collapsed = !reconstructed_node.data.collapsed;
 

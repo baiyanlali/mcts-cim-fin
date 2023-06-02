@@ -9,14 +9,14 @@
 
 Array.prototype.indexOf = function (val) {
     for (let i = 0; i < this.length; i++) {
-        if(this[i] == val) return i;
+        if (this[i] == val) return i;
     }
     return -1;
 }
 
 Array.prototype.remove = function (val) {
     let index = this.indexOf(val);
-    if(index>-1){
+    if (index > -1) {
         this.splice(index, 1)
     }
 }
@@ -50,7 +50,7 @@ class SokobanMCTS {
         this.tree = new Tree(root);
     }
 
-    runSearch(iterations=50) {
+    runSearch(iterations = 50) {
         // let end = Date.now() + timeout * 1000;
         let trace = [];
 
@@ -112,7 +112,7 @@ class SokobanMCTS {
         if (model.checkWin() === false) {
             let legalPositions = this.getAvailablePlays(node);
             // let randomPos = legalPositions[myp5.round(myp5.random(legalPositions.length - 1))];
-            let randomMove = legalPositions[Math.floor(Math.random()*legalPositions.length)];
+            let randomMove = legalPositions[Math.floor(Math.random() * legalPositions.length)];
 
             model2 = model.copy()
             model2.makeMove(randomMove);
@@ -142,7 +142,7 @@ class SokobanMCTS {
 
         while (model.checkWin() === false) {
             model.makeRandomMove()
-            step ++
+            step++
         }
 
         // while (current_hole === next_hole) {
@@ -187,9 +187,9 @@ class SokobanMCTS {
             // }
 
             //这里切换backpropagate的算法，目前随便写一个
-            if(winner===true){
+            if (winner === true) {
                 node.data.value -= step * 0.5
-            }else{
+            } else {
                 node.data.value -= 0.1
             }
 
@@ -241,7 +241,7 @@ class SokobanMCTS {
         //     return !explored;
         // });
         let parent = null
-        if(node!==this.tree.getRoot()){
+        if (node !== this.tree.getRoot()) {
             parent = this.tree.getParent(node)
         }
         let parent_sokoban = node.data.sokoban
@@ -252,10 +252,10 @@ class SokobanMCTS {
             return !explored;
         })
         //如果只剩下一条路可走，就走这一条路
-        if(available_play.length<=1)return available_play
+        if (available_play.length <= 1) return available_play
         //否则就不允许走回头路
-        return available_play.filter((dir)=>{
-            if(parent===null)return true
+        return available_play.filter((dir) => {
+            if (parent === null) return true
             let current_tmp = node.data.sokoban.copy()
             current_tmp.make_action(dir)
 

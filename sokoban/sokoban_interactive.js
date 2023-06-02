@@ -35,32 +35,32 @@ class SokobanInteractive {
                 this.updateInterface();
                 this.sendDrawTree(null);
 
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = true;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = true;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = true;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = true;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = true;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = true;
                 break;
             case VisualizationStates.VISUALIZING:
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = false;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = false;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = false;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = false;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = false;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = false;
                 break;
             case VisualizationStates.LAST_STEP:
-                document.getElementById(this.id+"_"+"btn_next_iteration").disabled = true;
-                document.getElementById(this.id+"_"+"btn_next_action").disabled = true;
-                document.getElementById(this.id+"_"+"btn_last_step").disabled = true;
-                document.getElementById(this.id+"_"+"btn_make_play").disabled = false;
+                document.getElementById(this.id + "_" + "btn_next_iteration").disabled = true;
+                document.getElementById(this.id + "_" + "btn_next_action").disabled = true;
+                document.getElementById(this.id + "_" + "btn_last_step").disabled = true;
+                document.getElementById(this.id + "_" + "btn_make_play").disabled = false;
                 break;
         }
     }
 
 
     setupInteractive() {
-        document.getElementById(this.id+"_"+"btn_next_action").addEventListener("click", this.clickNextAction);
-        document.getElementById(this.id+"_"+"btn_next_iteration").addEventListener("click", this.clickNextIteration);
-        document.getElementById(this.id+"_"+"btn_last_step").addEventListener("click", this.clickVisualizeLastStep);
-        document.getElementById(this.id+"_"+"btn_make_play").addEventListener("click", this.clickMakePlay);
+        document.getElementById(this.id + "_" + "btn_next_action").addEventListener("click", this.clickNextAction);
+        document.getElementById(this.id + "_" + "btn_next_iteration").addEventListener("click", this.clickNextIteration);
+        document.getElementById(this.id + "_" + "btn_last_step").addEventListener("click", this.clickVisualizeLastStep);
+        document.getElementById(this.id + "_" + "btn_make_play").addEventListener("click", this.clickMakePlay);
         this.transitionToState(VisualizationStates.NONE);
     }
 
@@ -104,10 +104,10 @@ class SokobanInteractive {
             iteration_progress_bar = "(" + this.currentIterationIdx + "/" + (this.action_trace.length - 1) + ")";
         }
 
-        document.getElementById(this.id+"_"+"current_action_kind").innerHTML = action_kind;
-        document.getElementById(this.id+"_"+"current_action_kind").className = action_kind;
-        document.getElementById(this.id+"_"+"current_action_count").innerHTML = action_progress_bar;
-        document.getElementById(this.id+"_"+"current_iteration_count").innerHTML = iteration_progress_bar;
+        document.getElementById(this.id + "_" + "current_action_kind").innerHTML = action_kind;
+        document.getElementById(this.id + "_" + "current_action_kind").className = action_kind;
+        document.getElementById(this.id + "_" + "current_action_count").innerHTML = action_progress_bar;
+        document.getElementById(this.id + "_" + "current_iteration_count").innerHTML = iteration_progress_bar;
     }
 
 

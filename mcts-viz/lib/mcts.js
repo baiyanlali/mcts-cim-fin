@@ -12,14 +12,14 @@ class AlgAction {
 }
 
 class MCTS {
-    constructor(model, player=PLAYER.MACHINE) {
+    constructor(model, player = PLAYER.MACHINE) {
         this.model = model;
 
         let root = new Node(new GameNode(new GameMove(getOtherPlayer(player), null)));
         this.tree = new Tree(root);
     }
 
-    runSearch(iterations=50) {
+    runSearch(iterations = 50) {
         // let end = Date.now() + timeout * 1000;
         let trace = [];
 
@@ -83,8 +83,8 @@ class MCTS {
             let randomPos = legalPositions[myp5.round(myp5.random(legalPositions.length - 1))];
 
             let otherPlayer = getOtherPlayer(node.data.move.player);
-            
-            let randomMove = new GameMove(otherPlayer, randomPos); 
+
+            let randomMove = new GameMove(otherPlayer, randomPos);
             model.makeMove(randomMove);
 
             expandedNode = new Node(new GameNode(randomMove));
@@ -98,7 +98,8 @@ class MCTS {
         return {
             node: expandedNode,
             model: model,
-            actions: actions};
+            actions: actions
+        };
     }
 
     simulate(node, model) {
@@ -130,14 +131,14 @@ class MCTS {
         node.data.simulations += 1;
         if (!node.isRoot()) {
             if ((node.data.move.player == PLAYER.MACHINE && winner == "m") ||
-                (node.data.move.player == PLAYER.HUMAN   && winner == "h")) {
+                (node.data.move.player == PLAYER.HUMAN && winner == "h")) {
                 node.data.value += 1;
             }
             if ((node.data.move.player == PLAYER.MACHINE && winner == "h") ||
-                (node.data.move.player == PLAYER.HUMAN   && winner == "m")) {
+                (node.data.move.player == PLAYER.HUMAN && winner == "m")) {
                 node.data.value -= 1;
             }
-        
+
             actions = actions.concat(this.backpropagate(this.tree.getParent(node), winner).actions);
         }
 
