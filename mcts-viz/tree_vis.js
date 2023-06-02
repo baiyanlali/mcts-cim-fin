@@ -416,6 +416,8 @@ export const vis = (s) => {
 
   s.toggleNodeColors = (node) => {
     let action_kind = "";
+
+
     if (node.data.selected) {
       action_kind = "selection";
     } else if (node.data.backpropagated) {
@@ -424,6 +426,15 @@ export const vis = (s) => {
       action_kind = "expansion";
     } else if (node.data.simulated) {
       action_kind = "simulation";
+    } else{
+      let children = s.tree.getChildren(node)
+
+      for (let child of children) {
+        if(child.data.expanded){
+          action_kind = "selection";
+        }
+      }
+
     }
     s.toggleActionColors(action_kind)
     // s.focusNode(node)
@@ -484,7 +495,7 @@ export const vis = (s) => {
       offset = target_offset
     }
     else if(s.focusTween === null){
-        console.log("start",offset)
+        // console.log("start",offset)
         s.focusTween = new TWEEN.Tween(offset)
           .to(target_offset, 50)
           .easing(TWEEN.Easing.Linear.None)
@@ -493,7 +504,7 @@ export const vis = (s) => {
           ()=>{
             s.focusTween = null
           })
-        s.focusTween.onUpdate((obj)=>{console.log(obj)})
+        // s.focusTween.onUpdate((obj)=>{console.log(obj)})
     }
 
 

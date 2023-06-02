@@ -25,6 +25,10 @@ class TicTacToeBoard {
         this.grid[move.position] = (move.player == PLAYER.HUMAN) ? "h" : "m";
     }
 
+    makeFakeMove(move){
+        this.grid[move.position] = (move.player === PLAYER.HUMAN) ? "fh" : "fm";
+    }
+
     makeGreedyMove(player){
         let legalMoves = this.getLegalPositions();
 

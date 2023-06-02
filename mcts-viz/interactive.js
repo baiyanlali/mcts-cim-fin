@@ -278,6 +278,10 @@ class TTTInteractive {
         this.transitionToState(VisualizationStates.NONE);
     }
 
+    makeFakePlay = () =>{
+        this.myp5.makeFakeMove(this.best_move);
+    }
+
     reset = ()=>{
         this.transitionToState(VisualizationStates.NONE)
     }

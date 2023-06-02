@@ -15,18 +15,18 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!-- MathJax javascript library and implementation file/s -->
-<!--        <script type="text/javascript" async-->
-<!--                src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">-->
-<!--        </script>-->
+    <!--        <script type="text/javascript" async-->
+    <!--                src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">-->
+    <!--        </script>-->
     <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
     <!--    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
     <!--    <script type="text/javascript" async-->
     <!--            src="./MathJax.js">-->
     <!--    </script>-->
 
-<!--    <script type="text/javascript" async-->
-<!--            src="./MathJaxIEEE.js">-->
-<!--    </script>-->
+    <!--    <script type="text/javascript" async-->
+    <!--            src="./MathJaxIEEE.js">-->
+    <!--    </script>-->
 
 
     <!-- Example chessboard immersive app -->
@@ -66,6 +66,7 @@
         ]
       }
     }
+
 
     </script>
 
@@ -515,11 +516,11 @@
                     </div>
 
                     <script type="module">
-                        window.make_random_board = (interactive, p5, show_action) => {
+                        window.make_random_board = (interactive, p5, show_action, min_step = 1) => {
 
                             interactive.reset()
                             interactive.have_board = true
-                            p5.random_board(1)
+                            p5.random_board(min_step)
                             p5.makeMctsMove(interactive)
                             let action = interactive.clickNextAction(show_action)
                             p5.current_action = document.getElementById(show_action + "_current_action")
@@ -559,22 +560,28 @@
                                     window.selection_tree_vis_p5 = new p5(vis, "selection_tree_vis");
                                     window.selection_interactive = new TTTInteractive(selection_tree_vis_p5, "selection", selection_p5)
                                     selection_interactive.setupInteractive()
+
+                                    window.selection_make_random_board = (interactive, p5, show_action) => {
+                                        make_random_board(interactive, p5, show_action)
+                                        selection_interactive.clickVisualizeLastStep()
+                                        selection_interactive.makeFakePlay()
+                                    }
                                 </script>
                                 <div id="selection"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_board(selection_interactive, selection_p5, 'selection')">
+                                        onclick="selection_make_random_board(selection_interactive, selection_p5, 'selection')">
                                     Make random board
                                 </button>
                                 <br>
                                 <br>
-                                <button class="four_procedure_btn"
+                                <button class="four_procedure_btn" style="display: none"
                                         onclick="next_show_action(selection_interactive, selection_p5, 'selection')">
                                     Next Selection
                                 </button>
                                 <br>
                                 <br>
-                                <button class="four_procedure_btn"
+                                <button class="four_procedure_btn" style="display: none"
                                         onclick="click_next_action(selection_interactive, selection_p5)">Next Step
                                 </button>
 
@@ -588,11 +595,11 @@
                                         MACHINE
                                     </button>
                                 </p>
-                                <p id="selection_whoseturn_area">
+                                <div id="selection_whoseturn_area" style="display: none">
                                     <b>Whose turn?</b> <span id="selection_whoseturn">HUMAN</span>
                                     <br>
-                                    <b>Current Action:</b> <span id="selection_current_action"></span>
-                                </p>
+                                    <b style="display: none">Current Action:</b> <span id="selection_current_action" style="display: none"></span>
+                                </div>
                                 <div id="selection_machine_controls_area">
                                     <b>Machine controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
@@ -715,7 +722,6 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
-
                                     window.expansion_p5 = new p5(s, "expansion")
                                     window.expansion_tree_vis_p5 = new p5(vis, "expansion_tree_vis");
                                     window.expansion_interactive = new TTTInteractive(expansion_tree_vis_p5, "expansion", expansion_p5)
@@ -728,7 +734,7 @@
                                 <div id="expansion"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion')">
+                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 5)">
                                     Make random board
                                 </button>
                                 <br>
@@ -1338,7 +1344,7 @@
 
                         <div class="four_procedure">
                             <div id="mcts-sokobangamediv" class="interactive-ttt-left">
-<!--                                <p>Game: <b>Sokoban</b></p>-->
+                                <!--                                <p>Game: <b>Sokoban</b></p>-->
 
                                 <p id="mcts-sokobangame"></p>
 

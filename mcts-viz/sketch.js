@@ -68,32 +68,55 @@ const s = (sketch) => {
   sketch.drawBoard = () => {
         sketch.translate(10, 10);
 
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                let isFake = false;
+
                 let tile = sketch.TTT_BOARD.grid[j + i*3];
                 let draw_tile = null
-                if (sketch.hoveredTile == (j + i*3) && currentGameState == GameStates.WAITING_HUMAN_MOVE
+                if (sketch.hoveredTile === (j + i*3) && currentGameState === GameStates.WAITING_HUMAN_MOVE
                     && sketch.TTT_BOARD.isLegalPosition(j + i*3)) {
                     sketch.fill(200, 200, 200);
-                } else if (tile == "h") {
+                } else if (tile === "h") {
                     // sketch.fill(100, 100, 240);
                     sketch.fill("#00cec9")
                     draw_tile = sketch.cross
-                } else if (tile == "m") {
+                } else if (tile === "m") {
                     sketch.fill("#fab1a0")
                     draw_tile = sketch.circle
                     // sketch.fill(240, 100, 100);
-                } else {
+                } else if (tile === "fh"){
+                    // sketch.fill("#0095ff")
+                    sketch.fill("#dfe6e9");
+                    draw_tile = sketch.cross
+                    isFake = true
+                } else if (tile === "fm"){
+                    // sketch.fill("#d00b0b")
+                    sketch.fill("#dfe6e9");
+                    draw_tile = sketch.circle
+                    isFake = true
+                }
+                else {
                     // sketch.fill(255, 255, 255);
                     sketch.fill("#dfe6e9");
                 }
 
+
+
                 sketch.rect(j * sketch.tileSize, i * sketch.tileSize, sketch.tileSize, sketch.tileSize);
 
                 if(draw_tile!==null)
+                {
+                    sketch.push()
+                    if(isFake)
+                        sketch.tint(255, 255, 255, 128);
+                    else
+                        sketch.tint(255, 255, 255, 255);
                     sketch.image(draw_tile, j * sketch.tileSize, i *  sketch.tileSize,  sketch.tileSize,  sketch.tileSize)
+                    sketch.pop()
+                }
 
-
+                sketch.tint(255, 255, 255, 255)
             }
         }
     }
@@ -184,7 +207,7 @@ const s = (sketch) => {
         sketch.TTT_BOARD = new TicTacToeBoard()
         sketch.whoseTurn = sketch.round(sketch.random(0, 1))
         sketch.selectStartingPlayer(sketch.whoseTurn)
-        let steps = Math.floor((Math.random()*(max_step+1)))
+        let steps = Math.floor((Math.random()*(max_step - min_step + 1))) + min_step
         let tmp_board = sketch.TTT_BOARD.copy()
         for (let i = 0; i < steps; i++) {
             tmp_board.makeRandomMove(sketch.whoseTurn)
@@ -255,7 +278,13 @@ const s = (sketch) => {
     sketch.onMakeMove = null
 
     sketch.makeMove = (move) => {
-        sketch.TTT_BOARD.makeMove(move);
+        sketch.TTT_BOARD.makeMove(move)
+        if(sketch.onMakeMove!==null)
+            sketch.onMakeMove(sketch)
+    }
+
+    sketch.makeFakeMove = (move) => {
+        sketch.TTT_BOARD.makeFakeMove(move)
         if(sketch.onMakeMove!==null)
             sketch.onMakeMove(sketch)
     }
