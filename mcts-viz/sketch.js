@@ -1,31 +1,14 @@
-/// <reference path="./lib/p5.global-mode.d.ts" />
-
-// let TTT_BOARD;
-// let canvas;
-//
-// var this.whoseTurn;
-// var this.hoveredTile = -1;
-// var this.tileSize;
-//
-// var this.whoseTurnSpan;
-// var this.machineControlsArea;
-// var this.whoseturnArea;
-// var this.startingPlayerArea;
-// var this.gameOverArea;
-// var this.gameOverWinner;
-// var this.mctsTimeoutSlider;
-// var this.mctsTimeoutSpan;
-
-const GameStates = Object.freeze({
+export const GameStates = Object.freeze({
     SELECT_STARTING_PLAYER: 0,
     WAITING_HUMAN_MOVE: 1,
     WAITING_MACHINE_MOVE: 2,
     GAME_OVER: 3,
     RUNNING_VIS: 4
 });
-var currentGameState;
 
-const s = (sketch) => {
+export var currentGameState;
+
+export const s = (sketch) => {
 
     sketch.preload = () => {
         sketch.circle = sketch.loadImage("image/tic-tac-toe/circle1.png")

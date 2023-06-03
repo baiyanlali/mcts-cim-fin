@@ -42,7 +42,7 @@
     <script type="module" src="./mcts-viz/tree_vis.js"></script>
     <script src="./mcts-viz/lib/tictactoe.js"></script>
     <script src="./mcts-viz/lib/mcts.js"></script>
-    <script src="./mcts-viz/sketch.js"></script>
+    <script type="module" src="./mcts-viz/sketch.js"></script>
     <script src="./sokoban/SokobanRepresentation.js"></script>
     <script src="./mcts-viz/TTTRepresentation.js"></script>
 
@@ -248,13 +248,17 @@
 
             <div class="framed">
 
-                <script>
-                    let myp5 = new p5(s, "show");
+                <script type="module">
+
+                    import {s, GameStates, currentGameState} from "./mcts-viz/sketch.js"
+
+                    window.myp5 = new p5(s, "show");
 
                     //common usage in game mod in order to change a function behaviour.
-                    let ori_state_trans = myp5.stateTransition
+                    window.ori_state_trans = myp5.stateTransition
 
-                    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+                    window.sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
 
                     myp5.stateTransition = async s => {
                         await ori_state_trans(s)
@@ -268,13 +272,13 @@
                         }
                     }
 
-                    const ttt_repre = new p5(ttt_representation, "ttt_repre")
+                    window.ttt_repre = new p5(ttt_representation, "ttt_repre")
 
                     myp5.onMakeMove = (s) => {
                         ttt_repre.board = s.TTT_BOARD.grid
                     }
 
-                    let after_setup = async () => {
+                    window.after_setup = async () => {
                         await sleep(1000)
                         ttt_repre.board = myp5.TTT_BOARD
                         ttt_repre.drawBoard()
@@ -564,6 +568,7 @@
                             <div class="interactive-ttt-left">
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s} from "./mcts-viz/sketch.js"
 
                                     window.selection_p5 = new p5(s, "selection")
 
@@ -738,6 +743,7 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s} from "./mcts-viz/sketch.js"
 
                                     window.expansion_p5 = new p5(s, "expansion")
                                     window.expansion_tree_vis_p5 = new p5(vis, "expansion_tree_vis");
@@ -905,6 +911,7 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s} from "./mcts-viz/sketch.js"
 
                                     window.simulation_p5 = new p5(s, "simulation")
                                     window.simulation_tree_vis_p5 = new p5(vis, "simulation_tree_vis");
@@ -1073,6 +1080,7 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s} from "./mcts-viz/sketch.js"
 
                                     window.backpropagration_p5 = new p5(s, "backpropagration")
                                     window.backpropagration_tree_vis_p5 = new p5(vis, "backpropagration_tree_vis");
@@ -1248,6 +1256,7 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s} from "./mcts-viz/sketch.js"
 
                                     window.vs_p5 = new p5(s, "vs")
                                     window.vs_tree_vis_p5 = new p5(vis, "vs_tree_vis");
