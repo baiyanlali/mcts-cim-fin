@@ -131,15 +131,12 @@ class TTTInteractive {
             if (!f.isLeaf()) f.data.should_show_collapse_btn = true;
         })
 
-        while (true) {
-            for (var i = 0; i < d_tree.nodes.length; i++) {
-                let parent = d_tree.getParent(d_tree.get(i));
-                if (parent && parent.data.collapsed) {
-                    d_tree.remove(d_tree.get(i));
-                    i = 0;
-                }
+        for (let i = 0; i < d_tree.nodes.length; i++) {
+            let parent = d_tree.getParent(d_tree.get(i));
+            if (parent && parent.data.collapsed) {
+                d_tree.remove(d_tree.get(i));
+                i = 0;
             }
-            break;
         }
 
         return prepareTree(d_tree, {min_distance: 1});
@@ -170,6 +167,16 @@ class TTTInteractive {
                 this.reconstructed_tree.get(action.node_id).data.action_id = this.totalActionsTillNow;
                 this.reconstructed_tree.get(action.node_id).data.expanded = true;
                 this.reconstructed_tree.get(action.node_id).data.collapsed = false;
+                break;
+            case "ksimulation":
+                let parent2 = this.reconstructed_tree.get(this.final_tree.getParent(this.final_tree.get(action.node_id)).id);
+                let simulated_node2 = new Node(new GameNode(this.final_tree.get(action.node_id).data.move.copy()))
+                this.reconstructed_tree.insert(simulated_node2, parent2);
+                // let simulated_node2 = new Node(new GameNode(this.reconstructed_tree.get(action.node_id).data.move.copy()));
+                simulated_node2.data.simulated_board = action.new_data.board.copy();
+                simulated_node2.data.simulated = true;
+                simulated_node2.data.collapsed = false;
+                // this.reconstructed_tree.insert(simulated_node2, this.reconstructed_tree.get(action.node_id));
                 break;
             case "simulation":
                 let simulated_node = new Node(new GameNode(this.reconstructed_tree.get(action.node_id).data.move.copy()));
@@ -234,6 +241,25 @@ class TTTInteractive {
         this.clickNextAction(send_tree); //last action sends the tree if necessary
     }
 
+    clickVisualizeSimulationLastStep = () => {
+        for (let i = this.currentIterationIdx; i < this.action_trace.length; i++) {
+            this.clickNextIteration(this.send_tree = false);
+        }
+
+        this.draw_tree = this.makeDrawTree(this.reconstructed_tree);
+
+        // this.draw_tree.nodes.forEach((node) => {
+        //     let reconstructed_node = this.reconstructed_tree.nodes.find((f) => f.data.action_id == node.data.action_id);
+        //     if (!reconstructed_node.isRoot()) {
+        //         reconstructed_node.data.collapsed = true;
+        //     }
+        // });
+
+        this.draw_tree = this.makeDrawTree(this.reconstructed_tree);
+        this.sendDrawTree(this.draw_tree);
+
+        this.tree_vis_p5.focusNode(this.tree_vis_p5.tree.getRoot());
+    }
 
     clickVisualizeLastStep = () => {
         for (var i = this.currentIterationIdx; i < this.action_trace.length; i++) {

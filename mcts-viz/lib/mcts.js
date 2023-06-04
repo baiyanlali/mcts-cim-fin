@@ -186,3 +186,70 @@ function UCB1(node, parent) {
     let exploration = Math.sqrt(2 * Math.log(parent.data.simulations) / node.data.simulations);
     return exploitation + exploration;
 }
+
+
+class MCTSSimulation extends MCTS {
+    constructor(model, player = PLAYER.MACHINE) {
+        super(model, player);
+    }
+
+    runSearch(iterations = 50) {
+        // let end = Date.now() + timeout * 1000;
+
+        let current_node = this.tree.get(0)
+
+        let current_model = this.model.copy()
+
+        let result = this.simulate(current_node, current_model);
+
+        let trace = result.actions
+
+        trace.push([new AlgAction("finish", current_node.id, null, null)]);
+        return {move: null, trace: trace};
+    }
+
+
+    simulate(node, model) {
+        let currentNode = node;
+        let currentPlayer = currentNode.data.move.player;
+        let actions = []
+        let cnt = 1
+
+        while (model.checkWin() === "") {
+
+            console.log(model.copy().grid)
+
+            currentPlayer = getOtherPlayer(currentPlayer);
+            let move = model.makeRandomMove(currentPlayer)
+            let winner_icon = model.checkWin()
+            let newNode = new Node(new GameNode(new GameMove(currentPlayer, move)))
+            this.tree.insert(newNode, currentNode)
+
+            // actions.push([new AlgAction(cnt===1? "expansion" : "ksimulation",cnt===1? newNode.id: currentNode.id, null, {
+            //     "result": winner_icon,
+            //     "board": model.copy()
+            // })])
+
+             actions.push([new AlgAction("ksimulation",newNode.id, null, {
+                "result": winner_icon,
+                "board": model.copy()
+             })])
+
+            currentNode = newNode
+            cnt ++
+        }
+
+        let winner_icon = model.checkWin();
+
+        // actions.push([new AlgAction("ksimulation", currentNode.id, null, {
+        //         "result": winner_icon,
+        //         "board": model.copy()
+        //     })])
+
+        return {
+            winner_icon: winner_icon,
+            actions: actions
+        };
+    }
+
+}

@@ -214,6 +214,21 @@ export const s = (sketch) => {
         sketch.endMove(PLAYER.MACHINE);
     }
 
+    sketch.makeSimulationMove = (interactive) => {
+        let monteCarlo = new MCTSSimulation(sketch.TTT_BOARD.copy(), sketch.whoseTurn);
+        let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value());
+        if (interactive !== undefined && interactive !== null) {
+            interactive.setMCTS(monteCarlo, MCTS_search)
+            sketch.stateTransition(GameStates.RUNNING_VIS)
+            sketch.whoseturnArea.show();
+            sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+            // interactive.clickVisualizeSimulationLastStep()
+        } else {
+            sketch.makeMove(MCTS_search.move)
+            sketch.endMove(MCTS_search.move.player)
+        }
+    }
+
     sketch.makeMctsMove = (interactive) => {
         let monteCarlo = new MCTS(sketch.TTT_BOARD.copy(), sketch.whoseTurn);
         let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value());
@@ -226,7 +241,6 @@ export const s = (sketch) => {
             sketch.makeMove(MCTS_search.move)
             sketch.endMove(MCTS_search.move.player)
         }
-
     }
 
     sketch.machineMctsMove = (interactive) => {

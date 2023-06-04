@@ -19,6 +19,7 @@ class TicTacToeBoard {
         let randomMove = myp5.round(myp5.random(legalMoves.length - 1));
         let position = legalMoves[randomMove];
         this.makeMove(new GameMove(player, position));
+        return randomMove
     }
 
     makeMove(move) {
