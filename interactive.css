@@ -69,3 +69,7 @@
     margin: 5px;
     /*transform: translate(-50%)*/
 }
+
+.modified_text{
+    color: red;
+}
