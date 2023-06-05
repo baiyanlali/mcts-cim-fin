@@ -925,10 +925,11 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {vis_simulation} from "./mcts-viz/tree_viz_simulation.js";
                                     import {s} from "./mcts-viz/sketch.js"
 
                                     window.simulation_p5 = new p5(s, "simulation")
-                                    window.simulation_tree_vis_p5 = new p5(vis, "simulation_tree_vis");
+                                    window.simulation_tree_vis_p5 = new p5(vis_simulation, "simulation_tree_vis");
                                     window.simulation_interactive = new TTTInteractive(simulation_tree_vis_p5, "simulation", simulation_p5)
                                     simulation_p5.mouseClicked = () => {
                                     }

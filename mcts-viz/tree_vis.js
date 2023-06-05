@@ -26,8 +26,8 @@ export const vis = (s) => {
     let offset = {x: 20, y: 20, zoom: 1.00};
     let dragging = false;
     let lastMouse = {"x": 0, "y": 0};
-    let hovered_node_id = -1;
-    let hovered_node = null;
+    s.hovered_node_id = -1;
+    s.hovered_node = null;
     let hovered_node_pos = {x: 0, y: 0};
 
     let node_distance = {x: 0.5, y: 0.75};
@@ -48,7 +48,8 @@ export const vis = (s) => {
     }
 
     s.setup = () => {
-        s.textFont("Courier");
+        // s.textFont("Courier");
+        s.textFont("Times New Roman");
 
         s.canvas_div = s._userNode
 
@@ -70,7 +71,8 @@ export const vis = (s) => {
     s.draw = () => {
         TWEEN.update();
 
-        s.show_simple = !s.checkBox.checked()
+        if(s.checkBox)
+            s.show_simple = !s.checkBox.checked()
 
         s.handleHover();
 
@@ -100,7 +102,7 @@ export const vis = (s) => {
         s.textSize(textSize)
         s.fill(0)
 
-        if (hovered_node_id !== -1) {
+        if (s.hovered_node_id !== -1) {
             if (s.tween === null) {
                 s.tween = new TWEEN.Tween(s.info_position).to({y: 0}, s.info_duration).easing(TWEEN.Easing.Quadratic.In)
                 s.tween.start()
@@ -109,7 +111,7 @@ export const vis = (s) => {
                 })
             }
 
-            if (hovered_node.vis_txt === undefined) {
+            if (s.hovered_node.vis_txt === undefined) {
                 s.pop()
                 return
             }
@@ -118,21 +120,21 @@ export const vis = (s) => {
             s.rect(0, 0, 7 * textSize, 3 * textSize, 5)
 
             s.fill("#dfe6e9")
-            if (hovered_node.isRoot()) {
-                let visits = hovered_node.vis_txt
+            if (s.hovered_node.isRoot()) {
+                let visits = s.hovered_node.vis_txt
 
                 s.last_info = {
                     vis: visits,
                 }
 
                 s.textAlign(s.LEFT, s.TOP)
-                s.text(" vis:", 0, textSize);
+                s.text(" visit:", 0, textSize);
                 s.textAlign(s.RIGHT, s.TOP);
                 s.text(visits + " ", 7 * textSize, textSize);
             } else {
-                let uct = hovered_node.uct_txt
-                let value = hovered_node.val_txt
-                let visits = hovered_node.vis_txt
+                let uct = s.hovered_node.uct_txt
+                let value = s.hovered_node.val_txt
+                let visits = s.hovered_node.vis_txt
 
                 s.last_info = {
                     val: value,
@@ -144,9 +146,9 @@ export const vis = (s) => {
                     uct = "--";
                 }
                 s.textAlign(s.LEFT, s.TOP);
-                s.text(" val:", 0, 0);
-                s.text(" vis:", 0, textSize);
-                s.text(" uct:", 0, textSize * 2);
+                s.text(" value:", 0, 0);
+                s.text(" visit:", 0, textSize);
+                s.text(" uct:  ", 0, textSize * 2);
                 s.textAlign(s.RIGHT, s.TOP);
                 s.text(value + " ", 7 * textSize, 0);
                 s.text(visits + " ", 7 * textSize, textSize);
@@ -162,7 +164,7 @@ export const vis = (s) => {
                 })
             }
 
-            if (hovered_node == null || s.last_info === null) {
+            if (s.hovered_node == null || s.last_info === null) {
                 s.pop()
                 return
             }
@@ -172,7 +174,7 @@ export const vis = (s) => {
             s.rect(0, 0, 7 * textSize, 3 * textSize, 5)
 
             s.fill("#dfe6e9")
-            if (hovered_node.isRoot()) {
+            if (s.hovered_node.isRoot()) {
                 let visits = s.last_info.vis
                 s.textAlign(s.LEFT, s.TOP)
                 s.text(" vis:", 0, textSize);
@@ -186,9 +188,9 @@ export const vis = (s) => {
                     uct = "--";
                 }
                 s.textAlign(s.LEFT, s.TOP);
-                s.text(" val:", 0, 0);
-                s.text(" vis:", 0, textSize);
-                s.text(" uct:", 0, textSize * 2);
+                s.text(" value:", 0, 0);
+                s.text(" visit:", 0, textSize);
+                s.text(" uct:  ", 0, textSize * 2);
                 s.textAlign(s.RIGHT, s.TOP);
                 s.text(value + " ", 7 * textSize, 0);
                 s.text(visits + " ", 7 * textSize, textSize);
@@ -337,7 +339,7 @@ export const vis = (s) => {
         let tile_size = node_size.x / 3;
 
 
-        if (node.id == hovered_node_id) {
+        if (node.id == s.hovered_node_id) {
             s.fill(200);
         } else {
             s.fill(255)
@@ -379,7 +381,7 @@ export const vis = (s) => {
             }
 
 
-            if (node === hovered_node) {
+            if (node === s.hovered_node) {
                 node.uct_txt = uct
                 node.vis_txt = visits
                 node.val_txt = value
@@ -397,7 +399,7 @@ export const vis = (s) => {
                 s.text("  " + uct + " ", text_width + node_size.x, 2 * (node_size.y) / 4);
             }
         } else {
-            if (node === hovered_node) {
+            if (node === s.hovered_node) {
                 node.vis_txt = visits
                 node.val_txt = value
             }
@@ -538,8 +540,8 @@ export const vis = (s) => {
         lastMouse.x = s.mouseX;
         lastMouse.y = s.mouseY;
 
-        if (hovered_node_id != -1) {
-            let pressed_node = s.tree.get(hovered_node_id);
+        if (s.hovered_node_id != -1) {
+            let pressed_node = s.tree.get(s.hovered_node_id);
             s.interactive.toggleCollapse(pressed_node);
         }
     }
@@ -589,8 +591,8 @@ export const vis = (s) => {
                 if (s.mouseX > bounds.x_min && s.mouseY > bounds.y_min
                     && s.mouseX < (bounds.x_min + bounds.width)
                     && s.mouseY < (bounds.y_min + bounds.height)) {
-                    hovered_node_id = node.id;
-                    hovered_node = node;
+                    s.hovered_node_id = node.id;
+                    s.hovered_node = node;
                     hovered_node_pos = {
                         x: s.mouseX - bounds.x_min,
                         y: s.mouseY - bounds.y_min
@@ -600,7 +602,7 @@ export const vis = (s) => {
             }
         }
 
-        hovered_node_id = -1;
+        s.hovered_node_id = -1;
         hovered_node_pos = {x: 0, y: 0};
     }
 };
