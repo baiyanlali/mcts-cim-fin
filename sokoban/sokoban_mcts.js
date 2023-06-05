@@ -48,6 +48,7 @@ class SokobanMCTS {
         this.model = model
         let root = new Node(new GameNodeSokoban(null, model.copy()));
         this.tree = new Tree(root);
+        this.stepPenalty = 5
     }
 
     runSearch(iterations = 50) {
@@ -137,22 +138,14 @@ class SokobanMCTS {
         let model = node.data.sokoban.copy()
         let step = 0
 
-        // let current_hole = model.checkFilledHoles()
-        // let next_hole = current_hole
-
         while (model.checkWin() === false) {
             model.makeRandomMove()
             step++
 
-            if(step>=1000)
+            if(step>=1000){
                 break
+            }
         }
-
-        // while (current_hole === next_hole) {
-        //     model.makeRandomMove()
-        //     next_hole = model.checkFilledHoles()
-        //     step ++
-        // }
 
         let winner_icon = model.checkWin()
 
@@ -169,8 +162,7 @@ class SokobanMCTS {
         };
     }
 
-    backpropagate(node, simulation) {
-        let step = simulation.step_used
+    backpropagate(node, simulation, step = 0) {
         let winner = simulation.winner_icon
         let actions = [];
         let action = new AlgAction("backpropagation", node.id, {
@@ -180,17 +172,14 @@ class SokobanMCTS {
 
         node.data.simulations += 1;
 
-        if (winner === true) {
-            node.data.value -= step * 0.5
-        } else {
-            node.data.value -= 0.1
-        }
 
-        node.data.value += simulation.win_step * 10
-        node.data.value -= simulation.box_distance
+        node.data.value -= node.data.sokoban.checkBoxDistance()
+        node.data.value += node.data.sokoban.checkFilledHoles()
+        node.data.value -= step
+
 
         if (!node.isRoot()) {
-            actions = actions.concat(this.backpropagate(this.tree.getParent(node), simulation).actions);
+            actions = actions.concat(this.backpropagate(this.tree.getParent(node), simulation, step + 1).actions);
         }
 
         action.new_data = {
@@ -207,33 +196,27 @@ class SokobanMCTS {
         return this.getAvailablePlays(node).length === 0;
     }
 
-    // getAvailablePlays(node, model) {
-    //     let children = this.tree.getChildren(node);
-    //
-    //     return model.get_legal_action().filter((pos) => {
-    //         let explored = children.find((child) => child.data.move.position === pos);
-    //         return !explored;
-    //     });
-    // }
+
+    getAvailablePlays(node){
+        let parent_sokoban = node.data.sokoban
+        let children = this.tree.getChildren(node)
+        // let children = this.tree.getSiblings(node)
+        // let children = this.tree.getChildren(this.tree.get(0))
+        //避免把自己也给算进去
+        // children.remove(node)
+
+        //重复的play情况是箱子和player位置一样
+        return parent_sokoban.get_legal_action().filter((dir) => {
+            let parent_sokoban_copy = parent_sokoban.copy()
+            parent_sokoban_copy.make_action(dir)
+            //判断整个棋盘是否相等
+            let explored = children.find((child) => child.data.sokoban.board.toString() === parent_sokoban_copy.board.toString());
+            return !explored;
+        });
+    }
 
     //parent状态也有可能会出现，所以在这里的children并不能只是node的children
-    getAvailablePlays(node) {
-        // let parent_sokoban = node.data.sokoban
-        // let children = this.tree.getChildren(node)
-        // // let children = this.tree.getSiblings(node)
-        // // let children = this.tree.getChildren(this.tree.get(0))
-        // //避免把自己也给算进去
-        // // children.remove(node)
-        //
-        // //重复的play情况是箱子和player位置一样
-        // return parent_sokoban.get_legal_action().filter((dir) => {
-        //     let parent_sokoban_copy = parent_sokoban.copy()
-        //     parent_sokoban_copy.make_action(dir)
-        //     children[0].data.move
-        //     //判断整个棋盘是否相等
-        //     let explored = children.find((child) => child.data.sokoban.board.toString() === parent_sokoban_copy.board.toString());
-        //     return !explored;
-        // });
+    getAvailablePlays2(node) {
         let parent = null
         if (node !== this.tree.getRoot()) {
             parent = this.tree.getParent(node)

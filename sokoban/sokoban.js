@@ -179,7 +179,7 @@ export default class Sokoban {
         for (let j = 0; j < box_positions.length; j++) {
             let min_dis = 6666666
             for (let i = 0; i < this.end_positions.length; i++) {
-                min_dis = Math.min(min_dis, this.end_positions[i][0] - box_positions[j][0] + this.end_positions[i][1] - box_positions[j][1])
+                min_dis = Math.min(min_dis, Math.abs(this.end_positions[i][0] - box_positions[j][0]) + Math.abs(this.end_positions[i][1] - box_positions[j][1]))
             }
             distance += min_dis
         }
