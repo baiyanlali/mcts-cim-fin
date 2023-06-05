@@ -18,7 +18,7 @@ export const sketch_sokoban_editor = (s) => {
     s.setup = () => {
         let canvasContainer = document.getElementById("editor_eee")
 
-        s.canvas = s.createCanvas(130, 130)
+        s.canvas = s.createCanvas(200, 200)
         // s.canvas.style = "border: solid 1px black;border-radius: 10px;"
         s.canvas.parent(canvasContainer)
         s.canvas.id("editororor")
@@ -201,13 +201,13 @@ export default class SokobanMapEditor {
         //         this.game.sokoban.board[i][j] = this.editor.board[i][j]
         //     }
         // }
-        console.log(this.editor.board)
+        // console.log(this.editor.board)
 
         let boxes = this.editor.board.flat().filter((p) => p === SokobanTile.Box)
         let ends = this.editor.board.flat().filter((p) => p === SokobanTile.End)
 
-        console.log(boxes)
-        console.log(ends)
+        // console.log(boxes)
+        // console.log(ends)
 
         if (boxes === null || boxes.length === 0) {
             window.alert("No box found!")
