@@ -143,6 +143,9 @@ class SokobanMCTS {
         while (model.checkWin() === false) {
             model.makeRandomMove()
             step++
+
+            if(step>=1000)
+                break
         }
 
         // while (current_hole === next_hole) {

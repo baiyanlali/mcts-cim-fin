@@ -16,7 +16,8 @@ export const SokobanTile = {
     Box: 2,
     End: 3,
     UNKNOWN: 4,
-    Player: 5
+    Player: 5,
+    OUTBOUND: 6
 }
 
 export default class Sokoban {
@@ -97,6 +98,7 @@ export default class Sokoban {
     }
 
     get_board_element(position) {
+        if (!this.check_bound(position)) return SokobanTile.Wall
         return this.board[position[0]][position[1]]
     }
 
@@ -114,31 +116,36 @@ export default class Sokoban {
         return direction
     }
 
+
     is_legal_action(dir) {
         const target_position = add(this.player_position, dir)
         //判断是否越界
         if (this.check_bound(target_position) === false) return false
         //判断是否撞墙
-        if (this.get_board_element(target_position) === 1) return false
+        if (this.get_board_element(target_position) === SokobanTile.Wall) return false
         //判断箱子是否靠着墙
-        if (this.get_board_element(target_position) === 2) {
+        if (this.get_board_element(target_position) === SokobanTile.Box) {
             // console.log("count shit!" + target_position)
             let pushable = false
-            for (let i = 2; i < this.board.length; i++) {
-                let pos = add(this.player_position, multiply(dir, i))
-                let pos_element = this.get_board_element(pos)
-                if (this.check_bound(pos) === false) break
-                if (pos_element === 0 || pos_element === 3) {
-                    pushable = true
-                    break
-                } else if (pos_element === 1) {
-                    pushable = false
-                    break
-                } else if (pos_element === 2) {
-                    continue
-                }
-
+            // for (let i = 2; i < this.board.length; i++) {
+            //     let pos = add(this.player_position, multiply(dir, i))
+            let pos = add(this.player_position, multiply(dir, 2))
+            let pos_element = this.get_board_element(pos)
+            // if(this.check_bound(pos)===false) return false
+            // if(this.check_bound(pos)===false)break
+            if (pos_element === SokobanTile.Empty || pos_element === SokobanTile.End) {
+                pushable = true
+                // break
+            } else if (pos_element === SokobanTile.Wall) {
+                pushable = false
+                // break
+            } else if (pos_element === SokobanTile.Box) {
+                pushable = false
+                // break
+                // continue
             }
+
+            // }
             // console.log("pushable is "+pushable)
             if (pushable === false) return false
         }
@@ -149,7 +156,9 @@ export default class Sokoban {
     checkWin() {
         for (let i = 0; i < this.end_positions.length; i++) {
             let end_pos = this.end_positions[i]
-            if (this.get_board_element(end_pos) !== 2) return false
+            if (this.get_board_element(end_pos) !== SokobanTile.Box) {
+                return false
+            }
         }
         return true
     }
@@ -158,11 +167,10 @@ export default class Sokoban {
         let cnt = 0
         for (let i = 0; i < this.end_positions.length; i++) {
             let end_pos = this.end_positions[i]
-            if (this.get_board_element(end_pos) === 2) cnt++
+            if (this.get_board_element(end_pos) === SokobanTile.Box) cnt++
         }
         return cnt
     }
-
 
     checkBoxDistance() {
         let distance = 0
@@ -196,7 +204,7 @@ export default class Sokoban {
         // console.log("move")
         const target_position = add(this.player_position, dir)
         let target_element = this.get_board_element(target_position)
-        if (target_element === 0 || target_element === 3) {
+        if (target_element === SokobanTile.Empty || target_element === SokobanTile.End) {
             this.set_board_element(target_position, 5)
             this.set_board_element(this.player_position, 0)
             this.player_position = target_position
@@ -211,7 +219,7 @@ export default class Sokoban {
 
         for (let i = 0; i < this.end_positions.length; i++) {
             let end = this.end_positions[i]
-            if (this.get_board_element(end) === 0) {
+            if (this.get_board_element(end) === SokobanTile.Empty) {
                 this.set_board_element(end, 3)
             }
         }
