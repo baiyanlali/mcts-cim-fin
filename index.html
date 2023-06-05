@@ -14,22 +14,8 @@
     <link rel="stylesheet" href="fonts/stylesheet.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- MathJax javascript library and implementation file/s -->
-    <script type="text/javascript" async
-            src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">
-    </script>
-    <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
-    <!--    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
-    <!--    <script type="text/javascript" async-->
-    <!--            src="./MathJax.js">-->
-    <!--    </script>-->
-
-    <!--    <script type="text/javascript" async-->
-    <!--            src="./MathJaxIEEE.js">-->
-    <!--    </script>-->
 
 
-    <!-- Example chessboard immersive app -->
     <script type="text/javascript" src="./jquery-3.5.1.js"></script>
 
 
@@ -46,16 +32,31 @@
     <script src="./sokoban/SokobanRepresentation.js"></script>
     <script src="./mcts-viz/TTTRepresentation.js"></script>
 
-    <link rel="stylesheet" href="./katex.min.css">
-    <script src="./katex.min.js"></script>
 
-    <script defer src="./auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script type="module" src="./katex.mjs"></script>
+<script src="./katex.min.js"></script>
+<link rel="stylesheet" href="./katex.min.css">
+<script type="module">
+    import renderMathInElement from "./auto-render.mjs";
+    renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+</script>
+
+
 
     <script src="./pseudocode.min.js" type="text/javascript"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="interactive.css">
     <link rel="stylesheet" type="text/css" href="pseudocode.min.css">
+    <link rel="stylesheet" type="text/css" href="interactive.css">
 
     <script type="text/json">
     {
@@ -66,12 +67,6 @@
         ]
       }
     }
-
-
-
-
-
-
     </script>
 
 </head>
@@ -320,7 +315,8 @@
                             </div>
 
                             <div id="show_machine_controls_area" style="display: none">
-                                <b>Machine controls:</b>
+                                <b class="modified_text">AI controls:</b>
+<!--                                <b class="modified_text">AI controls:</b>-->
                                 <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                     <button onclick="myp5.machineRandomMove()">Make random move</button>
                                     <br>
@@ -404,7 +400,7 @@
                                 soko_repre.drawBoard()
                             }
 
-                            after_setup()
+                            // after_setup()
 
 
                             sokobanGame.onMakeAction = (s) => {
@@ -639,7 +635,7 @@
                                                                                        style="display: none"></span>
                                 </div>
                                 <div id="selection_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <br>
                                         <button onclick="selection_p5.machineRandomMove()">Make random move</button>
@@ -806,7 +802,7 @@
                                     <b>Current Action:</b> <span id="expansion_current_action"></span>
                                 </p>
                                 <div id="expansion_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="expansion_p5.machineRandomMove()">Make random move</button>
                                         <br>
@@ -979,7 +975,7 @@
                                                                                        style="display: none"></span>
                                 </p>
                                 <div id="simulation_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="simulation_p5.machineRandomMove()">Make random move</button>
                                         <br>
@@ -1153,7 +1149,7 @@
                                     <b>Current Action:</b> <span id="backpropagation_current_action"></span>
                                 </p>
                                 <div id="backpropagration_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="backpropagration_p5.machineRandomMove()">Make random move
                                         </button>
@@ -1302,7 +1298,7 @@
                                     <b>Whose turn?</b> <span id="vs_whoseturn">HUMAN</span>
                                 </p>
                                 <div id="vs_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="vs_p5.machineRandomMove()">Make random move</button>
                                         <br>
@@ -1411,7 +1407,7 @@
 
 
                                 <div id="mcts-sokobangame_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="mcts_sokobanGame.machineRandomMove()">Make random move</button>
                                         <br>
@@ -1486,7 +1482,7 @@
 
                     <div>
                         <script type="module" src="./sokoban/tree_viz_sokoban.js"></script>
-                        <script type="module" src="./sokoban/SokobanGameMapEditor.js"></script>
+<!--                        <script type="module" src="./sokoban/SokobanGameMapEditor.js"></script>-->
                         <script type="module">
                             import {vis_sokoban} from "./sokoban/tree_viz_sokoban.js";
                             import SokobanGame from "./sokoban/SokobanGame.js";
@@ -1593,7 +1589,7 @@
 
 
                                 <div id="editor-sokobangame_machine_controls_area">
-                                    <b>Machine controls:</b>
+                                    <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="mcts_sokobanGame_editor.machineRandomMove()">Make random move
                                         </button>
@@ -1609,8 +1605,8 @@
                                         <br>
                                         Run MCTS for:
                                         <br>
-                                        <input id="soko_mcts_tree_vis_editor_mcts_timeout_slider" type="range" min="10"
-                                               max="2000" value="30" step="10"/>
+                                        <input id="soko_mcts_tree_vis_editor_mcts_timeout_slider" type="range" min="1000"
+                                               max="20000" value="10000" step="100"/>
                                         <br>
                                         <span id="soko_mcts_tree_vis_editor_mcts_timeout_span"><b>1</b></span>
                                         iterations

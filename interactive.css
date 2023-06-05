@@ -70,6 +70,10 @@
     /*transform: translate(-50%)*/
 }
 
+.modified_text{
+    color: red;
+}
+
 #editororor {
     display: inline-block;
     border: solid 1px black;
