@@ -782,7 +782,7 @@
                                 </button>
                                 <br>
                                 <br>
-                                <button class="four_procedure_btn"
+                                <button class="four_procedure_btn" style="display: none"
                                         onclick="click_next_action(expansion_interactive, expansion_p5)">Next Step
                                 </button>
 
@@ -1125,7 +1125,7 @@
                                 </button>
                                 <br>
                                 <br>
-                                <button class="four_procedure_btn"
+                                <button class="four_procedure_btn" style="display: none"
                                         onclick="click_next_action(backpropagration_interactive, backpropagration_p5)">
                                     Next Step
                                 </button>
@@ -1416,8 +1416,8 @@
                                         <br>
                                         Run MCTS for:
                                         <br>
-                                        <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="10"
-                                               max="2000" value="30" step="10"/>
+                                        <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="1000"
+                                               max="20000" value="10000" step="100"/>
                                         <br>
                                         <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1</b></span> iterations
                                     </div>

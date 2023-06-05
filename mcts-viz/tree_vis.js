@@ -48,8 +48,8 @@ export const vis = (s) => {
     }
 
     s.setup = () => {
-        // s.textFont("Courier");
-        s.textFont("Times New Roman");
+        s.textFont("Courier");
+        // s.textFont("Times New Roman");
 
         s.canvas_div = s._userNode
 
