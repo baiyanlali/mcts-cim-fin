@@ -54,9 +54,31 @@ export const sketch_sokoban_editor = (s) => {
         s.hoveredTile = -1;
     }
 
+    s.lastTile = [0, 0]
+
+    s.mouseDragged = (event) => {
+        if (!(s.mouseX > 0 && s.mouseY > 0 && s.mouseX < s.width && s.mouseY < s.height)) return true
+        // console.log("dragged!", event)
+        s.tileSize = (s.width - 20) / s.tileNum;
+
+        let tile_y = Math.floor(s.mouseX / s.tileSize)
+        let tile_x = Math.floor(s.mouseY / s.tileSize)
+
+        if(tile_x === s.lastTile[0] && tile_y === s.lastTile[1]){
+            return false
+        }
+
+        if (s.board[tile_x][tile_y] === SokobanTile.Player) return
+        s.board[tile_x][tile_y] += 1
+        if (s.board[tile_x][tile_y] === SokobanTile.UNKNOWN) s.board[tile_x][tile_y] = SokobanTile.Empty
+        s.lastTile = [tile_x, tile_y]
+        s.drawBoard()
+        return false
+    }
+
     s.mousePressed = () => {
         if (!(s.mouseX > 0 && s.mouseY > 0 && s.mouseX < s.width && s.mouseY < s.height)) return true
-        console.log("pressed!")
+        // console.log("pressed!")
         s.tileSize = (s.width - 20) / s.tileNum;
 
         let tile_y = Math.floor(s.mouseX / s.tileSize)
