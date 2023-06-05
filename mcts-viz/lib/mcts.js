@@ -215,8 +215,6 @@ class MCTSSimulation extends MCTS {
         let actions = []
         let cnt = 1
 
-        console.log(model.copy().grid)
-
 
         while (model.checkWin() === "") {
 
@@ -228,28 +226,16 @@ class MCTSSimulation extends MCTS {
             let newNode = new Node(new GameNode(new GameMove(currentPlayer, move)))
             this.tree.insert(newNode, currentNode)
 
-            // actions.push([new AlgAction(cnt===1? "expansion" : "ksimulation",cnt===1? newNode.id: currentNode.id, null, {
-            //     "result": winner_icon,
-            //     "board": model.copy()
-            // })])
-
              actions.push([new AlgAction("ksimulation",newNode.id, null, {
                 "result": winner_icon,
                 "board": model.copy()
              })])
-
-            console.log(model.copy().grid)
 
             currentNode = newNode
             cnt ++
         }
 
         let winner_icon = model.checkWin();
-
-        // actions.push([new AlgAction("ksimulation", currentNode.id, null, {
-        //         "result": winner_icon,
-        //         "board": model.copy()
-        //     })])
 
         return {
             winner_icon: winner_icon,
