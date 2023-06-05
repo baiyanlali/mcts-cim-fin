@@ -215,9 +215,12 @@ class MCTSSimulation extends MCTS {
         let actions = []
         let cnt = 1
 
+        console.log(model.copy().grid)
+
+
         while (model.checkWin() === "") {
 
-            console.log(model.copy().grid)
+
 
             currentPlayer = getOtherPlayer(currentPlayer);
             let move = model.makeRandomMove(currentPlayer)
@@ -234,6 +237,8 @@ class MCTSSimulation extends MCTS {
                 "result": winner_icon,
                 "board": model.copy()
              })])
+
+            console.log(model.copy().grid)
 
             currentNode = newNode
             cnt ++

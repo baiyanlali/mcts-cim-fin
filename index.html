@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!-- MathJax javascript library and implementation file/s -->
-    <!--        <script type="text/javascript" async-->
-    <!--                src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">-->
-    <!--        </script>-->
+            <script type="text/javascript" async
+                    src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">
+            </script>
     <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
     <!--    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
     <!--    <script type="text/javascript" async-->
@@ -539,29 +539,18 @@
                         }
 
                         window.make_random_simulation_board  = (interactive, p5, show_action, min_step = 1) => {
-
                             interactive.reset()
                             interactive.have_board = true
                             p5.random_board(min_step)
                             p5.makeSimulationMove(interactive)
-                            // p5.makeMctsMove(interactive)
-                            let action = interactive.clickNextAction(show_action)
-                            // console.log(action)
-                            if(!action) return
-                            p5.current_action = document.getElementById(show_action + "_current_action")
-                            // console.log(show_action + "_current_action")
-                            p5.current_action.textContent = action.kind
-                            p5.current_action.style.color = ActionColor[action.kind]
-                            p5.current_action.style.backgroundColor = ActionColor.White
-                            // selection_interactive.clickVisualizeLastStep()
                         }
 
                         window.click_simulation_next_action = (interactive, p5) => {
                             if (interactive.have_board === true) {
                                 let action = interactive.clickNextAction(true)
-                                p5.current_action.textContent = action.kind
-                                p5.current_action.style.color = ActionColor[action.kind]
-                                p5.current_action.style.backgroundColor = ActionColor.White
+                                // p5.current_action.textContent = action.kind
+                                // p5.current_action.style.color = ActionColor[action.kind]
+                                // p5.current_action.style.backgroundColor = ActionColor.White
                             }
                         }
 
@@ -580,8 +569,8 @@
                             if (interactive.have_board === true) {
                                 let action = interactive.clickNextAction(true)
                                 p5.current_action.textContent = action.kind
-                                console.log(ActionColor[action.kind])
-                                console.log(action.kind)
+                                // console.log(ActionColor[action.kind])
+                                // console.log(action.kind)
                                 p5.current_action.style.color = ActionColor[action.kind]
                                 p5.current_action.style.backgroundColor = ActionColor.White
                             }
@@ -956,13 +945,14 @@
                                 <br>
                                 <br>
                                 <button class="four_procedure_btn"
-                                        onclick="next_show_action(simulation_interactive, simulation_p5, 'simulation')">
+                                        onclick="next_show_action(simulation_interactive, simulation_p5, 'simulation')"
+                                        style="display: none;">
                                     Next Simulation
                                 </button>
                                 <br>
                                 <br>
                                 <button class="four_procedure_btn"
-                                        onclick="click_next_action(simulation_interactive, simulation_p5)">Next Step
+                                        onclick="click_simulation_next_action(simulation_interactive, simulation_p5)">Next Simulation
                                 </button>
 
                                 <p id="simulation_starting_player_area" style="display: none">
@@ -976,10 +966,10 @@
                                     </button>
                                 </p>
 
-                                <p id="simulation_whoseturn_area">
-                                    <b>Whose turn?</b> <span id="simulation_whoseturn">HUMAN</span>
+                                <p id="simulation_whoseturn_area" style="display: none">
+                                    <b style="display: none">Whose turn?</b> <span id="simulation_whoseturn" style="display: none">HUMAN</span>
                                     <br>
-                                    <b>Current Action:</b> <span id="simulation_current_action"></span>
+                                    <b style="display: none">Current Action:</b> <span id="simulation_current_action" style="display: none"></span>
                                 </p>
                                 <div id="simulation_machine_controls_area">
                                     <b>Machine controls:</b>
