@@ -122,14 +122,18 @@ export const vis = (s) => {
             s.fill("#dfe6e9")
             if (s.hovered_node.isRoot()) {
                 let visits = s.hovered_node.vis_txt
+                let value = s.hovered_node.val_txt
 
                 s.last_info = {
                     vis: visits,
+                    val: value
                 }
 
                 s.textAlign(s.LEFT, s.TOP)
+                s.text(" value:", 0, 0);
                 s.text(" visit:", 0, textSize);
                 s.textAlign(s.RIGHT, s.TOP);
+                s.text(value + " ", 7 * textSize, 0);
                 s.text(visits + " ", 7 * textSize, textSize);
             } else {
                 let uct = s.hovered_node.uct_txt
@@ -176,9 +180,12 @@ export const vis = (s) => {
             s.fill("#dfe6e9")
             if (s.hovered_node.isRoot()) {
                 let visits = s.last_info.vis
-                s.textAlign(s.LEFT, s.TOP)
+                let value = s.last_info.val
+                s.text(" value:", 0, 0);
                 s.text(" vis:", 0, textSize);
+                s.textAlign(s.LEFT, s.TOP)
                 s.textAlign(s.RIGHT, s.TOP);
+                s.text(value + " ", 7 * textSize, 0);
                 s.text(visits + " ", 7 * textSize, textSize);
             } else {
                 let uct = s.last_info.uct
@@ -406,10 +413,10 @@ export const vis = (s) => {
             if (!s.show_simple) {
 
                 s.textAlign(s.LEFT, s.TOP);
-                // s.text(" val: ", 0, 0);
+                s.text(" val: ", 0, 0);
                 s.text(" vis: ", 0, (node_size.y) / 4);
                 s.textAlign(s.RIGHT, s.TOP);
-                // s.text("  "+value + " ", 30 + node_size.x, 0);
+                s.text("  "+value + " ", text_width + node_size.x, 0);
                 s.text("  " + visits + " ", text_width + node_size.x, (node_size.y) / 4);
             }
 

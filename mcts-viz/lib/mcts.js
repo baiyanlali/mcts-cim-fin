@@ -129,16 +129,18 @@ class MCTS {
         }, null);
 
         node.data.simulations += 1;
-        if (!node.isRoot()) {
-            if ((node.data.move.player == PLAYER.MACHINE && winner == "m") ||
-                (node.data.move.player == PLAYER.HUMAN && winner == "h")) {
-                node.data.value += 1;
-            }
-            if ((node.data.move.player == PLAYER.MACHINE && winner == "h") ||
-                (node.data.move.player == PLAYER.HUMAN && winner == "m")) {
-                node.data.value -= 1;
-            }
 
+
+        if ((node.data.move.player == PLAYER.MACHINE && winner == "m") ||
+            (node.data.move.player == PLAYER.HUMAN && winner == "h")) {
+            node.data.value += 1;
+        }
+        if ((node.data.move.player == PLAYER.MACHINE && winner == "h") ||
+            (node.data.move.player == PLAYER.HUMAN && winner == "m")) {
+            node.data.value -= 1;
+        }
+
+        if (!node.isRoot()) {
             actions = actions.concat(this.backpropagate(this.tree.getParent(node), winner).actions);
         }
 
