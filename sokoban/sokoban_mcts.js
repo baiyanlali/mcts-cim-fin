@@ -179,26 +179,17 @@ class SokobanMCTS {
         }, null);
 
         node.data.simulations += 1;
+
+        if (winner === true) {
+            node.data.value -= step * 0.5
+        } else {
+            node.data.value -= 0.1
+        }
+
+        node.data.value += simulation.win_step * 10
+        node.data.value -= simulation.box_distance
+
         if (!node.isRoot()) {
-            // if ((node.data.move.player == PLAYER.MACHINE && winner == "m") ||
-            //     (node.data.move.player == PLAYER.HUMAN   && winner == "h")) {
-            //     node.data.value += 1;
-            // }
-            // if ((node.data.move.player == PLAYER.MACHINE && winner == "h") ||
-            //     (node.data.move.player == PLAYER.HUMAN   && winner == "m")) {
-            //     node.data.value -= 1;
-            // }
-
-            //这里切换backpropagate的算法，目前随便写一个
-            if (winner === true) {
-                node.data.value -= step * 0.5
-            } else {
-                node.data.value -= 0.1
-            }
-
-            node.data.value += simulation.win_step * 10
-            node.data.value -= simulation.box_distance
-
             actions = actions.concat(this.backpropagate(this.tree.getParent(node), simulation).actions);
         }
 
