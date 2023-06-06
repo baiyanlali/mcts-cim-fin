@@ -194,7 +194,7 @@ class SokobanMCTS {
             node.data.value += 1
         }
 
-        node.data.value += simulation.reward * 0.01
+        // node.data.value += simulation.reward * 0.01
         // else{
         //     node.data.value -= 1
         // }

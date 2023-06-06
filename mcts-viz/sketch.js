@@ -20,7 +20,7 @@ export const s = (sketch) => {
         sketch.tileSize = (sketch.width - 20) / 3;
         let canvas_id = sketch._userNode.id
         // console.log(canvas_id)
-        sketch.whoseTurnSpan = sketch.select("#" + canvas_id + "_" + "whoseturn");
+        // sketch.whoseTurnSpan = sketch.select("#" + canvas_id + "_" + "whoseturn");
         sketch.machineControlsArea = sketch.select("#" + canvas_id + "_" + "machine_controls_area");
         sketch.whoseturnArea = sketch.select("#" + canvas_id + "_" + "whoseturn_area");
         sketch.startingPlayerArea = sketch.select("#" + canvas_id + "_" + "starting_player_area");
@@ -118,12 +118,12 @@ export const s = (sketch) => {
             case GameStates.WAITING_HUMAN_MOVE:
                 sketch.whoseTurn = PLAYER.HUMAN;
                 sketch.whoseturnArea.show();
-                sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+                // sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
                 break;
             case GameStates.WAITING_MACHINE_MOVE:
                 sketch.whoseTurn = PLAYER.MACHINE;
                 sketch.whoseturnArea.show();
-                sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+                // sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
                 sketch.machineControlsArea.show();
                 break;
             case GameStates.RUNNING_VIS:
@@ -221,7 +221,7 @@ export const s = (sketch) => {
             interactive.setMCTS(monteCarlo, MCTS_search)
             sketch.stateTransition(GameStates.RUNNING_VIS)
             sketch.whoseturnArea.show();
-            sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+            // sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
             // interactive.clickVisualizeSimulationLastStep()
         } else {
             sketch.makeMove(MCTS_search.move)
@@ -236,7 +236,7 @@ export const s = (sketch) => {
             interactive.setMCTS(monteCarlo, MCTS_search)
             sketch.stateTransition(GameStates.RUNNING_VIS)
             sketch.whoseturnArea.show();
-            sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
+            // sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
         } else {
             sketch.makeMove(MCTS_search.move)
             sketch.endMove(MCTS_search.move.player)

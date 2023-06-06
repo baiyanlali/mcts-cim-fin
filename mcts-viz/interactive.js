@@ -261,6 +261,26 @@ class TTTInteractive {
         this.tree_vis_p5.focusNode(this.tree_vis_p5.tree.getRoot());
     }
 
+    clickVisualizeMideterStep = ()=>{
+        for (var i = this.currentIterationIdx; i < parseInt(this.action_trace.length / 2); i++) {
+            this.clickNextIteration(this.send_tree = false);
+        }
+
+        this.draw_tree = this.makeDrawTree(this.reconstructed_tree);
+
+        this.draw_tree.nodes.forEach((node) => {
+            let reconstructed_node = this.reconstructed_tree.nodes.find((f) => f.data.action_id == node.data.action_id);
+            if (!reconstructed_node.isRoot()) {
+                reconstructed_node.data.collapsed = true;
+            }
+        });
+
+        this.draw_tree = this.makeDrawTree(this.reconstructed_tree);
+        this.sendDrawTree(this.draw_tree);
+
+        this.tree_vis_p5.focusNode(this.tree_vis_p5.tree.getRoot());
+    }
+
     clickVisualizeLastStep = () => {
         for (var i = this.currentIterationIdx; i < this.action_trace.length; i++) {
             this.clickNextIteration(this.send_tree = false);

@@ -1,8 +1,8 @@
 import {vis} from "./tree_vis.js";
 
 const Player = {
-    0: "Human",
-    1: "AI"
+    0: "Player A",
+    1: "Player B"
 }
 
 export const vis_simulation = (s) => {
@@ -63,7 +63,7 @@ export const vis_simulation = (s) => {
             s.translate(node_size.x, 0);
             let winner_icon = node.data.simulated_board.checkWin();
             if (winner_icon === "") {
-                s.text(` Current Player: ${Player[node.data.move.player]}`, 0, node_size.y * 0.5)
+                s.text(` ${Player[node.data.move.player]}`, 0, node_size.y * 0.5)
             } else {
                 s.text(winner_icon === "v" ? "DRAW" : (" WINNER: " + winner_icon), 0, node_size.y * 0.5);
             }

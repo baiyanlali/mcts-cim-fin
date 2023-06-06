@@ -300,9 +300,9 @@
                             <p id="show_starting_player_area">
                                 <b>Who will play first?</b>
                                 <br>
-                                <button onclick="myp5.selectStartingPlayer(0)">HUMAN (You!)</button>
+                                <button onclick="myp5.selectStartingPlayer(0)">HUMAN</button>
                                 <br>
-                                <button onclick="myp5.selectStartingPlayer(1)">MACHINE</button>
+                                <button onclick="myp5.selectStartingPlayer(1)">AI</button>
                             </p>
 
                             <p id="show_whoseturn_area">
@@ -599,9 +599,10 @@
                                     selection_interactive.setupInteractive()
 
                                     window.selection_make_random_board = (interactive, p5, show_action) => {
-                                        make_random_board(interactive, p5, show_action)
-                                        selection_interactive.clickVisualizeLastStep()
-                                        selection_interactive.makeFakePlay()
+                                        make_random_board(interactive, p5, show_action, 3)
+                                        selection_interactive.clickVisualizeMideterStep()
+                                        selection_interactive.nextUntil("selection")
+                                        // selection_interactive.makeFakePlay()
                                     }
                                 </script>
                                 <div id="selection"></div>
@@ -612,28 +613,27 @@
                                 </button>
                                 <br>
                                 <br>
-                                <button class="four_procedure_btn" style="display: none"
+                                <button class="four_procedure_btn"
                                         onclick="next_show_action(selection_interactive, selection_p5, 'selection')">
-                                    Next Selection
+                                    Continue
                                 </button>
                                 <br>
                                 <br>
                                 <button class="four_procedure_btn" style="display: none"
-                                        onclick="click_next_action(selection_interactive, selection_p5)">Next Step
+                                        onclick="click_next_action(selection_interactive, selection_p5)">Continue
                                 </button>
 
                                 <p id="selection_starting_player_area">
                                     <b style="display: none">Who will start the game?</b>
                                     <br>
                                     <button onclick="selection_p5.selectStartingPlayer(0)" style="display: none">HUMAN
-                                        (You!)
                                     </button>
                                     <button onclick="selection_p5.selectStartingPlayer(1)" style="display: none">
-                                        MACHINE
+                                        AI
                                     </button>
                                 </p>
                                 <div id="selection_whoseturn_area" style="display: none">
-                                    <b>Whose turn?</b> <span id="selection_whoseturn">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="selection_whoseturn">HUMAN</span>
                                     <br>
                                     <b style="display: none">Current Action:</b> <span id="selection_current_action"
                                                                                        style="display: none"></span>
@@ -774,14 +774,14 @@
                                 <div id="expansion"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 5)">
+                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 3)">
                                     Make random board
                                 </button>
                                 <br>
                                 <br>
                                 <button class="four_procedure_btn"
                                         onclick="next_show_action(expansion_interactive, expansion_p5, 'expansion')">
-                                    Next Expansion
+                                    Continue
                                 </button>
                                 <br>
                                 <br>
@@ -794,16 +794,16 @@
                                     <b style="display: none">Who will start the game?</b>
                                     <br>
                                     <button onclick="expansion_p5.selectStartingPlayer(0)" style="display: none">HUMAN
-                                        (You!)
+
                                     </button>
                                     <button onclick="expansion_p5.selectStartingPlayer(1)" style="display: none">
-                                        MACHINE
+                                        AI
                                     </button>
                                 </p>
                                 <p id="expansion_whoseturn_area">
-                                    <b>Whose turn?</b> <span id="expansion_whoseturn">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="expansion_whoseturn" style="display: none">HUMAN</span>
                                     <br>
-                                    <b>Current Action:</b> <span id="expansion_current_action"></span>
+                                    <b style="display: none">Current Action:</b> <span id="expansion_current_action" style="display: none"></span>
                                 </p>
                                 <div id="expansion_machine_controls_area">
                                     <b class="modified_text">AI controls:</b>
@@ -868,7 +868,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 6:</b><br> Clicking "Next Expansion" will automatically move to the
+                    <div class="caption"><b>Figure 6:</b><br> Clicking "Continue" will automatically move to the
                         next expansion step in the Monte Carlo search.<br>
                         The expanded node is highlighted with a green border.
                     </div>
@@ -951,23 +951,23 @@
                                 <button class="four_procedure_btn"
                                         onclick="next_show_action(simulation_interactive, simulation_p5, 'simulation')"
                                         style="display: none;">
-                                    Next Simulation
+                                    Continue
                                 </button>
                                 <br>
                                 <br>
                                 <button class="four_procedure_btn"
                                         onclick="click_simulation_next_action(simulation_interactive, simulation_p5)">
-                                    Next Simulation
+                                    Continue
                                 </button>
 
                                 <p id="simulation_starting_player_area" style="display: none">
                                     <b style="display: none">Who will start the game?</b>
                                     <br>
                                     <button onclick="simulation_p5.selectStartingPlayer(0)" style="display: none">HUMAN
-                                        (You!)
+
                                     </button>
                                     <button onclick="simulation_p5.selectStartingPlayer(1)" style="display: none">
-                                        MACHINE
+                                        AI
                                     </button>
                                 </p>
 
@@ -1044,7 +1044,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 7:</b><br> Clicking "Next Simulation" will automatically move to the
+                    <div class="caption"><b>Figure 7:</b><br> Clicking "Continue" will automatically move to the
                         next simulation step in the MCTS.<br>
                         The node being simulated is connected with a dotted line.
                     </div>
@@ -1127,7 +1127,7 @@
                                 <br>
                                 <button class="four_procedure_btn"
                                         onclick="next_show_action(backpropagration_interactive, backpropagration_p5, 'backpropagation')">
-                                    Next Backpropagation
+                                    Continue
                                 </button>
                                 <br>
                                 <br>
@@ -1141,16 +1141,16 @@
                                     <b style="display: none">Who will start the game?</b>
                                     <br>
                                     <button onclick="backpropagration_p5.selectStartingPlayer(0)" style="display: none">
-                                        HUMAN (You!)
+                                        HUMAN
                                     </button>
                                     <button onclick="backpropagration_p5.selectStartingPlayer(1)" style="display: none">
-                                        MACHINE
+                                        AI
                                     </button>
                                 </p>
                                 <p id="backpropagration_whoseturn_area">
-                                    <b>Whose turn?</b> <span id="backpropagration_whoseturn">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="backpropagration_whoseturn" style="display: none">HUMAN</span>
                                     <br>
-                                    <b>Current Action:</b> <span id="backpropagation_current_action"></span>
+                                    <b style="display: none">Current Action:</b> <span id="backpropagation_current_action" style="display: none"></span>
                                 </p>
                                 <div id="backpropagration_machine_controls_area">
                                     <b class="modified_text">AI controls:</b>
@@ -1295,12 +1295,11 @@
                                 <p id="vs_starting_player_area">
                                     <b>Who will start the game?</b>
                                     <br>
-                                    <button onclick="vs_p5.selectStartingPlayer(0)">HUMAN (You!)</button>
-                                    <button onclick="vs_p5.selectStartingPlayer(1)">MACHINE</button>
+                                    <button onclick="vs_p5.selectStartingPlayer(0)">HUMAN</button>
+                                    <br>
+                                    <button onclick="vs_p5.selectStartingPlayer(1)">AI</button>
                                 </p>
-                                <p id="vs_whoseturn_area">
-                                    <b>Whose turn?</b> <span id="vs_whoseturn">HUMAN</span>
-                                </p>
+
                                 <div id="vs_machine_controls_area">
                                     <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
@@ -1318,6 +1317,9 @@
                                         <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
                                     </div>
                                 </div>
+                                <p id="vs_whoseturn_area">
+                                    <b>Current Player:</b> <br> <span id="vs_whoseturn">HUMAN</span>
+                                </p>
                                 <div id="vs_game_over_area">
                                     <b>The winner is...</b> <span id="vs_game_over_winner">HUMAN</span>!
                                     <br>
