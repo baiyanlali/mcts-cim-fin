@@ -138,14 +138,26 @@ class SokobanMCTS {
         let model = node.data.sokoban.copy()
         let step = 0
 
+        let lastStepDis = model.checkBoxDistance()
+        let reward = 0
+        // console.log("start")
         while (model.checkWin() === false) {
             model.makeRandomMove()
             step++
+
+            let newStepDis = model.checkBoxDistance()
+
+            reward += lastStepDis - newStepDis * 0.9
+            // console.log(lastStepDis, newStepDis, reward)
+
+            lastStepDis = newStepDis
 
             if(step>=1000){
                 break
             }
         }
+
+        console.log(reward, "===================================================")
 
         let winner_icon = model.checkWin()
 
@@ -158,7 +170,8 @@ class SokobanMCTS {
             actions: [new AlgAction("simulation", node.id, null, {
                 "result": winner_icon,
                 "board": model
-            })]
+            })],
+            reward: reward
         };
     }
 
@@ -173,13 +186,15 @@ class SokobanMCTS {
         node.data.simulations += 1;
 
 
-        // node.data.value -= node.data.sokoban.checkBoxDistance()
-        // node.data.value += node.data.sokoban.checkFilledHoles()
-        // node.data.value -= step
+        // node.data.value -= node.data.sokoban.checkBoxDistance() * 0.001
+        // // node.data.value += node.data.sokoban.checkFilledHoles() * 10
+        // node.data.value -= step * 0.001
 
         if(winner === true){
             node.data.value += 1
         }
+
+        node.data.value += simulation.reward * 0.01
         // else{
         //     node.data.value -= 1
         // }
