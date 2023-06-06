@@ -124,7 +124,9 @@ export const s = (sketch) => {
                 sketch.whoseTurn = PLAYER.MACHINE;
                 sketch.whoseturnArea.show();
                 // sketch.whoseTurnSpan.html(sketch.whoseTurn == PLAYER.HUMAN ? "HUMAN" : "MACHINE");
-                sketch.machineControlsArea.show();
+                // sketch.machineControlsArea.style.display = "flex"
+                sketch.machineControlsArea.show()
+                sketch.machineControlsArea.style('display', 'flex');
                 break;
             case GameStates.RUNNING_VIS:
                 sketch.machineControlsArea.hide();

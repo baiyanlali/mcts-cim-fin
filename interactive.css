@@ -67,6 +67,7 @@
     height: 50%;
     width: 40%;
     margin: 5px;
+    font-size: x-large;
     /*transform: translate(-50%)*/
 }
 
@@ -89,14 +90,15 @@
 }
 
 .control_panel_btn {
-    width: 60%;
+    width: 100%;
+    height: 80%;
     margin: 5px;
 }
 
 .control_panel {
     display: flex;
-    flex-direction: column;
-    flex: 1;
+    flex-direction: row;
+    /* flex: 1; */
     background-color: #b3cddb;
     height: max-content;
     width: max-content;

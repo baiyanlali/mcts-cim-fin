@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/style.css">
 
 
-
     <script type="text/javascript" src="./jquery-3.5.1.js"></script>
 
 
@@ -33,25 +32,25 @@
     <script src="./mcts-viz/TTTRepresentation.js"></script>
 
 
-<script type="module" src="./katex.mjs"></script>
-<script src="./katex.min.js"></script>
-<link rel="stylesheet" href="./katex.min.css">
-<script type="module">
-    import renderMathInElement from "./auto-render.mjs";
-    renderMathInElement(document.body, {
-          // customised options
-          // • auto-render specific keys, e.g.:
-          delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false},
-              {left: '\\(', right: '\\)', display: false},
-              {left: '\\[', right: '\\]', display: true}
-          ],
-          // • rendering keys, e.g.:
-          throwOnError : false
-        });
-</script>
+    <script type="module" src="./katex.mjs"></script>
+    <script src="./katex.min.js"></script>
+    <link rel="stylesheet" href="./katex.min.css">
+    <script type="module">
+        import renderMathInElement from "./auto-render.mjs";
 
+        renderMathInElement(document.body, {
+            // customised options
+            // • auto-render specific keys, e.g.:
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            // • rendering keys, e.g.:
+            throwOnError: false
+        });
+    </script>
 
 
     <script src="./pseudocode.min.js" type="text/javascript"></script>
@@ -67,6 +66,7 @@
         ]
       }
     }
+
     </script>
 
 </head>
@@ -154,7 +154,8 @@
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
                 solving sequential decision problems [<a href="#browne2012survey">1</a>].
                 By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
-                <span class="modified_text">Because of few</span> requirements for domain knowledge and its simplicity, MCTS has achieved significant
+                <span class="modified_text">Because of few</span> requirements for domain knowledge and its simplicity,
+                MCTS has achieved significant
                 success in various domains, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
                     href="#perez2016general">3</a>], and chemical synthesis [<a href="#segler2018planning">4</a>].
             </p>
@@ -317,7 +318,7 @@
 
                             <div id="show_machine_controls_area" style="display: none">
                                 <!--<b class="modified_text">AI controls:</b>-->
-<!--                                <b class="modified_text">AI controls:</b>-->
+                                <!--                                <b class="modified_text">AI controls:</b>-->
                                 <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                     <button onclick="myp5.machineRandomMove()">Make random move</button>
                                     <br>
@@ -801,9 +802,11 @@
                                     </button>
                                 </p>
                                 <p id="expansion_whoseturn_area">
-                                    <b style="display: none">Whose turn?</b> <span id="expansion_whoseturn" style="display: none">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="expansion_whoseturn"
+                                                                                   style="display: none">HUMAN</span>
                                     <br>
-                                    <b style="display: none">Current Action:</b> <span id="expansion_current_action" style="display: none"></span>
+                                    <b style="display: none">Current Action:</b> <span id="expansion_current_action"
+                                                                                       style="display: none"></span>
                                 </p>
                                 <div id="expansion_machine_controls_area">
                                     <!--<b class="modified_text">AI controls:</b>-->
@@ -1148,9 +1151,11 @@
                                     </button>
                                 </p>
                                 <p id="backpropagration_whoseturn_area">
-                                    <b style="display: none">Whose turn?</b> <span id="backpropagration_whoseturn" style="display: none">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="backpropagration_whoseturn"
+                                                                                   style="display: none">HUMAN</span>
                                     <br>
-                                    <b style="display: none">Current Action:</b> <span id="backpropagation_current_action" style="display: none"></span>
+                                    <b style="display: none">Current Action:</b> <span
+                                        id="backpropagation_current_action" style="display: none"></span>
                                 </p>
                                 <div id="backpropagration_machine_controls_area">
                                     <!--<b class="modified_text">AI controls:</b>-->
@@ -1302,26 +1307,40 @@
 
                                 <div class="control_panel" id="vs_machine_controls_area">
                                     <!--<b class="modified_text">AI controls:</b>-->
-                                        <button class="control_panel_btn" onclick="vs_p5.machineRandomMove()">Make random move</button>
+
+                                    <div style="display: flex;">
+
+                                        <button class="control_panel_btn" onclick="vs_p5.machineRandomMove()">Random
+                                            move
+                                        </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="vs_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <button class="control_panel_btn" onclick="vs_p5.machineGreedyMove()">Greedy
+                                            move
+                                        </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="vs_p5.machineMctsMove(vs_interactive)">Make MCTS move</button>
+                                        <button class="control_panel_btn"
+                                                onclick="vs_p5.machineMctsMove(vs_interactive)">MCTS move
+                                        </button>
                                         <br>
                                         <button class="control_panel_btn" onclick="vs_p5.reset()">Reset game</button>
-                                        <div>
-                                            <br>
-                                            Run MCTS for:
-                                            <br>
-                                            <input id="vs_mcts_timeout_slider" type="range" min="100" max="2000" value="1000"
-                                                   step="100"/>
-                                            <br>
-                                            <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
-                                        </div>
+                                    </div>
 
+                                    <div>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="vs_mcts_timeout_slider" type="range" min="100" max="2000"
+                                               value="1000"
+                                               step="100"/>
+                                        <br>
+                                        <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
                                 </div>
+
+
                                 <p id="vs_whoseturn_area">
-                                    <b>Current Player:</b> <br> <span id="vs_whoseturn">HUMAN</span>
+                                    <b style="display: none">Current Player:</b> <br> <span id="vs_whoseturn"
+                                                                                            style="display: none">HUMAN</span>
                                 </p>
                                 <div id="vs_game_over_area">
                                     <b>The winner is...</b> <span id="vs_game_over_winner">HUMAN</span>!
@@ -1332,16 +1351,16 @@
                             </div>
 
                             <div class="interactive-ttt-right" style="flex-direction: column">
-                                <div style="border: solid 1px lightgrey; height: 110px">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: flex; align-items: center; margin: 20px">
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em">
                                         <b>Current step</b>:
                                         <br>
                                         <span id="vs_current_action_count">(0/0)</span>
                                         <br>
-                                        <span id="vs_current_action_kind">---</span>
                                         <br>
                                         <button id="vs_btn_next_action" disabled>next step &gt;</button>
                                     </div>
+
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
                                         <b>Current iteration</b>:
                                         <br>
@@ -1350,15 +1369,22 @@
                                         <br>
                                         <button id="vs_btn_next_iteration" disabled>next iteration &gt;&gt;</button>
                                     </div>
-                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
-                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
+
+
+                                    <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
                                                 id="vs_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
                                         </button>
                                         <br>
-                                        <button style="width: 200px; height: 45%;" id="vs_btn_make_play" disabled>make
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger"
+                                                id="vs_btn_make_play" disabled>make
                                             play
                                         </button>
                                     </div>
+
+
+                                    <span id="vs_current_action_kind" style="font-size: larger">---</span>
+
                                 </div>
                                 <div id="vs_tree_vis" class="tree_vis"></div>
                             </div>
@@ -1407,15 +1433,15 @@
                             // ]
 
                             window.mcts_board = [
-                                [0,1,1,1,1,0,0,0,0],
-                                [0,1,1,1,1,0,0,0,0],
-                                [0,1,1,5,1,0,1,1,1],
-                                [0,1,1,2,1,0,1,1,1],
-                                [0,1,1,0,1,1,1,0,1],
-                                [0,1,1,0,3,0,0,0,1],
-                                [0,1,0,0,0,1,0,0,1],
-                                [0,1,0,0,0,1,1,1,1],
-                                [0,1,1,1,1,1,0,0,0]
+                                [0, 1, 1, 1, 1, 0, 0, 0, 0],
+                                [0, 1, 1, 1, 1, 0, 0, 0, 0],
+                                [0, 1, 1, 5, 1, 0, 1, 1, 1],
+                                [0, 1, 1, 2, 1, 0, 1, 1, 1],
+                                [0, 1, 1, 0, 1, 1, 1, 0, 1],
+                                [0, 1, 1, 0, 3, 0, 0, 0, 1],
+                                [0, 1, 0, 0, 0, 1, 0, 0, 1],
+                                [0, 1, 0, 0, 0, 1, 1, 1, 1],
+                                [0, 1, 1, 1, 1, 1, 0, 0, 0]
                             ]
 
                             window.mcts_sokobanGame = new SokobanGame("mcts-", mcts_board)
@@ -1435,22 +1461,29 @@
 
 
                                 <div class="control_panel" id="mcts-sokobangame_machine_controls_area">
-                                    <!--<b class="modified_text">AI controls:</b>-->
 
                                     <div style="display: flex">
-                                        <button class="control_panel_btn" id="sokoban_rand_move" onclick="mcts_sokobanGame.machineRandomMove()">Random move</button>
+                                        <button class="control_panel_btn" id="sokoban_rand_move"
+                                                onclick="mcts_sokobanGame.machineRandomMove()">Random move
+                                        </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_mcts_move" onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
+                                        <button class="control_panel_btn" id="sokoban_mcts_move"
+                                                onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
                                             MCTS move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_autoplay" onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+                                        <button class="control_panel_btn" id="sokoban_autoplay"
+                                                onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_cancel" onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)" style="display: none">Cancel
+                                        <button class="control_panel_btn" id="sokoban_cancel"
+                                                onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)"
+                                                style="display: none">Cancel
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="mcts_sokobanGame.init(mcts_board)">Reset</button>
+                                        <button class="control_panel_btn" onclick="mcts_sokobanGame.init(mcts_board)">
+                                            Reset
+                                        </button>
                                     </div>
 
                                     <div>
@@ -1494,19 +1527,18 @@
                                     </div>
 
                                     <div style="display: flex;float: left; height: 100%; width: auto; align-items: center; margin: 10px">
-                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: large" id="soko_mcts_btn_last_step" disabled>
-                                           Visualize last step &gt;&gt;&gt;
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
+                                                id="soko_mcts_btn_last_step" disabled>
+                                            Visualize last step &gt;&gt;&gt;
                                         </button>
                                         <br>
-                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger" id="soko_mcts_btn_make_play" disabled>
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger"
+                                                id="soko_mcts_btn_make_play" disabled>
                                             Make play
                                         </button>
                                     </div>
 
                                     <span id="soko_mcts_current_action_kind" style="font-size: larger">---</span>
-                                    <!--                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">-->
-
-<!--                                    </div>-->
 
 
                                 </div>
@@ -1523,197 +1555,197 @@
 
         </section>
 
-<!--        <section id="design-yourself">-->
-<!--            <h2>Design by your self MCTS</h2>-->
+        <!--        <section id="design-yourself">-->
+        <!--            <h2>Design by your self MCTS</h2>-->
 
-<!--            <div class="framed">-->
-<!--                <div class="inside">-->
-<!--                    <div class="eyebrow">-->
-<!--                        Sokoban: MCTS can be used to solve Sokoban. Sokoban is a puzzle game.-->
-<!--                    </div>-->
+        <!--            <div class="framed">-->
+        <!--                <div class="inside">-->
+        <!--                    <div class="eyebrow">-->
+        <!--                        Sokoban: MCTS can be used to solve Sokoban. Sokoban is a puzzle game.-->
+        <!--                    </div>-->
 
-<!--                    <div>-->
-<!--                        <script type="module" src="./sokoban/tree_viz_sokoban.js"></script>-->
-<!--&lt;!&ndash;                        <script type="module" src="./sokoban/SokobanGameMapEditor.js"></script>&ndash;&gt;-->
-<!--                        <script type="module">-->
-<!--                            import {vis_sokoban} from "./sokoban/tree_viz_sokoban.js";-->
-<!--                            import SokobanGame from "./sokoban/SokobanGame.js";-->
-<!--                            import SokobanMapEditor, {sketch_sokoban_editor} from "./sokoban/SokobanGameMapEditor.js"-->
+        <!--                    <div>-->
+        <!--                        <script type="module" src="./sokoban/tree_viz_sokoban.js"></script>-->
+        <!--&lt;!&ndash;                        <script type="module" src="./sokoban/SokobanGameMapEditor.js"></script>&ndash;&gt;-->
+        <!--                        <script type="module">-->
+        <!--                            import {vis_sokoban} from "./sokoban/tree_viz_sokoban.js";-->
+        <!--                            import SokobanGame from "./sokoban/SokobanGame.js";-->
+        <!--                            import SokobanMapEditor, {sketch_sokoban_editor} from "./sokoban/SokobanGameMapEditor.js"-->
 
-<!--                            window.mcts_sokoban_editor = new p5(sketch_sokoban_editor, "editor")-->
-<!--                            window.mcts_sokobanGame_editor = new SokobanGame("editor-")-->
-<!--                            window.soko_mcts_tree_vis_p5_editor = new p5(vis_sokoban, "soko_mcts_tree_vis_editor");-->
-<!--                            window.soko_mcts_interactive_editor = new SokobanInteractive(soko_mcts_tree_vis_p5_editor, "editor", mcts_sokobanGame_editor)-->
-<!--                            window.soko_mcts_interactive_editor.setupInteractive()-->
-<!--                            mcts_sokobanGame_editor.init()-->
-<!--                            window.sokoban_editor_manager = new SokobanMapEditor(mcts_sokobanGame_editor, mcts_sokoban_editor)-->
-<!--                            // console.log(document.getElementById("soko_size"))-->
+        <!--                            window.mcts_sokoban_editor = new p5(sketch_sokoban_editor, "editor")-->
+        <!--                            window.mcts_sokobanGame_editor = new SokobanGame("editor-")-->
+        <!--                            window.soko_mcts_tree_vis_p5_editor = new p5(vis_sokoban, "soko_mcts_tree_vis_editor");-->
+        <!--                            window.soko_mcts_interactive_editor = new SokobanInteractive(soko_mcts_tree_vis_p5_editor, "editor", mcts_sokobanGame_editor)-->
+        <!--                            window.soko_mcts_interactive_editor.setupInteractive()-->
+        <!--                            mcts_sokobanGame_editor.init()-->
+        <!--                            window.sokoban_editor_manager = new SokobanMapEditor(mcts_sokobanGame_editor, mcts_sokoban_editor)-->
+        <!--                            // console.log(document.getElementById("soko_size"))-->
 
-<!--                            // window.mcts_sokoban_editor.changeSize(document.getElementById("soko_size").valueAsNumber, document.getElementById("soko_size").valueAsNumber)-->
-<!--                            document.getElementById("soko_size").addEventListener('input', () => {-->
-<!--                                let size = document.getElementById("soko_size").value-->
-<!--                                document.getElementById("soko_size_text").innerText = size-->
-<!--                                mcts_sokoban_editor.changeSize(parseInt(size), parseInt(size))-->
-<!--                            })-->
-<!--                            // sokoban_editor_manager.synthBoard()-->
+        <!--                            // window.mcts_sokoban_editor.changeSize(document.getElementById("soko_size").valueAsNumber, document.getElementById("soko_size").valueAsNumber)-->
+        <!--                            document.getElementById("soko_size").addEventListener('input', () => {-->
+        <!--                                let size = document.getElementById("soko_size").value-->
+        <!--                                document.getElementById("soko_size_text").innerText = size-->
+        <!--                                mcts_sokoban_editor.changeSize(parseInt(size), parseInt(size))-->
+        <!--                            })-->
+        <!--                            // sokoban_editor_manager.synthBoard()-->
 
-<!--                            const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));-->
+        <!--                            const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));-->
 
-<!--                            // console.info("lalala2")-->
-
-
-<!--                        </script>-->
-
-<!--                        <div>-->
-<!--                            <div id="editor"-->
-<!--                                 style="display: flex; flex-direction: row;width: 100%; border: solid 1px black;border-radius: 10px;justify-content: center; align-items: center;">-->
-<!--&lt;!&ndash;                                                    关卡编辑器&ndash;&gt;-->
-<!--                                <div id="editor_eee"-->
-<!--                                     style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px;align-items: center;">-->
-<!--                                    Map Editor-->
-<!--                                    <div>-->
-<!--                                        <input id="soko_size" type="range" min="5" max="20" value="10" step="1"/>-->
-
-<!--                                        Grid Size:<span id="soko_size_text"><b>10</b></span>-->
-<!--                                    </div>-->
-
-<!--                                    <button onclick="sokoban_editor_manager.synthBoard()">Syn Board</button>-->
-<!--                                    <button onclick="sokoban_editor_manager.clearBoard()">Clear Board</button>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash;                    文本编辑器&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px; padding: 10px; align-items: center">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    Text Editor&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div id="container" style="width: 630px ;height:600px;border:1px solid grey"></div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    <script src="./node_modules/monaco-editor/min/vs/loader.js"></script>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <script>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        function loadScript(url, callback) {&ndash;&gt;-->
-<!--&lt;!&ndash;                                            const xhr = new XMLHttpRequest();&ndash;&gt;-->
-<!--&lt;!&ndash;                                            xhr.open('GET', url);&ndash;&gt;-->
-<!--&lt;!&ndash;                                            xhr.onload = () => {&ndash;&gt;-->
-<!--&lt;!&ndash;                                                if (xhr.status === 200) {&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    if (callback) callback(xhr.responseText);&ndash;&gt;-->
-<!--&lt;!&ndash;                                                }&ndash;&gt;-->
-<!--&lt;!&ndash;                                            };&ndash;&gt;-->
-<!--&lt;!&ndash;                                            xhr.send();&ndash;&gt;-->
-<!--&lt;!&ndash;                                        }&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        require.config({paths: {vs: './node_modules/monaco-editor/min/vs'}});&ndash;&gt;-->
-<!--&lt;!&ndash;                                        require(['vs/editor/editor.main'], function () {&ndash;&gt;-->
-<!--&lt;!&ndash;                                            window.editor = monaco.editor.create(document.getElementById('container'), {&ndash;&gt;-->
-<!--&lt;!&ndash;                                                value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),&ndash;&gt;-->
-<!--&lt;!&ndash;                                                language: 'javascript'&ndash;&gt;-->
-<!--&lt;!&ndash;                                            })&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                            loadScript("./mcts-viz/lib/mcts-template.js", (text) => {&ndash;&gt;-->
-<!--&lt;!&ndash;                                                window.editor.setValue(text)&ndash;&gt;-->
-<!--&lt;!&ndash;                                                eval(editor.getValue())&ndash;&gt;-->
-<!--&lt;!&ndash;                                            })&ndash;&gt;-->
-<!--&lt;!&ndash;                                        });&ndash;&gt;-->
+        <!--                            // console.info("lalala2")-->
 
 
-<!--&lt;!&ndash;                                        window.play = () => {&ndash;&gt;-->
-<!--&lt;!&ndash;                                            eval(editor.getValue())&ndash;&gt;-->
-<!--&lt;!&ndash;                                            window.alert("Script Loaded!")&ndash;&gt;-->
-<!--&lt;!&ndash;                                        }&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </script>&ndash;&gt;-->
+        <!--                        </script>-->
 
-<!--&lt;!&ndash;                                    <button onclick="play()">Load Script</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+        <!--                        <div>-->
+        <!--                            <div id="editor"-->
+        <!--                                 style="display: flex; flex-direction: row;width: 100%; border: solid 1px black;border-radius: 10px;justify-content: center; align-items: center;">-->
+        <!--&lt;!&ndash;                                                    关卡编辑器&ndash;&gt;-->
+        <!--                                <div id="editor_eee"-->
+        <!--                                     style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px;align-items: center;">-->
+        <!--                                    Map Editor-->
+        <!--                                    <div>-->
+        <!--                                        <input id="soko_size" type="range" min="5" max="20" value="10" step="1"/>-->
 
+        <!--                                        Grid Size:<span id="soko_size_text"><b>10</b></span>-->
+        <!--                                    </div>-->
 
-<!--                            </div>-->
+        <!--                                    <button onclick="sokoban_editor_manager.synthBoard()">Syn Board</button>-->
+        <!--                                    <button onclick="sokoban_editor_manager.clearBoard()">Clear Board</button>-->
+        <!--                                </div>-->
+        <!--                                &lt;!&ndash;                    文本编辑器&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <div style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px; padding: 10px; align-items: center">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    Text Editor&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <div id="container" style="width: 630px ;height:600px;border:1px solid grey"></div>&ndash;&gt;-->
 
+        <!--&lt;!&ndash;                                    <script src="./node_modules/monaco-editor/min/vs/loader.js"></script>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <script>&ndash;&gt;-->
 
-<!--                            <br>-->
+        <!--&lt;!&ndash;                                        function loadScript(url, callback) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            const xhr = new XMLHttpRequest();&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            xhr.open('GET', url);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            xhr.onload = () => {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                if (xhr.status === 200) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    if (callback) callback(xhr.responseText);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            };&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            xhr.send();&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        }&ndash;&gt;-->
 
-<!--                        </div>-->
+        <!--&lt;!&ndash;                                        require.config({paths: {vs: './node_modules/monaco-editor/min/vs'}});&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        require(['vs/editor/editor.main'], function () {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            window.editor = monaco.editor.create(document.getElementById('container'), {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                language: 'javascript'&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            })&ndash;&gt;-->
 
-<!--                        <div class="four_procedure">-->
-<!--                            <div id="editor-sokobangamediv" class="interactive-ttt-left">-->
-<!--                                <p>Game: <b>Sokoban</b></p>-->
-
-<!--                                <p id="editor-sokobangame"></p>-->
-
-<!--                                <div id="editor-p5_game"></div>-->
-
-<!--                                <p id="editor-sokobangame_reset">-->
-<!--                                    Clear! Step Used: <span id="editor-sokobangame_step"></span>-->
-<!--                                    <button onclick="mcts_sokobanGame_editor.init()">Reset</button>-->
-<!--                                </p>-->
-
-
-<!--                                <div id="editor-sokobangame_machine_controls_area">-->
-<!--                                    <b class="modified_text">AI controls:</b>-->
-<!--                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">-->
-<!--                                        <button onclick="mcts_sokobanGame_editor.machineRandomMove()">Make random move-->
-<!--                                        </button>-->
-<!--                                        <br>-->
-<!--                                        <button onclick="mcts_sokobanGame_editor.machineMctsMoveWithMyMCTS(soko_mcts_interactive_editor, MyMCTS)">-->
-<!--                                            Make-->
-<!--                                            MCTS move-->
-<!--                                        </button>-->
-<!--                                        <br>-->
-<!--                                        <button onclick="mcts_sokobanGame_editor.autoPlay(soko_mcts_interactive_editor)">-->
-<!--                                            Auto Play-->
-<!--                                        </button>-->
-<!--                                        <br>-->
-<!--                                        Run MCTS for:-->
-<!--                                        <br>-->
-<!--                                        <input id="soko_mcts_tree_vis_editor_mcts_timeout_slider" type="range" min="1000"-->
-<!--                                               max="20000" value="10000" step="100"/>-->
-<!--                                        <br>-->
-<!--                                        <span id="soko_mcts_tree_vis_editor_mcts_timeout_span"><b>1</b></span>-->
-<!--                                        iterations-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div class="interactive-ttt-right">-->
-<!--                                <div style="border: solid 1px lightgrey; height: 110px">-->
-<!--                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">-->
-<!--                                        <b>Current step</b>:-->
-<!--                                        <br>-->
-<!--                                        <span id="editor_current_action_count">(0/0)</span>-->
-<!--                                        <br>-->
-<!--                                        <span id="editor_current_action_kind">-&#45;&#45;</span>-->
-<!--                                        <br>-->
-<!--                                        <button id="editor_btn_next_action" disabled>next step &gt;</button>-->
-<!--                                    </div>-->
-<!--                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">-->
-<!--                                        <b>Current iteration</b>:-->
-<!--                                        <br>-->
-<!--                                        <span id="editor_current_iteration_count">(0/0)</span>-->
-<!--                                        <br>-->
-<!--                                        <br>-->
-<!--                                        <button id="editor_btn_next_iteration" disabled>next iteration &gt;&gt;-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">-->
-<!--                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"-->
-<!--                                                id="editor_btn_last_step" disabled>visualize last step &gt;&gt;&gt;-->
-<!--                                        </button>-->
-<!--                                        <br>-->
-<!--                                        <button style="width: 200px; height: 45%;" id="editor_btn_make_play"-->
-<!--                                                disabled>make play-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div id="soko_mcts_tree_vis_editor" class="tree_vis"></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                    </div>-->
-
-<!--                    <div class="caption"><b>Figure 10:</b><br> Machine/MCTS solves puzzle game.-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
+        <!--&lt;!&ndash;                                            loadScript("./mcts-viz/lib/mcts-template.js", (text) => {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                window.editor.setValue(text)&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                eval(editor.getValue())&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            })&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        });&ndash;&gt;-->
 
 
-<!--        </section>-->
+        <!--&lt;!&ndash;                                        window.play = () => {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            eval(editor.getValue())&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            window.alert("Script Loaded!")&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </script>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                    <button onclick="play()">Load Script</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+
+
+        <!--                            </div>-->
+
+
+        <!--                            <br>-->
+
+        <!--                        </div>-->
+
+        <!--                        <div class="four_procedure">-->
+        <!--                            <div id="editor-sokobangamediv" class="interactive-ttt-left">-->
+        <!--                                <p>Game: <b>Sokoban</b></p>-->
+
+        <!--                                <p id="editor-sokobangame"></p>-->
+
+        <!--                                <div id="editor-p5_game"></div>-->
+
+        <!--                                <p id="editor-sokobangame_reset">-->
+        <!--                                    Clear! Step Used: <span id="editor-sokobangame_step"></span>-->
+        <!--                                    <button onclick="mcts_sokobanGame_editor.init()">Reset</button>-->
+        <!--                                </p>-->
+
+
+        <!--                                <div id="editor-sokobangame_machine_controls_area">-->
+        <!--                                    <b class="modified_text">AI controls:</b>-->
+        <!--                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">-->
+        <!--                                        <button onclick="mcts_sokobanGame_editor.machineRandomMove()">Make random move-->
+        <!--                                        </button>-->
+        <!--                                        <br>-->
+        <!--                                        <button onclick="mcts_sokobanGame_editor.machineMctsMoveWithMyMCTS(soko_mcts_interactive_editor, MyMCTS)">-->
+        <!--                                            Make-->
+        <!--                                            MCTS move-->
+        <!--                                        </button>-->
+        <!--                                        <br>-->
+        <!--                                        <button onclick="mcts_sokobanGame_editor.autoPlay(soko_mcts_interactive_editor)">-->
+        <!--                                            Auto Play-->
+        <!--                                        </button>-->
+        <!--                                        <br>-->
+        <!--                                        Run MCTS for:-->
+        <!--                                        <br>-->
+        <!--                                        <input id="soko_mcts_tree_vis_editor_mcts_timeout_slider" type="range" min="1000"-->
+        <!--                                               max="20000" value="10000" step="100"/>-->
+        <!--                                        <br>-->
+        <!--                                        <span id="soko_mcts_tree_vis_editor_mcts_timeout_span"><b>1</b></span>-->
+        <!--                                        iterations-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+
+        <!--                            <div class="interactive-ttt-right">-->
+        <!--                                <div style="border: solid 1px lightgrey; height: 110px">-->
+        <!--                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">-->
+        <!--                                        <b>Current step</b>:-->
+        <!--                                        <br>-->
+        <!--                                        <span id="editor_current_action_count">(0/0)</span>-->
+        <!--                                        <br>-->
+        <!--                                        <span id="editor_current_action_kind">-&#45;&#45;</span>-->
+        <!--                                        <br>-->
+        <!--                                        <button id="editor_btn_next_action" disabled>next step &gt;</button>-->
+        <!--                                    </div>-->
+        <!--                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">-->
+        <!--                                        <b>Current iteration</b>:-->
+        <!--                                        <br>-->
+        <!--                                        <span id="editor_current_iteration_count">(0/0)</span>-->
+        <!--                                        <br>-->
+        <!--                                        <br>-->
+        <!--                                        <button id="editor_btn_next_iteration" disabled>next iteration &gt;&gt;-->
+        <!--                                        </button>-->
+        <!--                                    </div>-->
+        <!--                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">-->
+        <!--                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"-->
+        <!--                                                id="editor_btn_last_step" disabled>visualize last step &gt;&gt;&gt;-->
+        <!--                                        </button>-->
+        <!--                                        <br>-->
+        <!--                                        <button style="width: 200px; height: 45%;" id="editor_btn_make_play"-->
+        <!--                                                disabled>make play-->
+        <!--                                        </button>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div id="soko_mcts_tree_vis_editor" class="tree_vis"></div>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+
+        <!--                    </div>-->
+
+        <!--                    <div class="caption"><b>Figure 10:</b><br> Machine/MCTS solves puzzle game.-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+
+
+        <!--        </section>-->
 
 
         <section id="conclusion">
@@ -1726,11 +1758,13 @@
                 Additionally,
                 several selection strategies are discussed in the immersive part.
                 <span class="modified_text"> MCTS has been successfully applied to game AI areas such as Go and video games. Beyond
-                    these game-based environments, MCTS also presents its potential abilities in black-box optimisation [<a href="#wang2020learning">7</a>],
-                    robotics [<a href="#best2019dec">8</a>] and real-world scheduling problems [<a href="#li2021effective">9</a>]. </span> 
+                    these game-based environments, MCTS also presents its potential abilities in black-box optimisation [<a
+                            href="#wang2020learning">7</a>],
+                    robotics [<a href="#best2019dec">8</a>] and real-world scheduling problems [<a
+                            href="#li2021effective">9</a>]. </span>
                 More details about MCTS and its ingredients can be found in
                 [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>].
-                
+
             </p>
         </section>
 
@@ -1797,7 +1831,8 @@
                 </li>
 
                 <li id="li2021effective">
-                    An effective MCTS-based algorithm for minimizing makespan in dynamic flexible job shop scheduling problem
+                    An effective MCTS-based algorithm for minimizing makespan in dynamic flexible job shop scheduling
+                    problem
                     <span>
                         Li, Kexin and Deng, Qianwang and Zhang, Like and Fan, Qing and Gong, Guiliang and Ding, Sun, 2021. Computers & Industrial Engineering, vol. 155, pp. 10721.
                     </span>
