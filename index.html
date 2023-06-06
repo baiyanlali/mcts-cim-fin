@@ -67,6 +67,7 @@
       }
     }
 
+
     </script>
 
 </head>
@@ -297,34 +298,40 @@
                          style="position: relative; width: fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
 
                         Game: <b>Tic-Tac-Toe</b>
-                        <div>
-                            <p id="show_starting_player_area">
-                                <b>Who will play first?</b>
-                                <br>
-                                <button class="play_first" onclick="myp5.selectStartingPlayer(0)">HUMAN</button>
-                                <br>
-                                <button class="play_first" onclick="myp5.selectStartingPlayer(1)">AI</button>
-                            </p>
 
-                            <p id="show_whoseturn_area">
-                                <b>Whose turn?</b> <span id="show_whoseturn">HUMAN</span>
-                            </p>
 
-                            <div id="show_game_over_area">
-                                <b>The winner is...</b> <span id="show_game_over_winner">HUMAN</span>!
-                                <br>
-                                <button onclick="myp5.reset()">Restart game</button>
+                        <div style="display: flex; align-items: center">
+
+                            <div>
+                                <p id="show_starting_player_area">
+                                    <b>Choose First Player</b>
+                                    <br>
+                                    <button class="play_first" onclick="myp5.selectStartingPlayer(0)">HUMAN</button>
+                                    <br>
+                                    <button class="play_first" onclick="myp5.selectStartingPlayer(1)">AI</button>
+                                </p>
+
+
+
+                                <div id="show_game_over_area">
+                                    <b>The winner is...</b> <span id="show_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="myp5.reset()">Restart game</button>
+                                </div>
                             </div>
 
                             <div id="show_machine_controls_area" style="display: none">
                                 <!--<b class="modified_text">AI controls:</b>-->
                                 <!--                                <b class="modified_text">AI controls:</b>-->
                                 <div style="background-color: rgb(230, 230, 230); padding: 1em">
-                                    <button onclick="myp5.machineRandomMove()">Make random move</button>
+                                    <button class="control_panel_btn2" onclick="myp5.machineRandomMove()">Random move
+                                    </button>
                                     <br>
-                                    <button onclick="myp5.machineMctsMove()">Make MCTS move</button>
+                                    <button class="control_panel_btn2" onclick="myp5.machineMctsMove()">MCTS move
+                                    </button>
                                     <br>
-                                    <button onclick="myp5.machineGreedyMove()">Make Greedy move</button>
+                                    <button class="control_panel_btn2" onclick="myp5.machineGreedyMove()">Greedy move
+                                    </button>
                                     <br>
                                     Run MCTS for:
                                     <br>
@@ -332,12 +339,15 @@
                                            step="10"/>
                                     <br>
                                     <span id="show_mcts_timeout_span"><b>1</b></span> iterations
+
+                                    <p id="show_whoseturn_area">
+                                    <b>Current Player</b>
+                                    <br>
+                                    <span id="show_whoseturn">HUMAN</span>
+                                </p>
                                 </div>
                             </div>
 
-                        </div>
-
-                        <div style="display: flex;">
                             <div id="show"></div>
                             <div id="ttt_repre" style="width: 180px; margin: auto"></div>
                         </div>
@@ -625,7 +635,7 @@
                                 </button>
 
                                 <p id="selection_starting_player_area">
-                                    <b style="display: none">Who will start the game?</b>
+                                    <b style="display: none">Choose First Player</b>
                                     <br>
                                     <button onclick="selection_p5.selectStartingPlayer(0)" style="display: none">HUMAN
                                     </button>
@@ -634,7 +644,8 @@
                                     </button>
                                 </p>
                                 <div id="selection_whoseturn_area" style="display: none">
-                                    <b style="display: none">Whose turn?</b> <span id="selection_whoseturn">HUMAN</span>
+                                    <b style="display: none">Whose turn?</b> <span id="selection_whoseturn"
+                                                                                   style="display: none">HUMAN</span>
                                     <br>
                                     <b style="display: none">Current Action:</b> <span id="selection_current_action"
                                                                                        style="display: none"></span>
@@ -1376,7 +1387,7 @@
                                                 id="vs_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
                                         </button>
                                         <br>
-                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger"
+                                        <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
                                                 id="vs_btn_make_play" disabled>make
                                             play
                                         </button>
@@ -1444,11 +1455,11 @@
                                 [0, 1, 1, 1, 1, 1, 0, 0, 0]
                             ]
 
-                            window.mcts_sokobanGame = new SokobanGame("mcts-", mcts_board)
+                            window.mcts_sokobanGame = new SokobanGame("mcts-", JSON.parse(JSON.stringify(mcts_board)))
                             window.soko_mcts_tree_vis_p5 = new p5(vis_sokoban, "soko_mcts_tree_vis");
                             window.soko_mcts_interactive = new SokobanInteractive(soko_mcts_tree_vis_p5, "soko_mcts", mcts_sokobanGame)
                             window.soko_mcts_interactive.setupInteractive()
-                            mcts_sokobanGame.init(mcts_board)
+                            mcts_sokobanGame.init(JSON.parse(JSON.stringify(mcts_board)))
                         </script>
 
                         <div class="four_procedure">
@@ -1481,7 +1492,8 @@
                                                 style="display: none">Cancel
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="mcts_sokobanGame.init(mcts_board)">
+                                        <button class="control_panel_btn" id="sokoban_reset"
+                                                onclick="mcts_sokobanGame.init(JSON.parse(JSON.stringify(mcts_board)))">
                                             Reset
                                         </button>
                                     </div>
@@ -1532,7 +1544,7 @@
                                             Visualize last step &gt;&gt;&gt;
                                         </button>
                                         <br>
-                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger"
+                                        <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
                                                 id="soko_mcts_btn_make_play" disabled>
                                             Make play
                                         </button>

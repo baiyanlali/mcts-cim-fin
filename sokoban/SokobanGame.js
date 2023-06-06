@@ -152,8 +152,9 @@ export default class SokobanGame {
     }
 
 
-    async init(board = undefined) {
+    init(board = undefined) {
         // await sleep(100)
+        console.log("init")
         document.getElementById(this.screen + "_reset").style.display = "none"
         this.sokoban = new Sokoban(board)
         this.show_board(this.sokoban.board)
@@ -278,12 +279,19 @@ export default class SokobanGame {
     autoPlay = async (interactive) => {
         document.getElementById("sokoban_cancel").style.display = ""
         document.getElementById("sokoban_autoplay").style.display = "none"
+        document.getElementById("sokoban_reset").disabled = true
+        document.getElementById("sokoban_mcts_move").disabled = true
+        document.getElementById("sokoban_rand_move").disabled = true
+
         while (!this.sokoban.checkWin() && this.cancel === false) {
             this.makeMctsMove(interactive)
             await sleep(100)
         }
         document.getElementById("sokoban_cancel").style.display = "none"
         document.getElementById("sokoban_autoplay").style.display = ""
+        document.getElementById("sokoban_reset").disabled = false
+        document.getElementById("sokoban_mcts_move").disabled = false
+        document.getElementById("sokoban_rand_move").disabled = false
         this.cancel = false
     }
 
