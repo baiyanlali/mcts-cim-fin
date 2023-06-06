@@ -242,6 +242,8 @@ export default class SokobanGame {
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         interactive.setMCTS(monteCarlo, MCTS_search)
 
+        // interactive.clickVisualizeLastStep()
+
         if (this.machineControlsArea)
             this.machineControlsArea.style.display = "none"
 
@@ -278,7 +280,7 @@ export default class SokobanGame {
     autoPlay = async (interactive) => {
         while (!this.sokoban.checkWin() && this.cancel === false) {
             this.makeMctsMove(interactive)
-            await sleep(500)
+            await sleep(100)
         }
 
         this.cancel = false

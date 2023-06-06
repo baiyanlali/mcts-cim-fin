@@ -380,7 +380,7 @@ export const vis = (s) => {
 
         const text_width = 45
 
-
+        value = value.toFixed(2)
         if (!node.isRoot()) {
             let uct = UCB1(node, s.tree.getParent(node)).toFixed(2);
             if (isNaN(uct)) {

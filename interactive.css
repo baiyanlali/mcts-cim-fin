@@ -79,3 +79,11 @@
     border: solid 1px black;
     border-radius: 10px;
 }
+
+.play_first {
+    position: relative;
+    /*left: 50%;*/
+    height: 50%;
+    width: 60%;
+    margin: 5px;
+}

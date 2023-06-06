@@ -300,9 +300,9 @@
                             <p id="show_starting_player_area">
                                 <b>Who will play first?</b>
                                 <br>
-                                <button onclick="myp5.selectStartingPlayer(0)">HUMAN</button>
+                                <button class="play_first" onclick="myp5.selectStartingPlayer(0)">HUMAN</button>
                                 <br>
-                                <button onclick="myp5.selectStartingPlayer(1)">AI</button>
+                                <button class="play_first" onclick="myp5.selectStartingPlayer(1)">AI</button>
                             </p>
 
                             <p id="show_whoseturn_area">
@@ -1295,9 +1295,9 @@
                                 <p id="vs_starting_player_area">
                                     <b>Who will start the game?</b>
                                     <br>
-                                    <button onclick="vs_p5.selectStartingPlayer(0)">HUMAN</button>
+                                    <button class="play_first" onclick="vs_p5.selectStartingPlayer(0)">HUMAN</button>
                                     <br>
-                                    <button onclick="vs_p5.selectStartingPlayer(1)">AI</button>
+                                    <button class="play_first" onclick="vs_p5.selectStartingPlayer(1)">AI</button>
                                 </p>
 
                                 <div id="vs_machine_controls_area">
@@ -1439,25 +1439,25 @@
                                 <div id="mcts-sokobangame_machine_controls_area">
                                     <b class="modified_text">AI controls:</b>
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
-                                        <button onclick="mcts_sokobanGame.machineRandomMove()">Make random move</button>
+                                        <button id="sokoban_rand_move" onclick="mcts_sokobanGame.machineRandomMove()">Make random move</button>
                                         <br>
-                                        <button onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">Make
+                                        <button id="sokoban_mcts_move" onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">Make
                                             MCTS move
                                         </button>
                                         <br>
-                                        <button onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+                                        <button id="sokoban_autoplay" onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
                                         </button>
 
                                         <br>
 
-                                        <button onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)">Cancel
+                                        <button id="sokoban_cancel" onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)" style="display: none">Cancel
                                         </button>
 
                                         <br>
                                         Run MCTS for:
                                         <br>
-                                        <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="1000"
-                                               max="20000" value="1000" step="100"/>
+                                        <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="100"
+                                               max="2000" value="1000" step="100"/>
                                         <br>
                                         <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1000</b></span> iterations
                                     </div>
