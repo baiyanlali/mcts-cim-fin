@@ -1,9 +1,15 @@
 const sokoban_representation = (s) => {
+
+    s.onFinished = null
+
     s.setup = () => {
         s.canvas_id = s._userNode.id
         let size = Math.max(s._userNode.offsetWidth, s._userNode.offsetHeight)
         s.canvas = s.createCanvas(size, size)
         s.board = null
+        if(s.onFinished!==null){
+            s.onFinished()
+        }
     }
 
     s.draw = () => {
