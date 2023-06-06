@@ -316,7 +316,7 @@
                             </div>
 
                             <div id="show_machine_controls_area" style="display: none">
-                                <b class="modified_text">AI controls:</b>
+                                <!--<b class="modified_text">AI controls:</b>-->
 <!--                                <b class="modified_text">AI controls:</b>-->
                                 <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                     <button onclick="myp5.machineRandomMove()">Make random move</button>
@@ -639,7 +639,7 @@
                                                                                        style="display: none"></span>
                                 </div>
                                 <div id="selection_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
+                                    <!--<b class="modified_text">AI controls:</b>-->
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <br>
                                         <button onclick="selection_p5.machineRandomMove()">Make random move</button>
@@ -806,7 +806,7 @@
                                     <b style="display: none">Current Action:</b> <span id="expansion_current_action" style="display: none"></span>
                                 </p>
                                 <div id="expansion_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
+                                    <!--<b class="modified_text">AI controls:</b>-->
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="expansion_p5.machineRandomMove()">Make random move</button>
                                         <br>
@@ -979,7 +979,7 @@
                                                                                        style="display: none"></span>
                                 </p>
                                 <div id="simulation_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
+                                    <!--<b class="modified_text">AI controls:</b>-->
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="simulation_p5.machineRandomMove()">Make random move</button>
                                         <br>
@@ -1153,7 +1153,7 @@
                                     <b style="display: none">Current Action:</b> <span id="backpropagation_current_action" style="display: none"></span>
                                 </p>
                                 <div id="backpropagration_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
+                                    <!--<b class="modified_text">AI controls:</b>-->
                                     <div style="background-color: rgb(230, 230, 230); padding: 1em">
                                         <button onclick="backpropagration_p5.machineRandomMove()">Make random move
                                         </button>
@@ -1300,22 +1300,25 @@
                                     <button class="play_first" onclick="vs_p5.selectStartingPlayer(1)">AI</button>
                                 </p>
 
-                                <div id="vs_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
-                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
-                                        <button onclick="vs_p5.machineRandomMove()">Make random move</button>
+                                <div class="control_panel" id="vs_machine_controls_area">
+                                    <!--<b class="modified_text">AI controls:</b>-->
+                                        <button class="control_panel_btn" onclick="vs_p5.machineRandomMove()">Make random move</button>
                                         <br>
-                                        <button onclick="vs_p5.machineGreedyMove()">Make Greedy move</button>
+                                        <button class="control_panel_btn" onclick="vs_p5.machineGreedyMove()">Make Greedy move</button>
                                         <br>
-                                        <button onclick="vs_p5.machineMctsMove(vs_interactive)">Make MCTS move</button>
+                                        <button class="control_panel_btn" onclick="vs_p5.machineMctsMove(vs_interactive)">Make MCTS move</button>
                                         <br>
-                                        Run MCTS for:
-                                        <br>
-                                        <input id="vs_mcts_timeout_slider" type="range" min="10" max="2000" value="30"
-                                               step="10"/>
-                                        <br>
-                                        <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
-                                    </div>
+                                        <button class="control_panel_btn" onclick="vs_p5.reset()">Reset game</button>
+                                        <div>
+                                            <br>
+                                            Run MCTS for:
+                                            <br>
+                                            <input id="vs_mcts_timeout_slider" type="range" min="100" max="2000" value="1000"
+                                                   step="100"/>
+                                            <br>
+                                            <span id="vs_mcts_timeout_span"><b>1</b></span> iterations
+                                        </div>
+
                                 </div>
                                 <p id="vs_whoseturn_area">
                                     <b>Current Player:</b> <br> <span id="vs_whoseturn">HUMAN</span>
@@ -1403,7 +1406,7 @@
                             //     [0,1,1,1,1,1,0,0,0]
                             // ]
 
-                            let board = [
+                            window.mcts_board = [
                                 [0,1,1,1,1,0,0,0,0],
                                 [0,1,1,1,1,0,0,0,0],
                                 [0,1,1,5,1,0,1,1,1],
@@ -1415,11 +1418,11 @@
                                 [0,1,1,1,1,1,0,0,0]
                             ]
 
-                            window.mcts_sokobanGame = new SokobanGame("mcts-", board)
+                            window.mcts_sokobanGame = new SokobanGame("mcts-", mcts_board)
                             window.soko_mcts_tree_vis_p5 = new p5(vis_sokoban, "soko_mcts_tree_vis");
                             window.soko_mcts_interactive = new SokobanInteractive(soko_mcts_tree_vis_p5, "soko_mcts", mcts_sokobanGame)
                             window.soko_mcts_interactive.setupInteractive()
-                            mcts_sokobanGame.init(board)
+                            mcts_sokobanGame.init(mcts_board)
                         </script>
 
                         <div class="four_procedure">
@@ -1430,29 +1433,27 @@
 
                                 <div id="mcts-p5_game"></div>
 
-                                <p id="mcts-sokobangame_reset">
-                                    Clear! Step Used: <span id="mcts-sokobangame_step"></span>
-                                    <button onclick="mcts_sokobanGame.init()">Reset</button>
-                                </p>
 
+                                <div class="control_panel" id="mcts-sokobangame_machine_controls_area">
+                                    <!--<b class="modified_text">AI controls:</b>-->
 
-                                <div id="mcts-sokobangame_machine_controls_area">
-                                    <b class="modified_text">AI controls:</b>
-                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">
-                                        <button id="sokoban_rand_move" onclick="mcts_sokobanGame.machineRandomMove()">Make random move</button>
+                                    <div style="display: flex">
+                                        <button class="control_panel_btn" id="sokoban_rand_move" onclick="mcts_sokobanGame.machineRandomMove()">Random move</button>
                                         <br>
-                                        <button id="sokoban_mcts_move" onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">Make
+                                        <button class="control_panel_btn" id="sokoban_mcts_move" onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
                                             MCTS move
                                         </button>
                                         <br>
-                                        <button id="sokoban_autoplay" onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+                                        <button class="control_panel_btn" id="sokoban_autoplay" onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
                                         </button>
-
                                         <br>
-
-                                        <button id="sokoban_cancel" onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)" style="display: none">Cancel
+                                        <button class="control_panel_btn" id="sokoban_cancel" onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)" style="display: none">Cancel
                                         </button>
+                                        <br>
+                                        <button class="control_panel_btn" onclick="mcts_sokobanGame.init(mcts_board)">Reset</button>
+                                    </div>
 
+                                    <div>
                                         <br>
                                         Run MCTS for:
                                         <br>
@@ -1461,19 +1462,26 @@
                                         <br>
                                         <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1000</b></span> iterations
                                     </div>
+
                                 </div>
+
+
+                                <p id="mcts-sokobangame_reset">
+                                    Clear! Step Used: <span id="mcts-sokobangame_step"></span>
+                                    <button onclick="mcts_sokobanGame.init()">Reset</button>
+                                </p>
+
                             </div>
 
                             <div class="interactive-ttt-right">
-                                <div style="border: solid 1px lightgrey; height: 110px">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: flex;align-items: center; margin: 20px">
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em">
                                         <b>Current step</b>:
                                         <br>
                                         <span id="soko_mcts_current_action_count">(0/0)</span>
                                         <br>
-                                        <span id="soko_mcts_current_action_kind">---</span>
                                         <br>
-                                        <button id="soko_mcts_btn_next_action" disabled>next step &gt;</button>
+                                        <button id="soko_mcts_btn_next_action" disabled>Next step &gt;</button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
                                         <b>Current iteration</b>:
@@ -1481,18 +1489,26 @@
                                         <span id="soko_mcts_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="soko_mcts_btn_next_iteration" disabled>next iteration &gt;&gt;
+                                        <button id="soko_mcts_btn_next_iteration" disabled>Next iteration &gt;&gt;
                                         </button>
                                     </div>
-                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
-                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="soko_mcts_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+
+                                    <div style="display: flex;float: left; height: 100%; width: auto; align-items: center; margin: 10px">
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: large" id="soko_mcts_btn_last_step" disabled>
+                                           Visualize last step &gt;&gt;&gt;
                                         </button>
                                         <br>
-                                        <button style="width: 200px; height: 45%;" id="soko_mcts_btn_make_play"
-                                                disabled>make play
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: larger" id="soko_mcts_btn_make_play" disabled>
+                                            Make play
                                         </button>
                                     </div>
+
+                                    <span id="soko_mcts_current_action_kind" style="font-size: larger">---</span>
+                                    <!--                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">-->
+
+<!--                                    </div>-->
+
+
                                 </div>
                                 <div id="soko_mcts_tree_vis" class="tree_vis"></div>
                             </div>

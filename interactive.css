@@ -87,3 +87,17 @@
     width: 60%;
     margin: 5px;
 }
+
+.control_panel_btn {
+    width: 60%;
+    margin: 5px;
+}
+
+.control_panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #b3cddb;
+    height: max-content;
+    width: max-content;
+}

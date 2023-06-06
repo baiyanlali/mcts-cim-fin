@@ -157,7 +157,7 @@ class SokobanMCTS {
             }
         }
 
-        console.log(reward, "===================================================")
+        // console.log(reward, "===================================================")
 
         let winner_icon = model.checkWin()
 

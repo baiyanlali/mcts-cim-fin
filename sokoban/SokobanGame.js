@@ -153,12 +153,10 @@ export default class SokobanGame {
 
 
     async init(board = undefined) {
-        await sleep(100)
+        // await sleep(100)
         document.getElementById(this.screen + "_reset").style.display = "none"
-        this.sokoban = new Sokoban(this.init_board ?? board)
+        this.sokoban = new Sokoban(board)
         this.show_board(this.sokoban.board)
-        if(board !== undefined)
-            this.init_board = JSON.parse(JSON.stringify(board))
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
         this.cancel = false
     }
@@ -278,11 +276,14 @@ export default class SokobanGame {
     }
 
     autoPlay = async (interactive) => {
+        document.getElementById("sokoban_cancel").style.display = ""
+        document.getElementById("sokoban_autoplay").style.display = "none"
         while (!this.sokoban.checkWin() && this.cancel === false) {
             this.makeMctsMove(interactive)
             await sleep(100)
         }
-
+        document.getElementById("sokoban_cancel").style.display = "none"
+        document.getElementById("sokoban_autoplay").style.display = ""
         this.cancel = false
     }
 
