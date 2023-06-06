@@ -173,9 +173,16 @@ class SokobanMCTS {
         node.data.simulations += 1;
 
 
-        node.data.value -= node.data.sokoban.checkBoxDistance()
-        node.data.value += node.data.sokoban.checkFilledHoles()
-        node.data.value -= step
+        // node.data.value -= node.data.sokoban.checkBoxDistance()
+        // node.data.value += node.data.sokoban.checkFilledHoles()
+        // node.data.value -= step
+
+        if(winner === true){
+            node.data.value += 1
+        }
+        // else{
+        //     node.data.value -= 1
+        // }
 
 
         if (!node.isRoot()) {

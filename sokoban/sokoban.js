@@ -35,6 +35,7 @@ export default class Sokoban {
 
     //empty 0, wall 1, box 2, end 3, player 5
     constructor(board, player_position, end_positions) {
+        // console.trace(board)
         this.board = board ?? [
             [0, 0, 1, 1, 1, 0, 0, 0],
             [0, 0, 1, 3, 1, 0, 0, 0],

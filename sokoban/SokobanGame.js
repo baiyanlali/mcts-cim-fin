@@ -113,14 +113,14 @@ export default class SokobanGame {
     screendiv;
     that;
 
-    constructor(screenID = "") {
+    constructor(screenID = "", board = undefined) {
         this.sokobanGame = new p5(sketch_sokoban, screenID + "p5_game")
         // console.log(screenID+"p5_game")
         this.that = this;
         this.screenID = screenID;
         this.screen = screenID + "sokobangame"
         this.screendiv = screenID + "sokobangamediv"
-        this.sokoban = new Sokoban()
+        this.sokoban = new Sokoban(board)
         // this.show_board(this.sokoban.board)
         this.div = document.getElementById(this.screendiv)
 
@@ -135,6 +135,7 @@ export default class SokobanGame {
         this.onMakeAction = null
 
         this.step = 0
+        this.cancel = false
     }
 
     set_board(board) {
@@ -150,12 +151,16 @@ export default class SokobanGame {
         this.sokoban.end_positions = this.sokoban.get_end_positions()
     }
 
-    async init() {
+
+    async init(board = undefined) {
         await sleep(100)
         document.getElementById(this.screen + "_reset").style.display = "none"
-        this.sokoban = new Sokoban()
+        this.sokoban = new Sokoban(this.init_board ?? board)
         this.show_board(this.sokoban.board)
+        if(board !== undefined)
+            this.init_board = JSON.parse(JSON.stringify(board))
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
+        this.cancel = false
     }
 
     onMouseOver() {
@@ -266,11 +271,17 @@ export default class SokobanGame {
         interactive.setMCTS(monteCarlo, MCTS_search)
     }
 
+    cancelPlay = () => {
+        this.cancel = true
+    }
+
     autoPlay = async (interactive) => {
-        while (!this.sokoban.checkWin()) {
+        while (!this.sokoban.checkWin() && this.cancel === false) {
             this.makeMctsMove(interactive)
             await sleep(500)
         }
+
+        this.cancel = false
     }
 
 

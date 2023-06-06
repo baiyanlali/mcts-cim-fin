@@ -31,7 +31,7 @@ export const sketch_sokoban_editor = (s) => {
             s.onSetup(s.onSetupParams[0], s.onSetupParams[1])
         }
 
-        s.tileNum = 6
+        s.tileNum = 10
         s.board = Array.from({length: s.tileNum}, () => new Array(s.tileNum).fill(SokobanTile.Empty))
         s.board[0][0] = SokobanTile.Player
         s.player_position = [0, 0]
