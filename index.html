@@ -1495,6 +1495,7 @@
                             window.soko_mcts_interactive_editor.setupInteractive()
                             mcts_sokobanGame_editor.init()
                             window.sokoban_editor_manager = new SokobanMapEditor(mcts_sokobanGame_editor, mcts_sokoban_editor)
+                            window.mcts_sokoban_editor.changeSize(document.getElementById("soko_size").value, document.getElementById("soko_size").value)
                             document.getElementById("soko_size").addEventListener('input', () => {
                                 let size = document.getElementById("soko_size").value
                                 document.getElementById("soko_size_text").innerText = size
@@ -1517,12 +1518,13 @@
                                      style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px;align-items: center;">
                                     Map Editor
                                     <div>
-                                        <input id="soko_size" type="range" min="5" max="20" value="5" step="1"/>
+                                        <input id="soko_size" type="range" min="5" max="20" value="10" step="1"/>
 
-                                        Grid Size:<span id="soko_size_text"><b>5</b></span>
+                                        Grid Size:<span id="soko_size_text"><b>10</b></span>
                                     </div>
 
                                     <button onclick="sokoban_editor_manager.synthBoard()">Syn Board</button>
+                                    <button onclick="sokoban_editor_manager.clearBoard()">Clear Board</button>
                                 </div>
                                 <!--                    文本编辑器-->
                                 <div style="display: flex; flex-direction: column; width: fit-content; border-radius: 10px; padding: 10px; align-items: center">

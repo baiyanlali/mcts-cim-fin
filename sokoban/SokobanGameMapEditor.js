@@ -83,9 +83,10 @@ export const sketch_sokoban_editor = (s) => {
 
         let tile_y = Math.floor(s.mouseX / s.tileSize)
         let tile_x = Math.floor(s.mouseY / s.tileSize)
-        if (s.board[tile_x][tile_y] === SokobanTile.Player) return
+        if (s.board[tile_x][tile_y] === SokobanTile.Player) return false
         s.board[tile_x][tile_y] += 1
         if (s.board[tile_x][tile_y] === SokobanTile.UNKNOWN) s.board[tile_x][tile_y] = SokobanTile.Empty
+        s.lastTile = [tile_x, tile_y]
         s.drawBoard()
         return false
     }
@@ -212,6 +213,14 @@ export default class SokobanMapEditor {
         this.game = sokobanGame
         this.editor = sokobanEditor
 
+    }
+
+    clearBoard(){
+        this.editor.board = Array.from({length: this.editor.tileNum}, () => new Array(this.editor.tileNum).fill(SokobanTile.Empty))
+        this.editor.board[0][0] = SokobanTile.Player
+        this.editor.player_position = [0, 0]
+        this.game.set_board(this.editor.board)
+        this.game.show_board()
     }
 
 
