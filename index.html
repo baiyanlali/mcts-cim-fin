@@ -207,16 +207,17 @@
 
             <ul>
                 <li>
-                    Tic-Tac-Toe is a two-player competitive board game. Players take turns drawing their own marker
+                    Tic-Tac-Toe is a two-player competitive board game <span class="modified_text">with a limited length of
+                        gameplay</span>. Players take turns drawing their own marker
                     (usually X or O) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
                     three placed markers can be connected together vertically, horizontally, or diagonally. But if all
-                    squares are filled but neither player has won, the game ends in a draw.
+                    squares are filled but neither player has won, the game ends in a draw. <span class="modified_text">Due to the participation of the counterpart, MCTS is involved with the min-max and opponent modelling problem.</span>
                 </li>
                 <li>
                     Sokoban is a classic video game in which a player must strategically push boxes to their designated
                     positions in order to win. The game is set on a fixed board made up of different tiles, as
                     demonstrated in Figure 1 (right). The player can move through empty spaces and push boxes onto
-                    spaces without obstacles such as walls and other fixed boxes.
+                    spaces without obstacles such as walls and other fixed boxes. <span class="modified_text">In this game, the representation of the state is more complex than Tic-Tac-Toe and a challenge of deep exploration with unlimited steps arises. </span>
                 </li>
             </ul>
 
@@ -1703,9 +1704,12 @@
                 the workflow of MCTS in different cases, two classic games, Tic-Tac-Toe and Sokoban are used.
                 Additionally,
                 several selection strategies are discussed in the immersive part.
+                <span class="modified_text"> MCTS has been successfully applied to game AI areas such as Go and video games. Beyond
+                    these game-based environments, MCTS also presents its potential abilities in black-box optimisation [<a href="#wang2020learning">7</a>],
+                    robotics [<a href="#best2019dec">8</a>] and real-world scheduling problems [<a href="#li2021effective">9</a>]. </span> 
                 More details about MCTS and its ingredients can be found in
-                [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>]
-                .
+                [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>].
+                
             </p>
         </section>
 
@@ -1716,14 +1720,14 @@
                 <li id="browne2012survey">
                     A survey of monte carlo tree search methods
                     <span>
-                        Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, Vol 4(1), pp. 1--43. IEEE.
+                        Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, vol. 4(1), pp. 1--43. IEEE.
                     </span>
                 </li>
 
                 <li id="segler2018planning">
                     Mastering the game of Go without human knowledge
                     <span>
-                        Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., Hubert, T., Baker, L., Lai, M., Bolton, A., Chen, Y., Lillicrap, T., Hui, F., Sifre, L., Diessche, G.v.d., Graepel, T. and Hassabis, D., 2017. Nature, Vol 550(7676), pp. 354--359. Nature Publishing Group.
+                        Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., Hubert, T., Baker, L., Lai, M., Bolton, A., Chen, Y., Lillicrap, T., Hui, F., Sifre, L., Diessche, G.v.d., Graepel, T. and Hassabis, D., 2017. Nature, vol. 550(7676), pp. 354--359. Nature Publishing Group.
                     </span>
                 </li>
 
@@ -1737,7 +1741,7 @@
                 <li id="silver2017mastering">
                     Planning chemical syntheses with deep neural networks and symbolic AI
                     <span>
-                        Segler, M.H., Preuss, M. and Waller, M.P., 2018. Nature, Vol 555(7698), pp. 604--610. Nature Publishing Group.
+                        Segler, M.H., Preuss, M. and Waller, M.P., 2018. Nature, vol. 555(7698), pp. 604--610. Nature Publishing Group.
                     </span>
                 </li>
 
@@ -1754,6 +1758,27 @@
                         vgarciasc.
                       <a href="https://github.com/vgarciasc/mcts-viz/"
                          target="_blank">https://github.com/vgarciasc/mcts-viz/</a>
+                    </span>
+                </li>
+
+                <li id="wang2020learning">
+                    Learning search space partition for black-box optimization using monte carlo tree search
+                    <span>
+                        Wang, Linnan and Fonseca, Rodrigo and Tian, Yuandong, 2020. Advances in Neural Information Processing Systems, vol. 33, pp. 19511--19522
+                    </span>
+                </li>
+
+                <li id="best2019dec">
+                    Dec-MCTS: Decentralized planning for multi-robot active perception
+                    <span>
+                        Best, Graeme and Cliff, Oliver M and Patten, Timothy and Mettu, Ramgopal R and Fitch, Robert, 2019. The International Journal of Robotics Research, vol. 38, no. 2-3, pp. 316-337.
+                    </span>
+                </li>
+
+                <li id="li2021effective">
+                    An effective MCTS-based algorithm for minimizing makespan in dynamic flexible job shop scheduling problem
+                    <span>
+                        Li, Kexin and Deng, Qianwang and Zhang, Like and Fan, Qing and Gong, Guiliang and Ding, Sun, 2021. Computers & Industrial Engineering, vol. 155, pp. 10721.
                     </span>
                 </li>
 
