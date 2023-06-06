@@ -65,7 +65,7 @@ export const vis_simulation = (s) => {
             if (winner_icon === "") {
                 s.text(` ${Player[node.data.move.player]}`, 0, node_size.y * 0.5)
             } else {
-                s.text(winner_icon === "v" ? "DRAW" : (" WINNER: " + winner_icon), 0, node_size.y * 0.5);
+                s.text(winner_icon === "v" ? "DRAW" : (" WINNER: " + Player[node.data.move.player]), 0, node_size.y * 0.5);
             }
             s.pop()
 
