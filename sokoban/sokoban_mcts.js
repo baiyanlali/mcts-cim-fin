@@ -173,9 +173,9 @@ class SokobanMCTS {
         node.data.simulations += 1;
 
 
-        // node.data.value -= node.data.sokoban.checkBoxDistance()
+        // node.data.value -= node.data.sokoban.checkBoxDistance()*0.000001
         // node.data.value += node.data.sokoban.checkFilledHoles()
-        // node.data.value -= step
+        node.data.value -= step*0.01
 
         if(winner === true){
             node.data.value += 1
