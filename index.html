@@ -68,6 +68,7 @@
     }
 
 
+
     </script>
 
 </head>
@@ -291,7 +292,13 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        An introduction to the Tic-Tac-Toe game and its representation.
+                        You can select whether you want to play the
+                        game as the first or second player by clicking the corresponding button above. The objective of
+                        the game is to connect three of your pieces in a row, column, or diagonal. The right panel
+                        presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
+                        symbolized by empty spaces. Your pieces and the ones of <span
+                            class="modified_text"> the AI opponent</span> are denoted by "1" and "-1",
+                        respectively.
                     </div>
 
                     <div class="interactive"
@@ -310,7 +317,6 @@
                                     <br>
                                     <button class="play_first" onclick="myp5.selectStartingPlayer(1)">AI</button>
                                 </p>
-
 
 
                                 <div id="show_game_over_area">
@@ -341,10 +347,10 @@
                                     <span id="show_mcts_timeout_span"><b>1</b></span> iterations
 
                                     <p id="show_whoseturn_area">
-                                    <b>Current Player</b>
-                                    <br>
-                                    <span id="show_whoseturn">HUMAN</span>
-                                </p>
+                                        <b>Current Player</b>
+                                        <br>
+                                        <span id="show_whoseturn">HUMAN</span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -355,13 +361,8 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 2:</b><br> Tic-Tac-Toe: You can select whether you want to play the
-                        game as the first or second player by clicking the corresponding button above. The objective of
-                        the game is to connect three of your pieces in a row, column, or diagonal. The right panel
-                        presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
-                        symbolized by empty spaces. Your pieces and the ones of <span
-                                class="modified_text"> the AI opponent</span> are denoted by "1" and "-1",
-                        respectively.
+                    <div class="caption"><b>Figure 2:</b><br> An introduction to the Tic-Tac-Toe game and its
+                        representation.
                     </div>
                 </div>
             </div>
@@ -377,7 +378,10 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        An introduction to the Sokoban game and its representation.
+                        To play, first move your mouse to the game panel and then
+                        use the W, S, A, D, or arrow keys on your keyboard to move the character. The objective is to
+                        push all the boxes to the green points (targets) to win the game.
+
                     </div>
 
                     <div id="sokobangamediv" class="interactive"
@@ -435,9 +439,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 3:</b><br> To play, first move your mouse to the game panel and then
-                        use the W, S, A, D, or arrow keys on your keyboard to move the character. The objective is to
-                        push all the boxes to the green points (targets) to win the game.
+                    <div class="caption"><b>Figure 3:</b><br>An introduction to the Sokoban game and its representation.
                     </div>
                 </div>
             </div>
@@ -485,7 +487,8 @@
                 </li>
                 <li>Upper confidence bound (UCB)
                     [<a href="#kocsis2006bandit">5</a>]
-                    measures the uncertainty of the expected reward of an action. The average rewards and <span class="modified_text">visit counts</span>
+                    measures the uncertainty of the expected reward of an action. The average rewards and <span
+                            class="modified_text">visit counts</span>
                     of actions form the upper confidence bound, seeing Eq. (1).
                 </li>
             </ul>
@@ -494,13 +497,15 @@
             <p>
                 $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}} \qquad (1)$$
                 where $x_i$ is the averaged reward of action $i$, $c$ is the exploration coefficient, $n$ is the total
-                <span class="modified_text">visit counts</span> and $n_i$ is the number of <span class="modified_text">counts</span> that the action $i$ is selected.
+                <span class="modified_text">visit counts</span> and $n_i$ is the number of <span class="modified_text">counts</span>
+                that the action $i$ is selected.
                 The node with the highest UCB value will be selected.
             </p>
 
             <p>
                 UCB is the most commonly used selection strategy in MCTS, called as Upper Confidence Bound for Trees
-                (UCT). It balances the exploration and exploitation by considering both reward and <span class="modified_text">visit counts</span> of a
+                (UCT). It balances the exploration and exploitation by considering both reward and <span
+                    class="modified_text">visit counts</span> of a
                 node. $x_i$ estimates the current collected experience, e.g., the optimal action that has been taken,
                 while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the frequency that a nodes is visited. The less frequently
                 visited node has larger possibility to be chosen so that more unknown area will be explored. The
@@ -532,8 +537,16 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Procedure of Selection. <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
-                        to the tree node, a detailed panel will shown in the upper left area.</span>
+
+                        <span class="modified_text">Click the "Random board" button to
+                        randomly generate a Tic-Tac-Toe game state.<br>
+                        Click the  "Continue"  button to automatically
+                        move to the next step in MCTS'
+                        selection process.<br></span>
+                        The node that is currently selected is highlighted with a red border. <br>
+                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
+                        to the tree node, a detailed panel will be shown in the upper left area.</span>
+
                     </div>
 
                     <script type="module">
@@ -621,7 +634,7 @@
 
                                 <button class="four_procedure_btn"
                                         onclick="selection_make_random_board(selection_interactive, selection_p5, 'selection')">
-                                    Make random board
+                                    Random board
                                 </button>
                                 <br>
                                 <br>
@@ -703,7 +716,7 @@
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="selection_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="selection_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="selection_btn_make_play"
@@ -717,11 +730,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 5:</b><br> By clicking the "Make random board" button, you can
-                        randomly generate a Tic-Tac-Toe game state.<br>
-                        By clicking the <span class="modified_text"> "Continue" </span> button, you can automatically move to the next step in MCTS'
-                        selection process.<br>
-                        The node that is currently selected is highlighted with a red border.
+                    <div class="caption"><b>Figure 5:</b><br> Procedure of Selection.
                     </div>
                 </div>
             </div>
@@ -762,7 +771,13 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Procedure of Expansion.
+                        Click <span class="modified_text"> "Continue" </span>
+                        button to automatically move to the
+                        next expansion step in the Monte Carlo search.<br>
+                        <span class="modified_text"> The selected node to be expanded is highlighted with a pink border.</span>
+                        The expanded node is highlighted with a green border.
+                        <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
+                        to the tree node, a detailed panel will be shown in the upper left area.</span>
                     </div>
 
                     <div>
@@ -786,7 +801,7 @@
 
                                 <button class="four_procedure_btn"
                                         onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 3)">
-                                    Make random board
+                                    Random board
                                 </button>
                                 <br>
                                 <br>
@@ -867,7 +882,7 @@
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="expansion_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="expansion_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="expansion_btn_make_play"
@@ -881,9 +896,8 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 6:</b><br> Clicking <span class="modified_text"> "Continue" </span> button will automatically move to the
-                        next expansion step in the Monte Carlo search.<br>
-                        <span class="modified_text"> The selected node to be expanded is highlighted with a pink border.</span> The expanded node is highlighted with a green border.
+
+                    <div class="caption"><b>Figure 6:</b><br> Procedure of Expansion.
                     </div>
                 </div>
             </div>
@@ -931,7 +945,11 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Procedure of Simulation.
+                        Click <span class="modified_text"> "Continue" </span>
+                        button to automatically do simulation step in the MCTS.<br>
+                        The node being simulated is connected with a dotted line.
+                        <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
+                        to the tree node, a detailed panel will be shown in the upper left area.</span>
                     </div>
 
 
@@ -957,7 +975,7 @@
 
                                 <button class="four_procedure_btn"
                                         onclick="make_random_simulation_board(simulation_interactive, simulation_p5, 'simulation', 3)">
-                                    Make random board
+                                    Random board
                                 </button>
                                 <br>
                                 <br>
@@ -1044,7 +1062,7 @@
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="simulation_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="simulation_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="simulation_btn_make_play"
@@ -1057,8 +1075,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 7:</b><br> Clicking <span class="modified_text"> "Continue" </span> button will automatically do simulation step in the MCTS.<br>
-                        The node being simulated is connected with a dotted line.
+                    <div class="caption"><b>Figure 7:</b><br> Procedure of Simulation.
                     </div>
                 </div>
             </div>
@@ -1109,7 +1126,13 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Procedure of Backpropagation.
+                        Click <span class="modified_text"> "Continue" </span>
+                        button to automatically move to
+                        the next backpropagation step in MCTS.<br>
+                        The node being back propagated is highlighted with a blue border.
+                        <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
+                        to the tree node, a detailed panel will be shown in the upper left area.</span>
+
                     </div>
 
                     <div>
@@ -1133,7 +1156,7 @@
 
                                 <button class="four_procedure_btn"
                                         onclick="make_random_board(backpropagration_interactive, backpropagration_p5, 'backpropagation')">
-                                    Make random board
+                                    Random board
                                 </button>
                                 <br>
                                 <br>
@@ -1216,7 +1239,7 @@
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="backpropagration_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="backpropagration_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="backpropagration_btn_make_play"
@@ -1229,9 +1252,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 8:</b><br> Clicking <span class="modified_text"> "Continue" </span> button will automatically move to
-                        the next backpropagation step in MCTS.<br>
-                        The node being back propagated is highlighted with a blue border.
+                    <div class="caption"><b>Figure 8: </b><br>Procedure of Backpropagation.
                     </div>
                 </div>
             </div>
@@ -1264,7 +1285,8 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Try to figure out which action AI agent will select. A, B, C or D?
+                        <span class="modified_text"> Now, AI agents is involved with a disadvantaged situation. Can it find a good move?</span>
+
                     </div>
 
                     <div>
@@ -1275,7 +1297,8 @@
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
                                     import {s, sTest, GameStates} from "./mcts-viz/sketch.js"
-                                    let move_board = ["m", "h", "m","","h","","","","h"]
+
+                                    let move_board = ["m", "h", "m", "", "h", "", "", "", "h"]
                                     let current_player = PLAYER.MACHINE
 
                                     window.move_p5 = new p5(sTest, "move")
@@ -1290,8 +1313,10 @@
                                         move_p5.selectStartingPlayer(1)
                                         move_p5.machineMctsMove(move_interactive)
 
-                                        sketch.handleHover = () => {}
-                                        sketch.mouseClicked = () => {}
+                                        sketch.handleHover = () => {
+                                        }
+                                        sketch.mouseClicked = () => {
+                                        }
                                     }
 
                                     window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
@@ -1375,7 +1400,7 @@
 
                                     <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
-                                                id="move_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="move_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
@@ -1394,7 +1419,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 9:</b><br><span class="modified_text"> Now, AI agents is involved with a disadvantaged situation. Can it find a good move?</span>
+                    <div class="caption"><b>Figure 9: </b><br>Try to figure out which action AI agent will select. A, B, C or D?
                     </div>
                 </div>
             </div>
@@ -1422,7 +1447,7 @@
                 the AI will make. In the MCTS panel on the right, choose "Next Step" to view the MCTS' steps at each
                 stage or select "Next Iteration" to see the situation after each iteration, including selection,
                 expansion, simulation, and backpropagation. The tree displays the current MCTS information. You can also
-                select "Visualize Last Step" to directly view the final step and each node's value. Finally, click "Make
+                select "visualise Last Step" to directly view the final step and each node's value. Finally, click "Make
                 Play" <span class="modified_text"> to let the AI</span> make a move on the board.
             </p>
 
@@ -1430,9 +1455,11 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Tic-Tac-Toe: MCTS can be used in competitive games.
-                    </div>
 
+                    </div>
+                    <span class="modified_text"> Select the first player. The detailed information about MCTS will be shown in the panel below.
+                    Click next step and iteration to show the procedure of MCTS step by step. Click visualise last step to show the final monte carlo tree.
+                    Click make play to let AI play the game.</span>
                     <div>
 
                         <div class="four_procedure">
@@ -1524,7 +1551,7 @@
 
                                     <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
-                                                id="vs_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                                id="vs_btn_last_step" disabled>visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
@@ -1543,7 +1570,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 9:</b><br><span class="modified_text"> An example of good move in MCTS.</span>
+                    <div class="caption"><b>Figure 10:</b><br><span class="modified_text"> MCTS can be used in competitive games.</span>
                     </div>
                 </div>
             </div>
@@ -1560,7 +1587,9 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Sokoban: MCTS can be used to solve Sokoban. Sokoban is a puzzle game.
+                        <span class="modified_text"> Select the first player. The detailed information about MCTS will be shown in the panel below.
+                    Click next step and iteration to show the procedure of MCTS step by step. Click visualise last step to show the final monte carlo tree.
+                    Click make play to let AI play the game.</span>
                     </div>
 
                     <div>
@@ -1652,8 +1681,9 @@
 
 
                                 <p id="mcts-sokobangame_reset">
-                                    <span style="display: none"> Clear! Step Used: </span><span id="mcts-sokobangame_step" style="display: none"></span>
-                                    <button onclick="mcts_sokobanGame.init()"  style="display: none">Reset</button>
+                                    <span style="display: none"> Clear! Step Used: </span><span
+                                        id="mcts-sokobangame_step" style="display: none"></span>
+                                    <button onclick="mcts_sokobanGame.init()" style="display: none">Reset</button>
                                 </p>
 
                             </div>
@@ -1681,7 +1711,7 @@
                                     <div style="display: flex;float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
                                                 id="soko_mcts_btn_last_step" disabled>
-                                            Visualize last step &gt;&gt;&gt;
+                                            visualise last step &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
@@ -1700,7 +1730,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 10:</b><br> MCTS solves puzzle game.
+                    <div class="caption"><b>Figure 11:</b><br> <span class="modified_text">MCTS can be used to solve Sokoban, which is a puzzle game.</span>
                     </div>
                 </div>
             </div>
@@ -1876,7 +1906,7 @@
         <!--                                    </div>-->
         <!--                                    <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">-->
         <!--                                        <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"-->
-        <!--                                                id="editor_btn_last_step" disabled>visualize last step &gt;&gt;&gt;-->
+        <!--                                                id="editor_btn_last_step" disabled>visualise last step &gt;&gt;&gt;-->
         <!--                                        </button>-->
         <!--                                        <br>-->
         <!--                                        <button style="width: 200px; height: 45%;" id="editor_btn_make_play"-->
