@@ -117,7 +117,7 @@ export const vis = (s) => {
             }
             s.fill("#636e72")
 
-            s.rect(0, 0, 7 * textSize, 3 * textSize, 5)
+            s.rect(0, 0, 9 * textSize, 3 * textSize, 5)
 
             s.fill("#dfe6e9")
             if (s.hovered_node.isRoot()) {
@@ -133,8 +133,8 @@ export const vis = (s) => {
                 s.text(" value:", 0, 0);
                 s.text(" visit:", 0, textSize);
                 s.textAlign(s.RIGHT, s.TOP);
-                s.text(value + " ", 7 * textSize, 0);
-                s.text(visits + " ", 7 * textSize, textSize);
+                s.text(value + " ", 9 * textSize, 0);
+                s.text(visits + " ", 9 * textSize, textSize);
             } else {
                 let uct = s.hovered_node.uct_txt
                 let value = s.hovered_node.val_txt
@@ -154,9 +154,9 @@ export const vis = (s) => {
                 s.text(" visit:", 0, textSize);
                 s.text(" uct:  ", 0, textSize * 2);
                 s.textAlign(s.RIGHT, s.TOP);
-                s.text(value + " ", 7 * textSize, 0);
-                s.text(visits + " ", 7 * textSize, textSize);
-                s.text(uct + " ", 7 * textSize, textSize * 2);
+                s.text(value + " ", 9 * textSize, 0);
+                s.text(visits + " ", 9 * textSize, textSize);
+                s.text(uct + " ", 9 * textSize, textSize * 2);
             }
 
         } else {
@@ -175,7 +175,7 @@ export const vis = (s) => {
 
             s.fill("#636e72")
 
-            s.rect(0, 0, 7 * textSize, 3 * textSize, 5)
+            s.rect(0, 0, 9 * textSize, 3 * textSize, 5)
 
             s.fill("#dfe6e9")
             if (s.hovered_node.isRoot()) {
@@ -380,7 +380,7 @@ export const vis = (s) => {
 
         const text_width = 45
 
-        value = value.toFixed(2)
+        value = value.toFixed(1)
         if (!node.isRoot()) {
             let uct = UCB1(node, s.tree.getParent(node)).toFixed(2);
             if (isNaN(uct)) {
