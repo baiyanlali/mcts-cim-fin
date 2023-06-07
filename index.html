@@ -485,7 +485,7 @@
                 </li>
                 <li>Upper confidence bound (UCB)
                     [<a href="#kocsis2006bandit">5</a>]
-                    measures the uncertainty of the expected reward of an action. The average rewards and visited <span class="modified_text">counts</span>
+                    measures the uncertainty of the expected reward of an action. The average rewards and <span class="modified_text">visit counts</span>
                     of actions form the upper confidence bound, seeing Eq. (1).
                 </li>
             </ul>
@@ -494,13 +494,13 @@
             <p>
                 $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}} \qquad (1)$$
                 where $x_i$ is the averaged reward of action $i$, $c$ is the exploration coefficient, $n$ is the total
-                visited <span class="modified_text">counts</span> and $n_i$ is the number of <span class="modified_text">counts</span> that the action $i$ is selected.
+                <span class="modified_text">visit counts</span> and $n_i$ is the number of <span class="modified_text">counts</span> that the action $i$ is selected.
                 The node with the highest UCB value will be selected.
             </p>
 
             <p>
                 UCB is the most commonly used selection strategy in MCTS, called as Upper Confidence Bound for Trees
-                (UCT). It balances the exploration and exploitation by considering both reward and visited <span class="modified_text">counts</span> of a
+                (UCT). It balances the exploration and exploitation by considering both reward and <span class="modified_text">visit counts</span> of a
                 node. $x_i$ estimates the current collected experience, e.g., the optimal action that has been taken,
                 while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the frequency that a nodes is visited. The less frequently
                 visited node has larger possibility to be chosen so that more unknown area will be explored. The
