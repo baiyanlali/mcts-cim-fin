@@ -10,6 +10,8 @@ export var currentGameState;
 
 export const s = (sketch) => {
 
+    sketch.onLoad = null
+
     sketch.preload = () => {
         sketch.circle = sketch.loadImage("image/tic-tac-toe/circle1.png")
         sketch.cross = sketch.loadImage("image/tic-tac-toe/cross1.png")
@@ -30,6 +32,8 @@ export const s = (sketch) => {
         sketch.mctsTimeoutSpan = sketch.select("#" + canvas_id + "_" + "mcts_timeout_span");
         //
         sketch.reset();
+        if (sketch.onLoad)
+            sketch.onLoad(sketch)
     };
 
     sketch.draw = () => {
@@ -292,6 +296,78 @@ export const s = (sketch) => {
     }
 };
 
+
+const Position = {
+    3: "A",
+    6: "B",
+    5: "D",
+    7: "C"
+}
+
+export const sTest = (st) => {
+    s(st)
+
+    st.drawBoard = () => {
+        st.translate(10, 10);
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                let isFake = false;
+
+                let tile = st.TTT_BOARD.grid[j + i * 3];
+                let draw_tile = null
+                if (st.hoveredTile === (j + i * 3) && currentGameState === GameStates.WAITING_HUMAN_MOVE
+                    && st.TTT_BOARD.isLegalPosition(j + i * 3)) {
+                    st.fill(200, 200, 200);
+                } else if (tile === "h") {
+                    // st.fill(100, 100, 240);
+                    st.fill("#00cec9")
+                    draw_tile = st.cross
+                } else if (tile === "m") {
+                    st.fill("#fab1a0")
+                    draw_tile = st.circle
+                    // st.fill(240, 100, 100);
+                } else if (tile === "fh") {
+                    // st.fill("#0095ff")
+                    st.fill("#dfe6e9");
+                    draw_tile = st.cross
+                    isFake = true
+                } else if (tile === "fm") {
+                    // st.fill("#d00b0b")
+                    st.fill("#dfe6e9");
+                    draw_tile = st.circle
+                    isFake = true
+                } else {
+                    // st.fill(255, 255, 255);
+                    st.fill("#dfe6e9");
+                }
+
+
+                st.rect(j * st.tileSize, i * st.tileSize, st.tileSize, st.tileSize);
+
+                let pos_cha = Position[j + i * 3]
+                if(pos_cha!== undefined ){
+                    st.fill(0);
+                    st.textSize(30);
+                    st.textAlign(st.CENTER, st.CENTER);
+                    st.text(pos_cha, j * st.tileSize + st.tileSize/2, i * st.tileSize + st.tileSize/2);
+                }
+
+                if (draw_tile !== null) {
+                    st.push()
+                    if (isFake)
+                        st.tint(255, 255, 255, 128);
+                    else
+                        st.tint(255, 255, 255, 255);
+                    st.image(draw_tile, j * st.tileSize, i * st.tileSize, st.tileSize, st.tileSize)
+                    st.pop()
+                }
+
+                st.tint(255, 255, 255, 255)
+            }
+        }
+    }
+}
 
 function testMCTS() {
     let results = {"h": 0, "m": 0, "v": 0};

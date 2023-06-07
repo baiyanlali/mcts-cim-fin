@@ -1258,6 +1258,148 @@
               \end{algorithm}
             </pre>
 
+            <h3>An example of a good move of MCTS</h3>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Try to figure out which action AI agent will select. A, B, C or D?
+                    </div>
+
+                    <div>
+
+                        <div class="four_procedure">
+                            <div class="interactive-ttt-left">
+
+                                <script type="module">
+                                    import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {s, sTest, GameStates} from "./mcts-viz/sketch.js"
+                                    let move_board = ["m", "h", "m","","h","","","","h"]
+                                    let current_player = PLAYER.MACHINE
+
+                                    window.move_p5 = new p5(sTest, "move")
+
+                                    window.move_p5.onLoad = (sketch) => {
+                                        sketch.TTT_BOARD = new TicTacToeBoard();
+                                        sketch.TTT_BOARD.setBoard(move_board)
+                                        sketch.whoseTurn = current_player
+                                        sketch.stateTransition(GameStates.SELECT_STARTING_PLAYER);
+                                        if (sketch.onMakeMove !== null)
+                                            sketch.onMakeMove(sketch)
+                                        move_p5.selectStartingPlayer(1)
+                                        move_p5.machineMctsMove(move_interactive)
+
+                                        sketch.handleHover = () => {}
+                                        sketch.mouseClicked = () => {}
+                                    }
+
+                                    window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
+                                    window.move_interactive = new TTTInteractive(move_tree_vis_p5, "move", move_p5)
+                                    move_interactive.setupInteractive()
+                                </script>
+                                <div id="move"></div>
+                                <p id="move_starting_player_area">
+                                    <b>Who will start the game?</b>
+                                    <br>
+                                    <button class="play_first" onclick="move_p5.selectStartingPlayer(0)">HUMAN</button>
+                                    <br>
+                                    <button class="play_first" onclick="move_p5.selectStartingPlayer(1)">AI</button>
+                                </p>
+
+                                <div class="control_panel" id="move_machine_controls_area">
+                                    <!--<b class="modified_text">AI controls:</b>-->
+
+                                    <div style="display: flex;">
+
+                                        <button class="control_panel_btn" onclick="move_p5.machineRandomMove()">Random
+                                            move
+                                        </button>
+                                        <br>
+                                        <button class="control_panel_btn" onclick="move_p5.machineGreedyMove()">Greedy
+                                            move
+                                        </button>
+                                        <br>
+                                        <button class="control_panel_btn"
+                                                onclick="move_p5.machineMctsMove(move_interactive)">MCTS move
+                                        </button>
+                                        <br>
+                                        <button class="control_panel_btn" onclick="move_p5.reset()">Reset game</button>
+                                    </div>
+
+                                    <div>
+                                        <br>
+                                        Run MCTS for:
+                                        <br>
+                                        <input id="move_mcts_timeout_slider" type="range" min="100" max="2000"
+                                               value="1000"
+                                               step="100"/>
+                                        <br>
+                                        <span id="move_mcts_timeout_span"><b>1</b></span> iterations
+                                    </div>
+                                </div>
+
+
+                                <p id="move_whoseturn_area">
+                                    <b style="display: none">Current Player:</b> <br> <span id="move_whoseturn"
+                                                                                            style="display: none">HUMAN</span>
+                                </p>
+                                <div id="move_game_over_area">
+                                    <b>The winner is...</b> <span id="move_game_over_winner">HUMAN</span>!
+                                    <br>
+                                    <button onclick="move_p5.reset()">Restart game</button>
+                                </div>
+
+                            </div>
+
+                            <div class="interactive-ttt-right" style="flex-direction: column">
+                                <div style="border: solid 1px lightgrey; height: 110px; display: flex; align-items: center; margin: 20px">
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em">
+                                        <b>Current step</b>:
+                                        <br>
+                                        <span id="move_current_action_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="move_btn_next_action" disabled>next step &gt;</button>
+                                    </div>
+
+                                    <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
+                                        <b>Current iteration</b>:
+                                        <br>
+                                        <span id="move_current_iteration_count">(0/0)</span>
+                                        <br>
+                                        <br>
+                                        <button id="move_btn_next_iteration" disabled>next iteration &gt;&gt;</button>
+                                    </div>
+
+
+                                    <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
+                                        <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
+                                                id="move_btn_last_step" disabled>visualize last step &gt;&gt;&gt;
+                                        </button>
+                                        <br>
+                                        <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
+                                                id="move_btn_make_play" disabled>make
+                                            play
+                                        </button>
+                                    </div>
+
+
+                                    <span id="move_current_action_kind" style="font-size: larger">---</span>
+
+                                </div>
+                                <div id="move_tree_vis" class="tree_vis"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="caption"><b>Figure 9:</b><br><span class="modified_text"> Now, AI agents is involved with a disadvantaged situation. Can it find a good move?</span>
+                    </div>
+                </div>
+            </div>
+
+
         </section>
 
         <section id="practise">
@@ -1401,7 +1543,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 9:</b><br> Human VS Machine.
+                    <div class="caption"><b>Figure 9:</b><br><span class="modified_text"> An example of good move in MCTS.</span>
                     </div>
                 </div>
             </div>

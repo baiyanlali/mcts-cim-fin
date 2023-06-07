@@ -5,6 +5,10 @@ class TicTacToeBoard {
         this.grid = (new Array(9)).fill("");
     }
 
+    setBoard(board){
+        this.grid = JSON.parse(JSON.stringify(board))
+    }
+
     humanMakeMove(position) {
         if (this.getLegalPositions().indexOf(position) == -1) {
             console.error("Illegal move! Legal moves: " + this.getLegalPositions().toString());
