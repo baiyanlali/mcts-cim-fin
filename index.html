@@ -1309,6 +1309,12 @@
 
                                     window.move_p5 = new p5(sTest, "move")
 
+
+
+                                    window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
+                                    window.move_interactive = new TTTInteractive(move_tree_vis_p5, "move", move_p5)
+                                    move_interactive.setupInteractive()
+
                                     window.move_p5.onLoad = (sketch) => {
                                         sketch.TTT_BOARD = new TicTacToeBoard();
                                         sketch.TTT_BOARD.setBoard(move_board)
@@ -1324,10 +1330,6 @@
                                         sketch.mouseClicked = () => {
                                         }
                                     }
-
-                                    window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
-                                    window.move_interactive = new TTTInteractive(move_tree_vis_p5, "move", move_p5)
-                                    move_interactive.setupInteractive()
                                 </script>
                                 <div id="move"></div>
                                 <p id="move_starting_player_area">
