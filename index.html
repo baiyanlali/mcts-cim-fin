@@ -217,7 +217,7 @@
                     squares are filled but neither player has won, the game ends in a draw. <span class="modified_text">Due to the participation of the counterpart, MCTS is involved with the min-max and opponent modelling problem.</span>
                 </li>
                 <li>
-                    Sokoban is a classic video game in which a player must strategically push boxes to their designated
+                    Sokoban is a one-player puzzle game in which a player must strategically push boxes to their designated
                     positions in order to win. The game is set on a fixed board made up of different tiles, as
                     demonstrated in Figure 1 (right). The player can move through empty spaces and push boxes onto
                     spaces without obstacles such as walls and other fixed boxes. <span class="modified_text">In this game, the representation of the state is more complex than Tic-Tac-Toe and a challenge of deep exploration with unlimited steps arises. </span>
@@ -231,21 +231,20 @@
             <p>
                 MCTS is typically used to solve sequential decision problems, which are often formulated as a Markov
                 decision process (MDP). The four components of an MDP are state $S$, action $A$, transition model $P$
-                and reward $R$. An MCTS policy $\pi$ takes an action in a given state s, then obtains a reward $R$ and
+                and reward $R$. An MCTS policy $\pi$ takes an action in a given state $s$, then obtains a reward $r$ and
                 the next state of the environments according to the transition model. The policy is expected to optimise
-                the policy and maximise the long-term expected reward. For example, in Tic-Tac-Toe as shown in Figure 1
-                (left), the game board is the state of the game, represented as nodes in the game tree, and the marker
+                the policy and maximise the long-term expected reward. For example, in Tic-Tac-Toe, as shown in Figure 1
+                (left),  state of the game is the game board, represented as nodes in the game tree. The marker
                 placed by a player is considered an action taken by that player.
             </p>
 
             <p>
                 The interactive interface is based on [<a href="#mcts-viz">6</a>]. The game interfaces and data
                 representations of Tic-Tac-Toe and Sokoban are presented below. You can
-                activate either game by hovering your mouse pointer over its corresponding image. Detailed gameplay
-                instructions for each game are included in its description.
+                activate either game by hovering your mouse pointer over its corresponding image.
             </p>
 
-            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ grid.</p>
+            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix.</p>
 
             <div class="framed">
 
@@ -361,7 +360,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 2:</b> An introduction to the Tic-Tac-Toe game and its
+                    <div class="caption"><b>Figure 2:</b> An introduction to Tic-Tac-Toe and its
                         representation.
                     </div>
                 </div>
@@ -438,7 +437,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 3:</b>An introduction to the Sokoban game and its representation.
+                    <div class="caption"><b>Figure 3:</b>An introduction to Sokoban and its representation.
                     </div>
                 </div>
             </div>
@@ -481,8 +480,8 @@
 
             <ul>
                 <li>A random strategy selects nodes randomly.</li>
-                <li>$\epsilon$-greedy strategy selects nodes randomly with probability $\epsilon$. Otherwise, it chooses
-                    the node that has the highest reward with probability $1- \epsilon$.
+                <li>$\epsilon$-greedy strategy selects nodes randomly with a probability $\epsilon$. Otherwise, it chooses
+                    the node that has the highest reward with a probability $1- \epsilon$.
                 </li>
                 <li>Upper confidence bound (UCB)
                     [<a href="#kocsis2006bandit">5</a>]
@@ -506,7 +505,7 @@
                 (UCT). It balances the exploration and exploitation by considering both reward and <span
                     class="modified_text">visit counts</span> of a
                 node. $x_i$ estimates the current collected experience, e.g., the optimal action that has been taken,
-                while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the frequency that a nodes is visited. The less frequently
+                while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the visit frequency. The less frequently
                 visited node has larger possibility to be chosen so that more unknown area will be explored. The
                 coefficient $c$ controls the importance of exploration.
             </p>
@@ -918,7 +917,7 @@
             </p>
 
             <p>
-                The simulation algorithm is as below.
+                The simulation algorithm is shown as below.
             </p>
 
             <pre id="simulation_pseudo">
