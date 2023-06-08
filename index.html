@@ -378,8 +378,7 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        To play, first move your mouse to the game panel and then
-                        use the W, S, A, D, or arrow keys on your keyboard to move the character. The objective is to
+                        Use the W, S, A, D, or arrow keys on your keyboard to move the avatar. The objective is to
                         push all the boxes to the green points (targets) to win the game.
 
                     </div>
@@ -540,9 +539,7 @@
 
                         <span class="modified_text">Click the "Random board" button to
                         randomly generate a Tic-Tac-Toe game state.<br>
-                        Click the  "Continue"  button to automatically
-                        move to the next step in MCTS'
-                        selection process.<br></span>
+                        Click the  "Continue"  button for selection step in the MCTS.<br></span>
                         The node currently selected is highlighted with a red border. <br>
                          <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
                         to the tree node, a detailed panel will be shown in the upper left area.</span>
@@ -772,8 +769,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                         Click <span class="modified_text"> "Continue" </span>
-                        button to automatically move to the
-                        next expansion step in the Monte Carlo search.<br>
+                        button for expansion step in the MCTS.<br>
                         <span class="modified_text"> The selected node to be expanded is highlighted with a pink border.</span>
                         The expanded node is highlighted with a green border.
                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
@@ -946,7 +942,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                         Click <span class="modified_text"> "Continue" </span>
-                        button to automatically do simulation step in the MCTS.<br>
+                        button for simulation step in the MCTS.<br>
                         The node being simulated is connected with a dotted line.
                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
                         to the tree node, a detailed panel will be shown in the upper left area.</span>
@@ -1127,8 +1123,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                         Click <span class="modified_text"> "Continue" </span>
-                        button to automatically move to
-                        the next backpropagation step in MCTS.<br>
+                        button for backpropagation step in MCTS.<br>
                         The node being back propagated is highlighted with a blue border.
                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
                         to the tree node, a detailed panel will be shown in the upper left area.</span>
@@ -1230,7 +1225,7 @@
                                         <button id="backpropagration_btn_next_action" disabled>next action &gt;</button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
-                                        <b>Current iteration</b>:
+                                        <b>Current iteration</b>:button
                                         <br>
                                         <span id="backpropagration_current_iteration_count">(0/0)</span>
                                         <br>
@@ -1268,8 +1263,8 @@
               \begin{algorithmic}
               \PROCEDURE{Mcts}{root}
               \While{not end\_condition}
-                \State $node$ $\gets$ $Select(root)$
-                \State $node$ $\gets$ $Expand(node)$
+                \State $node$ $\gets$ Select($root$)
+                \State $node$ $\gets$ Expand($node$)
                 \State $value$ $\gets$ Simulate($node$)
                 \State Backpropagation($node$, $value$)
               \EndWhile
@@ -1441,26 +1436,26 @@
             </p>
 
             <p>
-                For the Sokoban game, choose "Human" or "Machine" to decide who goes first. During the player's turn,
+                For the Sokoban game, choose "Human" or <span class="modified_text">"AI"</span> to decide who goes first. During the player's turn,
                 click on the highlighted area on the board to make a move. <span class="modified_text"> During the AI's turn,</span>
                 you can select one
                 of three decision-making modes for the <span class="modified_text"> AI</span>: random, greedy, and MCTS.
                 In MCTS, you can slide the
                 slider to select the number of iterations. The higher the number of iterations is, the better decisions
-                the AI will make. In the MCTS panel on the right, choose "Next Step" to view the MCTS' steps at each
-                stage or select "Next Iteration" to see the situation after each iteration, including selection,
+                the AI will make. In the MCTS panel on the right, choose "next step" to view the MCTS' steps at each
+                stage or select "next iteration" to see the situation after each iteration, including selection,
                 expansion, simulation, and backpropagation. The tree displays the current MCTS information. You can also
-                select "visualise Last Step" to directly view the final step and each node's value. Finally, click "Make
-                Play" <span class="modified_text"> to let the AI</span> make a move on the board.
+                select "visualise last step" to directly view the final step and each node's value. Finally, click "make
+                play" <span class="modified_text"> to take AI's action</span>.
             </p>
 
             <div class="framed">
 
                 <div class="inside">
                     <div class="eyebrow">
-                    <span class="modified_text"> Select the first player. The detailed information about MCTS will be shown in the panel below.
-                    Click next step and iteration to show the procedure of MCTS step by step. Click visualise last step to show the final monte carlo tree.
-                    Click make play to let AI play the game.</span>
+                    <span class="modified_text"> Select the first player by clicking "Human" or "AI". The detailed information about MCTS will be shown in the panel below.
+                    Click "next step" and "next iteration" to show the procedure of MCTS step by step. Click "visualise last step" to show the final monte carlo tree.
+                    Click "make play" to make AI's action.</span>
                     </div>
 
                     <div>
@@ -1590,9 +1585,9 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        <span class="modified_text"> Select the first player. The detailed information about MCTS will be shown in the panel below.
-                    Click next step and iteration to show the procedure of MCTS step by step. Click visualise last step to show the final monte carlo tree.
-                    Click make play to let AI play the game.</span>
+                        <span class="modified_text">  The detailed information about MCTS will be shown in the panel below.
+                    Click "next step" and iteration to show the procedure of MCTS step by step. Click "visualise last step" to show the final monte carlo tree.
+                    Click "make play" to take AI's action.</span>
                     </div>
 
                     <div>
