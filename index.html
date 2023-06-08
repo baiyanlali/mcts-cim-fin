@@ -708,16 +708,16 @@
                                         <span id="selection_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="selection_btn_next_iteration" disabled>Next iteration &gt;&gt;
+                                        <button id="selection_btn_next_iteration" disabled><span class="modified_text"> Next iteration </span> &gt;&gt;
                                         </button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="selection_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="selection_btn_last_step" disabled><span class="modified_text"> Visualise last step </span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="selection_btn_make_play"
-                                                disabled>Make play
+                                                disabled><span class="modified_text">Make play</span>
                                         </button>
                                     </div>
                                 </div>
@@ -738,14 +738,14 @@
             <p>
                 Expansion is the process of exploring new states and adding new nodes to the tree.
                 An expandable node is the one that still has available actions to explore. When a node is selected for
-                Expansion, the algorithm creates new child nodes based on the available action. If the selected node has
+                <span class="modified_text">Expansion</span>, the algorithm creates new child nodes based on the available action. If the selected node has
                 no available actions, the selection strategy continues searching until an expandable or terminal node is
                 found. The number of expanded nodes usually depends on the available action space and the computation
                 budget.
             </p>
 
             <p>
-                The Expansion algorithm is as below.
+                The <span class="modified_text">Expansion</span> algorithm is as below.
             </p>
 
             <pre id="expansion_pseudo">
@@ -762,7 +762,7 @@
               \end{algorithm}
             </pre>
 
-            <p>You can test the Expansion algorithm in the interactive panel below.</p>
+            <p>You can test the <span class="modified_text">Expansion</span> algorithm in the interactive panel below.</p>
 
             <div class="framed">
 
@@ -771,7 +771,7 @@
                         <span class="modified_text">Click the "Random board" button to
                             randomly generate a Tic-Tac-Toe game board.<br></span>
                         Click <span class="modified_text"> "Continue" </span>
-                        button for the Expansion step in the MCTS.<br>
+                        button for the <span class="modified_text">Expansion</span> step in the MCTS.<br>
                         <span class="modified_text"> The selected node to be expanded is highlighted with a pink border.</span>
                         The expanded node is highlighted with a green border.
                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
@@ -876,16 +876,16 @@
                                         <span id="expansion_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="expansion_btn_next_iteration" disabled>Next iteration &gt;&gt;
+                                        <button id="expansion_btn_next_iteration" disabled><span class="modified_text">Next iteration</span> &gt;&gt;
                                         </button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="expansion_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="expansion_btn_last_step" disabled><span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="expansion_btn_make_play"
-                                                disabled>Make play
+                                                disabled><span class="modified_text">Make play</span>
                                         </button>
                                     </div>
                                 </div>
@@ -907,17 +907,17 @@
             <p>
                 Simulation is a crucial component of the MCTS algorithm, which involves rolling out various gameplays
                 from the expanded node.
-                The choice of Simulation policy has a large impact on the final result.
+                The choice of <span class="modified_text">Simulation</span> policy has a large impact on the final result.
                 A common strategy for selecting actions is to use a random policy due to its simplicity, which chooses
                 actions uniformly at random at successive states.
-                The Simulation continues until a terminal state is reached. The results of the simulation, such as the
+                The <span class="modified_text">Simulation</span> continues until a terminal state is reached. The results of the simulation, such as the
                 final state or a reward value, is then collected and used to update the values of the node. However, the
                 random policy can be highly inefficient, which has led to the development of more advanced techniques,
                 such as rule-based simulation and learning methods.
             </p>
 
             <p>
-                The Simulation algorithm is shown as below.
+                The <span class="modified_text">Simulation</span> algorithm is shown as below.
             </p>
 
             <pre id="simulation_pseudo">
@@ -938,7 +938,7 @@
               \end{algorithm}
             </pre>
 
-            <p>You can try out the Simulation process in the interactive panel below.</p>
+            <p>You can try out the <span class="modified_text">Simulation</span> process in the interactive panel below.</p>
 
             <div class="framed">
 
@@ -947,7 +947,7 @@
                         <span class="modified_text">Click the "Random board" button to
                             randomly generate a Tic-Tac-Toe game board.<br></span>
                         Click <span class="modified_text"> "Continue" </span>
-                        button for the Simulation step in the MCTS.<br>
+                        button for the <span class="modified_text">Simulation</span> step in the MCTS.<br>
                         The node being simulated is connected with a dotted line.
                         <span class="modified_text"> In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor
                         to the tree node, a detailed panel will be shown in the upper left area.</span>
@@ -1058,16 +1058,16 @@
                                         <span id="simulation_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="simulation_btn_next_iteration" disabled>Next iteration &gt;&gt;
+                                        <button id="simulation_btn_next_iteration" disabled><span class="modified_text">Next iteration</span> &gt;&gt;
                                         </button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="simulation_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="simulation_btn_last_step" disabled><span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="simulation_btn_make_play"
-                                                disabled>Make play
+                                                disabled><span class="modified_text">Make play</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1084,7 +1084,7 @@
             <h3>Backpropagation</h3>
 
             <p>
-                During the backpropagation phase of MCTS, the statistics gathered during Simulation are propagated back
+                During the backpropagation phase of MCTS, the statistics gathered during <span class="modified_text">Simulation</span> are propagated back
                 along the path up the tree from the expanded node. This involves updating the visitation counts and
                 values, such as rewards and wins, for all nodes along the path from the expanded node to the root node
                 of the tree. Considering Tic-Tac-Toe, players A and B take turns making moves. When MCTS determines the
@@ -1095,8 +1095,8 @@
                 visited path will be incremented by one. It is notable that since Tic-Tac-Toe is a two-player
                 competitive game, the value update mechanism of nodes is different compared with the single player case.
                 For example, wins for nodes that belong to player A will be incremented by one, while wins for nodes
-                that belong to player B will be decremented, if player A wins the game according to the Simulation. All
-                updates are limited to nodes that trace back from the expanded node for the Simulation.
+                that belong to player B will be decremented, if player A wins the game according to the <span class="modified_text">Simulation</span>. All
+                updates are limited to nodes that trace back from the expanded node for the <span class="modified_text">Simulation</span>.
             </p>
 
             <p>The backpropagation algorithm is as below.</p>
@@ -1238,15 +1238,15 @@
                                         <span id="backpropagration_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="backpropagration_btn_next_iteration" disabled>Next iteration &gt;&gt;</button>
+                                        <button id="backpropagration_btn_next_iteration" disabled><span class="modified_text">Next iteration</span> &gt;&gt;</button>
                                     </div>
                                     <div style="float: left; height: 100%; width: auto; margin-top: 0.2em; margin-bottom: 0.2em;">
                                         <button style="width: 200px; height: 45%; margin-bottom: 0.2em;"
-                                                id="backpropagration_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="backpropagration_btn_last_step" disabled><span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 200px; height: 45%;" id="backpropagration_btn_make_play"
-                                                disabled>Make play
+                                                disabled><span class="modified_text">Make play</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1309,6 +1309,12 @@
 
                                     window.move_p5 = new p5(sTest, "move")
 
+
+
+                                    window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
+                                    window.move_interactive = new TTTInteractive(move_tree_vis_p5, "move", move_p5)
+                                    move_interactive.setupInteractive()
+
                                     window.move_p5.onLoad = (sketch) => {
                                         sketch.TTT_BOARD = new TicTacToeBoard();
                                         sketch.TTT_BOARD.setBoard(move_board)
@@ -1324,10 +1330,6 @@
                                         sketch.mouseClicked = () => {
                                         }
                                     }
-
-                                    window.move_tree_vis_p5 = new p5(vis, "move_tree_vis");
-                                    window.move_interactive = new TTTInteractive(move_tree_vis_p5, "move", move_p5)
-                                    move_interactive.setupInteractive()
                                 </script>
                                 <div id="move"></div>
                                 <p id="move_starting_player_area">
@@ -1391,7 +1393,7 @@
                                         <span id="move_current_action_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="move_btn_next_action" disabled>Next step &gt;</button>
+                                        <button id="move_btn_next_action" disabled><span class="modified_text">Next step</span> &gt;</button>
                                     </div>
 
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
@@ -1400,18 +1402,18 @@
                                         <span id="move_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="move_btn_next_iteration" disabled>Next iteration &gt;&gt;</button>
+                                        <button id="move_btn_next_iteration" disabled><span class="modified_text">Next iteration</span> &gt;&gt;</button>
                                     </div>
 
 
                                     <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
-                                                id="move_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="move_btn_last_step" disabled><span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
-                                                id="move_btn_make_play" disabled>Make
-                                            play</button>
+                                                id="move_btn_make_play" disabled><span class="modified_text">Make
+                                            play</span></button>
                                     </div>
 
 
@@ -1450,9 +1452,9 @@
                 In MCTS, you can slide the
                 slider to select the number of iterations. The higher the number of iterations is, the better decisions
                 the AI will make. In the MCTS panel on the right, choose "Next step" to view the MCTS' steps at each
-                stage or select "Next iteration" to see the situation after each iteration, including Selection,
+                stage or select <span class="modified_text">"Next iteration"</span> to see the situation after each iteration, including Selection,
                 Expansion, Simulation, and Backpropagation. The tree displays the current MCTS information. You can also
-                select "Visualise last step" to directly view the final step and each node's value. Finally, click "make
+                select <span class="modified_text">"Visualise last step"</span> to directly view the final step and each node's value. Finally, click "make
                 play" <span class="modified_text"> to take AI's action</span>.
             </p>
 
@@ -1461,7 +1463,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                     <span class="modified_text"> Select the first player by clicking "Human" or "AI". The detailed information about MCTS will be shown in the panel below.
-                    Click "Next step" and "Next iteration" to show the procedure of MCTS. Click "Visualise last step" to show the final tree.
+                        Click <span class="modified_text">"Next step"</span> and <span class="modified_text">"Next iteration"</span> to show the procedure of MCTS. Click <span class="modified_text">"Visualise last step"</span> to show the final tree.
                     Click "Make play" to make AI's action.</span>
                     </div>
 
@@ -1541,7 +1543,7 @@
                                         <span id="vs_current_action_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="vs_btn_next_action" disabled>Next step &gt;</button>
+                                        <button id="vs_btn_next_action" disabled><span class="modified_text">Next step</span> &gt;</button>
                                     </div>
 
                                     <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
@@ -1550,18 +1552,18 @@
                                         <span id="vs_current_iteration_count">(0/0)</span>
                                         <br>
                                         <br>
-                                        <button id="vs_btn_next_iteration" disabled>Next iteration &gt;&gt;</button>
+                                        <button id="vs_btn_next_iteration" disabled><span class="modified_text">Next iteration</span> &gt;&gt;</button>
                                     </div>
 
 
                                     <div style="display: flex; float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
-                                                id="vs_btn_last_step" disabled>Visualise last step &gt;&gt;&gt;
+                                                id="vs_btn_last_step" disabled><span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
-                                                id="vs_btn_make_play" disabled>Make
-                                            play</button>
+                                                id="vs_btn_make_play" disabled><span class="modified_text">Make
+                                            play</span></button>
                                     </div>
 
 
@@ -1592,7 +1594,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                         <span class="modified_text">  The detailed information about MCTS will be shown in the panel below.
-                    Click "Next step" and "Next iteration" to show the procedure of MCTS. Click "Visualise last step" to show the final tree.
+                            Click <span class="modified_text">"Next step"</span> and <span class="modified_text">"Next iteration"</span> to show the procedure of MCTS. Click <span class="modified_text">"Visualise last step"</span> to show the final tree.
                     Click "Make play" to take AI's action.<br>
                     Notably, human player can also use the W, S, A, D, or arrow keys on the keyboard to move the avatar afther AI' moves.
                 </span>
@@ -1717,12 +1719,12 @@
                                     <div style="display: flex;float: left; height: 100%; width: auto; align-items: center; margin: 10px">
                                         <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
                                                 id="soko_mcts_btn_last_step" disabled>
-                                            Visualise last step &gt;&gt;&gt;
+                                            <span class="modified_text">Visualise last step</span> &gt;&gt;&gt;
                                         </button>
                                         <br>
                                         <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
                                                 id="soko_mcts_btn_make_play" disabled>
-                                            Make play
+                                            <span class="modified_text">Make play</span>
                                         </button>
                                     </div>
 
