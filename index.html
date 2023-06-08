@@ -608,6 +608,7 @@
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
                                     import {s} from "./mcts-viz/sketch.js"
+                                    import {vis_four} from "./mcts-viz/tree_viz_simulation.js";
 
                                     window.selection_p5 = new p5(s, "selection")
 
@@ -616,7 +617,7 @@
                                     selection_p5.handleOver = () => {
                                     }
 
-                                    window.selection_tree_vis_p5 = new p5(vis, "selection_tree_vis");
+                                    window.selection_tree_vis_p5 = new p5(vis_four, "selection_tree_vis");
                                     window.selection_interactive = new TTTInteractive(selection_tree_vis_p5, "selection", selection_p5)
                                     selection_interactive.setupInteractive()
 
@@ -784,10 +785,11 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {vis_four} from "./mcts-viz/tree_viz_simulation.js";
                                     import {s} from "./mcts-viz/sketch.js"
 
                                     window.expansion_p5 = new p5(s, "expansion")
-                                    window.expansion_tree_vis_p5 = new p5(vis, "expansion_tree_vis");
+                                    window.expansion_tree_vis_p5 = new p5(vis_four, "expansion_tree_vis");
                                     window.expansion_interactive = new TTTInteractive(expansion_tree_vis_p5, "expansion", expansion_p5)
                                     expansion_p5.mouseClicked = () => {
                                     }
@@ -1142,10 +1144,11 @@
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
+                                    import {vis_four} from "./mcts-viz/tree_viz_simulation.js";
                                     import {s} from "./mcts-viz/sketch.js"
 
                                     window.backpropagration_p5 = new p5(s, "backpropagration")
-                                    window.backpropagration_tree_vis_p5 = new p5(vis, "backpropagration_tree_vis");
+                                    window.backpropagration_tree_vis_p5 = new p5(vis_four, "backpropagration_tree_vis");
                                     window.backpropagration_interactive = new TTTInteractive(backpropagration_tree_vis_p5, "backpropagration", backpropagration_p5)
                                     backpropagration_p5.mouseClicked = () => {
                                     }
@@ -1492,19 +1495,19 @@
 
                                     <div style="display: flex;">
 
-                                        <button class="control_panel_btn" onclick="vs_p5.machineRandomMove()">Random
+                                        <button class="control_panel_btn3" onclick="vs_p5.machineRandomMove()">Random
                                             move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="vs_p5.machineGreedyMove()">Greedy
+                                        <button class="control_panel_btn3" onclick="vs_p5.machineGreedyMove()">Greedy
                                             move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn"
+                                        <button class="control_panel_btn3"
                                                 onclick="vs_p5.machineMctsMove(vs_interactive)">MCTS move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" onclick="vs_p5.reset()">Reset game</button>
+                                        <button class="control_panel_btn3" onclick="vs_p5.reset()">Reset game</button>
                                     </div>
 
                                     <div>
@@ -1647,27 +1650,27 @@
                                 <div class="control_panel" id="mcts-sokobangame_machine_controls_area">
 
                                     <div style="display: flex">
-                                        <button class="control_panel_btn" id="sokoban_rand_move"
+                                        <button class="control_panel_btn3" id="sokoban_rand_move"
                                                 onclick="mcts_sokobanGame.machineRandomMove()">Random move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_mcts_move"
+                                        <button class="control_panel_btn3" id="sokoban_mcts_move"
                                                 onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
                                             MCTS move
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_autoplay"
+                                        <button class="control_panel_btn3" id="sokoban_autoplay"
                                                 onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_cancel"
+                                        <button class="control_panel_btn3" id="sokoban_cancel"
                                                 onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)"
                                                 style="display: none">Cancel
                                         </button>
                                         <br>
-                                        <button class="control_panel_btn" id="sokoban_reset"
+                                        <button class="control_panel_btn3" id="sokoban_reset"
                                                 onclick="mcts_sokobanGame.init(JSON.parse(JSON.stringify(mcts_board)))">
-                                            Reset
+                                            Reset game
                                         </button>
                                     </div>
 
