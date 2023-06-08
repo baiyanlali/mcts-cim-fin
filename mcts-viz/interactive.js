@@ -117,7 +117,8 @@ class TTTInteractive {
             iteration_progress_bar = "(" + this.currentIterationIdx + "/" + (this.action_trace.length - 1) + ")";
         }
 
-        document.getElementById(this.id + "_" + "current_action_kind").innerHTML = action_kind;
+        // document.getElementById(this.id + "_" + "current_action_kind").innerHTML = action_kind;
+        document.getElementById(this.id + "_" + "current_action_kind").innerHTML = action_kind.charAt(0).toUpperCase() + action_kind.slice(1)
         document.getElementById(this.id + "_" + "current_action_kind").className = action_kind;
         document.getElementById(this.id + "_" + "current_action_count").innerHTML = action_progress_bar;
         document.getElementById(this.id + "_" + "current_iteration_count").innerHTML = iteration_progress_bar;
