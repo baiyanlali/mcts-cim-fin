@@ -154,7 +154,6 @@ export default class SokobanGame {
 
     init(board = undefined) {
         // await sleep(100)
-        console.log("init")
         document.getElementById(this.screen + "_reset").style.display = "none"
         this.sokoban = new Sokoban(board)
         this.show_board(this.sokoban.board)

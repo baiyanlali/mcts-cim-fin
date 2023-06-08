@@ -85,8 +85,8 @@
             </h1>
             <!-- Subheading -->
             <p class="subhead">
-                An interactive article providing an accessible explanation of how Monte-Carlo Tree Search (MCTS) works.
-                Tic-Tac-Toe and Sokoban will be provided to show the procedure of MCTS.
+                <span class="modified_text">This interactive article provides an accessible explanation of how Monte-Carlo Tree Search (MCTS) works.
+                Tic-Tac-Toe and Sokoban are</span> provided to show the procedure of MCTS.
             </p>
             <!-- Header info general wrapper -->
             <div class="header-info">
@@ -206,7 +206,7 @@
                     Sokoban (right)
                 </div>
             </div>
-
+            <br>
 
             <ul>
                 <li>
@@ -224,6 +224,11 @@
                 </li>
             </ul>
 
+        </section>
+
+        <section id="algorithm">
+
+            <h2>III. Algorithm</h2>
 
             <h3>Modelling</h3>
 
@@ -231,9 +236,8 @@
             <p>
                 MCTS is typically used to solve sequential decision problems, which are often formulated as a Markov
                 decision process (MDP). The four components of an MDP are state $S$, action $A$, transition model $P$
-                and reward $R$. An MCTS policy $\pi$ takes an action in a given state $s$, then obtains a reward $r$ and
-                the next state of the environments according to the transition model. The policy is expected to optimise
-                the policy and maximise the long-term expected reward. For example, in Tic-Tac-Toe, as shown in Figure 1
+                and reward $R$. An MCTS policy $\pi$ takes an action in a given state $s$ <span class="modified_text">aiming at maximising the long-term expected reward, then obtains a reward $r$ and
+                the next state of the environments according to the transition model.</span> For example, in Tic-Tac-Toe, as shown in Figure 1
                 (left),  state of the game is the game board, represented as nodes in the game tree. The marker
                 placed by a player is considered an action taken by that player.
             </p>
@@ -443,11 +447,7 @@
             </div>
 
 
-        </section>
 
-        <section id="algorithm">
-
-            <h2>Algorithm</h2>
 
             <div class="l-body" style="width: 100%;">
                 <img src="image/MCTS.png" alt="Main steps of MCTS."
@@ -460,10 +460,10 @@
             </div>
 
             <p>
-                The MCTS follows a workflow that illustrated in Figure 4. It involves four main components:
+                The MCTS follows a workflow as illustrated in Figure 4. It involves four main components:
                 <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>. The specific four
                 steps will be discussed in detail in the subsequent sections. Interactive components are provided to
-                demonstrate the four steps of MCTS intuitively.
+                demonstrate these steps intuitively.
             </p>
 
 
@@ -498,9 +498,6 @@
                 <span class="modified_text">visit counts</span> and $n_i$ is the number of <span class="modified_text">counts</span>
                 that the action $i$ is selected.
                 The node with the highest UCB value will be selected.
-            </p>
-
-            <p>
                 UCB is the most commonly used selection strategy in MCTS, called as Upper Confidence Bound for Trees
                 (UCT). It balances the exploration and exploitation by considering both reward and <span
                     class="modified_text">visit counts</span> of a
@@ -738,7 +735,7 @@
             <p>
                 Expansion is the process of exploring new states and adding new nodes to the tree.
                 An expandable node is the one that still has available actions to explore. When a node is selected for
-                <span class="modified_text">Expansion</span>, the algorithm creates new child nodes based on the available action. If the selected node has
+                <span class="modified_text">Expansion</span>, the algorithm creates new child nodes based on the available actions. If the selected node has
                 no available actions, the selection strategy continues searching until an expandable or terminal node is
                 found. The number of expanded nodes usually depends on the available action space and the computation
                 budget.
@@ -911,7 +908,7 @@
                 A common strategy for selecting actions is to use a random policy due to its simplicity, which chooses
                 actions uniformly at random at successive states.
                 The <span class="modified_text">Simulation</span> continues until a terminal state is reached. The results of the simulation, such as the
-                final state or a reward value, is then collected and used to update the values of the node. However, the
+                final state or a reward value, are then collected and used to update the values of the node. However, the
                 random policy can be highly inefficient, which has led to the development of more advanced techniques,
                 such as rule-based simulation and learning methods.
             </p>
@@ -1085,13 +1082,13 @@
 
             <p>
                 During the backpropagation phase of MCTS, the statistics gathered during <span class="modified_text">Simulation</span> are propagated back
-                along the path up the tree from the expanded node. This involves updating the visitation counts and
+                along the path up the tree from the expanded node. This involves updating the visit counts and
                 values, such as rewards and wins, for all nodes along the path from the expanded node to the root node
                 of the tree. Considering Tic-Tac-Toe, players A and B take turns making moves. When MCTS determines the
                 next move for player A, it obtains the action that leads to win with the highest probability in the
                 current state. The tree is built with different layers representing the players, so the expandable
                 states belong to player B, i.e., those where B would make a move next. If, after simulating a number of
-                future moves, it is determined that A wins the game, the visitation count for each of the nodes in the
+                future moves, it is determined that A wins the game, the visit count for each of the nodes in the
                 visited path will be incremented by one. It is notable that since Tic-Tac-Toe is a two-player
                 competitive game, the value update mechanism of nodes is different compared with the single player case.
                 For example, wins for nodes that belong to player A will be incremented by one, while wins for nodes
@@ -1435,7 +1432,7 @@
         </section>
 
         <section id="practise">
-            <h2>Practise</h2>
+            <h2>IV. Practise</h2>
 
             <p>
                 MCTS is a powerful algorithm that can effectively handle various types of games, including adversarial
@@ -1939,7 +1936,7 @@
 
 
         <section id="conclusion">
-            <h2>Conclusion</h2>
+            <h2>V. Conclusion</h2>
             <p>
                 As a summary, this paper provides a comprehensive explanation of the basic procedure of MCTS. Four main components, Selection, Expansion, Simulation, 
                 and Backpropagation are described in detail. To fully demonstrate the workflow of MCTS in two-player and single-player cases, two classic games, 
