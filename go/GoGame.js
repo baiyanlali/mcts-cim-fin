@@ -17,6 +17,8 @@ export const sketch_go = (s) => {
     s.onSetup = null
     s.onSetupParams = null
 
+    s.hoveredTile = [-1, -1]
+
     s.setup = () => {
         s.canvas = s.createCanvas(200, 200)
         s.clear()
@@ -28,18 +30,20 @@ export const sketch_go = (s) => {
     }
 
     s.draw = () => {
+        s.handleHover()
         s.drawBoard([
+            [GoTile.Black, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
             [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
             [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
             [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
             [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
             [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
-            [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty],
-            [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty]
+            [GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.Empty, GoTile.White]
         ])
     }
 
     s.drawBoard = (board) => {
+        s.translate(10, 10);
 
         if (s.hasSetup === false) {
             s.onSetup = s.drawBoard
@@ -51,45 +55,70 @@ export const sketch_go = (s) => {
         s.tileSize = (s.width - 20) / tileNum;
         s.clear()
 
-        
+        s.push()
+
+        s.strokeWeight(1.5)
 
         //draw the base board
 
         for (let i = 0; i < tileNum; i++) {
             for (let j = 0; j < tileNum; j++) {
-                s.line(i * s.tileSize, j * s.tileSize, (i + 1) * s.tileSize, j * s.tileSize)
-                s.line(i * s.tileSize, j * s.tileSize, i * s.tileSize, (j + 1) * s.tileSize)
-                s.circle(i * s.tileSize, j * s.tileSize, 2)
+                if(i!== tileNum - 1)
+                    s.line(i * s.tileSize, j * s.tileSize, (i + 1) * s.tileSize, j * s.tileSize)
+                if(j!== tileNum - 1)   
+                    s.line(i * s.tileSize, j * s.tileSize, i * s.tileSize, (j + 1) * s.tileSize)
+                let radius = 4
+
+                switch(board[i][j]){
+                    case GoTile.Empty:
+                        s.fill(0)
+                        if(i == s.hoveredTile[0] && j == s.hoveredTile[1]){
+                            s.fill(122)
+                            radius = 15
+                        }
+                        break;
+                    case GoTile.Black:
+                        s.fill(0)
+                        radius = 20
+                        break;
+                    case GoTile.White:
+                        s.fill(255)
+                        radius = 20
+                        break; 
+                }
+
+
+
+                s.circle(i * s.tileSize, j * s.tileSize, radius)
             }
         }
 
+        s.pop()
 
-        // s.noSmooth()
+
+    }
+
+    s.mouseClicked = ()=>{
+        
+    }
 
 
-        // for (let i = 0; i < tileNum; i++) {
-        //     for (let j = 0; j < tileNum; j++) {
-        //         let tile = board[i][j];
-        //
-        //         let object_on_current_tile = null
-        //
-        //         switch (tile) {
-        //             case GoTile.Empty:
-        //                 object_on_current_tile = s.player
-        //                 break
-        //             case GoTile.Black:
-        //                 object_on_current_tile = s.wall
-        //                 break
-        //             case GoTile.White:
-        //                 object_on_current_tile = s.box
-        //                 break
-        //         }
-        //
-        //
-        //         if (object_on_current_tile !== null)
-        //             s.image(object_on_current_tile, j * s.tileSize, i * s.tileSize, s.tileSize, s.tileSize)
-        //     }
-        // }
+    s.handleHover = () => {
+        let mouseX = s.mouseX;
+        let mouseY = s.mouseY;
+        let tileNum = 7
+
+        for (var i = 0; i < tileNum; i++) {
+            for (var j = 0; j < tileNum; j++) {
+                if (mouseX > (i * s.tileSize) && mouseX < ((i + 1) * s.tileSize)
+                    && mouseY > (j * s.tileSize) && mouseY < ((j + 1) * s.tileSize)) {
+                    s.hoveredTile = [i, j];
+                    return;
+                }
+            }
+        }
+
+        s.hoveredTile = [-1, -1];
     }
 
 
