@@ -9,7 +9,7 @@ export const GoTile = {
 const TILECNT = 7
 
 function out_boundary(x, y) {
-    return (x < 0 || x > 7 || y < 0 || y > 7);
+    return (x < 0 || x >= TILECNT || y < 0 || y >= TILECNT);
 }
 
 function ToDirection(pos, direction) {
@@ -49,33 +49,84 @@ export default class Go {
         let y = position[1]
 
         if (out_boundary(x, y))
-            return
+            return "Out of Boundary"
 
         if (this.board[x][y] !== GoTile.Empty) {
             // there is already a piece
-            return
+            return "No Empty Space"
+        }
+
+        // console.log(this.get_air_cnt(position))
+        let air_cnt = this.get_air_cnt(position, this.current_player())
+        const board_backup = JSON.parse(JSON.stringify(this.board))
+        this.board[x][y] = this.current_player()
+        let have_cleared = this.clear_dead_piece()
+        if(!have_cleared && air_cnt === 0){
+            //只有在没有清除敌方棋子并且当前格子没有气的时候才不让下该地方
+            this.board = board_backup
+            return "No Air"
+        }
+
+        if(this.play_histroy.includes(this.toString())){
+            this.board = board_backup
+            return "Jie Happened"
         }
 
 
-        this.board[x][y] = this.current_player()
-
         this.turn_cnt++
-
-        this.play_histroy.push(this.toString())
+        if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
+            this.play_histroy.push(this.toString())
+        return true
     }
 
     get_legal_action() {
 
     }
 
+    clear_dead_piece(){
+        let have_cleared = false
+        for (let i = 0; i < TILECNT; i++) {
+            for (let j = 0; j < TILECNT; j++) {
+                const element = this.board[i][j]
+                if(element === this.opposite_player()){
+                    let air = this.get_air_cnt([i, j], this.opposite_player())
+                    if(air === 0)
+                    {
+                        this._clear_from([i, j])
+                        have_cleared = true
+                    }
+                }
+            }
+        }
+        return have_cleared
+    }
+
+    _clear_from(position){
+        let color = this.board[position[0]][position[1]]
+        this.board[position[0]][position[1]] = GoTile.Empty
+        for (let i = 0; i < this.DIRECTIONS.length; i++) {
+            const direction = this.DIRECTIONS[i];
+            let neighbour = ToDirection(position, this.DIRECTIONS[i])
+            if(out_boundary(neighbour[0], neighbour[1]))
+                continue
+            if(color === this.board[neighbour[0]][neighbour[1]]){
+                this._clear_from(neighbour)
+            }
+        }
+    }
+
     current_player() {
         return (this.turn_cnt % 2 === 0) ? GoTile.Black : GoTile.White
     }
 
-    //get air count in specific position. Do not include this point
-    get_air_cnt(position) {
+    opposite_player() {
+        return (this.turn_cnt % 2 === 0) ? GoTile.White : GoTile.Black
+    }
 
-        let visited_nodes = []
+    //get air count in specific position. Do not include this point
+    get_air_cnt(position, player) {
+        // console.log("air cnt of " + position)
+        let visited_nodes = [JSON.stringify(position)]
         let get_air_cnt_in = (position) => {
             if (out_boundary(position[0], position[1]))
                 return 0
@@ -86,43 +137,24 @@ export default class Go {
                 if (out_boundary(neighbour[0], neighbour[1])) {
                     continue
                 }else if(visited_nodes.includes(JSON.stringify(neighbour))){
+                    // console.log("visited "+ neighbour)
                     continue
                 }
                 visited_nodes.push(JSON.stringify(neighbour))
                 let neighbour_tile = this.board[neighbour[0]][neighbour[1]]
                 if (neighbour_tile === GoTile.Empty) {
                     air_cnt++
-                } else if (neighbour_tile === current_player()) {
+                    // console.log(neighbour)
+                } else if (neighbour_tile === player) {
                     air_cnt += get_air_cnt_in(neighbour)
                 }
             }
             return air_cnt
         }
-
+        // console.log(get_air_cnt_in(position))
         return get_air_cnt_in(position)
     }
 
-    // get_air_cnt(position) {
-    //     if (out_boundary(position[0], position[1]))
-    //         return 0
-    //     let air_cnt = 0
-    //     for (let i = 0; i < 4; i++) {
-    //         //four directions
-    //         let neighbour = ToDirection(position, this.DIRECTIONS[i])
-    //         if (neighbour === false) continue
-    //         air_cnt += this.board[neighbour[0]][neighbour[1]] === 0 ? 1 : 0
-    //     }
-    //     return air_cnt
-    // }
-
-    //if placed in current position, whether there is an air
-    have_air(position) {
-        if (out_boundary(position[0], position[1]))
-            return false
-        let air_cnt = this.get_air_cnt(position)
-
-        return air_cnt !== 0
-    }
 
     is_jie() {
         // assume the piece is already placed
