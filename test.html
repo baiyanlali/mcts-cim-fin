@@ -4,18 +4,70 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="./p5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="interactive.css">
 </head>
 <body>
 
 </script>
 
 <script type="module">
-    import {sketch_go} from "./go/GoGame.js";
-    window.go = new p5(sketch_go, "go");
+    import GoGame, {sketch_go} from "./go/GoGame.js";
+    // window.go = new p5(sketch_go, "go");
 
+    window.go = new GoGame()
 </script>
 
-<div id="go"></div>
+
+<div id="gogamediv" class="interactive-ttt-left">
+    <!--                                <p>Game: <b>Sokoban</b></p>-->
+
+    <p id="gogame"></p>
+
+    <div id="p5_go"></div>
+
+
+    <div class="control_panel" id="gogame_machine_controls_area">
+        <div style="display: flex">
+            <button class="control_panel_btn3" id="sokoban_rand_move"
+                    onclick="mcts_sokobanGame.machineRandomMove()">Random move
+            </button>
+            <br>
+            <button class="control_panel_btn3" id="sokoban_mcts_move"
+                    onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
+                MCTS move
+            </button>
+            <br>
+            <button class="control_panel_btn3" id="sokoban_autoplay"
+                    onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+            </button>
+            <br>
+            <button class="control_panel_btn3" id="sokoban_cancel"
+                    onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)"
+                    style="display: none">Cancel
+            </button>
+            <br>
+            <button class="control_panel_btn3" id="sokoban_reset"
+                    onclick="mcts_sokobanGame.init(JSON.parse(JSON.stringify(mcts_board)))">
+                Reset game
+            </button>
+        </div>
+        <div>
+            <br>
+            Run MCTS for:
+            <br>
+            <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="100"
+                   max="2000" value="1000" step="100"/>
+            <br>
+            <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1000</b></span> iterations
+        </div>
+    </div>
+    <p id="gogame_reset">
+        <span style="display: none"> Clear! Step Used: </span><span
+            id="gogame_step" style="display: none"></span>
+        <button onclick="mcts_sokobanGame.init()" style="display: none">Reset</button>
+    </p>
+
+</div>
 
 </body>
 </html>

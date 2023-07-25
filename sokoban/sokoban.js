@@ -237,7 +237,6 @@ export default class Sokoban {
             JSON.parse(JSON.stringify(this.player_position)),
             JSON.parse(JSON.stringify(this.end_positions))
         )
-
     }
 
     decide_emoji(mapcode) {
