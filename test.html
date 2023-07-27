@@ -28,29 +28,12 @@
 
     <div class="control_panel" id="gogame_machine_controls_area">
         <div style="display: flex">
-            <button class="control_panel_btn3" id="sokoban_rand_move"
-                    onclick="mcts_sokobanGame.machineRandomMove()">Random move
-            </button>
-            <br>
-            <button class="control_panel_btn3" id="sokoban_mcts_move"
-                    onclick="mcts_sokobanGame.machineMctsMove(soko_mcts_interactive)">
-                MCTS move
-            </button>
-            <br>
-            <button class="control_panel_btn3" id="sokoban_autoplay"
-                    onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
-            </button>
-            <br>
-            <button class="control_panel_btn3" id="sokoban_cancel"
-                    onclick="mcts_sokobanGame.cancelPlay(soko_mcts_interactive)"
-                    style="display: none">Cancel
-            </button>
-            <br>
-            <button class="control_panel_btn3" id="sokoban_reset"
-                    onclick="mcts_sokobanGame.init(JSON.parse(JSON.stringify(mcts_board)))">
-                Reset game
+            <button class="control_panel_btn3" id="go_pass"
+                    onclick="go.pass()">
+                Pass
             </button>
         </div>
+
         <div>
             <br>
             Run MCTS for:

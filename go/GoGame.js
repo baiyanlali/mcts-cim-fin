@@ -15,6 +15,8 @@ export const sketch_go = (s) => {
 
     s.lastBoard = null
 
+    s.go = null
+
     s.onMouseClicked = (tile) => {
     }
 
@@ -22,7 +24,13 @@ export const sketch_go = (s) => {
         s.canvas = s.createCanvas(200, 200)
         s.clear()
         s.hasSetup = true
-
+        /*s.button = s.createButton('pass')
+        s.button.position(0, 0, 'relative')
+        s.button.mousePressed(()=>{
+            if(!s.go)return
+            console.log("button!")
+            s.go.make_action(-1)
+        })*/
         if (s.onSetup !== null) {
             s.onSetup(s.onSetupParams[0])
         }
@@ -40,7 +48,9 @@ export const sketch_go = (s) => {
             s.onSetupParams = [board]
             return
         }
-        s.translate(10, 10);
+        s.push()
+
+        s.translate(15, 15);
 
         if(board)
             s.lastBoard = board
@@ -51,7 +61,6 @@ export const sketch_go = (s) => {
         s.tileSize = (s.width - 20) / tileNum;
         s.clear()
 
-        s.push()
 
         s.strokeWeight(1.5)
 
@@ -88,7 +97,13 @@ export const sketch_go = (s) => {
 
         s.pop()
 
+        if(s.go === null) return
 
+        if(s.go.end){
+            s.text(`Winner is: ${s.go.winner === 999? "Draw": s.go.winner === GoTile.White? "White":"Black"}`, 15, 190)
+        }else{
+            s.text(`Current Player: ${s.go.current_player() === GoTile.White? "White": "Black"}`, 15, 190)
+        }
     }
 
     s.mouseClicked = () => {
@@ -130,11 +145,13 @@ export default class GoGame {
             this.makeAction(tile)
         }
         // console.log(screenID+"p5_game")
-        this.that = this;
-        this.screenID = screenID;
+        this.that = this
+        this.screenID = screenID
         this.screen = screenID + "gogame"
         this.screendiv = screenID + "gogamediv"
         this.go = new Go(board)
+
+        this.goGame.go = this.go
         // this.show_board(this.sokoban.board)
         this.div = document.getElementById(this.screendiv)
 
@@ -222,6 +239,10 @@ export default class GoGame {
         if (this.go.checkWin()) {
             this.show_result()
         }
+    }
+
+    pass = ()=>{
+        this.go.make_action(-1)
     }
 
     makeMctsMove = (interactive) => {
