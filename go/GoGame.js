@@ -1,4 +1,5 @@
 import Go, {GoTile} from "./go.js";
+import GoMCTS from "./go_mcts.js";
 
 
 export const sketch_go = (s) => {
@@ -152,7 +153,6 @@ export default class GoGame {
         this.go = new Go(board)
 
         this.goGame.go = this.go
-        // this.show_board(this.sokoban.board)
         this.div = document.getElementById(this.screendiv)
 
 
@@ -187,9 +187,10 @@ export default class GoGame {
         // await sleep(100)
         document.getElementById(this.screen + "_reset").style.display = "none"
         this.go = new Go(board)
-        this.show_board(this.sokoban.board)
+        this.show_board(this.go.board)
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
         this.cancel = false
+        this.goGame.go = this.go
     }
 
     onMouseOver() {
@@ -246,7 +247,7 @@ export default class GoGame {
     }
 
     makeMctsMove = (interactive) => {
-        let monteCarlo = new SokobanMCTS(this.go)
+        let monteCarlo = new GoMCTS(this.go)
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         interactive.setMCTS(monteCarlo, MCTS_search)
@@ -261,7 +262,7 @@ export default class GoGame {
     }
 
     machineMctsMove = (interactive) => {
-        let monteCarlo = new SokobanMCTS(this.go)
+        let monteCarlo = new GoMCTS(this.go)
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
 
@@ -287,21 +288,21 @@ export default class GoGame {
     }
 
     autoPlay = async (interactive) => {
-        document.getElementById("sokoban_cancel").style.display = ""
-        document.getElementById("sokoban_autoplay").style.display = "none"
-        document.getElementById("sokoban_reset").disabled = true
-        document.getElementById("sokoban_mcts_move").disabled = true
-        document.getElementById("sokoban_rand_move").disabled = true
+        document.getElementById("go_cancel").style.display = ""
+        document.getElementById("go_autoplay").style.display = "none"
+        document.getElementById("go_reset").disabled = true
+        document.getElementById("go_mcts_move").disabled = true
+        document.getElementById("go_rand_move").disabled = true
 
         while (!this.go.checkWin() && this.cancel === false) {
             this.makeMctsMove(interactive)
             await sleep(100)
         }
-        document.getElementById("sokoban_cancel").style.display = "none"
-        document.getElementById("sokoban_autoplay").style.display = ""
-        document.getElementById("sokoban_reset").disabled = false
-        document.getElementById("sokoban_mcts_move").disabled = false
-        document.getElementById("sokoban_rand_move").disabled = false
+        document.getElementById("go_cancel").style.display = "none"
+        document.getElementById("go_autoplay").style.display = ""
+        document.getElementById("go_reset").disabled = false
+        document.getElementById("go_mcts_move").disabled = false
+        document.getElementById("go_rand_move").disabled = false
         this.cancel = false
     }
 

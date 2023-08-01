@@ -52,6 +52,11 @@ export default class Go {
         new_go.play_histroy = Copy(this.play_histroy)
         new_go.passed = this.passed
         new_go.end = this.end
+        return new_go
+    }
+
+    makeMove(arg){
+        return this.make_action(arg)
     }
 
 
@@ -171,9 +176,13 @@ export default class Go {
         }
     }
 
+    checkWin(komi = 0){
+        return this.check_win(komi)
+    }
+
     check_win(komi = 0){
-        // GoTile.Empty| Now wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
-        if(!this.end)   return GoTile.Empty
+        // false| Now wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
+        if(!this.end)   return false
         let [black, white] = this.area()
         if (black - white - komi === 0){
             //draw
@@ -308,12 +317,6 @@ export default class Go {
         }
 
         return empty_groups
-    }
-
-
-
-    checkWin() {
-        return false
     }
 
     toString() {
