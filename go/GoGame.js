@@ -53,7 +53,7 @@ export const sketch_go = (s) => {
 
         s.translate(15, 15);
 
-        if(board)
+        if (board)
             s.lastBoard = board
         else
             board = s.lastBoard
@@ -98,12 +98,12 @@ export const sketch_go = (s) => {
 
         s.pop()
 
-        if(s.go === null) return
+        if (s.go === null) return
 
-        if(s.go.end){
-            s.text(`Winner is: ${s.go.winner === 999? "Draw": s.go.winner === GoTile.White? "White":"Black"}`, 15, 190)
-        }else{
-            s.text(`Current Player: ${s.go.current_player() === GoTile.White? "White": "Black"}`, 15, 190)
+        if (s.go.end) {
+            s.text(`Winner is: ${s.go.winner === 999 ? "Draw" : s.go.winner === GoTile.White ? "White" : "Black"}`, 15, 190)
+        } else {
+            s.text(`Current Player: ${s.go.current_player() === GoTile.White ? "White" : "Black"}`, 15, 190)
         }
     }
 
@@ -143,7 +143,7 @@ export default class GoGame {
 
         this.goGame.onMouseClicked = (tile) => {
             if (tile === [-1, -1]) return
-            this.makeAction(tile)
+            this.makeAction(new GameMove(this.go.current_player(), tile))
         }
         // console.log(screenID+"p5_game")
         this.that = this
@@ -154,7 +154,6 @@ export default class GoGame {
 
         this.goGame.go = this.go
         this.div = document.getElementById(this.screendiv)
-
 
 
         this.div.onmouseover = () => {
@@ -242,8 +241,8 @@ export default class GoGame {
         }
     }
 
-    pass = ()=>{
-        this.go.make_action(-1)
+    pass = () => {
+        this.go.make_action({position: -1})
     }
 
     makeMctsMove = (interactive) => {
@@ -261,7 +260,7 @@ export default class GoGame {
         // this.endMove(MCTS_search.move.player)
     }
 
-    machineMctsMove = (interactive) => {
+    machineMctsMove = async (interactive) => {
         let monteCarlo = new GoMCTS(this.go)
         // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
         let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
@@ -269,19 +268,23 @@ export default class GoGame {
         if (this.machineControlsArea)
             this.machineControlsArea.style.display = "none"
 
-        interactive.setMCTS(monteCarlo, MCTS_search)
+        MCTS_search.then((r)=>{
+            interactive.setMCTS(monteCarlo, r)
+        })
+
+        // interactive.setMCTS(monteCarlo, MCTS_search)
     }
 
-    machineMctsMoveWithMyMCTS = (interactive, MyMCTS) => {
-        let monteCarlo = new MyMCTS(this.go)
-        // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
-        let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-
-        if (this.machineControlsArea)
-            this.machineControlsArea.style.display = "none"
-
-        interactive.setMCTS(monteCarlo, MCTS_search)
-    }
+    // machineMctsMoveWithMyMCTS = (interactive, MyMCTS) => {
+    //     let monteCarlo = new MyMCTS(this.go)
+    //     // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
+    //     let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+    //
+    //     if (this.machineControlsArea)
+    //         this.machineControlsArea.style.display = "none"
+    //
+    //     interactive.setMCTS(monteCarlo, MCTS_search)
+    // }
 
     cancelPlay = () => {
         this.cancel = true

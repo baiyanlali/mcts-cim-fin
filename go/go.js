@@ -1,4 +1,4 @@
-import {Copy, New2DArray} from "../Util.js";
+import {Copy, New2DArray, RandomElement} from "../Util.js";
 
 
 //rule of Go: https://en.wikipedia.org/wiki/Rules_of_Go#End
@@ -59,8 +59,14 @@ export default class Go {
         return this.make_action(arg)
     }
 
+    makeRandomMove(){
+        let actions = this.get_legal_action()
+        return RandomElement(actions)
+    }
 
-    make_action(position) {
+
+    make_action(move) {
+        let position = move.position
         if(position === [-1, -1] || position === -1){
             if(this.passed){
                 this.end = true
@@ -123,19 +129,24 @@ export default class Go {
                         continue
                     }
                     const board_backup = JSON.parse(JSON.stringify(this.board))
-                    this.board[x][y] = this.current_player()
+                    this.board[i][j] = this.current_player()
                     let have_cleared = this.clear_dead_piece()
 
                     if(!have_cleared && air_cnt === 0){
                         //只有在没有清除敌方棋子并且当前格子没有气的时候才不让下该地方
+                        // No Air
                         this.board = board_backup
-                        return "No Air"
+                        continue
                     }
 
                     if(this.play_histroy.includes(this.toString())){
+                        // Jie Happened
                         this.board = board_backup
-                        return "Jie Happened"
+                        continue
                     }
+
+                    legal_actions.push([i, j])
+                    this.board = board_backup
 
                 }
             }

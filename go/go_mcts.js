@@ -1,3 +1,9 @@
+import {GoTile} from "./go.js";
+
+function getOtherPlayer(player) {
+    return player === GoTile.White ? GoTile.Black : GoTile.White;
+}
+
 Array.prototype.indexOf = function (val) {
     for (let i = 0; i < this.length; i++) {
         if (this[i] === val) return i;
@@ -12,7 +18,18 @@ Array.prototype.remove = function (val) {
     }
 }
 
-class GameNodeGo {
+class GameMove {
+    constructor(player, position) {
+        this.player = player;
+        this.position = position;
+    }
+
+    copy() {
+        return new GameMove(this.player, this.position);
+    }
+}
+
+export class GameNodeGo {
     constructor(move, go) {
         this.go = go;
         this.move = move
@@ -21,7 +38,7 @@ class GameNodeGo {
     }
 
     copy() {
-        const new_game_node = new GameNodeGo(this.move == null ? null : this.move, this.go == null ? null : this.go);
+        const new_game_node = new GameNodeGo(this.move === null ? null : this.move.copy(), this.go == null ? null : this.go);
         new_game_node.value = this.value;
         new_game_node.simulations = this.simulations;
         return new_game_node;
@@ -35,14 +52,13 @@ function UCB1(node, parent) {
 }
 
 export default class GoMCTS {
-    constructor(model) {
+    constructor(model, player = GoTile.Black) {
         this.model = model
-        let root = new Node(new GameNodeGo(null, model.copy()));
+        let root = new Node(new GameNodeGo(new GameMove(player, null), model.copy()));
         this.tree = new Tree(root);
-        this.stepPenalty = 5
     }
 
-    runSearch(iterations = 50) {
+    async runSearch(iterations = 50) {
         // let end = Date.now() + timeout * 1000;
         let trace = [];
 
@@ -104,7 +120,8 @@ export default class GoMCTS {
         if (model.checkWin() === false) {
             let legalPositions = this.getAvailablePlays(node);
             // let randomPos = legalPositions[myp5.round(myp5.random(legalPositions.length - 1))];
-            let randomMove = legalPositions[Math.floor(Math.random() * legalPositions.length)];
+            let otherPlayer = getOtherPlayer(node.data.move.player);
+            let randomMove = new GameMove(otherPlayer ,legalPositions[Math.floor(Math.random() * legalPositions.length)]);
 
             model2 = model.copy()
             model2.makeMove(randomMove);
@@ -128,22 +145,19 @@ export default class GoMCTS {
         // let simulateNode = new Node(new GameNode(randomMove, model2));
         let model = node.data.go.copy()
         let step = 0
+        let currentPlayer = node.data.move.player
 
-        let lastStepDis = model.checkBoxDistance()
+        // let lastStepDis = model.checkBoxDistance()
         let reward = 0
         // console.log("start")
         while (model.checkWin() === false) {
+
+            currentPlayer = getOtherPlayer(currentPlayer)
+
             model.makeRandomMove()
             step++
 
-            let newStepDis = model.checkBoxDistance()
-
-            reward += lastStepDis - newStepDis * 0.9
-            // console.log(lastStepDis, newStepDis, reward)
-
-            lastStepDis = newStepDis
-
-            if(step>=1000){
+            if(step>=50){
                 break
             }
         }
@@ -155,8 +169,6 @@ export default class GoMCTS {
 
         return {
             winner_icon: winner_icon,
-            win_step: model.checkFilledHoles(),
-            box_distance: model.checkBoxDistance(),
             step_used: step,
             actions: [new AlgAction("simulation", node.id, null, {
                 "result": winner_icon,
@@ -181,14 +193,15 @@ export default class GoMCTS {
         // node.data.value += node.data.go.checkFilledHoles()
         node.data.value -= step*0.01
 
-        if(winner === true){
-            node.data.value += 1
+        // console.log(node.data)
+        if ((node.data.move.player === GoTile.White && winner === GoTile.White) ||
+            (node.data.move.player === GoTile.Black && winner === GoTile.Black)) {
+            node.data.value += 1;
         }
-
-        // node.data.value += simulation.reward * 0.01
-        // else{
-        //     node.data.value -= 1
-        // }
+        if ((node.data.move.player === GoTile.White && winner === GoTile.Black) ||
+            (node.data.move.player === GoTile.Black && winner === GoTile.White)) {
+            node.data.value -= 1;
+        }
 
 
         if (!node.isRoot()) {
@@ -213,44 +226,13 @@ export default class GoMCTS {
     getAvailablePlays(node){
         let parent_go = node.data.go
         let children = this.tree.getChildren(node)
-        // let children = this.tree.getSiblings(node)
-        // let children = this.tree.getChildren(this.tree.get(0))
-        //避免把自己也给算进去
-        // children.remove(node)
-
-        //重复的play情况是箱子和player位置一样
         return parent_go.get_legal_action().filter((dir) => {
             let parent_go_copy = parent_go.copy()
-            parent_go_copy.make_action(dir)
-            //判断整个棋盘是否相等
+            parent_go_copy.make_action({position: dir})
             let explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
             return !explored;
         });
     }
 
-    //parent状态也有可能会出现，所以在这里的children并不能只是node的children
-    getAvailablePlays2(node) {
-        let parent = null
-        if (node !== this.tree.getRoot()) {
-            parent = this.tree.getParent(node)
-        }
-        let parent_go = node.data.go
-        let children = this.tree.getChildren(node)
-
-        let available_play = parent_go.get_legal_action().filter((pos) => {
-            let explored = children.find((child) => child.data.move === pos);
-            return !explored;
-        })
-        //如果只剩下一条路可走，就走这一条路
-        if (available_play.length <= 1) return available_play
-        //否则就不允许走回头路
-        return available_play.filter((dir) => {
-            if (parent === null) return true
-            let current_tmp = node.data.go.copy()
-            current_tmp.make_action(dir)
-
-            return !(current_tmp.board.toString() === parent.data.go.board.toString())
-        });
-    }
 }
 

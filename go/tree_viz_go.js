@@ -35,9 +35,9 @@ export const viz_go= (s)=>{
         s.mctsTimeoutSpan = s.select("#" + canvas_id + "_" + "mcts_timeout_span");
 
         s.canvas_div = s._userNode
-    };
+    }
 
-        s.originDraw = s.draw
+    s.originDraw = s.draw
 
     s.draw = () => {
         s.originDraw()
@@ -45,63 +45,50 @@ export const viz_go= (s)=>{
     }
 
     s.drawGame = (board) => {
+        s.push()
         s.fill(0);
         board = board.board
+        s.translate(7, 7);
+
         let tile_size = node_size.x / board.length;
 
-        s.translate(15, 15);
-
-        if(board)
-            s.lastBoard = board
-        else
-            board = s.lastBoard
-
-        let tileNum = Math.max(board.length, board[0].length)
-        s.tileSize = (s.width - 20) / tileNum;
-        s.clear()
-
-
-        s.strokeWeight(1.5)
-
+        s.strokeWeight(1)
         //draw the base board
-
-        for (let i = 0; i < tileNum; i++) {
-            for (let j = 0; j < tileNum; j++) {
-                if (i !== tileNum - 1)
-                    s.line(i * s.tileSize, j * s.tileSize, (i + 1) * s.tileSize, j * s.tileSize)
-                if (j !== tileNum - 1)
-                    s.line(i * s.tileSize, j * s.tileSize, i * s.tileSize, (j + 1) * s.tileSize)
-                let radius = 4
-
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[0].length; j++) {
+                if (i !== board.length - 1)
+                    s.line(i * tile_size, j * tile_size, (i + 1) * tile_size, j * tile_size)
+                if (j !== board[0].length - 1)
+                    s.line(i * tile_size, j * tile_size, i * tile_size, (j + 1) * tile_size)
+                let radius = 0
                 switch (board[i][j]) {
                     case GoTile.Empty:
                         s.fill(0)
-                        if (i === s.hoveredTile[0] && j === s.hoveredTile[1]) {
-                            s.fill(122)
-                            radius = 15
-                        }
                         break;
                     case GoTile.Black:
                         s.fill(0)
-                        radius = 20
+                        radius = 4
                         break;
                     case GoTile.White:
                         s.fill(255)
-                        radius = 20
+                        radius = 4
                         break;
                 }
-                s.circle(i * s.tileSize, j * s.tileSize, radius)
+                s.circle(i * tile_size, j * tile_size, radius)
             }
         }
+        if(s.go === null || s.go === undefined) {
+            s.pop()
+            return
+        }
 
-        s.pop()
-
-        if(s.go === null) return
+        s.fill(0)
 
         if(s.go.end){
             s.text(`Winner is: ${s.go.winner === 999? "Draw": s.go.winner === GoTile.White? "White":"Black"}`, 15, 190)
         }else{
             s.text(`Current Player: ${s.go.current_player() === GoTile.White? "White": "Black"}`, 15, 190)
         }
+        s.pop()
     }
 }

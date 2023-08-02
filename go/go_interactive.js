@@ -1,3 +1,5 @@
+import {GameNodeGo} from "./go_mcts.js";
+
 const VisualizationStates = Object.freeze({
     NONE: 0,
     VISUALIZING: 1,
@@ -122,16 +124,16 @@ export default class GoInteractive {
             if (!f.isLeaf()) f.data.should_show_collapse_btn = true;
         })
 
-        while (true) {
-            for (var i = 0; i < d_tree.nodes.length; i++) {
+        // while (true) {
+            for (let i = 0; i < d_tree.nodes.length; i++) {
                 let parent = d_tree.getParent(d_tree.get(i));
                 if (parent && parent.data.collapsed) {
                     d_tree.remove(d_tree.get(i));
                     i = 0;
                 }
             }
-            break;
-        }
+            // break;
+        // }
 
         return prepareTree(d_tree, {min_distance: 1});
     }

@@ -13,6 +13,10 @@ export function Copy(originList){
     return new_array
 }
 
+export function RandomElement(arr){
+    return arr[Math.floor(Math.random() * arr.length)]
+}
+
 export function Transpose(arr) {
     let newarr = []
     for (let i = 0; i < arr[0].length; i++) {
