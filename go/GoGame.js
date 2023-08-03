@@ -1,6 +1,6 @@
 import Go, {GoTile} from "./go.js";
 import GoMCTS from "./go_mcts.js";
-
+import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs"
 
 export const sketch_go = (s) => {
 
@@ -245,34 +245,41 @@ export default class GoGame {
         this.go.make_action({position: -1})
     }
 
-    makeMctsMove = (interactive) => {
-        let monteCarlo = new GoMCTS(this.go)
-        // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
-        let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-        interactive.setMCTS(monteCarlo, MCTS_search)
-
-        // interactive.clickVisualizeLastStep()
-
-        if (this.machineControlsArea)
-            this.machineControlsArea.style.display = "none"
-
-        this.makeMove(MCTS_search.move)
-        // this.endMove(MCTS_search.move.player)
-    }
+    // makeMctsMove = (interactive) => {
+    //     let monteCarlo = new GoMCTS(this.go)
+    //     // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
+    //     let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+    //     interactive.setMCTS(monteCarlo, MCTS_search)
+    //
+    //     // interactive.clickVisualizeLastStep()
+    //
+    //     if (this.machineControlsArea)
+    //         this.machineControlsArea.style.display = "none"
+    //
+    //     this.makeMove(MCTS_search.move)
+    //     // this.endMove(MCTS_search.move.player)
+    // }
 
     machineMctsMove = async (interactive) => {
-        let monteCarlo = new GoMCTS(this.go)
-        // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
-        let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
 
-        if (this.machineControlsArea)
-            this.machineControlsArea.style.display = "none"
+        // let monteCarlo = new GoMCTS(this.go)
+        const obj = Comlink.wrap(new Worker("/go/worker.js"))
+        let [monteCarlo, result] = await obj.run(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+        // let result = await obj.haha()
+        console.log(result)
+        interactive.setMCTS(monteCarlo, result)
+        return
 
-        MCTS_search.then((r)=>{
-            interactive.setMCTS(monteCarlo, r)
-        })
+        // let monteCarlo = new GoMCTS(this.go)
+        // let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+        //
+        // if (this.machineControlsArea)
+        //     this.machineControlsArea.style.display = "none"
+        //
+        // MCTS_search.then((r)=>{
+        //     interactive.setMCTS(monteCarlo, r)
+        // })
 
-        // interactive.setMCTS(monteCarlo, MCTS_search)
     }
 
     // machineMctsMoveWithMyMCTS = (interactive, MyMCTS) => {
