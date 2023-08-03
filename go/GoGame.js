@@ -261,6 +261,7 @@ export default class GoGame {
     // }
 
     machineMctsMove = async (interactive) => {
+        document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("/go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
         worker.postMessage({
@@ -273,6 +274,7 @@ export default class GoGame {
             result.move = new GameMove(result.move.player, result.move.position)
             monteCarlo = FromMCTS(monteCarlo)
             interactive.setMCTS(monteCarlo, result)
+            document.getElementById(this.screen + "_loadingbar").style.display = "none"
         }
 
 

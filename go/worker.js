@@ -26,6 +26,10 @@ function runMonteCarlo(event) {
 self.addEventListener("message", runMonteCarlo)
 
 
+////////////////////////////////////////////////////////////////
+///////////////////// 以下仅是一些丑陋的重复代码 ///////////////////
+///////////////////////////////////////////////////////////////
+
 
 function NodeCopy(nonono) {
     return new Node(nonono.data, nonono.id, nonono.children_id.slice(), nonono.parent_id);
