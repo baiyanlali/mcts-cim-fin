@@ -1,5 +1,5 @@
 import Go, {GoTile} from "./go.js";
-import GoMCTS from "./go_mcts.js";
+import GoMCTS, {FromMCTS} from "./go_mcts.js";
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs"
 
 export const sketch_go = (s) => {
@@ -261,13 +261,27 @@ export default class GoGame {
     // }
 
     machineMctsMove = async (interactive) => {
+        const worker = new Worker("/go/worker.js")
+        const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
+        worker.postMessage({
+            iteration: iteration,
+            go: this.go
+        })
+        worker.onmessage = (event)=>{
+            let [monteCarlo, result] = event.data
+            //需要对传回来的结果加入函数，否则传回来的变量都没法调用内部函数
+            result.move = new GameMove(result.move.player, result.move.position)
+            monteCarlo = FromMCTS(monteCarlo)
+            interactive.setMCTS(monteCarlo, result)
+        }
+
 
         // let monteCarlo = new GoMCTS(this.go)
-        const obj = Comlink.wrap(new Worker("/go/worker.js"))
-        let [monteCarlo, result] = await obj.run(interactive.tree_vis_p5.mctsTimeoutSlider.value())
+        // const obj = Comlink.wrap(worker)
+        // let [monteCarlo, result] = await obj.run(interactive.tree_vis_p5.mctsTimeoutSlider.value())
         // let result = await obj.haha()
-        console.log(result)
-        interactive.setMCTS(monteCarlo, result)
+        // console.log(result)
+        // interactive.setMCTS(monteCarlo, result)
         return
 
         // let monteCarlo = new GoMCTS(this.go)

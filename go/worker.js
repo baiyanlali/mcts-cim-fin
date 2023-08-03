@@ -1,4 +1,7 @@
 importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
+importScripts("/mcts/mcts-viz/lib/tree.js");
+
+//因为worker不支持es6语法，而我又懒得用webpack打包，所以这里把需要用到的代码都扔进来了。是个巨大的垃圾桶。
 
 const obj = {
     run(iteration){
@@ -13,34 +16,19 @@ const obj = {
 
 Comlink.expose(obj)
 
+function runMonteCarlo(event) {
+    const data = event.data
+    const monteCarlo = new GoMCTS(data.go)
+    const result = monteCarlo.runSearch(data.iteration)
+    postMessage([monteCarlo, result])
+}
+
+self.addEventListener("message", runMonteCarlo)
+
+
 
 function NodeCopy(nonono) {
     return new Node(nonono.data, nonono.id, nonono.children_id.slice(), nonono.parent_id);
-}
-
-class Node {
-    constructor(data, id = -1, children_id = [], parent_id = -1) {
-        this.data = data;
-        this.id = id;
-        this.children_id = children_id;
-        this.parent_id = parent_id;
-    }
-
-    copy() {
-        return new Node(this.data, this.id, this.children_id.slice(), this.parent_id);
-    }
-
-    hasNChildren(n) {
-        return this.children_id.length == n;
-    }
-
-    isLeaf() {
-        return this.hasNChildren(0);
-    }
-
-    isRoot() {
-        return this.id == 0;
-    }
 }
 
 const GoTile = {
@@ -92,6 +80,28 @@ function GoCopy(gogogo){
     new_go.passed = gogogo.passed
     new_go.end = gogogo.end
     return new_go
+}
+
+class AlgAction {
+    constructor(kind, node_id, old_data, new_data) {
+        this.kind = kind;
+        this.node_id = node_id;
+        this.old_data = old_data;
+        this.new_data = new_data;
+    }
+}
+
+const TILECNT = 7;
+
+
+function out_boundary(x, y) {
+    return (x < 0 || x >= TILECNT || y < 0 || y >= TILECNT);
+}
+
+function ToDirection(pos, direction) {
+    let new_pos = [pos[0] + direction[0], pos[1] + direction[1]]
+
+    return new_pos
 }
 
 class Go {
@@ -452,7 +462,7 @@ class GoMCTS {
         this.tree = new Tree(root)
     }
 
-    async runSearch(iterations = 50) {
+    runSearch(iterations = 50) {
         // let end = Date.now() + timeout * 1000;
         let trace = [];
 

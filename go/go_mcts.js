@@ -1,5 +1,5 @@
 import {GoTile} from "./go.js";
-
+import {GoCopy, GameMove, GameNodeGo, TreeCopy} from "./GoUtil.js";
 function getOtherPlayer(player) {
     return player === GoTile.White ? GoTile.Black : GoTile.White;
 }
@@ -18,32 +18,7 @@ Array.prototype.remove = function (val) {
     }
 }
 
-class GameMove {
-    constructor(player, position) {
-        this.player = player;
-        this.position = position;
-    }
 
-    copy() {
-        return new GameMove(this.player, this.position);
-    }
-}
-
-export class GameNodeGo {
-    constructor(move, go) {
-        this.go = go;
-        this.move = move
-        this.value = 0;
-        this.simulations = 0;
-    }
-
-    copy() {
-        const new_game_node = new GameNodeGo(this.move === null ? null : this.move.copy(), this.go == null ? null : this.go);
-        new_game_node.value = this.value;
-        new_game_node.simulations = this.simulations;
-        return new_game_node;
-    }
-}
 
 function UCB1(node, parent) {
     let exploitation = node.data.value / node.data.simulations;
@@ -51,10 +26,16 @@ function UCB1(node, parent) {
     return exploitation + exploration;
 }
 
+export function FromMCTS(origin_mcts){
+    let result = new GoMCTS(origin_mcts.model)
+    result.tree = TreeCopy(origin_mcts.tree)
+    return result
+}
+
 export default class GoMCTS {
     constructor(model, player = GoTile.Black) {
         this.model = model
-        let root = new Node(new GameNodeGo(new GameMove(player, null), model.copy()));
+        let root = new Node(new GameNodeGo(new GameMove(player, null), GoCopy(model)));
         this.tree = new Tree(root);
     }
 
