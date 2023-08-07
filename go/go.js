@@ -61,7 +61,8 @@ export default class Go {
 
     makeRandomMove(){
         let actions = this.get_legal_action()
-        return RandomElement(actions)
+        let action = {position: RandomElement(actions)}
+        return this.make_action(action)
     }
 
 
@@ -152,6 +153,10 @@ export default class Go {
             }
         }
 
+        if(legal_actions.length <= 5){
+            legal_actions.push(-1)
+        }
+
         return legal_actions
     }
 
@@ -192,7 +197,7 @@ export default class Go {
     }
 
     check_win(komi = 0){
-        // false| Now wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
+        // false| No one wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
         if(!this.end)   return false
         let [black, white] = this.area()
         if (black - white - komi === 0){

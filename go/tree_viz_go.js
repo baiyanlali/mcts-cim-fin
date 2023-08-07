@@ -84,11 +84,41 @@ export const viz_go= (s)=>{
 
         s.fill(0)
 
-        if(s.go.end){
-            s.text(`Winner is: ${s.go.winner === 999? "Draw": s.go.winner === GoTile.White? "White":"Black"}`, 15, 190)
-        }else{
-            s.text(`Current Player: ${s.go.current_player() === GoTile.White? "White": "Black"}`, 15, 190)
-        }
+        // if(s.go.end){
+        //     s.text(`Winner is: ${s.go.winner === 999? "Draw": s.go.winner === GoTile.White? "White":"Black"}`, 15, 190)
+        // }else{
+        //     s.text(`Current Player: ${s.go.current_player() === GoTile.White? "White": "Black"}`, 15, 190)
+        // }
         s.pop()
+    }
+
+    s.drawWinnner = (node, node_size)=>{
+        if (node.data.simulated_board) {
+            let winner_icon = node.data.simulated_board.checkWin();
+            console.log("Draw winner: " + winner_icon)
+            let winner = ""
+            switch (winner_icon) {
+                case GoTile.Black:
+                    winner = "Winner: Black"
+                    break
+                case GoTile.White:
+                    winner = "Winner: White"
+                    break
+                case GoTile.Empty:
+                    winner = "Unknown"
+                    break
+                case 999:
+                    winner = "Draw"
+                    break
+                case false:
+                    winner = "Continue"
+                    break
+                default:
+                    winner = "???"
+                    break
+
+            }
+            s.text(winner, 0, node_size.y * 1.25);
+        }
     }
 }

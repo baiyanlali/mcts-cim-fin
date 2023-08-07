@@ -140,7 +140,8 @@ class Go {
 
     makeRandomMove(){
         let actions = this.get_legal_action()
-        return RandomElement(actions)
+        let action = {position: RandomElement(actions)}
+        return this.make_action(action)
     }
 
 
@@ -157,6 +158,7 @@ class Go {
             //pass
             return "Passed"
         }
+        this.passed = false
         let x = position[0]
         let y = position[1]
 
@@ -229,6 +231,10 @@ class Go {
 
                 }
             }
+        }
+
+        if(legal_actions.length <= 5){
+            legal_actions.push(-1)
         }
 
         return legal_actions

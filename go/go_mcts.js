@@ -138,7 +138,7 @@ export default class GoMCTS {
             model.makeRandomMove()
             step++
 
-            if(step>=50){
+            if(step>=100){
                 break
             }
         }

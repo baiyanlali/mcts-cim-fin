@@ -429,6 +429,15 @@ export const vis = (s) => {
 
         s.pop();
 
+        s.drawWinnner(node, node_size)
+
+        // if (node.data.simulated_board) {
+        //     let winner_icon = node.data.simulated_board.checkWin();
+        //     s.text(winner_icon === "v" ? "DRAW" : ("WINNER: " + (winner_icon === "h"? "Human": "AI")), 0, node_size.y * 1.25);
+        // }
+    }
+
+    s.drawWinnner = (node, node_size)=>{
         if (node.data.simulated_board) {
             let winner_icon = node.data.simulated_board.checkWin();
             s.text(winner_icon === "v" ? "DRAW" : ("WINNER: " + (winner_icon === "h"? "Human": "AI")), 0, node_size.y * 1.25);
