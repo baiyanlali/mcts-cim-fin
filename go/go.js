@@ -45,6 +45,7 @@ export default class Go {
     constructor(board, turn_cnt = 0) {
         this.board = board ?? New2DArray(TILECNT, TILECNT, GoTile.Empty)
         this.turn_cnt = turn_cnt
+        this.play_histroy.push(this.toString())
     }
 
     copy() {
@@ -79,6 +80,7 @@ export default class Go {
             //pass
             return "Passed"
         }
+        this.passed = false
         let x = position[0]
         let y = position[1]
 
@@ -108,8 +110,8 @@ export default class Go {
 
 
         this.turn_cnt++
-        if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
-            this.play_histroy.push(this.toString())
+        // if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
+        this.play_histroy.push(this.toString())
 
         // console.log(this.get_all_empty_groups(this.board))
 
@@ -333,6 +335,17 @@ export default class Go {
         }
 
         return empty_groups
+    }
+
+    Undo() {
+        if(this.play_histroy.length === 1)
+            return
+        this.passed = false
+        let current_board = this.play_histroy.pop()
+        let last_board = this.play_histroy.pop()
+        this.board = JSON.parse(last_board)
+        this.turn_cnt --
+        this.play_histroy.push(this.toString())
     }
 
     toString() {

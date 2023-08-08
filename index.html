@@ -564,6 +564,8 @@
 
                         import {ActionColor} from "./mcts-viz/tree_vis.js";
 
+
+
                         window.make_random_board = (interactive, p5, show_action, min_step = 1) => {
 
                             interactive.reset()
@@ -575,6 +577,70 @@
                             p5.current_action.textContent = action.kind
                             p5.current_action.style.color = ActionColor[action.kind]
                             p5.current_action.style.backgroundColor = ActionColor.White
+                        }
+
+                        window.make_all_random_board = (min_step = 0, max_step = 8)=>{
+                            const RandomBoard = (min_step = 0, max_step = 8)=>{
+                                const flip_player= (player) => {
+                                    if (player === PLAYER.HUMAN) {
+                                        return PLAYER.MACHINE
+                                    }
+                                    return PLAYER.HUMAN
+                                }
+                                let TTT_BOARD = new TicTacToeBoard()
+                                let whoseTurn = Math.round(Math.random())
+                                let steps = Math.floor((Math.random() * (max_step - min_step + 1))) + min_step
+                                let tmp_board = TTT_BOARD.copy()
+                                for (let i = 0; i < steps; i++) {
+                                    tmp_board.makeRandomMove(whoseTurn)
+                                    if (tmp_board.checkWin() !== "") {
+                                        break
+                                    }
+                                    whoseTurn = flip_player(whoseTurn)
+                                    TTT_BOARD = tmp_board.copy()
+                                }
+                                return [whoseTurn, TTT_BOARD]
+                            }
+
+                            const [whoseTurn, TTT_BOARD] = RandomBoard(min_step, max_step)
+
+                            const rrrr = [
+                                [selection_interactive, selection_p5, 'selection', ()=>{selection_interactive.clickVisualizeMideterStep()
+                                    selection_interactive.nextUntil("selection")}],
+                                [expansion_interactive, expansion_p5, 'expansion', ()=>{}],
+                                // [expansion_interactive, expansion_p5, 'expansion', ()=>{}],
+                                [backpropagration_interactive, backpropagration_p5, 'backpropagation', ()=>{}],
+                            ]
+                            
+                            rrrr.forEach((r)=>{
+                                const interactive = r[0]
+                                const p5 = r[1]
+                                const show_action = r[2]
+                                const after_func = r[3]
+
+                                interactive.reset()
+                                interactive.have_board = true
+                                p5.TTT_BOARD = TTT_BOARD
+                                p5.selectStartingPlayer(whoseTurn)
+                                p5.whoseTurn = whoseTurn
+                                p5.makeMctsMove(interactive)
+                                let action = interactive.clickNextAction(show_action)
+                                p5.current_action = document.getElementById(show_action + "_current_action")
+                                p5.current_action.textContent = action.kind
+                                p5.current_action.style.color = ActionColor[action.kind]
+                                p5.current_action.style.backgroundColor = ActionColor.White
+                                after_func()
+                            })
+
+                            //simulation
+                            {
+                                simulation_interactive.reset()
+                                simulation_interactive.have_board = true
+                                simulation_p5.TTT_BOARD = TTT_BOARD
+                                simulation_p5.selectStartingPlayer(whoseTurn)
+                                simulation_p5.whoseTurn = whoseTurn
+                                simulation_p5.makeSimulationMove(simulation_interactive)
+                            }
                         }
 
                         window.make_random_simulation_board = (interactive, p5, show_action, min_step = 1) => {
@@ -645,7 +711,8 @@
                                 <div id="selection"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="selection_make_random_board(selection_interactive, selection_p5, 'selection')">
+                                        onclick="make_all_random_board(3)">
+<!--                                        onclick="selection_make_random_board(selection_interactive, selection_p5, 'selection')">-->
                                     Random board
                                 </button>
                                 <br>
@@ -814,7 +881,8 @@
                                 <div id="expansion"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 3)">
+                                        onclick="make_all_random_board(3)">
+                                    <!--                                        onclick="make_random_board(expansion_interactive, expansion_p5, 'expansion', 3)">-->
                                     Random board
                                 </button>
                                 <br>
@@ -991,7 +1059,8 @@
                                 <div id="simulation"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_simulation_board(simulation_interactive, simulation_p5, 'simulation', 3)">
+                                        onclick="make_all_random_board(3)">
+<!--                                        onclick="make_random_simulation_board(simulation_interactive, simulation_p5, 'simulation', 3)">-->
                                     Random board
                                 </button>
                                 <br>
@@ -1173,7 +1242,8 @@
                                 <div id="backpropagration"></div>
 
                                 <button class="four_procedure_btn"
-                                        onclick="make_random_board(backpropagration_interactive, backpropagration_p5, 'backpropagation')">
+                                        onclick="make_all_random_board(3)">
+<!--                                        onclick="make_random_board(backpropagration_interactive, backpropagration_p5, 'backpropagation')">-->
                                     Random board
                                 </button>
                                 <br>
@@ -1347,6 +1417,9 @@
                                     }
                                 </script>
                                 <div id="move"></div>
+                                <div class="control_panel" style="height: 100px;">
+                                    <button class="control_panel_btn3" onclick="window.move_p5.onLoad(window.move_p5)">Reset</button>
+                                </div>
                                 <p id="move_starting_player_area">
                                     <b>Who will start the game?</b>
                                     <br>
@@ -1817,7 +1890,14 @@
                   <button
                     class="control_panel_btn3"
                     id="go_mcts_move"
-                    onclick="go.machineMctsMove(go_mcts_interactive)"
+                    onclick="go.machineMctsMove(go_mcts_interactive, [
+                        document.getElementById('go_mcts_move'),
+                        document.getElementById('go_rand_move'), 
+                        document.getElementById('go_reset'), 
+                        document.getElementById('go_pass'), 
+                        document.getElementById('go_undo'), 
+                        document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+                    ])"
                   >
                     MCTS move
                   </button>
@@ -1829,6 +1909,14 @@
                     style="display: none"
                   >
                     Cancel
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="go_undo"
+                    onclick="go.undo()"
+                  >
+                    Undo
                   </button>
                   <br />
                   <button
@@ -1849,13 +1937,11 @@
                     type="range"
                     min="100"
                     max="2000"
-                    value="1000"
+                    value="500"
                     step="100"
                   />
                   <br />
-                  <span id="go_mcts_tree_vis_mcts_timeout_span"
-                    ><b>1000</b></span
-                  >
+                  <span id="go_mcts_tree_vis_mcts_timeout_span"><b>500</b></span>
                   iterations
                 </div>
 
