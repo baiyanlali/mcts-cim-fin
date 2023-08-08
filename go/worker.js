@@ -781,12 +781,13 @@ class GoMCTS {
     getAvailablePlays(node){
         let parent_go = node.data.go
         let children = this.tree.getChildren(node)
-        return parent_go.get_legal_action().filter((dir) => {
-            let parent_go_copy = GoCopy(parent_go)
-            parent_go_copy.make_action({position: dir})
-            let explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
-            return !explored;
-        });
+        return parent_go.get_legal_action()
+        // return parent_go.get_legal_action().filter((dir) => {
+        //     let parent_go_copy = GoCopy(parent_go)
+        //     parent_go_copy.make_action({position: dir})
+        //     let explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
+        //     return !explored;
+        // });
     }
 
 }
