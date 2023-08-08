@@ -155,6 +155,7 @@
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
                 solving sequential decision problems [<a href="#browne2012survey">1</a>].
+                <span class="modified_textR2"> about sdp</span>
                 By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
                 Because of few requirements for domain knowledge and its simplicity,
                 MCTS has achieved significant
@@ -199,10 +200,12 @@
                 <div class="l-body" style="width: 100%; display: flex">
                     <img src="image/ttt.png" alt="Tic-Tac-Toe Game."
                          style="margin: auto auto; width: 30%; display: block"/>
+                    <img src="image/sokoban.png" alt="Go Game."
+                         style="margin: auto auto; width: 30%; display: block"/>
                     <img src="image/sokoban.png" alt="Sokoban Game."
                          style="margin: auto auto; width: 30%; display: block"/>
                 </div>
-                <div class="caption" style="width: 100%; display: block"><b>Figure 1:</b><br> Tic-Tac-Toe (left) and
+                <div class="caption" style="width: 100%; display: block"><b>Figure 1:</b><br> Tic-Tac-Toe (left), Go (center) and
                     Sokoban (right)
                 </div>
             </div>
@@ -210,18 +213,28 @@
 
             <ul>
                 <li>
-                    Tic-Tac-Toe is a two-player competitive board game with a limited length of
-                        gameplay. Players take turns drawing their own marker
+                    Tic-Tac-Toe is a two-player competitive board game with a limited length of gameplay. Players take turns drawing their own marker
                     (usually X or O) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
                     three placed markers can be connected together vertically, horizontally, or diagonally. But if all
                     squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent modelling problem.
                 </li>
                 <li>
+                    <span class="modified_textR2">
+                    Go is a competitive two-player board game, as illustrated in Figure 1 (center). In this game, two players take turns placing black and white stones on the board.
+                    The game begins with an empty board controlled by the player holding black stones. If a player's stones manage to encircle the opponent's stones, the surrounded stones are removed from the board.
+                    The objective of Go is to control more territory on the board than the opponent by strategically placing stones. 7x7 board is used as the interactive example in this paper, following the logical rules [<a
+                    href="#rulego">6</a>].
+                </span>
+                </li>
+                <li>
+                    
                     Sokoban is a one-player puzzle game in which a player must strategically push boxes to their designated
                     positions in order to win. The game is set on a fixed board made up of different tiles, as
                     demonstrated in Figure 1 (right). The player can move through empty spaces and push boxes onto
                     spaces without obstacles such as walls and other fixed boxes. In this game, the representation of the state is more complex than Tic-Tac-Toe and a challenge of deep exploration with unlimited steps arises.
+
                 </li>
+
             </ul>
 
         </section>
@@ -243,12 +256,13 @@
             </p>
 
             <p>
-                The interactive interface is implemented based on [<a href="#mcts-viz">6</a>]. The game interfaces and data
+                The interactive interface is implemented based on [<a href="#mcts-viz">7</a>]. The game interfaces and data
                 representations of Tic-Tac-Toe and Sokoban are presented below. You can
                 activate either game by hovering your mouse pointer over its corresponding image.
             </p>
 
-            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix.</p>
+            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix. <span class="modified_textR2">Simiar with Tic-Tac-Toe, Go shares the similar representation structure as 7x7 matrix.</span></p>
+
 
             <div class="framed">
 
@@ -911,8 +925,8 @@
                 The Simulation continues until a terminal state is reached. The results of the simulation, such as the
                 final state or a reward value, are then collected and used to update the values of the node. However, the
                 random policy can be highly inefficient, which has led to the development of more advanced techniques,
-                such as rule-based simulation and learning methods [<a
-                href="#perez2014knowledge">4</a>] [<a href="#segler2018planning"> 10</a>].
+                such as rule-based simulation and learning methods [<a href="#segler2018planning">4</a>][<a
+                href="#perez2014knowledge">8</a>] .
             </p>
 
             <p>
@@ -2154,12 +2168,12 @@
                 Additionally,
                 several selection strategies are illustrated in the immersive part.
                  MCTS has been successfully applied to game AI areas such as Go [<a
-                    href="#segler2018planning">2</a>] and video games [<a
+                    href="#silver2017mastering">2</a>] and video games [<a
                     href="#perez2016general">3</a>]. Beyond
                     these game-based environments, MCTS also presents its abilities in black-box optimisation [<a
-                            href="#wang2020learning">7</a>],
-                    robotics [<a href="#best2019dec">8</a>] and real-world scheduling problems [<a
-                            href="#li2021effective">9</a>]. 
+                            href="#wang2020learning">9</a>],
+                    robotics [<a href="#best2019dec">10</a>] and real-world scheduling problems [<a
+                            href="#li2021effective">11</a>]. 
                             Readers are referred to [<a href="#browne2012survey">1</a>,<a href="#silver2017mastering">2</a>]
                 for more about MCTS, its variants and applications.
 
@@ -2177,7 +2191,9 @@
                     </span>
                 </li>
 
-                <li id="segler2018planning">
+
+
+                <li id="silver2017mastering">
                     Mastering the game of Go without human knowledge
                     <span>
                         Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., Hubert, T., Baker, L., Lai, M., Bolton, A., Chen, Y., Lillicrap, T., Hui, F., Sifre, L., Diessche, G.v.d., Graepel, T. and Hassabis, D., 2017. Nature, vol. 550(7676), pp. 354--359. Nature Publishing Group.
@@ -2191,17 +2207,26 @@
                     </span>
                 </li>
 
-                <li id="silver2017mastering">
+                <li id="segler2018planning">
                     Planning chemical syntheses with deep neural networks and symbolic AI
                     <span>
                         Segler, M.H., Preuss, M. and Waller, M.P., 2018. Nature, vol. 555(7698), pp. 604--610. Nature Publishing Group.
                     </span>
                 </li>
 
+
                 <li id="kocsis2006bandit">
                     Bandit based Monte-carlo planning
                     <span>
                         Kocsis, L. and Szepesvari, C., 2006. European conference on Machine Learning, pp. 282--293.
+                    </span>
+                </li>
+
+                <li id="rulego">
+                    The game of Go
+                    <span>
+                      <a href="http://tromp.github.io/go.html"
+                         target="_blank">http://tromp.github.io/go.html</a>
                     </span>
                 </li>
 
@@ -2211,6 +2236,12 @@
                         vgarciasc.
                       <a href="https://github.com/vgarciasc/mcts-viz/"
                          target="_blank">https://github.com/vgarciasc/mcts-viz/</a>
+                    </span>
+                </li>
+                <li id="perez2014knowledge">
+                    Knowledge-based fast evolutionary MCTS for general video game playing
+                    <span>
+                        Perez, Diego and Samothrakis, Spyridon and Lucas, Simon, 2014. 2014 IEEE Conference on Computational Intelligence and Games, pp. 1-8.
                     </span>
                 </li>
 
@@ -2236,12 +2267,7 @@
                     </span>
                 </li>
 
-                <li id="segler2018planning">
-                    Knowledge-based fast evolutionary MCTS for general video game playing
-                    <span>
-                        Perez, Diego and Samothrakis, Spyridon and Lucas, Simon, 2014. 2014 IEEE Conference on Computational Intelligence and Games, pp. 1-8.
-                    </span>
-                </li>
+
             </ol>
         </section>
 
