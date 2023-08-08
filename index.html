@@ -154,23 +154,26 @@
             <h2>I. Introduction</h2>
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
-                solving sequential decision problems [<a href="#browne2012survey">1</a>].
-                <span class="modified_textR2"> about sdp</span>
-                By utilizing random sampling, a game tree is constructed to identify the optimal action at each state.
-                Because of few requirements for domain knowledge and its simplicity,
+                solving sequential decision problems such as games [<a href="#browne2012survey">1</a>].
+                <span class="modified_textR2">In sequential decision problems, a single action taken by the agent not only affects the current outcome but also has a long-term future effect. 
+                    A series of actions is made over a time horizon.
+                Because of few requirements for domain knowledge and simplicity,
                 MCTS has achieved significant
-                success in various domains, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
+                success for these problems, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
                     href="#perez2016general">3</a>], and chemical synthesis [<a href="#segler2018planning">4</a>].
+                </span>
             </p>
             <p>
-                MCTS combines the concepts of tree search and reinforcement learning to address situations where local
+                <span class="modified_textR2">
+                MCTS leverages the concept of tree search to address situations where local
                 optimal actions may not lead to global optimal performance.
                 The four core components of MCTS are <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>.
                 The basic procedure of MCTS involves building a tree with nodes that represent visited states and
                 selecting the node with the highest probability of reaching an optimal outcome.
                 The selected node is then expanded according to the available action space.
                 Once a simulation terminates, the results of the simulation are
-                propagated back to update the statistics of the nodes on the trajectory.
+                propagated back to update the statistics of the nodes on the trajectory. A game tree is then constructed to identify the optimal action at each state.
+            </span>
                 MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
                 upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>]
                 , that balance exploitation and exploration within a given computational budget.
@@ -1274,7 +1277,8 @@
 
             <p>
                 By integrating the four essential components of Selection, Expansion, Simulation, and Backpropagation, a
-                succinct and cohesive algorithm for the complete MCTS process can be constructed. Finally, the child node with the highest visit count is selected as the best move.
+                succinct and cohesive algorithm for the complete MCTS process can be constructed. Finally, the child node with the highest visit count is selected as the best move
+                 <span class="modified_textR2"> since it has been selected and evaluated more often during the tree growth, which may result in a robust performance.</span>
             </p>
 
             <pre id="mcts_pseudo">
@@ -1300,7 +1304,7 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                         Now, AI agents is involved with a disadvantaged situation. Can it find a good move?
+                       <span class="modified_textR2"> In the depicted game-state, the AI agent is in a disadvantageous position.</span> Can it find a good move?
                             <br>
                             Try to figure out which action AI agent will select. A, B, C or D?
                         
@@ -1436,7 +1440,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 9: </b>An example of Tic-Tac-Toe.
+                    <div class="caption"><b>Figure 9: </b><span class="modified_textR2">An interactive evaluation of a Tic-Tac-Toe game state.</span>.
                     </div>
                 </div>
             </div>
