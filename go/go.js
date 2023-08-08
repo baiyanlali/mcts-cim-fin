@@ -93,7 +93,10 @@ export default class Go {
         }
 
         // console.log(this.get_air_cnt(position))
-        let air_cnt = this.get_air_cnt(position, this.current_player())
+        let air_result = this.get_air_cnt_position(position, this.current_player())
+        console.log(air_result.playerPositions);
+        let air_cnt = air_result.airCount
+        // let air_cnt = this.get_air_cnt(position, this.current_player())
         const board_backup = JSON.parse(JSON.stringify(this.board))
         this.board[x][y] = this.current_player()
         let have_cleared = this.clear_dead_piece()
@@ -163,15 +166,34 @@ export default class Go {
     }
 
     clear_dead_piece(){
+
+        let matrixSize = 8;
+        let initializedMatrix = [];
+
+            for (let i = 0; i < matrixSize; i++) {
+                let row = new Array(matrixSize).fill(0);
+                initializedMatrix.push(row);
+            }
         let have_cleared = false
         for (let i = 0; i < TILECNT; i++) {
             for (let j = 0; j < TILECNT; j++) {
                 const element = this.board[i][j]
+                if (initializedMatrix[i][j] === 1){
+                    continue;
+                }
                 if(element === this.opposite_player()){
-                    let air = this.get_air_cnt([i, j], this.opposite_player())
+                    // let air = this.get_air_cnt([i, j], this.opposite_player())
+                    let air_result = this.get_air_cnt_position([i, j], this.opposite_player())
+                    let air = air_result.airCount
+                    let air_pos = air_result.playerPositions
+                    for (const pos of air_pos) {
+                        initializedMatrix[pos[0]][pos[1]] = 1;
+                    }
                     if(air === 0)
                     {
-                        this._clear_from([i, j])
+                        for (const pos of air_pos) {
+                            this.board[pos[0]][pos[1]] = GoTile.Empty
+                        }
                         have_cleared = true
                     }
                 }
@@ -244,6 +266,47 @@ export default class Go {
                 }
             }
             return air_cnt
+        }
+        // console.log(get_air_cnt_in(position))
+        return get_air_cnt_in(position)
+    }
+
+    get_air_cnt_position(position, player) {
+        // console.log("air cnt of " + position)
+        let visited_nodes = [JSON.stringify(position)]
+
+        let get_air_cnt_in = (position) => {
+            if (out_boundary(position[0], position[1]))
+                return { airCount: 0, playerPositions: [] };
+        
+            let airCount = 0;
+            let playerPositions = [];
+        
+            for (let i = 0; i < 4; i++) {
+                // Four directions
+                let neighbour = ToDirection(position, this.DIRECTIONS[i]);
+                if (out_boundary(neighbour[0], neighbour[1])) {
+                    continue;
+                } else if (visited_nodes.includes(JSON.stringify(neighbour))) {
+                    continue;
+                }
+                visited_nodes.push(JSON.stringify(neighbour));
+        
+                let neighbour_tile = this.board[neighbour[0]][neighbour[1]];
+                if (neighbour_tile === GoTile.Empty) {
+                    airCount++;
+                } else if (neighbour_tile === player) {
+                    const result = get_air_cnt_in(neighbour);
+                    airCount += result.airCount;
+                    playerPositions = playerPositions.concat(result.playerPositions);
+                }
+            }
+        
+            if (this.board[position[0]][position[1]] === player) {
+                playerPositions.push(position);
+            }
+        
+            return { airCount, playerPositions };
         }
         // console.log(get_air_cnt_in(position))
         return get_air_cnt_in(position)
