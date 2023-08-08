@@ -125,11 +125,38 @@ export default class Go {
 
     get_legal_action() {
         let legal_actions = []
+        
+        let matrixSize = 8;
+        let initializedMatrix = [];
+
+            for (let i = 0; i < matrixSize; i++) {
+                let row = new Array(matrixSize).fill(0);
+                initializedMatrix.push(row);
+            }
+
 
         for (let i = 0; i < TILECNT; i++) {
             for (let j = 0; j < TILECNT; j++) {
+
                 if(this.board[i][j] === GoTile.Empty){
-                    let air_cnt = this.get_air_cnt([i, j], this.current_player())
+                    for (let i = 0; i < 4; i++) {
+                        // Four directions
+                    let neighbour = ToDirection(position, this.DIRECTIONS[i]);
+                    if(initializedMatrix[neighbour[0]][neighbour[1]] === 1){
+                        legal_actions.push([i, j])
+                        console.log("legal action: " + [i, j])
+                        continue;
+                    }
+                }
+                    // let air_cnt = this.get_air_cnt([i, j], this.current_player())
+                    let air_result = this.get_air_cnt_position([i, j], this.current_player())
+                    let air_pos = air_result.playerPositions;
+                    // console.log(air_result.playerPositions);
+                    for (const pos of air_pos) {
+                        initializedMatrix[pos[0]][pos[1]] = 1;
+                    }
+                    let air_cnt = air_result.airCount
+
                     if(air_cnt >=0){
                         legal_actions.push([i, j])
                         continue
