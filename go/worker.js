@@ -143,6 +143,34 @@ class Go {
         let actions = this.get_legal_action()
         let action = {position: RandomElement(actions)}
         return this.make_action(action)
+        // return this.make_quick_action(RandomElement(actions))
+    }
+
+    make_quick_action(position){
+        if(position === -1){
+            if(this.passed){
+                this.end = true
+                this.winner = this.check_win(0)
+                return "End"
+            }
+            this.passed = true
+            this.turn_cnt++
+            return "Passed"
+        }
+
+        this.passed = false
+        let x = position[0]
+        let y = position[1]
+
+        this.board[x][y] = this.current_player()
+        let have_cleared = this.clear_dead_piece()
+
+        this.turn_cnt++
+        if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
+            this.play_histroy.push(this.toString())
+
+
+        return ""
     }
 
 
@@ -485,10 +513,16 @@ class GoMCTS {
 
         let best_move_node = this.tree.getChildren(this.tree.get(0)).reduce((a, b) => a.data.simulations > b.data.simulations ? a : b);
         trace.push([new AlgAction("finish", best_move_node.id, null, null)]);
+        console.log(`Iteration: ${iterations}. Step: ${this.totalStep} Run Time: ${this.simulationTime} / ${this.totalTime}`)
         return {move: best_move_node.data.move, trace: trace};
     }
 
+    totalTime = 0
+    simulationTime = 0
+    totalStep = 0
+
     runSearchIteration() {
+        const startTime = performance.now()
         let selectRes = this.select(GoCopy(this.model));
         let selectLeaf = selectRes.node;
         let selectModel = selectRes.model;
@@ -499,12 +533,16 @@ class GoMCTS {
         let expandModel = expandRes.model;
         let expandActions = expandRes.actions;
 
+        const startSimulationTime = performance.now()
         let simulation = this.simulate(expandLeaf);
         let simulationActions = simulation.actions;
+
+        this.simulationTime += performance.now() - startSimulationTime
 
         let backpropagated = this.backpropagate(expandLeaf, simulation);
         let backpropagatedActions = backpropagated.actions;
 
+        this.totalTime += performance.now() - startTime
         return selectActions.concat(expandActions.concat(simulationActions.concat(backpropagatedActions)));
     }
 
@@ -577,6 +615,8 @@ class GoMCTS {
             }
         }
 
+        this.totalStep += step
+
         // console.log(reward, "===================================================")
 
         let winner_icon = model.checkWin()
@@ -606,7 +646,7 @@ class GoMCTS {
 
         // node.data.value -= node.data.go.checkBoxDistance()*0.000001
         // node.data.value += node.data.go.checkFilledHoles()
-        node.data.value -= step*0.01
+        // node.data.value -= step*0.01
 
         // console.log(node.data)
         if ((node.data.move.player === GoTile.White && winner === GoTile.White) ||
