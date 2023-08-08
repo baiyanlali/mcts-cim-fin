@@ -2,6 +2,8 @@ import Go, {GoTile} from "./go.js";
 import GoMCTS, {FromMCTS} from "./go_mcts.js";
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs"
 
+const TILECNT = 7
+
 export const sketch_go = (s) => {
 
     s.preload = () => {
@@ -18,11 +20,13 @@ export const sketch_go = (s) => {
 
     s.go = null
 
+    s.disabled = false
+
     s.onMouseClicked = (tile) => {
     }
 
     s.setup = () => {
-        s.canvas = s.createCanvas(200, 200)
+        s.canvas = s.createCanvas(200, 220)
         s.clear()
         s.hasSetup = true
         /*s.button = s.createButton('pass')
@@ -38,18 +42,23 @@ export const sketch_go = (s) => {
     }
 
     s.draw = () => {
-        s.handleHover()
+        if(!s.disabled)
+            s.handleHover()
         s.drawBoard(null)
     }
 
-    s.drawBoard = (board) => {
+    s.drawBoard = (board, step = 0) => {
+
 
         if (s.hasSetup === false) {
             s.onSetup = s.drawBoard
-            s.onSetupParams = [board]
+            s.onSetupParams = [board, step]
             return
         }
+
+        
         s.push()
+        
 
         s.translate(15, 15);
 
@@ -62,6 +71,11 @@ export const sketch_go = (s) => {
         s.tileSize = (s.width - 20) / tileNum;
         s.clear()
 
+        s.fill(219, 178, 134)
+        s.rect(-s.tileSize / 2, -s.tileSize / 2, s.tileSize * (TILECNT), s.tileSize * (TILECNT))
+        // s.background(219, 178, 134)
+
+
 
         s.strokeWeight(1.5)
 
@@ -73,14 +87,15 @@ export const sketch_go = (s) => {
                     s.line(i * s.tileSize, j * s.tileSize, (i + 1) * s.tileSize, j * s.tileSize)
                 if (j !== tileNum - 1)
                     s.line(i * s.tileSize, j * s.tileSize, i * s.tileSize, (j + 1) * s.tileSize)
-                let radius = 4
+                let radius = 2
 
                 switch (board[i][j]) {
                     case GoTile.Empty:
                         s.fill(0)
                         if (i === s.hoveredTile[0] && j === s.hoveredTile[1]) {
-                            s.fill(122)
-                            radius = 15
+                            s.fill(255, 0, 0, 50)
+                            radius = 0
+                            s.rect(i * s.tileSize - 10, j * s.tileSize - 10, 20, 20)
                         }
                         break;
                     case GoTile.Black:
@@ -101,9 +116,9 @@ export const sketch_go = (s) => {
         if (s.go === null) return
 
         if (s.go.end) {
-            s.text(`Winner is: ${s.go.winner === 999 ? "Draw" : s.go.winner === GoTile.White ? "White" : "Black"}`, 15, 190)
+            s.text(`Winner: ${s.go.winner === 999 ? "Draw" : s.go.winner === GoTile.White ? "White" : "Black"} | ${s.go.turn_cnt} step(s)`, 15, 200)
         } else {
-            s.text(`Current Player: ${s.go.current_player() === GoTile.White ? "White" : "Black"}`, 15, 190)
+            s.text(`Player: ${s.go.current_player() === GoTile.White ? "White" : "Black"} | ${s.go.turn_cnt} step(s) ${s.go.passed ? "| Passed":""}`, 15, 200)
         }
     }
 
@@ -117,8 +132,8 @@ export const sketch_go = (s) => {
         let mouseY = s.mouseY;
         let tileNum = 7
 
-        for (var i = 0; i < tileNum; i++) {
-            for (var j = 0; j < tileNum; j++) {
+        for (let i = 0; i < tileNum; i++) {
+            for (let j = 0; j < tileNum; j++) {
                 if (mouseX > (i * s.tileSize) && mouseX < ((i + 1) * s.tileSize)
                     && mouseY > (j * s.tileSize) && mouseY < ((j + 1) * s.tileSize)) {
                     s.hoveredTile = [i, j];
@@ -142,7 +157,7 @@ export default class GoGame {
         this.goGame = new p5(sketch_go, screenID + "p5_go")
 
         this.goGame.onMouseClicked = (tile) => {
-            if (tile === [-1, -1]) return
+            if (JSON.stringify( tile) === JSON.stringify( [-1, -1])) return
             this.makeAction(new GameMove(this.go.current_player(), tile))
         }
         // console.log(screenID+"p5_game")
@@ -245,10 +260,15 @@ export default class GoGame {
         this.go.make_action({position: -1})
     }
 
-    machineMctsMove = async (interactive) => {
+    machineMctsMove = async (interactive, disabled_btns) => {
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("/go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
+        disabled_btns.forEach((e)=>{
+            // if(e.disabled)
+                e.disabled = true
+        })
+        this.goGame.disabled = true
         worker.postMessage({
             iteration: iteration,
             go: this.go
@@ -260,15 +280,20 @@ export default class GoGame {
             monteCarlo = FromMCTS(monteCarlo)
             interactive.setMCTS(monteCarlo, result)
             document.getElementById(this.screen + "_loadingbar").style.display = "none"
+            this.goGame.disabled = false
+            // document.getElementById(this.screen + "_mcts_move").style.display = "none"
+            disabled_btns.forEach((e)=>{
+                // if(e.disabled)
+                    e.disabled = false
+            })
         }
-
-        return
 
     }
 
 
-    cancelPlay = () => {
-        this.cancel = true
+    undo = () => {
+        this.go.Undo()
+        this.show_board()
     }
 }
 

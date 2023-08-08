@@ -1803,7 +1803,14 @@
                   <button
                     class="control_panel_btn3"
                     id="go_mcts_move"
-                    onclick="go.machineMctsMove(go_mcts_interactive)"
+                    onclick="go.machineMctsMove(go_mcts_interactive, [
+                        document.getElementById('go_mcts_move'),
+                        document.getElementById('go_rand_move'), 
+                        document.getElementById('go_reset'), 
+                        document.getElementById('go_pass'), 
+                        document.getElementById('go_undo'), 
+                        document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+                    ])"
                   >
                     MCTS move
                   </button>
@@ -1815,6 +1822,14 @@
                     style="display: none"
                   >
                     Cancel
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="go_undo"
+                    onclick="go.undo()"
+                  >
+                    Undo
                   </button>
                   <br />
                   <button
@@ -1835,13 +1850,11 @@
                     type="range"
                     min="100"
                     max="2000"
-                    value="1000"
+                    value="500"
                     step="100"
                   />
                   <br />
-                  <span id="go_mcts_tree_vis_mcts_timeout_span"
-                    ><b>1000</b></span
-                  >
+                  <span id="go_mcts_tree_vis_mcts_timeout_span"><b>500</b></span>
                   iterations
                 </div>
 
