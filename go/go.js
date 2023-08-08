@@ -139,14 +139,24 @@ export default class Go {
             for (let j = 0; j < TILECNT; j++) {
 
                 if(this.board[i][j] === GoTile.Empty){
-                    for (let i = 0; i < 4; i++) {
+                    let break_flag = false
+                    for (let k = 0; k < 4; k++) {
                         // Four directions
-                    let neighbour = ToDirection(position, this.DIRECTIONS[i]);
+                    let neighbour = ToDirection([i, j], this.DIRECTIONS[k]);
+                    // console.log(neighbour)
+                    if (out_boundary(neighbour[0], neighbour[1]))
+                        continue;   
+                    
                     if(initializedMatrix[neighbour[0]][neighbour[1]] === 1){
                         legal_actions.push([i, j])
-                        console.log("legal action: " + [i, j])
-                        continue;
+                        // console.log("legal action: " + [i, j])
+                        break_flag = true
+                        break;
                     }
+                }
+
+                if (break_flag){
+                    continue;
                 }
                     // let air_cnt = this.get_air_cnt([i, j], this.current_player())
                     let air_result = this.get_air_cnt_position([i, j], this.current_player())
@@ -155,6 +165,7 @@ export default class Go {
                     for (const pos of air_pos) {
                         initializedMatrix[pos[0]][pos[1]] = 1;
                     }
+
                     let air_cnt = air_result.airCount
 
                     if(air_cnt >=0){

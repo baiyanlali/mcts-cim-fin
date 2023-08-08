@@ -318,6 +318,7 @@ class Go {
                 let row = new Array(matrixSize).fill(0);
                 initializedMatrix.push(row);
             }
+            // 是否只需要考虑当前下的旗子四个方向的旗？
         let have_cleared = false
         for (let i = 0; i < TILECNT; i++) {
             for (let j = 0; j < TILECNT; j++) {
