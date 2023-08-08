@@ -184,7 +184,7 @@ export default class GoGame {
 
     init(board = undefined) {
         // await sleep(100)
-        document.getElementById(this.screen + "_reset").style.display = "none"
+        // document.getElementById(this.screen + "_reset").style.display = "none"
         this.go = new Go(board)
         this.show_board(this.go.board)
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
@@ -245,21 +245,6 @@ export default class GoGame {
         this.go.make_action({position: -1})
     }
 
-    // makeMctsMove = (interactive) => {
-    //     let monteCarlo = new GoMCTS(this.go)
-    //     // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
-    //     let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-    //     interactive.setMCTS(monteCarlo, MCTS_search)
-    //
-    //     // interactive.clickVisualizeLastStep()
-    //
-    //     if (this.machineControlsArea)
-    //         this.machineControlsArea.style.display = "none"
-    //
-    //     this.makeMove(MCTS_search.move)
-    //     // this.endMove(MCTS_search.move.player)
-    // }
-
     machineMctsMove = async (interactive) => {
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("/go/worker.js")
@@ -277,62 +262,14 @@ export default class GoGame {
             document.getElementById(this.screen + "_loadingbar").style.display = "none"
         }
 
-
-        // let monteCarlo = new GoMCTS(this.go)
-        // const obj = Comlink.wrap(worker)
-        // let [monteCarlo, result] = await obj.run(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-        // let result = await obj.haha()
-        // console.log(result)
-        // interactive.setMCTS(monteCarlo, result)
         return
-
-        // let monteCarlo = new GoMCTS(this.go)
-        // let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-        //
-        // if (this.machineControlsArea)
-        //     this.machineControlsArea.style.display = "none"
-        //
-        // MCTS_search.then((r)=>{
-        //     interactive.setMCTS(monteCarlo, r)
-        // })
 
     }
 
-    // machineMctsMoveWithMyMCTS = (interactive, MyMCTS) => {
-    //     let monteCarlo = new MyMCTS(this.go)
-    //     // let MCTS_search = monteCarlo.runSearch(sketch.mctsTimeoutSlider.value())
-    //     let MCTS_search = monteCarlo.runSearch(interactive.tree_vis_p5.mctsTimeoutSlider.value())
-    //
-    //     if (this.machineControlsArea)
-    //         this.machineControlsArea.style.display = "none"
-    //
-    //     interactive.setMCTS(monteCarlo, MCTS_search)
-    // }
 
     cancelPlay = () => {
         this.cancel = true
     }
-
-    autoPlay = async (interactive) => {
-        document.getElementById("go_cancel").style.display = ""
-        document.getElementById("go_autoplay").style.display = "none"
-        document.getElementById("go_reset").disabled = true
-        document.getElementById("go_mcts_move").disabled = true
-        document.getElementById("go_rand_move").disabled = true
-
-        while (!this.go.checkWin() && this.cancel === false) {
-            this.makeMctsMove(interactive)
-            await sleep(100)
-        }
-        document.getElementById("go_cancel").style.display = "none"
-        document.getElementById("go_autoplay").style.display = ""
-        document.getElementById("go_reset").disabled = false
-        document.getElementById("go_mcts_move").disabled = false
-        document.getElementById("go_rand_move").disabled = false
-        this.cancel = false
-    }
-
-
 }
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))

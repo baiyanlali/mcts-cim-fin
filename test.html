@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <script type="text/javascript" src="./jquery-3.5.1.js"></script>
     <script src="./p5.min.js"></script>
@@ -18,132 +18,230 @@
     <script src="./mcts-viz/TTTRepresentation.js"></script>
     <script src="./sokoban/sokoban_mcts.js"></script>
 
-
     <script type="module" src="./katex.mjs"></script>
     <script src="./katex.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="interactive.css">
-    <script type="module" src="https://unpkg.com/comlink/dist/esm/comlink.mjs"></script>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="interactive.css" />
+  </head>
+  <body>
 
 
-<script type="module">
-    import GoGame, {sketch_go} from "./go/GoGame.js"
-    import {viz_go} from "./go/tree_viz_go.js";
-    import GoInteractive from "./go/go_interactive.js";
-    // window.go = new p5(sketch_go, "go");
+    <div class="framed">
+      <div class="inside">
+        <div class="eyebrow">
+          <span class="modified_textR2">
+            This is a complex senario where MCTS plays Go.
+          </span>
+        </div>
 
-    window.go = new GoGame("")
+        <div>
 
-    window.go_mcts_tree_vis_p5 = new p5(viz_go, "soko_mcts_tree_vis");
-    window.go_mcts_interactive = new GoInteractive(go_mcts_tree_vis_p5, "soko_mcts", go)
-    window.go_mcts_interactive.setupInteractive()
-    go.init()
-</script>
+            <script type="module">
+                import GoGame, { sketch_go } from "./go/GoGame.js";
+                import { viz_go } from "./go/tree_viz_go.js";
+                import GoInteractive from "./go/go_interactive.js";
+          
+                window.go = new GoGame("");
+          
+                window.go_mcts_tree_vis_p5 = new p5(viz_go, "go_mcts_tree_vis");
+                window.go_mcts_interactive = new GoInteractive(
+                  go_mcts_tree_vis_p5,
+                  "go_mcts",
+                  go
+                );
+                window.go_mcts_interactive.setupInteractive();
+                go.init();
+              </script>
 
-<div class="four_procedure">
-    <div id="gogamediv" class="interactive-ttt-left">
-        <!--                                <p>Game: <b>Sokoban</b></p>-->
+          <div class="four_procedure">
+            <div id="gogamediv" class="interactive-ttt-left">
 
-        <p id="gogame"></p>
+              <p id="gogame"></p>
 
-        <div id="p5_go"></div>
+              <div id="p5_go"></div>
 
-
-        <div class="control_panel" id="gogame_machine_controls_area">
-            <div style="display: flex">
-                <button class="control_panel_btn3" id="go_pass"
-                        onclick="go.pass()">
+              <div class="control_panel" id="gogame_machine_controls_area">
+                <div style="display: flex">
+                  <button
+                    class="control_panel_btn3"
+                    id="go_pass"
+                    onclick="go.pass()"
+                  >
                     Pass
-                </button>
+                  </button>
 
-                <button class="control_panel_btn3" id="sokoban_rand_move"
-                        onclick="go.machineRandomMove()">Random move
-                </button>
-                <br>
-                <button class="control_panel_btn3" id="sokoban_mcts_move"
-                        onclick="go.machineMctsMove(go_mcts_interactive)">
+                  <button
+                    class="control_panel_btn3"
+                    id="sokoban_rand_move"
+                    onclick="go.machineRandomMove()"
+                  >
+                    Random move
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="sokoban_mcts_move"
+                    onclick="go.machineMctsMove(go_mcts_interactive)"
+                  >
                     MCTS move
-                </button>
-                <br>
-                <button class="control_panel_btn3" id="sokoban_autoplay"
-                        onclick="go.autoPlay(go_mcts_interactive)">Auto Play
-                </button>
-                <br>
-                <button class="control_panel_btn3" id="sokoban_cancel"
-                        onclick="go.cancelPlay(go_mcts_interactive)"
-                        style="display: none">Cancel
-                </button>
-                <br>
-                <button class="control_panel_btn3" id="sokoban_reset"
-                        onclick="go.init()">
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="sokoban_autoplay"
+                    onclick="go.autoPlay(go_mcts_interactive)"
+                  >
+                    Auto Play
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="sokoban_cancel"
+                    onclick="go.cancelPlay(go_mcts_interactive)"
+                    style="display: none"
+                  >
+                    Cancel
+                  </button>
+                  <br />
+                  <button
+                    class="control_panel_btn3"
+                    id="sokoban_reset"
+                    onclick="go.init()"
+                  >
                     Reset game
+                  </button>
+                </div>
+
+                <div>
+                  <br />
+                  Run MCTS for:
+                  <br />
+                  <input
+                    id="go_mcts_tree_vis_mcts_timeout_slider"
+                    type="range"
+                    min="100"
+                    max="2000"
+                    value="1000"
+                    step="100"
+                  />
+                  <br />
+                  <span id="go_mcts_tree_vis_mcts_timeout_span"
+                    ><b>1000</b></span
+                  >
+                  iterations
+                </div>
+
+                <div id="gogame_loadingbar" style="display: none">
+                  <div class="bt-spinner"></div>
+                  Computing...
+                </div>
+              </div>
+              <p id="gogame_reset">
+                <span style="display: none"> Clear! Step Used: </span
+                ><span id="gogame_step" style="display: none"></span>
+                <button onclick="mcts_sokobanGame.init()" style="display: none">
+                  Reset
                 </button>
+              </p>
             </div>
 
+            <div class="interactive-ttt-right">
+              <div
+                style="
+                  border: solid 1px lightgrey;
+                  height: 110px;
+                  display: flex;
+                  align-items: center;
+                  margin: 20px;
+                "
+              >
+                <div
+                  style="
+                    float: left;
+                    height: 100%;
+                    width: auto;
+                    padding: 0.25em;
+                  "
+                >
+                  <b>Current step</b>:
+                  <br />
+                  <span id="go_mcts_current_action_count">(0/0)</span>
+                  <br />
+                  <br />
+                  <button id="go_mcts_btn_next_action" disabled>
+                    Next step &gt;
+                  </button>
+                </div>
+                <div
+                  style="
+                    float: left;
+                    height: 100%;
+                    width: auto;
+                    padding: 0.25em;
+                  "
+                >
+                  <b>Current iteration</b>:
+                  <br />
+                  <span id="go_mcts_current_iteration_count">(0/0)</span>
+                  <br />
+                  <br />
+                  <button id="go_mcts_btn_next_iteration" disabled>
+                    Next iteration &gt;&gt;
+                  </button>
+                </div>
 
-            <div>
-                <br>
-                Run MCTS for:
-                <br>
-                <input id="soko_mcts_tree_vis_mcts_timeout_slider" type="range" min="100"
-                       max="2000" value="1000" step="100"/>
-                <br>
-                <span id="soko_mcts_tree_vis_mcts_timeout_span"><b>1000</b></span> iterations
-            </div>
+                <div
+                  style="
+                    display: flex;
+                    float: left;
+                    height: 100%;
+                    width: auto;
+                    align-items: center;
+                    margin: 10px;
+                  "
+                >
+                  <button
+                    style="
+                      width: 200px;
+                      height: 80%;
+                      margin: 10px;
+                      font-size: large;
+                    "
+                    id="go_mcts_btn_last_step"
+                    disabled
+                  >
+                    <span class="modified_text">Visualise last step</span>
+                    &gt;&gt;&gt;
+                  </button>
+                  <br />
+                  <button
+                    style="
+                      width: 150px;
+                      height: 80%;
+                      margin: 10px;
+                      font-size: larger;
+                    "
+                    id="go_mcts_btn_make_play"
+                    disabled
+                  >
+                    <span class="modified_text">Make play</span>
+                  </button>
+                </div>
 
-            <div id="gogame_loadingbar" style="display: none">
-                <div class="bt-spinner"></div>
-                Computing...
+                <span
+                  id="go_mcts_current_action_kind"
+                  style="font-size: larger"
+                  >---</span
+                >
+              </div>
+              <div id="go_mcts_tree_vis" class="tree_vis"></div>
             </div>
+          </div>
         </div>
-        <p id="gogame_reset">
-            <span style="display: none"> Clear! Step Used: </span><span
-                id="gogame_step" style="display: none"></span>
-            <button onclick="mcts_sokobanGame.init()" style="display: none">Reset</button>
-        </p>
 
-    </div>
-
-    <div class="interactive-ttt-right">
-        <div style="border: solid 1px lightgrey; height: 110px; display: flex;align-items: center; margin: 20px">
-            <div style="float: left; height: 100%; width: auto; padding: 0.25em">
-                <b>Current step</b>:
-                <br>
-                <span id="soko_mcts_current_action_count">(0/0)</span>
-                <br>
-                <br>
-                <button id="soko_mcts_btn_next_action" disabled>Next step &gt;</button>
-            </div>
-            <div style="float: left; height: 100%; width: auto; padding: 0.25em;">
-                <b>Current iteration</b>:
-                <br>
-                <span id="soko_mcts_current_iteration_count">(0/0)</span>
-                <br>
-                <br>
-                <button id="soko_mcts_btn_next_iteration" disabled>Next iteration &gt;&gt;
-                </button>
-            </div>
-
-            <div style="display: flex;float: left; height: 100%; width: auto; align-items: center; margin: 10px">
-                <button style="width: 200px; height: 80%; margin: 10px; font-size: large"
-                        id="soko_mcts_btn_last_step" disabled>
-                    Visualise last step &gt;&gt;&gt;
-                </button>
-                <br>
-                <button style="width: 150px; height: 80%; margin: 10px; font-size: larger"
-                        id="soko_mcts_btn_make_play" disabled>
-                    Make play
-                </button>
-            </div>
-
-            <span id="soko_mcts_current_action_kind" style="font-size: larger">---</span>
-
-
+        <div class="caption">
+          <b>Figure 12:</b><span class="modified_text">MCTS for Go.</span>
         </div>
-        <div id="soko_mcts_tree_vis" class="tree_vis"></div>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>
