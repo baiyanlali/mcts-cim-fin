@@ -79,13 +79,7 @@ function RandomElement(arr){
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function GoCopy(gogogo){
-    const new_go = new Go(JSON.parse(JSON.stringify(gogogo.board)), gogogo.turn_cnt)
-    new_go.play_histroy = Copy(gogogo.play_histroy)
-    new_go.passed = gogogo.passed
-    new_go.end = gogogo.end
-    return new_go
-}
+
 
 class AlgAction {
     constructor(kind, node_id, old_data, new_data) {
@@ -107,6 +101,14 @@ function ToDirection(pos, direction) {
     let new_pos = [pos[0] + direction[0], pos[1] + direction[1]]
 
     return new_pos
+}
+
+function GoCopy(gogogo){
+    const new_go = new Go(JSON.parse(JSON.stringify(gogogo.board)), gogogo.turn_cnt, gogogo.legal_actions)
+    new_go.play_histroy = Copy(gogogo.play_histroy)
+    new_go.passed = gogogo.passed
+    new_go.end = gogogo.end
+    return new_go
 }
 
 class Go {
@@ -132,9 +134,13 @@ class Go {
     //用于处理劫的问题
     play_histroy = []
 
-    constructor(board, turn_cnt = 0) {
+    constructor(board, turn_cnt = 0, legal_actions = null) {
         this.board = board ?? New2DArray(TILECNT, TILECNT, GoTile.Empty)
         this.turn_cnt = turn_cnt
+        if(legal_actions)
+            this.legal_actions = this.get_legal_action()
+        else
+            this.legal_actions = this.get_legal_action()
     }
 
     makeMove(arg){
@@ -142,7 +148,7 @@ class Go {
     }
 
     makeRandomMove(){
-        let actions = this.get_legal_action()
+        const actions = this.legal_actions
         // let action = {position: RandomElement(actions)}
         // return this.make_action(action)
         return this.make_quick_action(RandomElement(actions))
