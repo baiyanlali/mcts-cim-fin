@@ -149,15 +149,12 @@ class Go {
 
     makeRandomMove(){
         let actions = this.get_legal_action()
-        let action = {position: RandomElement(actions)}
+        // let action = {position: RandomElement(actions)}
         // return this.make_action(action)
         return this.make_quick_action(action)
     }
 
     make_quick_action(position){
-        if(position[0] === undefined){
-            position = position.position
-        }
         if(position === -1){
             if(this.passed){
                 this.end = true
@@ -167,6 +164,10 @@ class Go {
             this.passed = true
             this.turn_cnt++
             return "Passed"
+        }
+
+        if(position[0] === undefined){
+            position = position.position
         }
 
         this.passed = false
@@ -440,6 +441,16 @@ class Go {
         return black - white - komi > 0 ? GoTile.Black : GoTile.White
     }
 
+    check_win_no_end(komi = 0){
+        // false| Now wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
+        let [black, white] = this.area()
+        if (black - white - komi === 0){
+            //draw
+            return 999
+        }
+        return black - white - komi > 0 ? GoTile.Black : GoTile.White
+    }
+
     current_player() {
         return (this.turn_cnt % 2 === 0) ? GoTile.Black : GoTile.White
     }
@@ -643,13 +654,14 @@ class GameNodeGo {
         this.move = move
         this.value = 0;
         this.simulations = 0;
-
+        this.winner = 0
     }
 
     copy() {
         const new_game_node = new GameNodeGo(this.move === null ? null : GameMoveCopy(this.move), this.go == null ? null : this.go);
         new_game_node.value = this.value;
         new_game_node.simulations = this.simulations;
+        new_game_node.winner = this.winner
         return new_game_node;
     }
 }
@@ -792,7 +804,7 @@ class GoMCTS {
             model.makeRandomMove()
             step++
 
-            if(step>=40){
+            if(step>=50){
                 break
             }
         }
@@ -801,8 +813,9 @@ class GoMCTS {
 
         // console.log(reward, "===================================================")
 
-        let winner_icon = model.checkWin()
-
+        // let winner_icon = model.checkWin()
+        const winner_icon = model.check_win_no_end()
+        // console.log(winner_icon)
 
         return {
             winner_icon: winner_icon,
@@ -824,6 +837,7 @@ class GoMCTS {
         }, null);
 
         node.data.simulations += 1;
+        node.data.winner_icon = winner
 
 
         // node.data.value -= node.data.go.checkBoxDistance()*0.000001
@@ -833,11 +847,11 @@ class GoMCTS {
         // console.log(node.data)
         if ((node.data.move.player === GoTile.White && winner === GoTile.White) ||
             (node.data.move.player === GoTile.Black && winner === GoTile.Black)) {
-            node.data.value += 1;
+            node.data.value -= 1;
         }
         if ((node.data.move.player === GoTile.White && winner === GoTile.Black) ||
             (node.data.move.player === GoTile.Black && winner === GoTile.White)) {
-            node.data.value -= 1;
+            node.data.value += 1;
         }
 
 

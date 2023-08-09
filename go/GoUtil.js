@@ -9,8 +9,15 @@ export function GoCopy(gogogo){
     return new_go
 }
 
+export function GameNodeGoCopy(origin_ng){
+    const result = new GameNodeGo(origin_ng.move, GoCopy(origin_ng.go), origin_ng.value, origin_ng.simulations, origin_ng.winner_icon)
+
+
+    return result
+}
+
 export function NodeCopy(nonono) {
-    return new Node(nonono.data, nonono.id, nonono.children_id.slice(), nonono.parent_id);
+    return new Node(new GameNodeGoCopy(nonono.data), nonono.id, nonono.children_id.slice(), nonono.parent_id);
 }
 
 export function TreeCopy(tree) {
@@ -35,17 +42,19 @@ export class GameMove {
 }
 
 export class GameNodeGo {
-    constructor(move, go) {
+    constructor(move, go, value = 0, simulations = 0, winner_icon = null) {
         this.go = go;
         this.move = move
-        this.value = 0;
-        this.simulations = 0;
+        this.value = value
+        this.simulations = simulations
+        this.winner_icon = winner_icon
     }
 
     copy() {
         const new_game_node = new GameNodeGo(this.move === null ? null : this.move.copy(), this.go == null ? null : this.go);
         new_game_node.value = this.value;
         new_game_node.simulations = this.simulations;
+        new_game_node.winner_icon = this.winner_icon
         return new_game_node;
     }
 }

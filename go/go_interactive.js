@@ -1,6 +1,6 @@
 import Go from "./go.js";
 import {Copy} from "../Util.js";
-import {GoCopy, NodeCopy, TreeCopy, GameNodeGo} from "./GoUtil.js";
+import {GoCopy, NodeCopy, TreeCopy, GameNodeGo, GameNodeGoCopy} from "./GoUtil.js";
 const VisualizationStates = Object.freeze({
     NONE: 0,
     VISUALIZING: 1,
@@ -160,13 +160,15 @@ export default class GoInteractive {
                 break;
             case "expansion":
                 let parent = this.reconstructed_tree.get(this.final_tree.getParent(this.final_tree.get(action.node_id)).id);
-                this.reconstructed_tree.insert(new Node(new GameNodeGo(this.final_tree.get(action.node_id).data.move, GoCopy(this.final_tree.get(action.node_id).data.go))), parent);
+                // this.reconstructed_tree.insert(new Node(new GameNodeGo(this.final_tree.get(action.node_id).data.move, GoCopy(this.final_tree.get(action.node_id).data.go))), parent);
+                this.reconstructed_tree.insert(new Node(GameNodeGoCopy(this.final_tree.get(action.node_id).data)), parent);
                 this.reconstructed_tree.get(action.node_id).data.action_id = this.totalActionsTillNow;
                 this.reconstructed_tree.get(action.node_id).data.expanded = true;
                 this.reconstructed_tree.get(action.node_id).data.collapsed = false;
                 break;
             case "simulation":
-                let simulated_node = new Node(new GameNodeGo(this.reconstructed_tree.get(action.node_id).data.move, GoCopy(action.new_data.board)));
+                // let simulated_node = new Node(new GameNodeGo(this.reconstructed_tree.get(action.node_id).data.move, GoCopy(action.new_data.board)));
+                let simulated_node = new Node(GameNodeGoCopy(this.final_tree.get(action.node_id).data));
                 simulated_node.data.simulated_board = GoCopy(action.new_data.board);
                 simulated_node.data.simulated = true;
                 this.reconstructed_tree.insert(simulated_node, this.reconstructed_tree.get(action.node_id));

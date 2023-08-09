@@ -271,6 +271,16 @@ export default class Go {
         return black - white - komi > 0 ? GoTile.Black : GoTile.White
     }
 
+    check_win_no_end(komi = 0){
+        // false| Now wins, GoTile.Black| Black wins, GoTile.White| White wins, 999| Draw
+        let [black, white] = this.area()
+        if (black - white - komi === 0){
+            //draw
+            return 999
+        }
+        return black - white - komi > 0 ? GoTile.Black : GoTile.White
+    }
+
     current_player() {
         return (this.turn_cnt % 2 === 0) ? GoTile.Black : GoTile.White
     }

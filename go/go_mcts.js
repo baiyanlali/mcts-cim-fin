@@ -145,7 +145,8 @@ export default class GoMCTS {
 
         // console.log(reward, "===================================================")
 
-        let winner_icon = model.checkWin()
+        // let winner_icon = model.checkWin()
+        const winner_icon = model.check_win_no_end(0)
 
 
         return {
