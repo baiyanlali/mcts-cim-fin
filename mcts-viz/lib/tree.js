@@ -117,7 +117,7 @@ class Node {
         this.children_id = children_id;
         this.parent_id = parent_id;
         this.explored = false;
-        
+        this.legal_actions = [];
     }
 
     copy() {
