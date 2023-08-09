@@ -399,7 +399,7 @@ export const vis = (s) => {
             }
 
             if (!s.show_simple) {
-
+                s.fill(0)
                 s.textAlign(s.LEFT, s.TOP);
                 s.text(" val: ", 0, 0);
                 s.text(" vis: ", 0, (node_size.y) / 4);
@@ -415,7 +415,7 @@ export const vis = (s) => {
                 node.val_txt = value
             }
             if (!s.show_simple) {
-
+                s.fill(0)
                 s.textAlign(s.LEFT, s.TOP);
                 s.text(" val: ", 0, 0);
                 s.text(" vis: ", 0, (node_size.y) / 4);

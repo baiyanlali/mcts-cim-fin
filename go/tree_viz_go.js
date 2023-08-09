@@ -41,14 +41,14 @@ export const viz_go= (s)=>{
 
     s.draw = () => {
         s.originDraw()
-        s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value());
+        return
+        s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value())
     }
 
     s.drawGame = (board) => {
         s.push()
-        s.fill(255);
         board = board.board
-        s.translate(7, 7);
+        s.translate(4, 4);
 
         let tile_size = node_size.x / board.length;
 
@@ -77,6 +77,7 @@ export const viz_go= (s)=>{
                 s.circle(i * tile_size, j * tile_size, radius)
             }
         }
+        s.fill(0)
         if(s.go === null || s.go === undefined) {
             s.pop()
             return
@@ -94,6 +95,7 @@ export const viz_go= (s)=>{
 
     s.drawWinnner = (node, node_size)=>{
         if (node.data.simulated_board) {
+            s.fill(0)
             let winner_icon = 0
             if(node.data.winner_icon){
                 winner_icon = node.data.winner_icon
@@ -102,7 +104,6 @@ export const viz_go= (s)=>{
                 // winner_icon = node.data.simulated_board.checkWin()
                 winner_icon = node.data.simulated_board.check_win_no_end()
             }
-            console.log("Draw winner: " + winner_icon)
             let winner = ""
             switch (winner_icon) {
                 case GoTile.Black:
