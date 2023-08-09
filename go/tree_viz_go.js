@@ -41,8 +41,15 @@ export const viz_go= (s)=>{
 
     s.draw = () => {
         s.originDraw()
-        return
-        s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value())
+        const value = s.mctsTimeoutSlider.value()
+        if(value <= 1000){
+            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() + " (visualise)")
+            document.getElementById("go_tree").style.display = ""
+        }else{
+            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() + " (expert)")
+            document.getElementById("go_tree").style.display = "none"
+        }
+
     }
 
     s.drawGame = (board) => {

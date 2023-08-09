@@ -257,6 +257,8 @@ export default class GoGame {
         machine_control.forEach(e=>{
             e.disabled = this.go.current_player() !== MachineColor
         })
+
+        document.getElementById(this.screen + "_area").style.display = "none"
     }
 
     show_board() {
@@ -281,13 +283,20 @@ export default class GoGame {
         if (this.go.checkWin()) {
             this.show_result()
         }
+        document.getElementById(this.screen + "_area").style.display = "none"
     }
 
     pass = () => {
         this.go.make_action({position: -1})
     }
 
-    machineMctsMove = async (interactive, disabled_btns) => {
+    checkArea = ()=>{
+        const [black, white] = this.go.area()
+        document.getElementById(this.screen + "_area").style.display = ""
+        document.getElementById(this.screen + "_area").innerHTML = `Black Area: ${black}<br> White Area: ${white} <br>${black === white?'Draw': black> white? 'Black wins': 'White wins'}`
+    }
+
+    machineMctsMove = async (interactive, disabled_btns, value) => {
 
         if(this.go.current_player() !== MachineColor) return
 
@@ -316,6 +325,10 @@ export default class GoGame {
                 // if(e.disabled)
                     e.disabled = false
             })
+            document.getElementById(this.screen + "_area").style.display = "none"
+            if(value > 1000){
+                window.go_mcts_interactive.clickMakePlay()
+            }
         }
 
     }

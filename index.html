@@ -1874,9 +1874,9 @@
                   <button
                     class="control_panel_btn3"
                     id="go_pass"
-                    onclick="go.pass()"
+                    onclick="go.checkArea()"
                   >
-                    Pass
+                    Check Area
                   </button>
 
                   <button
@@ -1897,7 +1897,7 @@
                         document.getElementById('go_pass'), 
                         document.getElementById('go_undo'), 
                         document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
-                    ])"
+                    ], document.getElementById('go_mcts_tree_vis_mcts_timeout_slider').value())"
                   >
                     MCTS move
                   </button>
@@ -1949,10 +1949,14 @@
                   <div class="bt-spinner"></div>
                   Computing...
                 </div>
+
+                <div id="gogame_area" style="display: none">
+
+                </div>
               </div>
             </div>
 
-            <div class="interactive-ttt-right">
+            <div id="go_tree" class="interactive-ttt-right">
               <div
                 style="
                   border: solid 1px lightgrey;
