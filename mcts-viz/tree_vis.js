@@ -219,9 +219,16 @@ export const vis = (s) => {
         if (!node.data.collapsed) {
             for (let i = 0; i < children.length; i++) {
                 let child = children[i];
+                let child_model = null
+                if(node.data.go){
+                    child_model = child.data.go
+                }else{
+                    child_model = model.copy()
+                    child_model.makeMove(child.data.move)
+                }
 
-                let child_model = model.copy();
-                child_model.makeMove(child.data.move);
+                // let child_model = model.copy();
+                // child_model.makeMove(child.data.move);
 
                 s.postorder_draw_tree(child, child_model);
             }
