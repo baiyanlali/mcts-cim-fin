@@ -151,7 +151,7 @@ class Go {
         let actions = this.get_legal_action()
         // let action = {position: RandomElement(actions)}
         // return this.make_action(action)
-        return this.make_quick_action(action)
+        return this.make_quick_action(RandomElement(actions))
     }
 
     make_quick_action(position){
@@ -463,32 +463,42 @@ class Go {
     get_air_cnt(position, player) {
         // console.log("air cnt of " + position)
         let visited_nodes = [JSON.stringify(position)]
-        let get_air_cnt_in = (position) => {
-            if (out_boundary(position[0], position[1]))
-                return 0
-            let air_cnt = 0
-            for (let i = 0; i < 4; i++) {
-                //four directions
-                let neighbour = ToDirection(position, this.DIRECTIONS[i])
-                if (out_boundary(neighbour[0], neighbour[1])) {
-                    continue
-                }else if(visited_nodes.includes(JSON.stringify(neighbour))){
-                    // console.log("visited "+ neighbour)
+        const get_air_cnt_in = (position, player) => {
+            const stack = [position]
+            const result = {airCount: 0, playerPositions: [] };
+            const visited_nodes = new Set()
+
+            const stringifyPosition = pos => `${pos[0]},${pos[1]}`;
+
+            visited_nodes.add(stringifyPosition(position))
+            while (stack.length>0){
+                const currentPos = stack.pop();
+
+                if(out_boundary(currentPos[0], currentPos[1])){
                     continue
                 }
-                visited_nodes.push(JSON.stringify(neighbour))
-                let neighbour_tile = this.board[neighbour[0]][neighbour[1]]
-                if (neighbour_tile === GoTile.Empty) {
-                    air_cnt++
-                    // console.log(neighbour)
-                } else if (neighbour_tile === player) {
-                    air_cnt += get_air_cnt_in(neighbour)
+
+                const current_tile = this.board[currentPos[0]][currentPos[1]]
+
+                if(current_tile === GoTile.Empty){
+                    result.airCount ++
+                }else if(current_tile === player){
+                    result.playerPositions.push(currentPos)
+                    const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction))
+                    for (const neighbor of neighbors) {
+                        const strNeighbor = stringifyPosition(neighbor)
+                        if(!out_boundary(neighbor[0], neighbor[1]) && !visited_nodes.has(strNeighbor)){
+                            visited_nodes.add(strNeighbor)
+                            stack.push(neighbor)
+                        }
+                    }
                 }
+
             }
-            return air_cnt
+            return result
         }
         // console.log(get_air_cnt_in(position))
-        return get_air_cnt_in(position)
+        return get_air_cnt_in(position, player)
     }
 
     get_air_cnt_position(position, player) {
