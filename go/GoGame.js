@@ -4,6 +4,8 @@ import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs"
 
 const TILECNT = 7
 
+const MachineColor = GoTile.Black
+
 export const sketch_go = (s) => {
 
     s.preload = () => {
@@ -128,6 +130,14 @@ export const sketch_go = (s) => {
 
 
     s.handleHover = () => {
+
+        if(s.go){
+            if(s.go.current_player() === MachineColor){
+                s.hoveredTile = [-1, -1]
+                return
+            }
+        }
+
         let mouseX = s.mouseX;
         let mouseY = s.mouseY;
         let tileNum = 7
@@ -147,6 +157,16 @@ export const sketch_go = (s) => {
 
 
 }
+
+
+const machine_control = [
+    document.getElementById('go_mcts_move'),
+    document.getElementById('go_rand_move'),
+    document.getElementById('go_reset'),
+    document.getElementById('go_pass'),
+    document.getElementById('go_undo'),
+    document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+]
 
 export default class GoGame {
     screen;
@@ -233,6 +253,10 @@ export default class GoGame {
 
         if (this.machineControlsArea)
             this.machineControlsArea.style.display = ""
+
+        machine_control.forEach(e=>{
+            e.disabled = this.go.current_player() !== MachineColor
+        })
     }
 
     show_board() {
@@ -247,6 +271,9 @@ export default class GoGame {
     }
 
     machineRandomMove = () => {
+
+        if(this.go.current_player() !== MachineColor) return
+
         this.go.makeRandomMove()
 
         this.show_board();
@@ -261,6 +288,9 @@ export default class GoGame {
     }
 
     machineMctsMove = async (interactive, disabled_btns) => {
+
+        if(this.go.current_player() !== MachineColor) return
+
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("/go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
