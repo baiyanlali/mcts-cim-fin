@@ -151,7 +151,7 @@ class Go {
         let actions = this.get_legal_action()
         let action = {position: RandomElement(actions)}
         // return this.make_action(action)
-        return this.make_quick_action(RandomElement(actions))
+        return this.make_quick_action(action)
     }
 
     make_quick_action(position){
@@ -869,8 +869,13 @@ class GoMCTS {
         let parent_go = node.data.go
         let children = this.tree.getChildren(node)
         // return parent_go.get_legal_action()
-        // if (parent_go.legal_actions.length===0){
-        //     parent_go.legal_actions = parent_go.get_legal_action()
+        // if (node.legal_actions.length===0){
+        //     node.legal_actions = parent_go.get_legal_action()
+        //     console.log("get legal action")
+        // }
+
+        // if (!(children.length === 0)){
+        //     console.log("children")
         // }
         return parent_go.get_legal_action().filter((dir) => {
             const parent_go_copy = GoCopy(parent_go)
