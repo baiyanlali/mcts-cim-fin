@@ -1,20 +1,20 @@
-importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
+// importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
 importScripts("/mcts-viz/lib/tree.js");
 
 //因为worker不支持es6语法，而我又懒得用webpack打包，所以这里把需要用到的代码都扔进来了。是个巨大的垃圾桶。
 
-const obj = {
-    run(iteration){
-        const monteCarlo = new GoMCTS(this.go)
-        const result = monteCarlo.runSearch(iteration)
-        return [monteCarlo, result]
-    },
-    haha(){
-        return "haha"
-    }
-}
-
-Comlink.expose(obj)
+// const obj = {
+//     run(iteration){
+//         const monteCarlo = new GoMCTS(this.go)
+//         const result = monteCarlo.runSearch(iteration)
+//         return [monteCarlo, result]
+//     },
+//     haha(){
+//         return "haha"
+//     }
+// }
+//
+// Comlink.expose(obj)
 
 function runMonteCarlo(event) {
     const data = event.data
@@ -147,6 +147,9 @@ class Go {
     }
 
     make_quick_action(position){
+        if(position[0] === undefined){
+            position = position.position
+        }
         if(position === -1){
             if(this.passed){
                 this.end = true
@@ -159,11 +162,11 @@ class Go {
         }
 
         this.passed = false
-        let x = position[0]
-        let y = position[1]
+        const x = position[0]
+        const y = position[1]
 
         this.board[x][y] = this.current_player()
-        let have_cleared = this.clear_dead_piece()
+        const have_cleared = this.clear_dead_piece()
 
         this.turn_cnt++
         if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
@@ -420,7 +423,7 @@ class Go {
         // console.log("air cnt of " + position)
         let visited_nodes = [JSON.stringify(position)]
 
-        let get_air_cnt_in = (position) => {
+        let get_air_cnt_in = (position, player) => {
             if (out_boundary(position[0], position[1]))
                 return { airCount: 0, playerPositions: [] };
         
@@ -429,7 +432,7 @@ class Go {
         
             for (let i = 0; i < 4; i++) {
                 // Four directions
-                let neighbour = ToDirection(position, this.DIRECTIONS[i]);
+                const neighbour = ToDirection(position, this.DIRECTIONS[i]);
                 if (out_boundary(neighbour[0], neighbour[1])) {
                     continue;
                 } else if (visited_nodes.includes(JSON.stringify(neighbour))) {
@@ -437,11 +440,11 @@ class Go {
                 }
                 visited_nodes.push(JSON.stringify(neighbour));
         
-                let neighbour_tile = this.board[neighbour[0]][neighbour[1]];
+                const neighbour_tile = this.board[neighbour[0]][neighbour[1]];
                 if (neighbour_tile === GoTile.Empty) {
                     airCount++;
                 } else if (neighbour_tile === player) {
-                    const result = get_air_cnt_in(neighbour);
+                    const result = get_air_cnt_in(neighbour, player);
                     airCount += result.airCount;
                     playerPositions = playerPositions.concat(result.playerPositions);
                 }
@@ -454,7 +457,7 @@ class Go {
             return { airCount, playerPositions };
         }
         // console.log(get_air_cnt_in(position))
-        return get_air_cnt_in(position)
+        return get_air_cnt_in(position, player)
     }
 
 
@@ -776,6 +779,12 @@ class GoMCTS {
     isFullyExplored(node) {
         return this.getAvailablePlays(node).length === 0;
     }
+    //
+    // constructChildrenBoard(node){
+    //     const children_board = {}
+    //     const children = this.tree.getChildren(node)
+    //
+    // }
 
 
     getAvailablePlays(node){
@@ -783,9 +792,10 @@ class GoMCTS {
         let children = this.tree.getChildren(node)
         // return parent_go.get_legal_action()
         return parent_go.get_legal_action().filter((dir) => {
-            let parent_go_copy = GoCopy(parent_go)
-            parent_go_copy.make_action({position: dir})
-            let explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
+            const parent_go_copy = GoCopy(parent_go)
+            parent_go_copy.make_quick_action({position: dir})
+            // const explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
+            const explored = children.find((child) => child.data.move.position[0] === dir[0] && child.data.move.position[1] === dir[1]);
             return !explored;
         });
     }
