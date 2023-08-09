@@ -116,6 +116,8 @@ class Node {
         this.id = id;
         this.children_id = children_id;
         this.parent_id = parent_id;
+        this.explored = false;
+        
     }
 
     copy() {

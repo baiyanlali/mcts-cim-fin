@@ -29,6 +29,8 @@ export default class Go {
 
     DIRECTIONS = [this.UP, this.DOWN, this.LEFT, this.RIGHT]
 
+    legal_actions = []
+    
     board
 
     turn_cnt

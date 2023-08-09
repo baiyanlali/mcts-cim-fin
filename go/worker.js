@@ -117,6 +117,8 @@ class Go {
 
     DIRECTIONS = [this.UP, this.DOWN, this.LEFT, this.RIGHT]
 
+    legal_actions = []
+    
     board
 
     turn_cnt
@@ -578,6 +580,7 @@ class GameNodeGo {
         this.move = move
         this.value = 0;
         this.simulations = 0;
+
     }
 
     copy() {
@@ -654,13 +657,29 @@ class GoMCTS {
     select() {
         let node = this.tree.get(0);
         let actions = [new AlgAction("selection", node.id, null, null)];
+        
+        // while (!node.isLeaf() && this.isFullyExplored(node)) {
+        //     node = this.getBestChildUCB1(node);
+        //     //在原本的mcts中每一步都需要用到move来得到当前棋盘信息
+        //     // node.data.go.makeMove(node.data.move);
+        //     actions.push(new AlgAction("selection", node.id, null, null));
+        // }
 
-        while (!node.isLeaf() && this.isFullyExplored(node)) {
+
+        if (!node.explored) {
+            node.explored = this.isFullyExplored(node)
+        }
+        while (!node.isLeaf() && node.explored) {
             node = this.getBestChildUCB1(node);
+            if (!node.explored) {
+                node.explored = this.isFullyExplored(node)
+            }
+
             //在原本的mcts中每一步都需要用到move来得到当前棋盘信息
             // node.data.go.makeMove(node.data.move);
             actions.push(new AlgAction("selection", node.id, null, null));
         }
+
 
         return {node: node, model: node.data.go, actions: actions};
     }
@@ -782,7 +801,10 @@ class GoMCTS {
         let parent_go = node.data.go
         let children = this.tree.getChildren(node)
         // return parent_go.get_legal_action()
-        return parent_go.get_legal_action().filter((dir) => {
+        if (parent_go.legal_actions.length===0){
+            parent_go.legal_actions = parent_go.get_legal_action()
+        }
+        return parent_go.legal_actions.filter((dir) => {
             let parent_go_copy = GoCopy(parent_go)
             parent_go_copy.make_action({position: dir})
             let explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
