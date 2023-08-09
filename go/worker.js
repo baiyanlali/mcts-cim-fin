@@ -119,7 +119,7 @@ class Go {
 
     DIRECTIONS = [this.UP, this.DOWN, this.LEFT, this.RIGHT]
 
-    legal_actions = []
+    // legal_actions = []
     
     board
 
@@ -137,10 +137,10 @@ class Go {
     constructor(board, turn_cnt = 0, legal_actions = null) {
         this.board = board ?? New2DArray(TILECNT, TILECNT, GoTile.Empty)
         this.turn_cnt = turn_cnt
-        if(legal_actions)
-            this.legal_actions = this.get_legal_action()
-        else
-            this.legal_actions = this.get_legal_action()
+        // if(legal_actions)
+        //     this.legal_actions = Copy(legal_actions)
+        // else
+        //     this.legal_actions = this.get_legal_action()
     }
 
     makeMove(arg){
