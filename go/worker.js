@@ -251,7 +251,6 @@ class Go {
                 initializedMatrix.push(row);
             }
 
-
         for (let i = 0; i < TILECNT; i++) {
             for (let j = 0; j < TILECNT; j++) {
 
@@ -318,6 +317,60 @@ class Go {
         }
 
         return legal_actions
+    }
+
+    islegalaction(pos){
+        i = pos[0]
+        j = pos[1]
+        if(this.board[i][j] === GoTile.Empty){
+            for (let k = 0; k < 4; k++) {
+                // Four directions
+            let neighbour = ToDirection([i, j], this.DIRECTIONS[k]);
+            // console.log(neighbour)
+            if (out_boundary(neighbour[0], neighbour[1]))
+                return false;
+            
+            if(initializedMatrix[neighbour[0]][neighbour[1]] === 1){
+                return true
+            }
+        }
+
+            // let air_cnt = this.get_air_cnt([i, j], this.current_player())
+            let air_result = this.get_air_cnt_position([i, j], this.current_player())
+            let air_pos = air_result.playerPositions;
+            // console.log(air_result.playerPositions);
+            for (const pos of air_pos) {
+                initializedMatrix[pos[0]][pos[1]] = 1;
+            }
+
+            let air_cnt = air_result.airCount
+
+            if(air_cnt >=0){
+                return true
+            }
+            const board_backup = JSON.parse(JSON.stringify(this.board))
+            this.board[i][j] = this.current_player()
+            let have_cleared = this.clear_dead_piece()
+
+            if(!have_cleared && air_cnt === 0){
+                //只有在没有清除敌方棋子并且当前格子没有气的时候才不让下该地方
+                // No Air
+                this.board = board_backup
+                return false
+            }
+
+            if(this.play_histroy.includes(this.toString())){
+                // Jie Happened
+                this.board = board_backup
+                return false
+            }
+            this.board = board_backup
+            return true
+
+        }
+
+        return false
+        
     }
 
     clear_dead_piece(){
