@@ -143,7 +143,7 @@ class Go {
 
     makeRandomMove(){
         let actions = this.get_legal_action()
-        // let action = {position: RandomElement(actions)}
+        let action = {position: RandomElement(actions)}
         // return this.make_action(action)
         return this.make_quick_action(RandomElement(actions))
     }
@@ -174,7 +174,7 @@ class Go {
         if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
             this.play_histroy.push(this.toString())
 
-        this.legal_actions = this.get_legal_action()
+        // this.legal_actions = this.get_legal_action()
         return ""
     }
 
@@ -230,7 +230,7 @@ class Go {
         // console.log(this.get_all_empty_groups(this.board))
 
         // console.log(`area information ${this.area()}`)
-        this.legal_actions = this.get_legal_action()
+        // this.legal_actions = this.get_legal_action()
         return ""
     }
 
@@ -863,10 +863,10 @@ class GoMCTS {
         let parent_go = node.data.go
         let children = this.tree.getChildren(node)
         // return parent_go.get_legal_action()
-        if (parent_go.legal_actions.length===0){
-            parent_go.legal_actions = parent_go.get_legal_action()
-        }
-        return parent_go.legal_actions.filter((dir) => {
+        // if (parent_go.legal_actions.length===0){
+        //     parent_go.legal_actions = parent_go.get_legal_action()
+        // }
+        return parent_go.get_legal_action().filter((dir) => {
             const parent_go_copy = GoCopy(parent_go)
             parent_go_copy.make_quick_action({position: dir})
             // const explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
