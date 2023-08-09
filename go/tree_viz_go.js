@@ -46,7 +46,7 @@ export const viz_go= (s)=>{
 
     s.drawGame = (board) => {
         s.push()
-        s.fill(0);
+        s.fill(255);
         board = board.board
         s.translate(7, 7);
 
@@ -94,7 +94,14 @@ export const viz_go= (s)=>{
 
     s.drawWinnner = (node, node_size)=>{
         if (node.data.simulated_board) {
-            let winner_icon = node.data.simulated_board.checkWin();
+            let winner_icon = 0
+            if(node.data.winner_icon){
+                winner_icon = node.data.winner_icon
+            }else{
+                console.log(node.data.winner_icon.a1234)
+                // winner_icon = node.data.simulated_board.checkWin()
+                winner_icon = node.data.simulated_board.check_win_no_end()
+            }
             console.log("Draw winner: " + winner_icon)
             let winner = ""
             switch (winner_icon) {
@@ -116,7 +123,6 @@ export const viz_go= (s)=>{
                 default:
                     winner = "???"
                     break
-
             }
             s.text(winner, 0, node_size.y * 1.25);
         }
