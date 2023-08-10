@@ -264,7 +264,7 @@
                 activate either game by hovering your mouse pointer over its corresponding image.
             </p>
 
-            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix. <span class="modified_textR2">Simiar with Tic-Tac-Toe, Go shares the similar representation structure as 7x7 matrix.</span></p>
+            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix. </p>
 
 
             <div class="framed">
@@ -317,7 +317,9 @@
                         the game is to connect three of your pieces in a row, column, or diagonal. The right panel
                         presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
                         symbolized by empty spaces. Your pieces and the ones of the AI opponent are denoted by "1" and "-1",
-                        respectively.
+                        respectively. 
+                        <br>
+                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
                     </div>
 
                     <div class="interactive"
@@ -388,6 +390,56 @@
                 </div>
             </div>
 
+            <P><span class="modified_textR2">Similar to Tic-Tac-Toe, Go shares a similar representation structure with a 7x7 matrix. 
+                The number 1 represents a white stone, while 2 represents a black stone. Empty spaces are represented by 0.</span></P>
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        <span class="modified_textR2">Click on the intersections of the lines to alternately place black and white stones. 
+                            The objective of Go is to control more territory on the board than the opponent by strategically placing stones. </span>
+                        <br>
+                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
+
+                    </div>
+
+                    <script type="module">
+
+                            import GoRepresentation from "./go/GoRepresentation.js";
+
+                            window.goGameRe = new GoRepresentation()
+                            goGameRe.init()
+
+                    </script>
+
+                    <div id="gogamedivRE" class="interactive"
+                         style="position: relative; width:fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
+
+
+                        <div style="display: flex; align-items: center; justify-content: space-between">
+                            <div>Game: <b>Go</b></div>
+                            <div>
+                                <!-- <button class="reset_game" onclick="goGameRe.show_result()">Show Result</button> -->
+                                <button class="reset_game" onclick="goGameRe.init()">Reset Game</button>
+                            </div>
+                        </div>
+
+                        <p id="gogameRE"></p>
+                        <div style="display: flex">
+                            <div id="goRepre1"></div>
+                            <div id="goRepre2"></div>
+                        </div>
+
+                        <p id="goRepreResult"></p>
+
+                    </div>
+
+
+                    <div class="caption"><b>Figure 4:</b>An introduction to Go and its representation.
+                    </div>
+                </div>
+            </div>
+
             <p>
                 The Sokoban game is represented by an $n \times n$ matrix, where $n$ represents the size of the game
                 board. The matrix uses 0, 1, 2, 3, and 5 to indicate empty spaces, walls, boxes, targets, and the
@@ -401,6 +453,8 @@
                     <div class="eyebrow">
                         Click game panel and use the W, S, A, D, or arrow keys on your keyboard to move the avatar. The objective is to
                         push all the boxes to the green points (targets) to win the game.
+                        <br>
+                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
 
                     </div>
 
@@ -472,51 +526,7 @@
 
             </p>
 
-            <div class="framed">
-
-                <div class="inside">
-                    <div class="eyebrow">
-                        Click game panel and use the W, S, A, D, or arrow keys on your keyboard to move the avatar. The objective is to
-                        push all the boxes to the green points (targets) to win the game.
-
-                    </div>
-
-                    <script type="module">
-
-                            import GoRepresentation from "./go/GoRepresentation.js";
-
-                            window.goGameRe = new GoRepresentation()
-                            goGameRe.init()
-
-                    </script>
-
-                    <div id="gogamedivRE" class="interactive"
-                         style="position: relative; width:fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
-
-
-                        <div style="display: flex; align-items: center; justify-content: space-between">
-                            <div>Game: <b>go</b></div>
-                            <div>
-                                <button class="reset_game" onclick="goGameRe.show_result()">Show Result</button>
-                                <button class="reset_game" onclick="goGameRe.init()">Reset Game</button>
-                            </div>
-                        </div>
-
-                        <p id="gogameRE"></p>
-                        <div style="display: flex">
-                            <div id="goRepre1"></div>
-                            <div id="goRepre2"></div>
-                        </div>
-
-                        <p id="goRepreResult"></p>
-
-                    </div>
-
-
-                    <div class="caption"><b>Figure 4:</b>An introduction to Sokoban and its representation.
-                    </div>
-                </div>
-            </div>
+            
 
             <br>
             <br>
