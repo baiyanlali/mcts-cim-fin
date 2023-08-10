@@ -1896,9 +1896,10 @@
             </div>
                 
             <p class="modified_textR2">
-                A classic game Go is presented to illustrate the MCTS in a complex situation.
-                For simplicity, we choose $7\times7$ board and the rule is logical rule [<a href="rulego">6</a>].
-                In Go,
+                An interative example of Go game is shown below. 
+                For simplicity, we choose $7\times7$ board and follow the logical rules [<a href="rulego">6</a>]. If an area covered by color do not reach empty area, it will be removed. 
+                This goal of this game is to cover more area than the opponent.
+                In this Go game, the AI will play black stones, while the player will play white stones. The AI can choose to play randomly or use the Monte Carlo Tree Search (MCTS) algorithm to make its moves.
             </p>
 
 
@@ -1906,7 +1907,7 @@
       <div class="inside">
         <div class="eyebrow">
           <span class="modified_textR2">
-            In this Go game, the AI will play black stones, while the player will play white stones. The AI can choose to play randomly or use the Monte Carlo Tree Search (MCTS) algorithm to make its moves. By adjusting the number of iterations in the Monte Carlo Tree Search, the AI's playing ability will also change accordingly. For instance, running the algorithm with 10,000 iterations might take around 15 seconds. When the iteration is set below 1,000, you can access the visualization interface of MCTS to view the graphical representation. However, if the iteration is set higher than 1,000, the visualization interface of MCTS will be unavailable.
+             By adjusting the number of iterations in the Monte Carlo Tree Search, the AI's playing ability will also change accordingly. For instance, running the algorithm with 10,000 iterations might take around 15 seconds. When the iteration is set below 1,000, you can access the visualization interface of MCTS to view the graphical representation. However, if the iteration is set higher than 1,000, the visualization interface of MCTS will be unavailable.
           </span>
         </div>
 
