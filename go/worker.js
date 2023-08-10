@@ -1,5 +1,5 @@
 // importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
-importScripts("/mcts-viz/lib/tree.js");
+importScripts("../mcts-viz/lib/tree.js");
 
 //因为worker不支持es6语法，而我又懒得用webpack打包，所以这里把需要用到的代码都扔进来了。是个巨大的垃圾桶。
 
