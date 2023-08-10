@@ -239,7 +239,7 @@ class Go {
     }
 
     clear_dead_piece() {
-
+        console.log("this player",this.current_player())
         let matrixSize = 8;
         let initializedMatrix = [];
 
@@ -385,7 +385,10 @@ class Go {
                 }
                 const current_tile = this.board[currentPos[0]][currentPos[1]];
 
-                if (currentPos === position) {
+
+                
+
+                if (currentPos === position && (current_tile === player | current_tile === GoTile.Empty)) {
                     const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
                     for (const neighbour of neighbors) {
                         const strNeighbour = stringifyPosition(neighbour);
@@ -513,7 +516,7 @@ class Go {
 }
 
 
-const board = [
+const board1 = [
     [0, 1, 0, 1, 0, 1, 0],
     [1, 0, 1, 0, 1, 0, 1],
     [0, 1, 0, 1, 0, 1, 0],
@@ -523,6 +526,29 @@ const board = [
     [0, 1, 0, 1, 0, 1, 0]
 ]
 
-const go = new Go(board)
+const board2 = [
+    [1, 1, 0, 1, 1, 1, 2],
+    [0, 1, 1, 1, 1, 2, 2],
+    [1, 1, 1, 1, 1, 1, 2],
+    [1, 1, 2, 1, 1, 2, 2],
+    [0, 1, 2, 2, 2, 2, 2],
+    [1, 1, 2, 2, 2, 2, 2],
+    [1, 2, 2, 2, 1, 2, 2]
+]
 
-console.log(go.get_legal_action())
+const board3 = [
+    [1, , 0, 1, 1, 1, 2],
+    [2, 2, 1, 1, 1, 2, 2],
+    [0, 1, 1, 1, 1, 1, 2],
+    [0, 1, 2, 1, 1, 2, 2],
+    [0, 0, 2, 2, 2, 2, 2],
+    [0, 0, 2, 2, 2, 2, 2],
+    [0, 0, 2, 2, 1, 2, 2]
+]
+
+const go = new Go(board3)
+
+// console.log(go.get_legal_action())
+// console.log("-----------------")
+
+console.log(go.clear_dead_piece())

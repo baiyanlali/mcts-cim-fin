@@ -404,6 +404,7 @@ class Go {
                     }
                     if(air === 0)
                     {
+
                         for (const pos of air_pos) {
                             this.board[pos[0]][pos[1]] = GoTile.Empty
                         }
@@ -525,6 +526,18 @@ class Go {
                 }
                 const current_tile = this.board[currentPos[0]][currentPos[1]];
         
+                
+                // if (currentPos === position && (current_tile === player | current_tile === GoTile.Empty)) {
+                //     const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
+                //     for (const neighbour of neighbors) {
+                //         const strNeighbour = stringifyPosition(neighbour);
+                //         if (!out_boundary(neighbour[0], neighbour[1]) && !visited_nodes.has(strNeighbour)) {
+                //             visited_nodes.add(strNeighbour);
+                //             stack.push(neighbour);
+                //         }
+                //     }
+                // } else {
+                    if (current_tile === GoTile.Empty) {
                 if (currentPos === position) {
                     const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
                     for (const neighbour of neighbors) {
@@ -535,20 +548,20 @@ class Go {
                         }
                     }
                 } else {
-                if (current_tile === GoTile.Empty) {
-                    result.airCount++;
-                } else if (current_tile === player) {
-                    result.playerPositions.push(currentPos);
-                    const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
-                    for (const neighbour of neighbors) {
-                        const strNeighbour = stringifyPosition(neighbour);
-                        if (!out_boundary(neighbour[0], neighbour[1]) && !visited_nodes.has(strNeighbour)) {
-                            visited_nodes.add(strNeighbour);
-                            stack.push(neighbour);
+                        result.airCount++;
+                    }
+                    } else if (current_tile === player) {
+                        result.playerPositions.push(currentPos);
+                        const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
+                        for (const neighbour of neighbors) {
+                            const strNeighbour = stringifyPosition(neighbour);
+                            if (!out_boundary(neighbour[0], neighbour[1]) && !visited_nodes.has(strNeighbour)) {
+                                visited_nodes.add(strNeighbour);
+                                stack.push(neighbour);
+                            }
                         }
                     }
-                }
-            }
+                // }
             }
         
             return result;
