@@ -598,14 +598,14 @@ export const vis = (s) => {
                         x_min: (node.data.final_x * (1 + 1.8 + node_distance.x) * node_size.x) * offset.zoom + offset.x,
                         y_min: (node.data.y * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
                         width: node_size.x * 2.8 * offset.zoom,
-                        height: node_size.y * offset.zoom
+                        height: (node_size.y + 5) * offset.zoom
                     };
                 else
                     bounds = {
                         x_min: (node.data.final_x * (1 + node_distance.x) * node_size.x) * offset.zoom + offset.x,
                         y_min: (node.data.y * (1 + node_distance.y) * node_size.y) * offset.zoom + offset.y,
                         width: node_size.x * offset.zoom,
-                        height: node_size.y * offset.zoom
+                        height: (node_size.y + 5) * offset.zoom
                     };
 
                 if (s.mouseX > bounds.x_min && s.mouseY > bounds.y_min
