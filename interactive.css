@@ -85,6 +85,12 @@
     border-radius: 10px;
 }
 
+.reset_game{
+    position: relative;
+    width: max-content;
+    height: 3;
+}
+
 .play_first {
     position: relative;
     /*left: 50%;*/
