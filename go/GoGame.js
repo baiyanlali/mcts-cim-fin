@@ -163,10 +163,18 @@ const machine_control = [
     document.getElementById('go_mcts_move'),
     document.getElementById('go_rand_move'),
     document.getElementById('go_reset'),
-    document.getElementById('go_pass'),
-    document.getElementById('go_undo'),
+    // document.getElementById('go_pass'),
+    // document.getElementById('go_undo'),
     document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
 ]
+
+// const human_control = [
+//     document.getElementById('go_mcts_move'),
+//     document.getElementById('go_rand_move'),
+//     document.getElementById('go_reset'),
+//     // document.getElementById('go_pass'),
+//     document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+// ]
 
 export default class GoGame {
     screen;
@@ -337,6 +345,7 @@ export default class GoGame {
     undo = () => {
         this.go.Undo()
         this.show_board()
+        machine_control.forEach(c=>c.disabled = this.go.current_player() !== MachineColor)
     }
 }
 

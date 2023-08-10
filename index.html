@@ -1897,19 +1897,19 @@
                         document.getElementById('go_pass'), 
                         document.getElementById('go_undo'), 
                         document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
-                    ], document.getElementById('go_mcts_tree_vis_mcts_timeout_slider').value())"
+                    ], parseInt(document.getElementById('go_mcts_tree_vis_mcts_timeout_slider').value))"
                   >
                     MCTS move
                   </button>
                   <br />
-                  <button
-                    class="control_panel_btn3"
-                    id="go_cancel"
-                    onclick="go.cancelPlay(go_mcts_interactive)"
-                    style="display: none"
-                  >
-                    Cancel
-                  </button>
+<!--                  <button-->
+<!--                    class="control_panel_btn3"-->
+<!--                    id="go_cancel"-->
+<!--                    onclick="go.cancelPlay(go_mcts_interactive)"-->
+<!--                    style="display: none"-->
+<!--                  >-->
+<!--                    Cancel-->
+<!--                  </button>-->
                   <br />
                   <button
                     class="control_panel_btn3"
