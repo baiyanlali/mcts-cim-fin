@@ -329,10 +329,10 @@ export default class GoGame {
             document.getElementById(this.screen + "_loadingbar").style.display = "none"
             this.goGame.disabled = false
             // document.getElementById(this.screen + "_mcts_move").style.display = "none"
-            disabled_btns.forEach((e)=>{
-                // if(e.disabled)
-                    e.disabled = false
-            })
+            // disabled_btns.forEach((e)=>{
+            //     // if(e.disabled)
+            //         e.disabled = false
+            // })
             document.getElementById(this.screen + "_area").style.display = "none"
             if(value > 1000){
                 window.go_mcts_interactive.clickMakePlay()
