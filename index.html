@@ -468,6 +468,55 @@
                 </div>
             </div>
 
+            <p class="modified_textR2">
+
+            </p>
+
+            <div class="framed">
+
+                <div class="inside">
+                    <div class="eyebrow">
+                        Click game panel and use the W, S, A, D, or arrow keys on your keyboard to move the avatar. The objective is to
+                        push all the boxes to the green points (targets) to win the game.
+
+                    </div>
+
+                    <script type="module">
+
+                            import GoRepresentation from "./go/GoRepresentation.js";
+
+                            window.goGameRe = new GoRepresentation()
+                            goGameRe.init()
+
+                    </script>
+
+                    <div id="gogamedivRE" class="interactive"
+                         style="position: relative; width:fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
+
+
+                        <div style="display: flex; align-items: center; justify-content: space-between">
+                            <div>Game: <b>go</b></div>
+                            <div>
+                                <button class="reset_game" onclick="goGameRe.show_result()">Show Result</button>
+                                <button class="reset_game" onclick="goGameRe.init()">Reset Game</button>
+                            </div>
+                        </div>
+
+                        <p id="gogameRE"></p>
+                        <div style="display: flex">
+                            <div id="goRepre1"></div>
+                            <div id="goRepre2"></div>
+                        </div>
+
+                        <p id="goRepreResult"></p>
+
+                    </div>
+
+
+                    <div class="caption"><b>Figure 4:</b>An introduction to Sokoban and its representation.
+                    </div>
+                </div>
+            </div>
 
             <br>
             <br>
@@ -476,7 +525,7 @@
             <div class="l-body" style="width: 100%;">
                 <img src="image/MCTS.png" alt="Main steps of MCTS."
                      style="margin: auto auto; width: 100%; display: block"/>
-                <div class="caption" style="width: 100%; display: block"><b>Figure 4:</b><br> Main steps of MCTS (Figure
+                <div class="caption" style="width: 100%; display: block"><b>Figure 5:</b><br> Main steps of MCTS (Figure
                     2 from [<a href="#browne2012survey">1</a>]
                 ). Nodes and branches represent state and action, respectively. Wins and visit counts are usually
                     the values of a node.
@@ -484,7 +533,7 @@
             </div>
 
             <p>
-                The MCTS follows a workflow as illustrated in Figure 4. It involves four main components:
+                The MCTS follows a workflow as illustrated in Figure 5. It involves four main components:
                 <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>. The specific four
                 steps will be discussed in detail in the subsequent sections. Interactive components are provided to
                 demonstrate these steps intuitively.
@@ -815,7 +864,7 @@
                     </div>
 
 
-                    <div class="caption"><b>Figure 5:</b> Procedure of Selection.
+                    <div class="caption"><b>Figure 6:</b> Procedure of Selection.
                     </div>
                 </div>
             </div>
@@ -985,7 +1034,7 @@
 
 
 
-                    <div class="caption"><b>Figure 6:</b> Procedure of Expansion.
+                    <div class="caption"><b>Figure 7:</b> Procedure of Expansion.
                     </div>
                 </div>
             </div>
@@ -1167,7 +1216,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 7:</b> Procedure of Simulation.
+                    <div class="caption"><b>Figure 8:</b> Procedure of Simulation.
                     </div>
                 </div>
             </div>
@@ -1346,7 +1395,7 @@
                         </div>
                     </div>
 
-                    <div class="caption"><b>Figure 8: </b>Procedure of Backpropagation.
+                    <div class="caption"><b>Figure 9: </b>Procedure of Backpropagation.
                     </div>
                 </div>
             </div>
@@ -1519,7 +1568,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 9: </b><span class="modified_textR2">An interactive evaluation of a Tic-Tac-Toe game state.</span>.
+                    <div class="caption"><b>Figure 10: </b><span class="modified_textR2">An interactive evaluation of a Tic-Tac-Toe game state.</span>.
                     </div>
                 </div>
             </div>
@@ -1669,7 +1718,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 10:</b> MCTS for Tic-Tac-Toe.
+                    <div class="caption"><b>Figure 11:</b> MCTS for Tic-Tac-Toe.
                     </div>
                 </div>
             </div>
@@ -1831,7 +1880,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 11:</b>MCTS for Sokoban.
+                    <div class="caption"><b>Figure 12:</b>MCTS for Sokoban.
                     </div>
                 </div>
             </div>
@@ -2058,7 +2107,7 @@
         </div>
 
         <div class="caption">
-          <b>Figure 12:</b><span class="modified_text">MCTS for Go.</span>
+          <b>Figure 13:</b><span class="modified_text">MCTS for Go.</span>
         </div>
       </div>
     </div>

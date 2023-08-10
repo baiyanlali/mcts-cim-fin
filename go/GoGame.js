@@ -1,6 +1,5 @@
 import Go, {GoTile} from "./go.js";
 import GoMCTS, {FromMCTS} from "./go_mcts.js";
-import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs"
 
 const TILECNT = 7
 
@@ -23,6 +22,8 @@ export const sketch_go = (s) => {
     s.go = null
 
     s.disabled = false
+
+    s.MachineColor = MachineColor
 
     s.onMouseClicked = (tile) => {
     }
@@ -132,7 +133,7 @@ export const sketch_go = (s) => {
     s.handleHover = () => {
 
         if(s.go){
-            if(s.go.current_player() === MachineColor){
+            if(s.go.current_player() === s.MachineColor){
                 s.hoveredTile = [-1, -1]
                 return
             }
