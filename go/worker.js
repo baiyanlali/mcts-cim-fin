@@ -161,7 +161,9 @@ class Go {
                 this.winner = this.check_win(0)
                 return "End"
             }
+            this.end = true
             this.passed = true
+            this.winner = this.check_win(0)
             this.turn_cnt++
             return "Passed"
         }
@@ -279,13 +281,14 @@ class Go {
                     let air_result = this.get_air_cnt_position([i, j], this.current_player())
                     let air_pos = air_result.playerPositions;
                     // console.log(air_result.playerPositions);
-                    for (const pos of air_pos) {
-                        initializedMatrix[pos[0]][pos[1]] = 1;
-                    }
+
 
                     let air_cnt = air_result.airCount
 
-                    if(air_cnt >=0){
+                    if(air_cnt > 0){
+                        for (const pos of air_pos) {
+                            initializedMatrix[pos[0]][pos[1]] = 1;
+                        }
                         legal_actions.push([i, j])
                         continue
                     }
@@ -522,6 +525,16 @@ class Go {
                 }
                 const current_tile = this.board[currentPos[0]][currentPos[1]];
         
+                if (currentPos === position) {
+                    const neighbors = this.DIRECTIONS.map(direction => ToDirection(currentPos, direction));
+                    for (const neighbour of neighbors) {
+                        const strNeighbour = stringifyPosition(neighbour);
+                        if (!out_boundary(neighbour[0], neighbour[1]) && !visited_nodes.has(strNeighbour)) {
+                            visited_nodes.add(strNeighbour);
+                            stack.push(neighbour);
+                        }
+                    }
+                } else {
                 if (current_tile === GoTile.Empty) {
                     result.airCount++;
                 } else if (current_tile === player) {
@@ -535,6 +548,7 @@ class Go {
                         }
                     }
                 }
+            }
             }
         
             return result;
@@ -904,7 +918,7 @@ class GoMCTS {
         // }
         return parent_go.get_legal_action().filter((dir) => {
             const parent_go_copy = GoCopy(parent_go)
-            parent_go_copy.make_quick_action({position: dir})
+            parent_go_copy.make_quick_action(dir)
             // const explored = children.find((child) => child.data.go.board.toString() === parent_go_copy.board.toString());
             const explored = children.find((child) => child.data.move.position[0] === dir[0] && child.data.move.position[1] === dir[1]);
             return !explored;
