@@ -43,10 +43,10 @@ export const viz_go= (s)=>{
         s.originDraw()
         const value = s.mctsTimeoutSlider.value()
         if(value <= 1000){
-            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() + " (visualise)")
+            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations " + "(visualisation)")
             document.getElementById("go_tree").style.display = ""
         }else{
-            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() + " (expert)")
+            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations " +" (expert)")
             document.getElementById("go_tree").style.display = "none"
         }
 
