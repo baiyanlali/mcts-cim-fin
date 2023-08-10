@@ -1868,92 +1868,91 @@
               <p id="gogame"></p>
 
               <div id="p5_go"></div>
-
-              <div class="control_panel" id="gogame_machine_controls_area">
-                <div style="display: flex">
-                  <button
-                    class="control_panel_btn3"
-                    id="go_pass"
-                    onclick="go.checkArea()"
-                  >
-                    Check Area
-                  </button>
-
-                  <button
-                    class="control_panel_btn3"
-                    id="go_rand_move"
-                    onclick="go.machineRandomMove()"
-                  >
-                    Random move
-                  </button>
-                  <br />
-                  <button
-                    class="control_panel_btn3"
-                    id="go_mcts_move"
-                    onclick="go.machineMctsMove(go_mcts_interactive, [
-                        document.getElementById('go_mcts_move'),
-                        document.getElementById('go_rand_move'), 
-                        document.getElementById('go_reset'), 
-                        document.getElementById('go_pass'), 
-                        document.getElementById('go_undo'), 
-                        document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
-                    ], parseInt(document.getElementById('go_mcts_tree_vis_mcts_timeout_slider').value))"
-                  >
-                    MCTS move
-                  </button>
-                  <br />
-<!--                  <button-->
-<!--                    class="control_panel_btn3"-->
-<!--                    id="go_cancel"-->
-<!--                    onclick="go.cancelPlay(go_mcts_interactive)"-->
-<!--                    style="display: none"-->
-<!--                  >-->
-<!--                    Cancel-->
-<!--                  </button>-->
-                  <br />
-                  <button
-                    class="control_panel_btn3"
-                    id="go_undo"
-                    onclick="go.undo()"
-                  >
-                    Undo
-                  </button>
-                  <br />
-                  <button
-                    class="control_panel_btn3"
-                    id="go_reset"
-                    onclick="go.init()"
-                  >
-                    Reset game
-                  </button>
-                </div>
-
                 <div>
-                  <br />
-                  Run MCTS for:
-                  <br />
-                  <input
-                    id="go_mcts_tree_vis_mcts_timeout_slider"
-                    type="range"
-                    min="100"
-                    max="10000"
-                    value="1000"
-                    step="100"
-                  />
-                  <br />
-                  <span id="go_mcts_tree_vis_mcts_timeout_span"><b>500</b></span>
-                  iterations
+                    <div class="control_panel" id="gogame_machine_controls_area">
+                    <div style="display: flex">
+                      <button
+                        class="control_panel_btn3"
+                        id="go_pass"
+                        onclick="go.checkArea()"
+                      >
+                        Check Area
+                      </button>
+
+                      <button
+                        class="control_panel_btn3"
+                        id="go_rand_move"
+                        onclick="go.machineRandomMove()"
+                      >
+                        Random move
+                      </button>
+                      <br />
+                      <button
+                        class="control_panel_btn3"
+                        id="go_mcts_move"
+                        onclick="go.machineMctsMove(go_mcts_interactive, [
+                            document.getElementById('go_mcts_move'),
+                            document.getElementById('go_rand_move'),
+                            document.getElementById('go_reset'),
+                            // document.getElementById('go_pass'),
+                            // document.getElementById('go_undo'),
+                            document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+                        ], parseInt(document.getElementById('go_mcts_tree_vis_mcts_timeout_slider').value))"
+                      >
+                        MCTS move
+                      </button>
+                      <br />
+    <!--                  <button-->
+    <!--                    class="control_panel_btn3"-->
+    <!--                    id="go_cancel"-->
+    <!--                    onclick="go.cancelPlay(go_mcts_interactive)"-->
+    <!--                    style="display: none"-->
+    <!--                  >-->
+    <!--                    Cancel-->
+    <!--                  </button>-->
+                      <br />
+                      <button
+                        class="control_panel_btn3"
+                        id="go_undo"
+                        onclick="go.undo()"
+                      >
+                        Undo
+                      </button>
+                      <br />
+                      <button
+                        class="control_panel_btn3"
+                        id="go_reset"
+                        onclick="go.init()"
+                      >
+                        Reset game
+                      </button>
+                    </div>
+
+                    <div>
+                      <br />
+                      Run MCTS for:
+                      <br />
+                      <input
+                        id="go_mcts_tree_vis_mcts_timeout_slider"
+                        type="range"
+                        min="100"
+                        max="10000"
+                        value="1000"
+                        step="100"
+                      />
+                      <br />
+                      <span id="go_mcts_tree_vis_mcts_timeout_span"><b>500</b></span>
+                      iterations
+                    </div>
+
+                    </div>
+                    <div id="gogame_loadingbar" style="display: none">
+                      <div class="bt-spinner"></div>
+                      Computing...
+                    </div>
+                    <div id="gogame_area" style="display: none"></div>
                 </div>
 
-                <div id="gogame_loadingbar" style="display: none">
-                  <div class="bt-spinner"></div>
-                  Computing...
-                </div>
-
-                <div id="gogame_area" style="display: none">
-
-                </div>
-              </div>
             </div>
 
             <div id="go_tree" class="interactive-ttt-right">

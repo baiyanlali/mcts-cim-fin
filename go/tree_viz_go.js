@@ -104,13 +104,13 @@ export const viz_go= (s)=>{
         if (node.data.simulated_board) {
             s.fill(0)
             let winner_icon = 0
-            if(node.data.winner_icon){
-                winner_icon = node.data.winner_icon
-            }else{
-                console.log(node.data.winner_icon.a1234)
+            // if(node.data.winner_icon){
+            //     winner_icon = node.data.winner_icon
+            // }else{
+            //     console.log(node.data.winner_icon.a1234)
                 // winner_icon = node.data.simulated_board.checkWin()
-                winner_icon = node.data.simulated_board.check_win_no_end()
-            }
+            winner_icon = node.data.simulated_board.check_win_no_end()
+            // }
             let winner = ""
             switch (winner_icon) {
                 case GoTile.Black:

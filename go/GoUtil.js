@@ -10,10 +10,9 @@ export function GoCopy(gogogo){
 }
 
 export function GameNodeGoCopy(origin_ng){
-    const result = new GameNodeGo(origin_ng.move, GoCopy(origin_ng.go), origin_ng.value, origin_ng.simulations, origin_ng.winner_icon)
-
-
-    return result
+    // return new GameNodeGo(origin_ng.move, GoCopy(origin_ng.go), origin_ng.value, origin_ng.simulations, origin_ng.winner_icon)
+    // console.log(`Winner icon: ${origin_ng.winner_icon}`)
+    return new GameNodeGo(origin_ng.move, GoCopy(origin_ng.go), 0, 0, origin_ng.winner_icon)
 }
 
 export function NodeCopy(nonono) {
