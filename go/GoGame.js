@@ -310,7 +310,7 @@ export default class GoGame {
         if(this.go.current_player() !== MachineColor) return
 
         document.getElementById(this.screen + "_loadingbar").style.display = ""
-        const worker = new Worker("/go/worker.js")
+        const worker = new Worker("./go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
         disabled_btns.forEach((e)=>{
             // if(e.disabled)
