@@ -68,7 +68,6 @@ export default class Go {
         return this.make_action(action)
     }
 
-
     make_action(move) {
         let position = move.position
         if(position === [-1, -1] || position === -1){
@@ -77,10 +76,10 @@ export default class Go {
                 this.winner = this.check_win(0)
                 return "End"
             }
-            this.turn_cnt++
             this.end = true
-            this.passed = true
             this.winner = this.check_win(0)
+            this.passed = true
+            this.turn_cnt++
             //pass
             return "Passed"
         }
@@ -98,9 +97,8 @@ export default class Go {
 
         // console.log(this.get_air_cnt(position))
         let air_result = this.get_air_cnt_position(position, this.current_player())
-        console.log(air_result.playerPositions);
+        // console.log(air_result.playerPositions);
         let air_cnt = air_result.airCount
-        // let air_cnt = this.get_air_cnt(position, this.current_player())
         const board_backup = JSON.parse(JSON.stringify(this.board))
         this.board[x][y] = this.current_player()
         let have_cleared = this.clear_dead_piece()
@@ -123,13 +121,153 @@ export default class Go {
         // console.log(this.get_all_empty_groups(this.board))
 
         // console.log(`area information ${this.area()}`)
-
+        // this.legal_actions = this.get_legal_action()
         return ""
     }
 
+
+
+    // make_action(move) {
+    //     let position = move.position
+    //     if(position === [-1, -1] || position === -1){
+    //         if(this.passed){
+    //             this.end = true
+    //             this.winner = this.check_win(0)
+    //             return "End"
+    //         }
+    //         this.turn_cnt++
+    //         this.end = true
+    //         this.passed = true
+    //         this.winner = this.check_win(0)
+    //         //pass
+    //         return "Passed"
+    //     }
+    //     this.passed = false
+    //     let x = position[0]
+    //     let y = position[1]
+    //
+    //     if (out_boundary(x, y))
+    //         return "Out of Boundary"
+    //
+    //     if (this.board[x][y] !== GoTile.Empty) {
+    //         // there is already a piece
+    //         return "No Empty Space"
+    //     }
+    //
+    //     // console.log(this.get_air_cnt(position))
+    //     let air_result = this.get_air_cnt_position(position, this.current_player())
+    //     console.log(air_result.playerPositions);
+    //     let air_cnt = air_result.airCount
+    //     // let air_cnt = this.get_air_cnt(position, this.current_player())
+    //     const board_backup = JSON.parse(JSON.stringify(this.board))
+    //     this.board[x][y] = this.current_player()
+    //     let have_cleared = this.clear_dead_piece()
+    //     if(!have_cleared && air_cnt === 0){
+    //         //只有在没有清除敌方棋子并且当前格子没有气的时候才不让下该地方
+    //         this.board = board_backup
+    //         return "No Air"
+    //     }
+    //
+    //     if(this.play_histroy.includes(this.toString())){
+    //         this.board = board_backup
+    //         return "Jie Happened"
+    //     }
+    //
+    //
+    //     this.turn_cnt++
+    //     // if(this.turn_cnt >= 3) //只有大于3步才有可能出现劫的情况
+    //     this.play_histroy.push(this.toString())
+    //
+    //     // console.log(this.get_all_empty_groups(this.board))
+    //
+    //     // console.log(`area information ${this.area()}`)
+    //
+    //     return ""
+    // }
+
+    // get_legal_action() {
+    //     let legal_actions = []
+    //
+    //     let matrixSize = 8;
+    //     let initializedMatrix = [];
+    //
+    //         for (let i = 0; i < matrixSize; i++) {
+    //             let row = new Array(matrixSize).fill(0);
+    //             initializedMatrix.push(row);
+    //         }
+    //
+    //
+    //     for (let i = 0; i < TILECNT; i++) {
+    //         for (let j = 0; j < TILECNT; j++) {
+    //
+    //             if(this.board[i][j] === GoTile.Empty){
+    //                 let break_flag = false
+    //                 for (let k = 0; k < 4; k++) {
+    //                     // Four directions
+    //                 let neighbour = ToDirection([i, j], this.DIRECTIONS[k]);
+    //                 // console.log(neighbour)
+    //                 if (out_boundary(neighbour[0], neighbour[1]))
+    //                     continue;
+    //
+    //                 if(initializedMatrix[neighbour[0]][neighbour[1]] === 1){
+    //                     legal_actions.push([i, j])
+    //                     // console.log("legal action: " + [i, j])
+    //                     break_flag = true
+    //                     break;
+    //                 }
+    //             }
+    //
+    //             if (break_flag){
+    //                 continue;
+    //             }
+    //                 // let air_cnt = this.get_air_cnt([i, j], this.current_player())
+    //                 let air_result = this.get_air_cnt_position([i, j], this.current_player())
+    //                 let air_pos = air_result.playerPositions;
+    //                 // console.log(air_result.playerPositions);
+    //                 for (const pos of air_pos) {
+    //                     initializedMatrix[pos[0]][pos[1]] = 1;
+    //                 }
+    //
+    //                 let air_cnt = air_result.airCount
+    //
+    //                 if(air_cnt >=0){
+    //                     legal_actions.push([i, j])
+    //                     continue
+    //                 }
+    //                 const board_backup = JSON.parse(JSON.stringify(this.board))
+    //                 this.board[i][j] = this.current_player()
+    //                 let have_cleared = this.clear_dead_piece()
+    //
+    //                 if(!have_cleared && air_cnt === 0){
+    //                     //只有在没有清除敌方棋子并且当前格子没有气的时候才不让下该地方
+    //                     // No Air
+    //                     this.board = board_backup
+    //                     continue
+    //                 }
+    //
+    //                 if(this.play_histroy.includes(this.toString())){
+    //                     // Jie Happened
+    //                     this.board = board_backup
+    //                     continue
+    //                 }
+    //
+    //                 legal_actions.push([i, j])
+    //                 this.board = board_backup
+    //
+    //             }
+    //         }
+    //     }
+    //
+    //     if(legal_actions.length <= 5){
+    //         legal_actions.push(-1)
+    //     }
+    //
+    //     return legal_actions
+    // }
+
     get_legal_action() {
         let legal_actions = []
-        
+
         let matrixSize = 8;
         let initializedMatrix = [];
 
@@ -137,7 +275,6 @@ export default class Go {
                 let row = new Array(matrixSize).fill(0);
                 initializedMatrix.push(row);
             }
-
 
         for (let i = 0; i < TILECNT; i++) {
             for (let j = 0; j < TILECNT; j++) {
@@ -149,8 +286,8 @@ export default class Go {
                     let neighbour = ToDirection([i, j], this.DIRECTIONS[k]);
                     // console.log(neighbour)
                     if (out_boundary(neighbour[0], neighbour[1]))
-                        continue;   
-                    
+                        continue;
+
                     if(initializedMatrix[neighbour[0]][neighbour[1]] === 1){
                         legal_actions.push([i, j])
                         // console.log("legal action: " + [i, j])
@@ -166,13 +303,14 @@ export default class Go {
                     let air_result = this.get_air_cnt_position([i, j], this.current_player())
                     let air_pos = air_result.playerPositions;
                     // console.log(air_result.playerPositions);
-                    for (const pos of air_pos) {
-                        initializedMatrix[pos[0]][pos[1]] = 1;
-                    }
+
 
                     let air_cnt = air_result.airCount
 
-                    if(air_cnt >=0){
+                    if(air_cnt > 0){
+                        for (const pos of air_pos) {
+                            initializedMatrix[pos[0]][pos[1]] = 1;
+                        }
                         legal_actions.push([i, j])
                         continue
                     }
@@ -206,6 +344,7 @@ export default class Go {
 
         return legal_actions
     }
+
 
     clear_dead_piece(){
 
@@ -456,8 +595,8 @@ export default class Go {
         if(this.play_histroy.length === 1)
             return
         this.passed = false
-        let current_board = this.play_histroy.pop()
-        let last_board = this.play_histroy.pop()
+        const current_board = this.play_histroy.pop()
+        const last_board = this.play_histroy.pop()
         this.board = JSON.parse(last_board)
         this.turn_cnt --
         this.play_histroy.push(this.toString())

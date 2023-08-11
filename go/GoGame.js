@@ -1,5 +1,5 @@
 import Go, {GoTile} from "./go.js";
-import GoMCTS, {FromMCTS} from "./go_mcts.js";
+import {FromMCTS} from "./go_mcts.js";
 
 const TILECNT = 7
 
@@ -164,8 +164,13 @@ const machine_control = [
     document.getElementById('go_mcts_move'),
     document.getElementById('go_rand_move'),
     document.getElementById('go_reset'),
-    // document.getElementById('go_pass'),
-    // document.getElementById('go_undo'),
+    document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+]
+
+const end_control = [
+    document.getElementById('go_mcts_move'),
+    document.getElementById('go_rand_move'),
+    document.getElementById('go_undo'),
     document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
 ]
 
@@ -234,6 +239,8 @@ export default class GoGame {
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
         this.cancel = false
         this.goGame.go = this.go
+        machine_control.forEach(r=>r.disabled = false)
+        document.getElementById(this.screen + "_area").style.display = "none"
     }
 
     onMouseOver() {
@@ -263,11 +270,21 @@ export default class GoGame {
         if (this.machineControlsArea)
             this.machineControlsArea.style.display = ""
 
+
+        this.takeTurn()
+
+        console.log(this.go.end)
+
+    }
+
+    takeTurn(){
         machine_control.forEach(e=>{
             e.disabled = this.go.current_player() !== MachineColor
         })
-
         document.getElementById(this.screen + "_area").style.display = "none"
+        if(this.go.end){
+            this.show_result()
+        }
     }
 
     show_board() {
@@ -276,9 +293,9 @@ export default class GoGame {
     }
 
     show_result = () => {
-        document.getElementById(this.screen + "_reset").style.display = ""
-        $('#' + this.screen + '_step').text(this.step)
-        this.step = 0
+        this.checkArea()
+        end_control.forEach(c=>c.disabled = true)
+        document.getElementById('go_reset').disabled = false
     }
 
     machineRandomMove = () => {
@@ -289,10 +306,14 @@ export default class GoGame {
 
         this.show_board();
 
-        if (this.go.checkWin()) {
+        if (this.go.checkWin() !== false) {
             this.show_result()
         }
         document.getElementById(this.screen + "_area").style.display = "none"
+
+        console.log("random move")
+
+        this.takeTurn()
     }
 
     pass = () => {
@@ -334,10 +355,11 @@ export default class GoGame {
             //     // if(e.disabled)
             //         e.disabled = false
             // })
-            document.getElementById(this.screen + "_area").style.display = "none"
-            if(value > 1000){
-                window.go_mcts_interactive.clickMakePlay()
-            }
+            // if(value > 1000){
+            //     window.go_mcts_interactive.clickMakePlay()
+            // }
+            this.takeTurn()
+
         }
 
     }
@@ -346,7 +368,7 @@ export default class GoGame {
     undo = () => {
         this.go.Undo()
         this.show_board()
-        machine_control.forEach(c=>c.disabled = this.go.current_player() !== MachineColor)
+        this.takeTurn()
     }
 }
 

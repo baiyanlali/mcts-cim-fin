@@ -196,6 +196,8 @@ class Go {
                 this.winner = this.check_win(0)
                 return "End"
             }
+            this.end = true
+            this.winner = this.check_win(0)
             this.passed = true
             this.turn_cnt++
             //pass

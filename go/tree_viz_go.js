@@ -47,7 +47,7 @@ export const viz_go= (s)=>{
             document.getElementById("go_tree").style.display = ""
         }else{
             s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations " +" (expert)")
-            document.getElementById("go_tree").style.display = "none"
+            // document.getElementById("go_tree").style.display = "none"
         }
 
     }
