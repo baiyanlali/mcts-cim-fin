@@ -42,13 +42,14 @@ export const viz_go= (s)=>{
     s.draw = () => {
         s.originDraw()
         const value = s.mctsTimeoutSlider.value()
-        if(value <= 1000){
-            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations " + "(visualisation)")
-            document.getElementById("go_tree").style.display = ""
-        }else{
-            s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations " +" (expert)")
-            // document.getElementById("go_tree").style.display = "none"
-        }
+        s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations ")
+
+        // if(value <= 1000){
+        //     document.getElementById("go_tree").style.display = ""
+        // }else{
+        //     s.mctsTimeoutSpan.html(s.mctsTimeoutSlider.value() +" iterations ")
+        //     // document.getElementById("go_tree").style.display = "none"
+        // }
 
     }
 
