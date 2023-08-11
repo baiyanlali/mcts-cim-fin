@@ -121,7 +121,7 @@ export const sketch_go = (s) => {
         if (s.go.end) {
             s.text(`Winner: ${s.go.winner === 999 ? "Draw" : s.go.winner === GoTile.White ? "White" : "Black"} | ${s.go.turn_cnt} step(s)`, 15, 200)
         } else {
-            s.text(`Player: ${s.go.current_player() === GoTile.White ? "White" : "Black"} | ${s.go.turn_cnt} step(s) ${s.go.passed ? "| Passed":""}`, 15, 200)
+            s.text(`${s.go.current_player() === GoTile.White? 'Player':'AI'}: ${s.go.current_player() === GoTile.White ? "White" : "Black"} | ${s.go.turn_cnt} step(s) ${s.go.passed ? "| Passed":""}`, 15, 200)
         }
     }
 
