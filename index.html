@@ -1435,7 +1435,7 @@
 
             <h3>An example of a good move</h3>
 
-            <div class="framed">
+            <div class="framed" >
 
                 <div class="inside">
                     <div class="eyebrow">
@@ -1448,7 +1448,7 @@
                     <div>
 
                         <div class="four_procedure">
-                            <div class="interactive-ttt-left">
+                            <div class="interactive-ttt-left", style="display: flex; justify-content: center; align-items: center;">
 
                                 <script type="module">
                                     import {vis} from "./mcts-viz/tree_vis.js"
@@ -1482,9 +1482,10 @@
                                     }
                                 </script>
                                 <div id="move"></div>
-                                <div class="control_panel" style="height: 100px; display: flex; justify-content: flex-end; align-items: center;">
-                                    <button class="control_panel_btn3" onclick="window.move_p5.onLoad(window.move_p5)">Reset</button>
+                                <div class="control_panel2" style="height: 100px;">
+                                    <button class="control_panel_btn4" onclick="window.move_p5.onLoad(window.move_p5)">Reset</button>
                                 </div>
+                                
                                 <p id="move_starting_player_area">
                                     <b>Who will start the game?</b>
                                     <br>

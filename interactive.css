@@ -111,6 +111,13 @@
     margin: 5px;
 }
 
+.control_panel_btn4 {
+    width: 100px;
+    height: 80%;
+    margin: 5px;
+    font-size:larger;
+}
+
 .control_panel_btn2 {
     width: 100%;
     margin-bottom: 2px;
@@ -121,6 +128,15 @@
     flex-direction: row;
     /* flex: 1; */
     background-color: #b3cddb;
+    height: max-content;
+    width: max-content;
+}
+
+.control_panel2 {
+    display: flex;
+    flex-direction: row;
+    /* flex: 1; */
+    /* background-color: #b3cddb; */
     height: max-content;
     width: max-content;
 }
