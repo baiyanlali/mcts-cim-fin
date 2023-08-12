@@ -6,7 +6,7 @@ import {Copy, New2DArray, RandomElement} from "../Util.js";
 export const GoTile = {
     Empty: 0,
     White: 1,
-    Black: 2
+    Black: -1
 }
 
 const TILECNT = 7
