@@ -241,6 +241,7 @@ export default class GoGame {
         this.goGame.go = this.go
         machine_control.forEach(r=>r.disabled = false)
         document.getElementById(this.screen + "_area").style.display = "none"
+        document.getElementById('go_undo').disabled = false
     }
 
     onMouseOver() {
