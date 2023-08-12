@@ -39,7 +39,7 @@ function NodeCopy(nonono) {
 const GoTile = {
     Empty: 0,
     White: 1,
-    Black: 2
+    Black: -1
 }
 
 function getOtherPlayer(player) {
