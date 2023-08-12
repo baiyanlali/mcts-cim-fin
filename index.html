@@ -1607,7 +1607,7 @@
                 the AI will make. In the MCTS panel on the right, choose "Next step" to view the MCTS' steps at each
                 stage or select "Next iteration" to see the situation after each iteration, including Selection,
                 Expansion, Simulation, and Backpropagation. The tree displays the current MCTS information. 
-                <span class="modified_textR2">The possible future actions of the opponent is estimated by the MCTS, which is considered as a case of opponent modeling.</span>
+                <span class="modified_textR2">The possible future actions of the opponent are estimated during searching, which is considered as a case of opponent modeling.</span>
                 You can also
                 select "Visualise last step" to directly view the final step and each node's value. Finally, click "make
                 play" to take AI's action.
@@ -1903,10 +1903,10 @@
             </div>
                 
             <p class="modified_textR2">
-                An interative example of Go game is shown below. 
+                An interative example of Go is shown below. 
                 For simplicity, we choose $7\times7$ board and follow the logical rules [<a href="#rulego">6</a>]. If an area covered by a color does not reach an empty area, it will be removed.
                 This goal of this game is to cover more area than the opponent.
-                In this Go game, the AI will play black stones, while the player will play white stones. The AI can choose to play randomly or use the Monte Carlo Tree Search (MCTS) algorithm to make its moves. 
+                In this Go, the AI will play black stones, while the player will play white stones. The AI can choose to play randomly or use the Monte Carlo Tree Search (MCTS) algorithm to make its moves. 
                 During the construction of the MCTS search tree, the AI takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
             </p>
 
@@ -1916,7 +1916,7 @@
         <div class="eyebrow">
           <span class="modified_textR2">
              By adjusting the number of iterations in the Monte Carlo Tree Search, the AI's playing ability will also change accordingly. 
-             Notably, running MCTS with 3,000 iterations, which offers the stongest capability might take around 10 seconds.
+             Notably, running MCTS with 3,000 iterations, which offers the stongest capability, might take around 10 seconds.
           </span>
           <br>
           <span class="modified_textR2">In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.</span>
