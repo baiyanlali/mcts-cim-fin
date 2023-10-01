@@ -86,7 +86,7 @@
             <!-- Subheading -->
             <p class="subhead">
                 This interactive article provides an accessible explanation of how Monte-Carlo Tree Search (MCTS) works.
-                Tic-Tac-Toe, Go and Sokoban are provided to show the procedure of MCTS.
+                Tic-Tac-Toe, Go<span class="modified_textR3">,</span> and Sokoban are provided to show the procedure of MCTS.
             </p>
             <!-- Header info general wrapper -->
             <div class="header-info">
@@ -155,16 +155,16 @@
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
                 solving sequential decision problems such as games [<a href="#browne2012survey">1</a>].
-                <span class="modified_textR2">In sequential decision problems, a single action taken by the agent not only affects the current outcome but also has a long-term future effect. 
+                In sequential decision problems, a single action taken by the agent not only affects the current outcome but also has a long-term future effect. 
                     A series of actions is made over a time horizon.
                 Because of few requirements for domain knowledge and simplicity,
                 MCTS has achieved significant
                 success for these problems, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
                     href="#perez2016general">3</a>], and chemical synthesis [<a href="#segler2018planning">4</a>].
-                </span>
+                
             </p>
             <p>
-                <span class="modified_textR2">
+                
                 MCTS leverages the concept of tree search to address situations where local
                 optimal actions may not lead to global optimal performance.
                 The four core components of MCTS are <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>.
@@ -173,7 +173,7 @@
                 The selected node is then expanded according to the available action space.
                 Once a simulation terminates, the results of the simulation are
                 propagated back to update the statistics of the nodes on the trajectory. A game tree is then constructed to identify the optimal action at each state.
-            </span>
+            
                 MCTS addresses the exploration-exploitation dilemma with specific selection strategies, such as the
                 upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>]
                 , that balance exploitation and exploration within a given computational budget.
@@ -208,7 +208,7 @@
                     <img src="image/sokoban.png" alt="Sokoban Game."
                          style="margin: auto auto; width: 30%; display: block"/>
                 </div>
-                <div class="caption" style="width: 100%; display: block"><b>Figure 1:</b><br> Tic-Tac-Toe (left), Go (center) and
+                <div class="caption" style="width: 100%; display: block"><b>Figure 1:</b><br> Tic-Tac-Toe (left), Go (center)<span class="modified_textR3">,</span> and
                     Sokoban (right)
                 </div>
             </div>
@@ -219,15 +219,15 @@
                     Tic-Tac-Toe is a two-player competitive board game with a limited length of gameplay. Players take turns drawing their own marker
                     (usually X or O) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
                     three placed markers can be connected together vertically, horizontally, or diagonally. But if all
-                    squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent modelling problem.
+                    squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent <span class="modified_textR3">modeling</span> problem.
                 </li>
                 <li>
-                    <span class="modified_textR2">
+                    
                     Go is a two-player competitive board game, as illustrated in Figure 1 (center). In this game, two players take turns placing black and white stones on the board.
                     The game begins with an empty board controlled by the player holding black stones. If a player's stones manage to encircle the opponent's stones, the surrounded stones are removed from the board.
                     The objective of Go is to control more territory on the board than the opponent by strategically placing stones. $7 \times 7$ board is used as the interactive example in this immersive article, following the logical rules [<a
                     href="#rulego">6</a>].
-                </span>
+                
                 </li>
                 <li>
                     
@@ -246,7 +246,7 @@
 
             <h2>III. Algorithm</h2>
 
-            <h3>Modelling</h3>
+            <h3><span class="modified_textR3">Modeling</span></h3>
 
 
             <p>
@@ -264,7 +264,8 @@
                 activate either game by hovering your mouse pointer over its corresponding image.
             </p>
 
-            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix. </p>
+            <p>In Tic-Tac-Toe, the game state is represented as a $3 \times 3$ matrix. <span class="modified_textR3">The below panel presents the current state of the Tic-Tac-Toe game, where unoccupied cells are
+                symbolized by empty spaces. Human's pieces and the ones of the AI are denoted by "1" and "-1", respectively. </span>  </p>
 
 
             <div class="framed">
@@ -314,12 +315,9 @@
                     <div class="eyebrow">
                         You can select whether you want to play the
                         game as the first or second player by clicking the corresponding "Human" or "AI" button . The objective of
-                        the game is to connect three of your pieces in a row, column, or diagonal. The right panel
-                        presents the current state of the Tic-Tac-Toe game as a 3x3 matrix, where unoccupied cells are
-                        symbolized by empty spaces. Your pieces and the ones of the AI opponent are denoted by "1" and "-1",
-                        respectively. 
+                        the game is to connect three of your pieces in a row, column, or diagonal. 
                         <br>
-                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
+                        Click "Reset Game" button to start a new game.
                     </div>
 
                     <div class="interactive"
@@ -390,16 +388,16 @@
                 </div>
             </div>
 
-            <P><span class="modified_textR2">Similar to Tic-Tac-Toe, Go shares a similar representation structure with a $7 \times 7$ matrix. 
-                The number 1 represents a white stone, while -1 represents a black stone. Empty spaces are represented by 0.</span></P>
+            <P>Similar to Tic-Tac-Toe, Go shares a similar representation structure with a $7 \times 7$ matrix. 
+                The number 1 represents a white stone, while -1 represents a black stone. Empty spaces are represented by 0.</P>
             <div class="framed">
 
                 <div class="inside">
                     <div class="eyebrow">
-                        <span class="modified_textR2">Click on the intersections of the lines to alternately place black and white stones. 
-                            The objective of Go is to control more territory on the board than the opponent by strategically placing stones. </span>
+                        Click on the intersections of the lines to alternately place black and white stones. 
+                            The objective of Go is to control more territory on the board than the opponent by strategically placing stones. 
                         <br>
-                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
+                        Click "Reset Game" button to start a new game.
 
                     </div>
 
@@ -454,7 +452,7 @@
                         Click game panel and use the W, S, A, D, or arrow keys on your keyboard to move the avatar. The objective is to
                         push all the boxes to the green points (targets) to win the game.
                         <br>
-                        <span class="modified_textR2">Click "Reset Game" button to start a new game.</span>
+                        Click "Reset Game" button to start a new game.
 
                     </div>
 
@@ -522,9 +520,6 @@
                 </div>
             </div>
 
-            <p class="modified_textR2">
-
-            </p>
 
             
 
@@ -1413,7 +1408,7 @@
             <p>
                 By integrating the four essential components of Selection, Expansion, Simulation, and Backpropagation, a
                 succinct and cohesive algorithm for the complete MCTS process can be constructed. Finally, the child node with the highest visit count is selected as the best move
-                 <span class="modified_textR2"> since it has been selected and evaluated more often during the tree growth, which may result in a robust performance.</span>
+                  since it has been selected and evaluated more often during the tree growth, which may result in a robust performance.
             </p>
 
             <pre id="mcts_pseudo">
@@ -1439,7 +1434,7 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                       <span class="modified_textR2"> In the depicted game-state, the AI agent is in a disadvantageous position.</span> Can it find a good move?
+                        In the depicted game-state, the AI agent is in a disadvantageous position. Can it find a good move?
                             <br>
                             Try to figure out which action the AI agent will select. A, B, C or D?
                         
@@ -1579,7 +1574,7 @@
 
                     </div>
 
-                    <div class="caption"><b>Figure 10: </b><span class="modified_textR2">An interactive evaluation of a Tic-Tac-Toe game state.</span>
+                    <div class="caption"><b>Figure 10: </b>An interactive evaluation of a Tic-Tac-Toe game state.
                     </div>
                 </div>
             </div>
@@ -1598,7 +1593,7 @@
             </p>
 
             <p>
-                For the <span class="modified_textR2">Tic-Tac-Toe </span> game, choose "Human" or "AI" to decide who goes first. During the player's turn,
+                For the Tic-Tac-Toe game, choose "Human" or "AI" to decide who goes first. During the player's turn,
                 click on the highlighted area on the board to make a move. During the AI's turn,
                 you can select one
                 of three decision-making modes for the AI: random, greedy, and MCTS.
@@ -1607,7 +1602,7 @@
                 the AI will make. In the MCTS panel on the right, choose "Next step" to view the MCTS' steps at each
                 stage or select "Next iteration" to see the situation after each iteration, including Selection,
                 Expansion, Simulation, and Backpropagation. The tree displays the current MCTS information. 
-                <span class="modified_textR2">The possible future actions of the opponent are estimated during searching, which is considered as a case of opponent modeling.</span>
+                The possible future actions of the opponent are estimated during searching, which is considered as a case of opponent modeling.
                 You can also
                 select "Visualise last step" to directly view the final step and each node's value. Finally, click "make
                 play" to take AI's action.
@@ -1621,7 +1616,7 @@
                         Click "Next step" and "Next iteration" to show the procedure of MCTS. Click "Visualise last step" to show the final tree.
                     Click "Make play" to make AI's action.
                     <br>
-                    <span class="modified_textR2">In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.</span>
+                    In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
                     </div>
 
                     <div>
@@ -1754,7 +1749,7 @@
                     Click "Make play" to take AI's action.<br>
                     Notably, human player can also use the W, S, A, D, or arrow keys on the keyboard to move the avatar afther AI' moves.
                     <br>
-                    <span class="modified_textR2">In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.</span>
+                    In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
 
 
                     </div>
@@ -1902,7 +1897,7 @@
                 </div>
             </div>
                 
-            <p class="modified_textR2">
+            <p>
                 An interative example of Go is shown below. 
                 For simplicity, we choose $7\times7$ board and follow the logical rules [<a href="#rulego">6</a>]. If an area covered by a color does not reach an empty area, it will be removed.
                 This goal of this game is to cover more area than the opponent.
@@ -1914,12 +1909,12 @@
             <div class="framed">
       <div class="inside">
         <div class="eyebrow">
-          <span class="modified_textR2">
+          
              By adjusting the number of iterations in the Monte Carlo Tree Search, the AI's playing ability will also change accordingly. 
              Notably, running MCTS with 3,000 iterations, which offers the stongest capability, might take around 10 seconds.
-          </span>
+          
           <br>
-          <span class="modified_textR2">In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.</span>
+          In the tree panel, you can drag the canvas, scroll the wheel the zoom in and out. When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
 
         </div>
 
@@ -2353,8 +2348,8 @@
             <h2>V. Conclusion</h2>
             <p>
                 As a summary, this paper provides a comprehensive explanation of the basic procedure of MCTS. Four main components, Selection, Expansion, Simulation, 
-                and Backpropagation are described in detail. To fully demonstrate the workflow of MCTS in two-player and single-player cases, <span class="modified_textR2">three classic games, 
-                Tic-Tac-Toe, Go and Sokoban are used. </span>
+                and Backpropagation are described in detail. To fully demonstrate the workflow of MCTS in two-player and single-player cases, three classic games, 
+                Tic-Tac-Toe, Go and Sokoban are used. 
                  MCTS has been successfully applied to game AI areas such as Go [<a
                     href="#silver2017mastering">2</a>] and video games [<a
                     href="#perez2016general">3</a>]. Beyond
