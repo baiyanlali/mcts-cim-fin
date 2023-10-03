@@ -63,7 +63,10 @@ export default class Go {
     }
 
     makeRandomMove(){
-        let actions = this.get_legal_action()
+        let actions = this.get_legal_action(true)
+        if(actions.length === 0)
+            return -1
+        
         let action = {position: RandomElement(actions)}
         return this.make_action(action)
     }
@@ -267,7 +270,7 @@ export default class Go {
     //     return legal_actions
     // }
 
-    get_legal_action() {
+    get_legal_action(ignore_pass = false) {
         let legal_actions = []
 
         let matrixSize = 8;
@@ -341,7 +344,8 @@ export default class Go {
         }
 
         if(legal_actions.length <= 5){
-            legal_actions.push(-1)
+            if(!ignore_pass)
+                legal_actions.push(-1)
         }
 
         return legal_actions

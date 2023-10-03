@@ -121,11 +121,20 @@ export const sketch_go = (s) => {
                 }
 
                 s.circle(i * s.tileSize, j * s.tileSize, radius)
-                const rect_size = 3
+                const rect_size = 6
                 // console.log(`white area: ${white_area}, [i, j]: ${[i, j]}`)
                 if(white_area.includes(JSON.stringify([i, j]))){
                     // console.log("white!")
+                    s.push()
+                    s.fill(255)
                     s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
+                    s.pop()
+                }else if(black_area.includes(JSON.stringify([i, j]))){
+                    s.push()
+                    s.stroke(255)
+                    s.fill(0)
+                    s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
+                    s.pop()
                 }
             }
         }
@@ -149,10 +158,10 @@ export const sketch_go = (s) => {
     s.handleHover = () => {
 
         if(s.go){
-            if(s.go.current_player() === s.MachineColor){
-                s.hoveredTile = [-1, -1]
-                return
-            }
+            // if(s.go.current_player() === s.MachineColor){
+            //     s.hoveredTile = [-1, -1]
+            //     return
+            // }
         }
 
         let mouseX = s.mouseX;
@@ -278,13 +287,13 @@ export default class GoGame {
         this.show_board()
         if (this.onMakeAction !== null)
             this.onMakeAction(this)
-        if (this.go.checkWin()) {
-            // document.getElementById(this.screen).innerHTML +=
-            //     "<br>Clear!<br>" +
-            //     "<button id="+this.screen+"_reset type='submit'>Reset</button>"
-            // document.getElementById(this.screen+"_reset").onclick = ()=>{this.init()}
-            this.show_result()
-        }
+        // if (this.go.checkWin()) {
+        //     // document.getElementById(this.screen).innerHTML +=
+        //     //     "<br>Clear!<br>" +
+        //     //     "<button id="+this.screen+"_reset type='submit'>Reset</button>"
+        //     // document.getElementById(this.screen+"_reset").onclick = ()=>{this.init()}
+        //     this.show_result()
+        // }
 
         if (this.machineControlsArea)
             this.machineControlsArea.style.display = ""
@@ -297,12 +306,12 @@ export default class GoGame {
     }
 
     takeTurn(){
-        machine_control.forEach(e=>{
-            e.disabled = this.go.current_player() !== MachineColor
-        })
+        // machine_control.forEach(e=>{
+        //     e.disabled = this.go.current_player() !== MachineColor
+        // })
         document.getElementById(this.screen + "_area").style.display = "none"
         if(this.go.end){
-            this.show_result()
+            this.show_result(true)
         }
     }
 
@@ -312,26 +321,25 @@ export default class GoGame {
         this.goGame.drawBoard(this.go.board)
     }
 
-    show_result = () => {
-        this.checkArea()
+    show_result = (check_win = false) => {
+        this.checkArea(check_win)
         end_control.forEach(c=>c.disabled = true)
         document.getElementById('go_reset').disabled = false
     }
 
     machineRandomMove = () => {
 
-        if(this.go.current_player() !== MachineColor) return
+        // if(this.go.current_player() !== MachineColor) return
 
-        this.go.makeRandomMove()
+        const result = this.go.makeRandomMove()
 
-        this.show_board();
+        this.show_board()
 
-        if (this.go.checkWin() !== false) {
-            this.show_result()
+        if(result === -1){
+            document.getElementById(this.screen + "_area").style.display = "none"
+            this.show_result(true)
+            return
         }
-        document.getElementById(this.screen + "_area").style.display = "none"
-
-        // console.log("random move")
 
         this.takeTurn()
     }
@@ -340,21 +348,24 @@ export default class GoGame {
         this.go.make_action({position: -1})
     }
 
-    checkArea = ()=>{
+    checkArea = (check_win = false)=>{
+        console.log("check area")
         const [black, white] = this.go.area()
         document.getElementById(this.screen + "_area").style.display = ""
-        document.getElementById(this.screen + "_area").innerHTML = `Black Area: ${black}<br> White Area: ${white} <br>${black === white?'Draw': black> white? 'Black wins': 'White wins'}`
+        if(check_win)
+            document.getElementById(this.screen + "_area").innerHTML = `Black Area: ${black}<br> White Area: ${white} <br>${black === white?'Draw': black> white? 'Black wins': 'White wins'}`
+        else
+            document.getElementById(this.screen + "_area").innerHTML = `Black Area: ${black}<br> White Area: ${white}`
     }
 
     machineMctsMove = async (interactive, disabled_btns, value) => {
 
-        if(this.go.current_player() !== MachineColor) return
+        // if(this.go.current_player() !== MachineColor) return
 
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("./go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
         disabled_btns.forEach((e)=>{
-            // if(e.disabled)
                 e.disabled = true
         })
         this.goGame.disabled = true
@@ -364,20 +375,15 @@ export default class GoGame {
         })
         worker.onmessage = (event)=>{
             let [monteCarlo, result] = event.data
+            disabled_btns.forEach((e)=>{
+                e.disabled = false
+        })
             //需要对传回来的结果加入函数，否则传回来的变量都没法调用内部函数
             result.move = new GameMove(result.move.player, result.move.position)
             monteCarlo = FromMCTS(monteCarlo)
             interactive.setMCTS(monteCarlo, result)
             document.getElementById(this.screen + "_loadingbar").style.display = "none"
             this.goGame.disabled = false
-            // document.getElementById(this.screen + "_mcts_move").style.display = "none"
-            // disabled_btns.forEach((e)=>{
-            //     // if(e.disabled)
-            //         e.disabled = false
-            // })
-            // if(value > 1000){
-            //     window.go_mcts_interactive.clickMakePlay()
-            // }
             this.takeTurn()
 
         }
