@@ -224,8 +224,8 @@
                     
                     Go is a two-player competitive board game, as illustrated in Figure 1 (center)<span class="modified_textR3">, in which</span> two players take turns placing black and white stones on the board.
                     The game begins with an empty board controlled by the player holding black stones. If a player's stones manage to encircle the opponent's stones, <span class="modified_textR3">then</span> the surrounded stones are removed from the board.
-                    The objective of Go is to control more territory on the board than the opponent by strategically placing stones. <span class="modified_textR3">A</span> $7 \times 7$ board is used as the interactive example in this immersive article, following the logical rules [<a
-                    href="#rulego">6</a>].
+                    <span class="modified_textR3">The objective of Go is to control more area on the board than the opponent by strategically placing stones. <span class="modified_textR3">A</span> $7 \times 7$ board is used as the interactive example in this immersive article, following the logical rules [<a
+                    href="#rulego">6</a>], which calculate a player's score by adding the number of stones of its color and the number of empty points that are only connected to stones of its color.</span>
                 
                 </li>
                 <li>
@@ -394,7 +394,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                         Click on the intersections of the lines to alternately place black and white stones. 
-                            The objective of Go is to control more territory on the board than the opponent by strategically placing stones. 
+                            The objective of Go is to control more area on the board than the opponent by strategically placing stones. 
                         <br>
                         Click <span class="modified_textR3"> the</span> “Reset Game” button to start a new game.
 
@@ -1592,12 +1592,12 @@
 
             <p>
                 For the Tic-Tac-Toe game, choose “Human” or “AI” to decide who goes first. During the player's turn,
-                click on the highlighted area on the board to make a move. During the AI's turn,
+                click on the highlighted area on the board to make a move. During the AI player's turn,
                 you can select one
-                of three decision-making modes for the AI: random, greedy, and MCTS.
+                of three decision-making modes for the AI player: random, greedy, and MCTS.
                 In MCTS, you can <span class="modified_textR3">move</span> the
                 slider to select the number of iterations. The higher the number of iterations is, the better decisions
-                the AI will make. In the MCTS panel on the right, choose “Next step” to view the <span class="modified_textR3">steps of MCTS</span> at each
+                the AI player will make. In the MCTS panel on the right, choose “Next step” to view the <span class="modified_textR3">steps of MCTS</span> at each
                 stage or select “Next iteration” to see the situation after each iteration, including Selection,
                 Expansion, Simulation, and Backpropagation. The tree displays the current MCTS information. 
                 The possible future actions of the opponent are estimated during searching, which is considered as a case of opponent modeling.
@@ -1732,7 +1732,7 @@
             </div>
 
             <p>
-                In Sokoban, selecting “Auto Play” enables the MCTS to run automatically. At each step, the <span class="modified_textR3">Monte-Carlo tree</span> will select the optimal solution it found.
+                In Sokoban, selecting “Auto play” enables the MCTS to run automatically. At each step, the <span class="modified_textR3">Monte-Carlo tree</span> will select the optimal solution it found.
                 Alternatively, you can use “Make MCTS Move” to view each step of the search in detail on the right
                 panel. You can also choose to play manually by moving the mouse to the game and using W, A, S, D or
                 arrow keys to move.
@@ -1813,7 +1813,7 @@
                                         </button>
                                         <br>
                                         <button class="control_panel_btn3" id="sokoban_autoplay"
-                                                onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto Play
+                                                onclick="mcts_sokobanGame.autoPlay(soko_mcts_interactive)">Auto play
                                         </button>
                                         <br>
                                         <button class="control_panel_btn3" id="sokoban_cancel"
@@ -1899,8 +1899,9 @@
                 An <span class="modified_textR3">interactive</span> example of Go is shown below. 
                 For simplicity, we choose $7\times7$ board and follow the logical rules [<a href="#rulego">6</a>]. If an area covered by a color does not reach an empty area, it will be removed.
                 <span class="modified_textR3">The</span> goal of this game is to cover more area than the opponent.
-                In this Go, the AI will play black stones, while the player will play white stones. The AI can choose to play randomly or use the <span class="modified_textR3">Monte-Carlo Tree Search (MCTS)</span> algorithm to make its moves. 
-                During the construction of the MCTS search tree, the AI takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
+                <span class="modified_textR3">In this Go, the AI player will play black stones, while the player will play white stones. A player'score will be calculated by adding the number of its stones and the number of empty areas only surrounded by its stones.</span>
+                The AI player can choose to play randomly or use the <span class="modified_textR3">Monte-Carlo Tree Search (MCTS)</span> algorithm to make its moves. 
+                During the construction of the MCTS search tree, the AI player takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
             </p>
 
 
@@ -1908,11 +1909,9 @@
       <div class="inside">
         <div class="eyebrow">
           
-             By adjusting the number of iterations in the <span class="modified_textR3">Monte-Carlo Tree Search,</span> the AI's playing ability will also change accordingly. 
-             Notably, running MCTS with 3,000 iterations, which offers the <span class="modified_textR3">strongest</span> capability, might take around 10 seconds.
-          
-          <br>
-          In the tree panel, you can drag the canvas, <span class="modified_textR3">scroll the wheel, and zoom in and out.</span> When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
+             By adjusting the number of iterations in the <span class="modified_textR3">Monte-Carlo Tree Search,</span> the AI player's playing ability will also change accordingly. 
+             Notably, running MCTS with 3,000 iterations, which offers the <span class="modified_textR3">strongest</span> capability, might take around 10 seconds. In the tree panel, you can drag the canvas, <span class="modified_textR3">scroll the wheel, and zoom in and out.</span> 
+             When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
 
         </div>
 
