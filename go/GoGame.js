@@ -84,6 +84,10 @@ export const sketch_go = (s) => {
 
         //draw the base board
 
+        let [black_area, white_area] = s.go.get_area()
+        black_area = black_area.map(p=> JSON.stringify(p))
+        white_area = white_area.map(p=> JSON.stringify(p))
+
         for (let i = 0; i < tileNum; i++) {
             for (let j = 0; j < tileNum; j++) {
                 if (i !== tileNum - 1)
@@ -110,7 +114,14 @@ export const sketch_go = (s) => {
                         radius = 20
                         break;
                 }
+
                 s.circle(i * s.tileSize, j * s.tileSize, radius)
+                const rect_size = 3
+                // console.log(`white area: ${white_area}, [i, j]: ${[i, j]}`)
+                if(white_area.includes(JSON.stringify([i, j]))){
+                    // console.log("white!")
+                    s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
+                }
             }
         }
 
@@ -274,7 +285,7 @@ export default class GoGame {
 
         this.takeTurn()
 
-        console.log(this.go.end)
+        // console.log(this.go.end)
 
     }
 
@@ -312,7 +323,7 @@ export default class GoGame {
         }
         document.getElementById(this.screen + "_area").style.display = "none"
 
-        console.log("random move")
+        // console.log("random move")
 
         this.takeTurn()
     }
