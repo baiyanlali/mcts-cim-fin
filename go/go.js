@@ -122,6 +122,8 @@ export default class Go {
 
         // console.log(`area information ${this.area()}`)
         // this.legal_actions = this.get_legal_action()
+
+        this._update_area()
         return ""
     }
 
@@ -535,10 +537,7 @@ export default class Go {
         return [black_piece, white_piece]
     }
 
-    get_area(){
-
-        // let black_piece = this.board.map(subArr => subArr.filter(item => item === GoTile.Black))
-        // let white_piece = this.board.map(subArr => subArr.filter(item => item === GoTile.White))
+    _update_area(){
         let black_piece = this.board.flatMap((row, i) => row.map((cell, j) => (cell === GoTile.Black ? [i, j] : null)).filter(Boolean))
         let white_piece = this.board.flatMap((row, i) => row.map((cell, j) => (cell === GoTile.White ? [i, j] : null)).filter(Boolean))
         const empty_groups = this.get_all_empty_groups(this.board)
@@ -556,13 +555,23 @@ export default class Go {
             }
 
             if(has_black && !has_white){
-                black_piece.concat(empty_group)
+                black_piece = black_piece.concat(empty_group)
             }else if(has_white && !has_black){
-                white_piece.concat(empty_group)
+                white_piece = white_piece.concat(empty_group)
             }
 
         }
-        return [black_piece, white_piece]
+        this.black_area = black_piece
+        this.white_area = white_piece
+    }
+
+    get_area(){
+
+        if(!this.black_area){
+            this._update_area()
+        }
+
+        return [this.black_area, this.white_area]
     }
 
     expand_group(group){

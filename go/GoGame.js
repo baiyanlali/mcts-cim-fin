@@ -21,6 +21,8 @@ export const sketch_go = (s) => {
 
     s.go = null
 
+    s.goGame = null
+
     s.disabled = false
 
     s.MachineColor = MachineColor
@@ -47,7 +49,8 @@ export const sketch_go = (s) => {
     s.draw = () => {
         if(!s.disabled)
             s.handleHover()
-        s.drawBoard(null)
+        if(s.go)
+            s.drawBoard(null)
     }
 
     s.drawBoard = (board, step = 0) => {
@@ -70,6 +73,8 @@ export const sketch_go = (s) => {
         else
             board = s.lastBoard
 
+        if(board === null) board = s.go.board
+
         let tileNum = Math.max(board.length, board[0].length)
         s.tileSize = (s.width - 20) / tileNum;
         s.clear()
@@ -85,8 +90,8 @@ export const sketch_go = (s) => {
         //draw the base board
 
         let [black_area, white_area] = s.go.get_area()
-        black_area = black_area.map(p=> JSON.stringify(p))
-        white_area = white_area.map(p=> JSON.stringify(p))
+        black_area = black_area.map(p => JSON.stringify(p))
+        white_area = white_area.map(p => JSON.stringify(p))
 
         for (let i = 0; i < tileNum; i++) {
             for (let j = 0; j < tileNum; j++) {
@@ -213,6 +218,7 @@ export default class GoGame {
         this.go = new Go(board)
 
         this.goGame.go = this.go
+        this.goGame.goGame = this
         this.div = document.getElementById(this.screendiv)
 
 
@@ -250,6 +256,7 @@ export default class GoGame {
         this.machineControlsArea = document.getElementById(this.screen + "_" + "machine_controls_area");
         this.cancel = false
         this.goGame.go = this.go
+        this.goGame.goGame = this
         machine_control.forEach(r=>r.disabled = false)
         document.getElementById(this.screen + "_area").style.display = "none"
         document.getElementById('go_undo').disabled = false
@@ -301,6 +308,7 @@ export default class GoGame {
 
     show_board() {
         // document.getElementById(this.screen).innerHTML = this.print_board()
+        this.goGame.go = this.go
         this.goGame.drawBoard(this.go.board)
     }
 
