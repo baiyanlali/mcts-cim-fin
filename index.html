@@ -490,13 +490,18 @@
                                 soko_repre.board = sokobanGame.sokoban.board
                                 soko_repre.drawBoard()
                             }
-                            // let after_setup = async () => {
-                            //     await sleep(1000)
-                            //     soko_repre.board = sokobanGame.sokoban.board
-                            //     soko_repre.drawBoard()
-                            // }
-                            //
-                            // after_setup()
+
+                            //sokobanGame.init.bind(sokobanGame)
+
+                            const soko_original_init = sokobanGame.init.bind(sokobanGame)
+                            //soko_original_init.bind(sokobanGame)
+
+                            {{/*  console.log(soko_original_init)  */}}
+
+                            sokobanGame.init = ()=>{
+                                soko_original_init()
+                                soko_repre.board = sokobanGame.sokoban.board
+                            }
 
 
                             sokobanGame.onMakeAction = (s) => {
