@@ -7,14 +7,14 @@ const VisualizationStates = Object.freeze({
     LAST_STEP: 2
 });
 
-const disabled_btns = [
-                        document.getElementById('go_mcts_move'),
-                        document.getElementById('go_rand_move'),
-                        document.getElementById('go_reset'),
-                        document.getElementById('go_pass'),
-                        document.getElementById('go_undo'),
-                        document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
-                    ]
+// const disabled_btns = [
+//                         document.getElementById('go_mcts_move'),
+//                         document.getElementById('go_rand_move'),
+//                         document.getElementById('go_reset'),
+//                         document.getElementById('go_pass'),
+//                         document.getElementById('go_undo'),
+//                         document.getElementById('go_mcts_tree_vis_mcts_timeout_slider'),
+//                     ]
 
 export default class GoInteractive {
     initial_board = undefined;

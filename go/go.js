@@ -63,7 +63,10 @@ export default class Go {
     }
 
     makeRandomMove(){
-        let actions = this.get_legal_action()
+        let actions = this.get_legal_action(true)
+        if(actions.length === 0)
+            return -1
+        
         let action = {position: RandomElement(actions)}
         return this.make_action(action)
     }
@@ -122,6 +125,8 @@ export default class Go {
 
         // console.log(`area information ${this.area()}`)
         // this.legal_actions = this.get_legal_action()
+
+        this._update_area()
         return ""
     }
 
@@ -265,7 +270,7 @@ export default class Go {
     //     return legal_actions
     // }
 
-    get_legal_action() {
+    get_legal_action(ignore_pass = false) {
         let legal_actions = []
 
         let matrixSize = 8;
@@ -339,7 +344,8 @@ export default class Go {
         }
 
         if(legal_actions.length <= 5){
-            legal_actions.push(-1)
+            if(!ignore_pass)
+                legal_actions.push(-1)
         }
 
         return legal_actions
@@ -533,6 +539,43 @@ export default class Go {
 
         }
         return [black_piece, white_piece]
+    }
+
+    _update_area(){
+        let black_piece = this.board.flatMap((row, i) => row.map((cell, j) => (cell === GoTile.Black ? [i, j] : null)).filter(Boolean))
+        let white_piece = this.board.flatMap((row, i) => row.map((cell, j) => (cell === GoTile.White ? [i, j] : null)).filter(Boolean))
+        const empty_groups = this.get_all_empty_groups(this.board)
+
+        for (const empty_group of empty_groups) {
+            const expanded_group = this.expand_group(empty_group)
+            let has_black = false
+            let has_white = false
+            for (const pos of expanded_group) {
+                if(this.board[pos[0]][pos[1]] === GoTile.Black){
+                    has_black = true
+                }else if(this.board[pos[0]][pos[1]] === GoTile.White){
+                    has_white = true
+                }
+            }
+
+            if(has_black && !has_white){
+                black_piece = black_piece.concat(empty_group)
+            }else if(has_white && !has_black){
+                white_piece = white_piece.concat(empty_group)
+            }
+
+        }
+        this.black_area = black_piece
+        this.white_area = white_piece
+    }
+
+    get_area(){
+
+        if(!this.black_area){
+            this._update_area()
+        }
+
+        return [this.black_area, this.white_area]
     }
 
     expand_group(group){
