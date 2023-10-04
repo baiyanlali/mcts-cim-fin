@@ -388,7 +388,9 @@
             </div>
 
             <P>Similar to Tic-Tac-Toe, Go shares a similar representation structure with a $7 \times 7$ matrix. 
-                <span class="modified_textR3">The number “1” represents a white stone, while -1 represents a black stone. Empty spaces are represented by “0”.</span></P>
+                <span class="modified_textR3">The number “1” represents a white stone, while “-1” represents a black stone. Empty spaces are represented by “0”.</span>
+                <span class="modified_textR3">The small colored rectangle on the board indicates the “territory” controlled by white stones or black stones.</span>
+            </P>
             <div class="framed">
 
                 <div class="inside">
@@ -439,7 +441,7 @@
 
             <p>
                 The Sokoban game is represented by an $n \times n$ matrix, where $n$ represents the size of the game
-                board. The matrix uses “0”, “1”, “2”, “3”, and 5 to indicate empty spaces, walls, boxes, targets, and the
+                board. The matrix uses “0”, “1”, “2”, “3”, and <span class="modified_textR3"> “4” </span> to indicate empty spaces, walls, boxes, targets, and the
                 player, respectively.
             </p>
 
@@ -1897,9 +1899,14 @@
                 
             <p>
                 An <span class="modified_textR3">interactive example of Go is shown below. 
-                For simplicity, we choose $7\times7$ board and follow the Tromp-Taylor rules [<a href="#rulego">6</a>].</span> If an area covered by a color does not reach an empty area, it will be removed.
+                We choose $7\times7$ board and follow the Tromp-Taylor rules [<a href="#rulego">6</a>] for MCTS simulations same as Alpha Zero [<a href="#silver2017mastering">2</a>]. 
+                This is because human rules, such as Chinese rules, can not be clearly implemented to a machine language which is caused by the need to reach an agreement on <i>dead stone removal</i> issues.
+                The lack of dead stone removal when the game terminates makes Tromp-Taylor rule much more easier to write Go simulator for MCTS. And AI researchers can spend more time focusing on the research through Tromp-Taylor rules 
+                instead of learning complex and ambiguous rules for months.
+            </span> 
+            <!--If an area covered by a color does not reach an empty area, it will be removed. -->
                 <span class="modified_textR3">The</span> goal of this game is to cover more area than the opponent.
-                <span class="modified_textR3">In this Go, the AI player will play black stones, while the player will play white stones. A player'score will be calculated by adding the number of its stones and the number of empty areas only surrounded by its stones.</span>
+                <!-- <span class="modified_textR3">In this Go, the AI player will play black stones, while the player will play white stones. A player'score will be calculated by adding the number of its stones and the number of empty areas only surrounded by its stones.</span> -->
                 The AI player can choose to play randomly or use the <span class="modified_textR3">Monte-Carlo Tree Search (MCTS)</span> algorithm to make its moves. 
                 During the construction of the MCTS search tree, the AI player takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
             </p>

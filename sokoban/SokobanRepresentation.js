@@ -31,7 +31,7 @@ const sokoban_representation = (s) => {
                     s.fill(255)
                     s.textSize(textSize)
                     s.textAlign(s.CENTER, s.CENTER)
-                    s.text(tile, j * tileSize + tileSize / 2, i * tileSize + tileSize / 2 + 3)
+                    s.text("4", j * tileSize + tileSize / 2, i * tileSize + tileSize / 2 + 3)
                 } else {
 
                     if(s){
