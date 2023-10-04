@@ -65,7 +65,7 @@ export default class Go {
     makeRandomMove(){
         let actions = this.get_legal_action(true)
         if(actions.length === 0)
-            return -1
+            actions = [-1]
         
         let action = {position: RandomElement(actions)}
         return this.make_action(action)
@@ -73,13 +73,13 @@ export default class Go {
 
     make_action(move) {
         let position = move.position
-        if(position === [-1, -1] || position === -1){
+        if(position === -1){
             if(this.passed){
                 this.end = true
                 this.winner = this.check_win(0)
                 return "End"
             }
-            this.end = true
+            // this.end = true
             this.winner = this.check_win(0)
             this.passed = true
             this.turn_cnt++
