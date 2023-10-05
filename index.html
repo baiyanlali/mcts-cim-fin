@@ -85,7 +85,7 @@
             </h1>
             <!-- Subheading -->
             <p class="subhead">
-                This interactive article provides an accessible explanation of how Monte-Carlo Tree Search (MCTS) works.
+                <span class="modified_textR3">This paper provides an accessible explanation of the working mechanism of Monte-Carlo Tree Search, an influential search algorithm.</span>
                 Tic-Tac-Toe, Go<span class="modified_textR3">,</span> and Sokoban are provided to show the procedure of MCTS.
             </p>
             <!-- Header info general wrapper -->
@@ -153,8 +153,7 @@
             <!-- Section title -->
             <h2>I. Introduction</h2>
             <p>
-                Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
-                solving sequential decision problems such as games [<a href="#browne2012survey">1</a>]. In sequential decision problems, <span class="modified_textR3">actions taken by an agent not only affect the current outcome, but also have a long-term effect.</span> 
+                Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance <span class="modified_textR3">for sequential decision problems [<a href="#browne2012survey">1</a>], in which actions taken by an agent not only affect the current outcome, but also have a long-term effect.</span> 
                 MCTS leverages the concept of tree search to address situations where local
                 optimal actions may not lead to global optimal performance.
                 <!--A series of actions is made over a time horizon.<-->
@@ -206,7 +205,7 @@
                 <li>
                     Tic-Tac-Toe is a two-player competitive board game with a limited length of a gameplay. Players take turns drawing their own marker
                     (usually “X” or “O”) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
-                    three <span class="modified_textR3">of his/her</span> placed markers can be connected together vertically, horizontally, or diagonally. <span class="modified_textR3">However,</span> if all
+                    three <span class="modified_textR3">of their</span> placed markers can be connected together vertically, horizontally, or diagonally. <span class="modified_textR3">However,</span> if all
                     squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent <span class="modified_textR3">modeling</span> problem.
                 </li>
                 <li>
@@ -535,7 +534,7 @@
             <p>
                 The MCTS follows a workflow as illustrated in Figure 5 <span class="modified_textR3">and</span> involves four main components:
                 <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>. The specific four
-                steps will be discussed in detail in the subsequent sections. Interactive components are provided to
+                steps will be presented in detail in the subsequent sections. Interactive components are provided to
                 demonstrate these steps intuitively.
             </p>
 
@@ -848,12 +847,7 @@
             <h3>Expansion</h3>
 
             <p>
-                Expansion is the process of exploring new states and adding new nodes to the tree.
-                An expandable node is the one that still has available actions to explore. When a node is selected for
-                Expansion, the algorithm creates new child nodes based on the available actions. If the selected node has
-                no available actions, <span class="modified_textR3">then</span> the selection strategy continues searching until an expandable or terminal node is
-                found. The number of expanded nodes usually depends on the available action space and the computation
-                budget.
+                <span class="modified_textR3">Expansion explores new states and adds new nodes to the tree. A node is expandable if it has remaining available actions. Once a node is selected, the algorithm expands by adding new child nodes according to the available actions. If the node chosen by Selection procedure has no available action, other paths will be explored to find an expandable node. The number of expanded nodes usually depends on the available actions and computation budget.</span>
             </p>
 
             <p>
@@ -1018,16 +1012,8 @@
             <h3>Simulation</h3>
 
             <p>
-                Simulation is a crucial component of the MCTS algorithm, which involves rolling out various gameplays
-                from the expanded node.
-                The choice of Simulation policy has a large impact on the final result.
-                A common strategy for selecting actions is to use a random policy due to its simplicity, which chooses
-                actions uniformly at random at successive states.
-                The Simulation continues until a terminal state is reached. The results of the simulation, such as the
-                final state or a reward value, are then collected and used to update the values of the node. However, the
-                random policy can be highly inefficient, which has led to the development of more advanced techniques,
-                such as rule-based simulation and learning methods [<a href="#segler2018planning">4</a>][<a
-                href="#perez2014knowledge">8</a>] .
+                <span class="modified_textR3">Starting from the expanded node, the roll-out strategy is conducted to simulate a gameplay. The choice of simulation policy has a large impact on the final result. A common strategy for selecting actions is to use a random policy for its simplicity, which chooses actions uniformly at random at successive states. The simulation step repeats until a terminal state is reached. The results of the simulation, such as the final state or a reward value, are then collected and used to update the values of the node. A major concern for the policy is that of efficiency issues. Some improved ingredients have been made, such as rule-based simulation and learning methods [<a href="#perez2014knowledge">8</a>][<a
+                href="#segler2018planning">4</a>] .</span>
             </p>
 
             <p>
@@ -1041,7 +1027,7 @@
               \PROCEDURE{Simulate}{node}
               \STATE $r \gets 0$
               \While{not terminated}
-                \STATE Sample $a$ from available action space of $node$
+                \STATE Sample $a$ from available actions of $node$
                 \STATE $new\_node$ $\gets$ $node$ after taking action $a$
                 \STATE $r \gets r+evaluate(new\_node)$
                 \STATE $node$ $\gets$ $new\_node$
@@ -1052,7 +1038,7 @@
               \end{algorithm}
             </pre>
 
-            <p>You can try out the Simulation process in the interactive panel below.</p>
+            <p>You can try out the Simulation procedure in the interactive panel below.</p>
 
             <div class="framed">
 
@@ -1199,6 +1185,9 @@
             <h3>Backpropagation</h3>
 
             <p>
+                <span class="modified_textR3">Statistics will be propagated back along the visited path of the expanded node after simulation. The visit counts and values, such as reward and wins of all nodes in the path upon the expandable node, will be updated according to the results of the simulation. Considering Tic-Tac-Toe, players A and B make moves in turn. To determine the next move for player A, MCTS obtains the action that leads to win with the highest possibility in current state. Nodes represent game states in the tree, and each layer corresponds to a player. Thus, the expandable states belong to player B, i.e., those where B would take a next move. If, after simulating a number of future moves, it is determined that A wins the game, then the result of the game is propagated back along with the trajectory. It is notable that since Tic-Tac-Toe is a two-player competitive game, the value update mechanism of nodes is different compared to the single-player case. For example, wins for nodes that belong to A will be incremented by one, while wins for B's nodes will be decremented. All updates are limited to nodes that trace back from the expanded node in the simulation. 
+                </span>
+
                 During the backpropagation phase of MCTS, the statistics gathered during Simulation are propagated back
                 along the path up the tree from the expanded node. This involves updating the visit counts and
                 values<span class="modified_textR3"> like</span> rewards and wins, for all nodes along the path from the expanded node to the root node
@@ -1703,7 +1692,7 @@
             </div>
 
             <p>
-                In Sokoban, selecting “Auto play” enables the MCTS to run automatically. At each step, the <span class="modified_textR3">Monte-Carlo tree</span> will select the optimal solution it found.
+                In Sokoban, selecting “Auto play” enables the MCTS to run automatically. At each step, the <span class="modified_textR3">MCTS</span> will select the optimal solution it found.
                 Alternatively, you can use “Make MCTS Move” to view each step of the search in detail on the right
                 panel. You can also choose to play manually by moving the mouse to the game and using W, A, S, D or
                 arrow keys to move.
@@ -1876,8 +1865,8 @@
             <!--If an area covered by a color does not reach an empty area, it will be removed. -->
                 <span class="modified_textR3">The</span> goal of this game is to cover more area than the opponent.
                 <!-- <span class="modified_textR3">In this Go, the AI player will play black stones, while the player will play white stones. A player'score will be calculated by adding the number of its stones and the number of empty areas only surrounded by its stones.</span> -->
-                The AI player can choose to play randomly or use the <span class="modified_textR3">Monte-Carlo Tree Search (MCTS)</span> algorithm to make its moves. 
-                During the construction of the MCTS search tree, the AI player takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
+                The AI player can choose to play randomly or use the <span class="modified_textR3">MCTS</span> algorithm to make its moves. 
+                During the construction of the <span class="modified_textR3">search tree</span>, the AI player takes into account opponent modeling, estimating the potential effects of the opponent's decisions on the progression of the game.
             </p>
 
 
@@ -2341,7 +2330,7 @@
             <ol>
 
                 <li id="browne2012survey">
-                    A survey of monte carlo tree search methods
+                    A survey of Monte Carlo tree search methods
                     <span>
                         Browne, C.B., Powley, E., Whitehouse, D., Lucas, S.M., Cowling, P.I., Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. and Colton, S., 2012. IEEE Transactions on Computational Intelligence and AI in Games, vol. 4(1), pp. 1--43. IEEE.
                     </span>
@@ -2372,7 +2361,7 @@
 
 
                 <li id="kocsis2006bandit">
-                    Bandit based Monte-carlo planning
+                    Bandit based Monte-Carlo planning
                     <span>
                         Kocsis, L. and Szepesvari, C., 2006. European conference on Machine Learning, pp. 282--293.
                     </span>
@@ -2402,7 +2391,7 @@
                 </li>
 
                 <li id="wang2020learning">
-                    Learning search space partition for black-box optimization using monte carlo tree search
+                    Learning search space partition for black-box optimization using Monte Carlo tree search
                     <span>
                         Wang, L., Fonseca, R., and Tian, Y., 2020. Advances in Neural Information Processing Systems, vol. 33, pp. 19511--19522
                     </span>
