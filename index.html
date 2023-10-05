@@ -96,9 +96,9 @@
                     <div class="header-authors">
                         <h2>Authors</h2>
                         <ul>
-                            <li>Yunlong Zhao | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
-                            <li>Chengpeng Hu | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
-                            <li>Jialin Liu | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
+                            <li>Yunlong Zhao | Southern University of Science and Technology<span class="modified_textR3">, China</span></li>
+                            <li>Chengpeng Hu | Southern University of Science and Technology<span class="modified_textR3">, China</span></li>
+                            <li>Jialin Liu | Southern University of Science and Technology<span class="modified_textR3">, China</span></li>
                         </ul>
                     </div>
                     <!-- Published info section -->
@@ -164,7 +164,24 @@
                 
             </p>
             <p>
-                <span class="modified_textR3"><i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i> are the four core components of MCTS. The basic procedure of MCTS is to build a tree, with nodes representing visited states, and select the node with the highest possibility of reaching an optimal outcome. That selected node is then expanded according to available actions. Once a simulation beginning from the expanded node terminates, results of the simulation are propagated back to update the statistics of the nodes on the trajectory. MCTS addresses the exploration-exploitation dilemma with some specific selection strategies such as upper confidence bound [<a href="#kocsis2006bandit">5</a>].</span>
+
+                MCTS leverages the concept of tree search to address situations where local
+                optimal actions may not lead to global optimal performance.
+                The four core components of MCTS are <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>.
+                The basic procedure of MCTS involves building a tree with nodes that represent visited states and
+                selecting the node with the highest probability of reaching an optimal outcome.
+                The selected node is then expanded according to the available action space.
+                Once a simulation terminates, the results of the simulation are
+                propagated back to update the statistics of the nodes on the trajectory. A game tree is then constructed to identify the optimal action at each state.
+
+                MCTS addresses the exploration-exploitation dilemma with specific selection strategies such as the
+                upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>] that balance exploitation and exploration within a given computational budget.
+
+                <!-- <span class="modified_textR3"><i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i> are the four core components of MCTS. 
+                    The basic procedure of MCTS is to build a tree, with nodes representing visited states, and select the node with the highest possibility of reaching an optimal outcome. 
+                    That selected node is then expanded according to available actions. 
+                    Once a simulation beginning from the expanded node terminates, results of the simulation are propagated back to update the statistics of the nodes on the trajectory. 
+                    MCTS addresses the exploration-exploitation dilemma with some specific selection strategies such as upper confidence bound [<a href="#kocsis2006bandit">5</a>].</span> -->
                 </p>
 
 <!--            <p>-->
