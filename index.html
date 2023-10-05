@@ -96,9 +96,9 @@
                     <div class="header-authors">
                         <h2>Authors</h2>
                         <ul>
-                            <li>Yunlong Zhao | Southern University of Science and Technology</li>
-                            <li>Chengpeng Hu | Southern University of Science and Technology</li>
-                            <li>Jialin Liu | Southern University of Science and Technology</li>
+                            <li>Yunlong Zhao | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
+                            <li>Chengpeng Hu | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
+                            <li>Jialin Liu | Southern University of Science and Technology<span class="modified_textR3">, CHINA</span></li>
                         </ul>
                     </div>
                     <!-- Published info section -->
@@ -154,29 +154,19 @@
             <h2>I. Introduction</h2>
             <p>
                 Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to achieve optimal performance in
-                solving sequential decision problems such as games [<a href="#browne2012survey">1</a>].
-                In sequential decision problems, a single action taken by the agent not only affects the current outcome<span class="modified_textR3">,</span> but also has a long-term future effect. 
-                    A series of actions is made over a time horizon.
-                Because of few requirements for domain knowledge and simplicity,
-                MCTS has achieved significant
+                solving sequential decision problems such as games [<a href="#browne2012survey">1</a>]. In sequential decision problems, <span class="modified_textR3">actions taken by an agent not only affect the current outcome, but also have a long-term effect.</span> 
+                MCTS leverages the concept of tree search to address situations where local
+                optimal actions may not lead to global optimal performance.
+                <!--A series of actions is made over a time horizon.<-->
+                Because of <span class="modified_textR3">its simplicity and</span> few requirements for domain knowledge,
+                <span class="modified_textR3">MCTS has been widely used and</span> achieved significant
                 success for these problems, such as Go [<a href="#silver2017mastering">2</a>], video games [<a
                     href="#perez2016general">3</a>], and chemical synthesis [<a href="#segler2018planning">4</a>].
                 
             </p>
             <p>
-                
-                MCTS leverages the concept of tree search to address situations where local
-                optimal actions may not lead to global optimal performance.
-                The four core components of MCTS are <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i>.
-                The basic procedure of MCTS involves building a tree with nodes that represent visited states and
-                selecting the node with the highest probability of reaching an optimal outcome.
-                The selected node is then expanded according to the available action space.
-                Once a simulation terminates, the results of the simulation are
-                propagated back to update the statistics of the nodes on the trajectory. A game tree is then constructed to identify the optimal action at each state.
-            
-                MCTS addresses the exploration-exploitation dilemma with specific selection strategies such as the
-                upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>] that balance exploitation and exploration within a given computational budget.
-            </p>
+                <span class="modified_textR3"><i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i> are the four core components of MCTS. The basic procedure of MCTS is to build a tree, with nodes representing visited states, and select the node with the highest possibility of reaching an optimal outcome. That selected node is then expanded according to available actions. Once a simulation beginning from the expanded node terminates, results of the simulation are propagated back to update the statistics of the nodes on the trajectory. MCTS addresses the exploration-exploitation dilemma with some specific selection strategies such as upper confidence bound [<a href="#kocsis2006bandit">5</a>].</span>
+                </p>
 
 <!--            <p>-->
 <!--                In this paper, we introduce the underlying mechanism of MCTS and provide corresponding immersive-->
@@ -194,8 +184,7 @@
 
 
             <p>
-                Two classic two-player board games, Tic-Tac-Toe and Go, and a single-player video game, Sokoban, are used as
-                illustrative examples. Figure 1 shows screenshots of the three games.
+                Two classic two-player board games, Tic-Tac-Toe and Go, and a single-player video game, Sokoban, are used as immersive examples <span class="modified_textR3">to examine the abilities of MCTS in different cases such as opponent modeling and deep exploration. Screenshots of the three games are illustrated in Figure 1.</span>
             </p>
 
             <div class="l-body" style="width: 100%;">
@@ -217,7 +206,7 @@
                 <li>
                     Tic-Tac-Toe is a two-player competitive board game with a limited length of gameplay. Players take turns drawing their own marker
                     (usually “X” or “O”) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
-                    three <span class="modified_textR3">of their</span> placed markers can be connected together vertically, horizontally, or diagonally. <span class="modified_textR3">However,</span> if all
+                    three <span class="modified_textR3">of his/her</span> placed markers can be connected together vertically, horizontally, or diagonally. <span class="modified_textR3">However,</span> if all
                     squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent <span class="modified_textR3">modeling</span> problem.
                 </li>
                 <li>
@@ -316,14 +305,14 @@
                         game as the first or second player by clicking the corresponding “Human” or “AI” button. The objective of
                         the game is to connect three of your pieces in a row, column, or diagonal. 
                         <br>
-                        Click <span class="modified_textR3"> the</span> “Reset Game” button to start a new game.
+                        Click <span class="modified_textR3"> the</span> “Reset game” button to start a new game.
                     </div>
 
                     <div class="interactive"
                          style="position: relative; width: fit-content; margin-bottom: 20px; border: solid 1px black; padding: 1em; left: 50%; transform: translate(-50%, 0)">
 
                         <div style="display: flex; align-items: center; justify-content: space-between">
-                            <div>Game: <b>Tic-Tac-Toe</b></div> <button class="reset_game" onclick="myp5.reset()">Reset Game</button>
+                            <div>Game: <b>Tic-Tac-Toe</b></div> <button class="reset_game" onclick="myp5.reset()">Reset game</button>
                         </div>
 
 
@@ -388,7 +377,7 @@
             </div>
 
             <P>Similar to Tic-Tac-Toe, Go shares a similar representation structure with a $7 \times 7$ matrix. 
-                <span class="modified_textR3">The number “1” represents a white stone, while “-1” represents a black stone. Empty spaces are represented by “0”.</span>
+                <span class="modified_textR3">The digit “1” represents a white stone, while “-1” represents a black stone. Empty spaces are represented by “0”.</span>
                 <span class="modified_textR3">The small colored rectangle on the board indicates the “territory” controlled by white stones or black stones.</span>
             </P>
             <div class="framed">
@@ -398,7 +387,7 @@
                         Click on the intersections of the lines to alternately place black and white stones. 
                             The objective of Go is to control more area on the board than the opponent by strategically placing stones. 
                         <br>
-                        Click <span class="modified_textR3"> the</span> “Reset Game” button to start a new game.
+                        Click <span class="modified_textR3"> the</span> “Reset game” button to start a new game.
 
                     </div>
 
@@ -419,7 +408,7 @@
                             <div>Game: <b>Go</b></div>
                             <div>
                                 <!-- <button class="reset_game" onclick="goGameRe.show_result()">Show Result</button> -->
-                                <button class="reset_game" onclick="goGameRe.init()">Reset Game</button>
+                                <button class="reset_game" onclick="goGameRe.init()">Reset game</button>
                             </div>
                         </div>
 
@@ -451,9 +440,9 @@
                 <div class="inside">
                     <div class="eyebrow">
                         Click game panel and use the W, A, S, D, or arrow keys on your keyboard to move the avatar. The objective is to
-                        push all the boxes to the green points (targets) to win the game.
+                        push all the boxes to the <span class="modified_textR3">targets (green points)</span> to win the game.
                         <br>
-                        Click <span class="modified_textR3">the “Reset Game”</span> button to start a new game.
+                        Click <span class="modified_textR3">the “Reset game”</span> button to start a new game.
 
                     </div>
 
@@ -462,7 +451,7 @@
 
 
                         <div style="display: flex; align-items: center; justify-content: space-between">
-                            <div>Game: <b>Sokoban</b></div> <button class="reset_game" onclick="sokobanGame.init()">Reset Game</button>
+                            <div>Game: <b>Sokoban</b></div> <button class="reset_game" onclick="sokobanGame.init()">Reset game</button>
                         </div>
 
                         <p id="sokobangame"></p>
@@ -538,8 +527,8 @@
                      style="margin: auto auto; width: 100%; display: block"/>
                 <div class="caption" style="width: 100%; display: block"><b>Figure 5:</b><br> Main steps of MCTS (Figure
                     2 from [<a href="#browne2012survey">1</a>]
-                ). Nodes and branches represent state and action, respectively. Wins and visit counts are usually
-                    the values of a node.
+                ). Nodes and branches represent state and action, respectively. 
+                Wins and visit counts are usually the values of a node.
                 </div>
             </div>
 
@@ -554,45 +543,20 @@
             <h3>Selection</h3>
 
             <p>
-                Starting from the root node which usually represents the current state, MCTS employs a traversal
-                strategy to explore the tree and identify the final node that is expected to lead to an optimal
-                solution, as estimated by the selection strategy. It is known as the “exploration-exploitation dilemma”
-                that MCTS encounters, <span class="modified_textR3">which</span> considers a general problem of choosing actions that seems to be
-                optimal at current state or taking a wide step to explore some unknown area to potentially discover
-                better solutions. Three selection strategies are described as follows.
+                <span class="modified_textR3">From the root node, which typically represents the current state (e.g., a game board), a specific traversal strategy is applied to navigate the tree and identify the final node. This node is chosen based on its high likelihood to an optimal solution, as determined by the selection strategy. However, the lack of exploration may result in ignoring a better solution. This is known as the “exploration-exploitation dilemma” that MCTS encounters. The dilemma considers a general problem of choosing actions that seem to be optimal at current state or exploring some actions that have not or have only rarely been sampled before. Three commonly used selection strategies are described as follows.</span>
             </p>
 
             <ul>
                 <li>A random strategy selects nodes randomly.</li>
-                <li>$\epsilon$-greedy strategy selects nodes randomly with a probability $\epsilon$. Otherwise, it chooses
-                    the node that has the highest reward with a probability $1- \epsilon$.
-                </li>
-                <li>Upper confidence bound (UCB)
-                    [<a href="#kocsis2006bandit">5</a>]
-                    measures the uncertainty of the expected reward of an action. The average rewards and <span
-                            class="modified_text">visit counts</span>
-                    of actions form the upper confidence bound, <span class="modified_textR3">shown in</span> Eq. (1).
+                <li>The $\epsilon$-greedy strategy selects nodes randomly with probability $\epsilon$, or otherwise, selects the node that has the highest reward with probability $1-\epsilon$.</li>
+                <li><span class="modified_textR3">The upper confidence bound (UCB) [<a href="#kocsis2006bandit">5</a>] measures the uncertainty of the expected reward of an action. 
+                Formula of UCB is $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}} \qquad (1)$$ in which $\bar{x}_i$ is the averaged return of selecting the action $i$, $n$ denotes the visit counts of the current node, $n_i$ is the number of counts that the action $i$ is selected, and $c$ is the exploration factor. The next child node with the highest UCB value will be selected. UCB is the most commonly used selection strategy in MCTS, called UCB for trees (UCT). It balances the exploration and exploitation by considering both reward and visit counts of a node. $x_i$ estimates the current collected experience, while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the visit frequency, in which $c$ controls the importance of exploration. Less frequently visited nodes will be chosen with higher possibilities. Hence, unknown areas will be explored more frequently. 
+            </span>
                 </li>
             </ul>
 
-
             <p>
-                $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}} \qquad (1)$$
-                where $x_i$ is the averaged reward of action $i$, $c$ is the exploration coefficient, $n$ is the total
-                visit counts<span class="modified_textR3">,</span> and $n_i$ is the number of counts
-                in which the action $i$ is selected.
-                The node with the highest UCB value will be selected.
-                UCB is the most commonly used selection strategy in MCTS, called Upper Confidence Bound for Trees
-                (UCT). It balances the exploration and exploitation by considering both reward and <span
-                    class="modified_text">visit counts</span> of a
-                node. $x_i$ estimates the current collected experience, e.g., the optimal action that has been taken
-                while $c\sqrt{\frac{\ln{n}}{n_i}}$ considers the visit frequency. The less frequently
-                visited node has <span class="modified_textR3">a</span> larger possibility to be chosen so that more unknown area will be explored. The
-                coefficient $c$ controls the importance of exploration.
-            </p>
-
-            <p>
-                The Selection algorithm is shown below.
+                The procedure of Selection is shown below.
             </p>
 
             <pre id="selection_pseudo">
@@ -602,7 +566,7 @@
               \PROCEDURE{Select}{$root$}
               \STATE Set $node$ $\gets$ $root$
               \WHILE {$node$ is not leaf and $node$ is not fully explored}
-              \STATE $node$ $\gets$ Node with the highest UCB value(Eq. (1)) among $node.children$
+              \STATE $node$ $\gets$ Node with the highest UCB value (Eq. (1)) among $node.children$
               \ENDWHILE
               \STATE \Return $node$
               \ENDPROCEDURE
@@ -893,7 +857,7 @@
             </p>
 
             <p>
-                The Expansion algorithm is as below.
+                The procedure of Expansion is shown as follows.
             </p>
 
             <pre id="expansion_pseudo">
@@ -910,7 +874,7 @@
               \end{algorithm}
             </pre>
 
-            <p>You can test the Expansion algorithm in the interactive panel below.</p>
+            <p>You can test the procedure of Expansion in the interactive panel below.</p>
 
             <div class="framed">
 
@@ -1067,7 +1031,7 @@
             </p>
 
             <p>
-                The Simulation algorithm is shown as below.
+                The procedure of Simulation is shown as follows.
             </p>
 
             <pre id="simulation_pseudo">
@@ -1250,7 +1214,7 @@
                 updates are limited to nodes that trace back from the expanded node for the Simulation.
             </p>
 
-            <p>The backpropagation algorithm is as below.</p>
+            <p>The procedure of Backpropagation is shown as follows.</p>
 
             <pre id="back_pseudo">
               \begin{algorithm}
@@ -1278,7 +1242,7 @@
 
                 <div class="inside">
                     <div class="eyebrow">
-                        Click the “Random board button” to randomly generate a Tic-Tac-Toe game board.<br>
+                        Click the “Random board” button to randomly generate a Tic-Tac-Toe game board.<br>
                         Click <span class="modified_textR3">the</span> “Continue” button for the backpropagation step in MCTS.<br>
                         The node being back propagated is highlighted with a blue border.
                          In the tree panel, you can drag the canvas, <span class="modified_textR3">scroll the wheel, and zoom in and out.</span> When moving the cursor
