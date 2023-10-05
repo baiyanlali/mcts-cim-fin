@@ -204,7 +204,7 @@
 
             <ul>
                 <li>
-                    Tic-Tac-Toe is a two-player competitive board game with a limited length of gameplay. Players take turns drawing their own marker
+                    Tic-Tac-Toe is a two-player competitive board game with a limited length of a gameplay. Players take turns drawing their own marker
                     (usually “X” or “O”) on a $3\times3$ grid board, as presented in Figure 1 (left). A player wins once
                     three <span class="modified_textR3">of his/her</span> placed markers can be connected together vertically, horizontally, or diagonally. <span class="modified_textR3">However,</span> if all
                     squares are filled but neither player has won, the game ends in a draw. Due to the participation of the counterpart, MCTS is involved with the min-max and opponent <span class="modified_textR3">modeling</span> problem.
@@ -1201,7 +1201,7 @@
             <p>
                 During the backpropagation phase of MCTS, the statistics gathered during Simulation are propagated back
                 along the path up the tree from the expanded node. This involves updating the visit counts and
-                values, such as rewards and wins, for all nodes along the path from the expanded node to the root node
+                values<span class="modified_textR3"> like</span> rewards and wins, for all nodes along the path from the expanded node to the root node
                 of the tree. Considering Tic-Tac-Toe, players A and B take turns making moves. When MCTS determines the
                 next move for player A, it obtains the action that leads to win with the highest probability in the
                 current state. The tree is built with different layers representing the players, so the expandable
@@ -1582,7 +1582,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                      Select the first player by clicking “Human” or “AI”. The detailed information about MCTS will be shown in the panel below.
-                        Click “Next step” and "Next iteration" to show the procedure of MCTS. Click “<span class="modified_textR3">Visualize</span> last step” to show the final tree.
+                        Click “Next step” and “Next iteration” to show the procedure of MCTS. Click “<span class="modified_textR3">Visualize</span> last step” to show the final tree.
                     Click “Make play” to make AI's action.
                     <br>
                     In the tree panel, you can drag the canvas, <span class="modified_textR3">scroll the wheel, and zoom in and out.</span> When moving the cursor to the tree node, a detailed panel will be shown in the upper left area.
@@ -1714,7 +1714,7 @@
                 <div class="inside">
                     <div class="eyebrow">
                           The detailed information about MCTS will be shown in the panel below.
-                            Click “Next step” and "Next iteration" to show the procedure of MCTS. Click “<span class="modified_textR3">Visualize</span> last step” to show the final tree.
+                            Click “Next step” and “Next iteration” to show the procedure of MCTS. Click “<span class="modified_textR3">Visualize</span> last step” to show the final tree.
                     Click “Make play” to take AI's action.<br>
                     Notably, human player can also use the W, A, S, D, or arrow keys on the keyboard to move the avatar <span class="modified_textR3">after AI's moves.</span> 
                     <br>
