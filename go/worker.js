@@ -18,7 +18,11 @@ importScripts("../mcts-viz/lib/tree.js");
 
 function runMonteCarlo(event) {
     const data = event.data
-    const monteCarlo = new GoMCTS(data.go)
+    console.log(data.go.turn_cnt)
+    current_player = data.go.turn_cnt%2 === 0 ? GoTile.Black : GoTile.White
+    console.log(current_player)
+    const monteCarlo = new GoMCTS(data.go,current_player)
+    // todo:设置player
     const result = monteCarlo.runSearch(data.iteration)
     postMessage([monteCarlo, result])
     self.close()
@@ -714,7 +718,9 @@ function UCB1(node, parent) {
 class GoMCTS {
     constructor(model, player = GoTile.Black) {
         this.model = model
+        this.player = player
         let root = new Node(new GameNodeGo(new GameMove(player, null), GoCopy(model)))
+
         this.tree = new Tree(root)
     }
 
@@ -755,7 +761,6 @@ class GoMCTS {
         let simulationActions = simulation.actions;
 
         this.simulationTime += performance.now() - startSimulationTime
-
         let backpropagated = this.backpropagate(expandLeaf, simulation);
         let backpropagatedActions = backpropagated.actions;
 
