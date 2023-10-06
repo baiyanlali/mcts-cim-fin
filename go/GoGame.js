@@ -90,8 +90,10 @@ export const sketch_go = (s) => {
         //draw the base board
 
         let [black_area, white_area] = s.go.get_area()
-        black_area = black_area.map(p => JSON.stringify(p))
-        white_area = white_area.map(p => JSON.stringify(p))
+        if(s.check_area){
+            black_area = black_area.map(p => JSON.stringify(p))
+            white_area = white_area.map(p => JSON.stringify(p))
+        }
 
         for (let i = 0; i < tileNum; i++) {
             for (let j = 0; j < tileNum; j++) {
@@ -121,20 +123,21 @@ export const sketch_go = (s) => {
                 }
 
                 s.circle(i * s.tileSize, j * s.tileSize, radius)
-                const rect_size = 6
-                // console.log(`white area: ${white_area}, [i, j]: ${[i, j]}`)
-                if(white_area.includes(JSON.stringify([i, j]))){
-                    // console.log("white!")
-                    s.push()
-                    s.fill(255)
-                    s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
-                    s.pop()
-                }else if(black_area.includes(JSON.stringify([i, j]))){
-                    s.push()
-                    s.stroke(255)
-                    s.fill(0)
-                    s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
-                    s.pop()
+                if(s.check_area){
+                    const rect_size = 6
+                    if(white_area.includes(JSON.stringify([i, j]))){
+                        // console.log("white!")
+                        s.push()
+                        s.fill(255)
+                        s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
+                        s.pop()
+                    }else if(black_area.includes(JSON.stringify([i, j]))){
+                        s.push()
+                        s.stroke(255)
+                        s.fill(0)
+                        s.rect(i * s.tileSize - rect_size / 2, j * s.tileSize - rect_size / 2, rect_size)
+                        s.pop()
+                    }
                 }
             }
         }
@@ -309,6 +312,7 @@ export default class GoGame {
         // machine_control.forEach(e=>{
         //     e.disabled = this.go.current_player() !== MachineColor
         // })
+        this.goGame.check_area = false
         document.getElementById(this.screen + "_area").style.display = "none"
         if(this.go.end){
             console.log("win!!")
@@ -350,7 +354,8 @@ export default class GoGame {
     }
 
     checkArea = (check_win = false)=>{
-        console.log("check area")
+        // console.log("check area")
+        this.goGame.check_area = true
         const [black, white] = this.go.area()
         document.getElementById(this.screen + "_area").style.display = ""
         if(check_win)
