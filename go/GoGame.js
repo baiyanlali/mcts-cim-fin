@@ -364,10 +364,16 @@ export default class GoGame {
             document.getElementById(this.screen + "_area").innerHTML = `Black Area: ${black}<br> White Area: ${white}`
     }
 
+    setButtons = (active = false)=>{
+        this.disabled_btns?.forEach((e)=>{
+            e.disabled = !active
+        })
+    }
+
     machineMctsMove = async (interactive, disabled_btns, value) => {
 
         // if(this.go.current_player() !== MachineColor) return
-
+        this.disabled_btns = disabled_btns
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("./go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
@@ -381,9 +387,9 @@ export default class GoGame {
         })
         worker.onmessage = (event)=>{
             let [monteCarlo, result] = event.data
-            disabled_btns.forEach((e)=>{
-                e.disabled = false
-        })
+        //     disabled_btns.forEach((e)=>{
+        //         e.disabled = false
+        // })
             //需要对传回来的结果加入函数，否则传回来的变量都没法调用内部函数
             result.move = new GameMove(result.move.player, result.move.position)
             monteCarlo = FromMCTS(monteCarlo)
