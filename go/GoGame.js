@@ -161,10 +161,10 @@ export const sketch_go = (s) => {
     s.handleHover = () => {
 
         if(s.go){
-            // if(s.go.current_player() === s.MachineColor){
-            //     s.hoveredTile = [-1, -1]
-            //     return
-            // }
+            if(s.mcts){
+                s.hoveredTile = [-1, -1]
+                return
+            }
         }
 
         let mouseX = s.mouseX;
@@ -368,12 +368,14 @@ export default class GoGame {
         this.disabled_btns?.forEach((e)=>{
             e.disabled = !active
         })
+        this.goGame.mcts = !active
     }
 
     machineMctsMove = async (interactive, disabled_btns, value) => {
 
         // if(this.go.current_player() !== MachineColor) return
         this.disabled_btns = disabled_btns
+        this.goGame.mcts = true
         document.getElementById(this.screen + "_loadingbar").style.display = ""
         const worker = new Worker("./go/worker.js")
         const iteration = interactive.tree_vis_p5.mctsTimeoutSlider.value()
