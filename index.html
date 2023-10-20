@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <!-- Required meta tags for IEEE Xplore immersive article -->
+    <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="This paper provides an accessible explanation of the working mechanism of Monte-Carlo Tree Search, an
           influential search algorithm. Tic-Tac-Toe, Go, and Sokoban are provided to show the procedure of MCTS."
     />
-    <meta charset="utf8" />
     <title>Playing with Monte-Carlo Tree Search</title>
 
     <!-- Stylesheet for IEEE Xplore immersive article -->
@@ -37,15 +37,12 @@
       import renderMathInElement from "./auto-render.mjs";
 
       renderMathInElement(document.body, {
-        // customized options
-        // • auto-render specific keys, e.g.:
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "$", right: "$", display: false },
           { left: "\\(", right: "\\)", display: false },
           { left: "\\[", right: "\\]", display: true },
         ],
-        // • rendering keys, e.g.:
         throwOnError: false,
       });
     </script>
@@ -76,12 +73,10 @@
           <h1>Playing with Monte-Carlo Tree Search</h1>
           <!-- Subheading -->
           <p class="subhead">
-            <span class="modified_textR3"
-              >This paper provides an accessible explanation of the working
+            This paper provides an accessible explanation of the working
               mechanism of Monte-Carlo Tree Search, an influential search
-              algorithm.</span
-            >
-            Tic-Tac-Toe, Go<span class="modified_textR3">,</span> and Sokoban
+              algorithm.
+            Tic-Tac-Toe, Go, and Sokoban
             are provided to show the procedure of MCTS.
           </p>
           <!-- Header info general wrapper -->
@@ -94,15 +89,15 @@
                 <ul>
                   <li>
                     Yunlong Zhao | Southern University of Science and
-                    Technology<span class="modified_textR3">, China</span>
+                    Technology, China
                   </li>
                   <li>
                     Chengpeng Hu | Southern University of Science and
-                    Technology<span class="modified_textR3">, China</span>
+                    Technology, China
                   </li>
                   <li>
                     Jialin Liu | Southern University of Science and
-                    Technology<span class="modified_textR3">, China</span>
+                    Technology, China
                   </li>
                 </ul>
               </div>
@@ -146,7 +141,7 @@
               </li>
               <li>
                 <a href="#practise"
-                  ><span class="modified_textR3">Practice</span></a
+                  >Practice</a
                 >
                 <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
               </li>
@@ -167,20 +162,18 @@
           <p>
             Monte-Carlo Tree Search (MCTS) is a tree-based policy that aims to
             achieve optimal performance
-            <span class="modified_textR3"
-              >for sequential decision problems [<a href="#browne2012survey"
+            for sequential decision problems [<a href="#browne2012survey"
                 >1</a
               >], in which actions taken by an agent not only affect the current
-              outcome, but also have a long-term effect.</span
-            >
+              outcome, but also have a long-term effect.
             MCTS leverages the concept of tree search to address situations
             where local optimal actions may not lead to global optimal
             performance.
             <!--A series of actions is made over a time horizon.<-->
             Because of
-            <span class="modified_textR3">its simplicity and</span> few
+            its simplicity and few
             requirements for domain knowledge,
-            <span class="modified_textR3">MCTS has been widely used and</span>
+            MCTS has been widely used and
             achieved significant success for these problems, such as Go [<a
               href="#silver2017mastering"
               >2</a
@@ -203,22 +196,8 @@
             specific selection strategies such as the upper confidence bound
             (UCB) [<a href="#kocsis2006bandit">5</a>] that balance exploitation
             and exploration within a given computational budget.
+            </p>
 
-            <!-- <span class="modified_textR3"><i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>, and <i>Backpropagation</i> are the four core components of MCTS. 
-                    The basic procedure of MCTS is to build a tree, with nodes representing visited states, and select the node with the highest possibility of reaching an optimal outcome. 
-                    That selected node is then expanded according to available actions. 
-                    Once a simulation beginning from the expanded node terminates, results of the simulation are propagated back to update the statistics of the nodes on the trajectory. 
-                    MCTS addresses the exploration-exploitation dilemma with some specific selection strategies such as upper confidence bound [<a href="#kocsis2006bandit">5</a>].</span> -->
-          </p>
-
-          <!--            <p>-->
-          <!--                In this paper, we introduce the underlying mechanism of MCTS and provide corresponding immersive-->
-          <!--                interaction for two representative games: Tic-Tac-Toe, a two-player competitive game and Sokoban, a-->
-          <!--                single-player puzzle game. The paper is organized as follows. Section <a href="#games">Games</a>-->
-          <!--                introduces the Tic-Tac-Toe and Sokoban, Section <a href="#algorithm">Algorithm</a> provides the details-->
-          <!--                of the MCTS algorithm, Section <a href="#practise">Practice</a> gives an interactive environment for-->
-          <!--                experimenting MCTS , Section <a href="#conclusion">Conclusion</a> concludes the paper.-->
-          <!--            </p>-->
         </section>
 
         <section id="games">
@@ -227,11 +206,9 @@
           <p>
             Two classic two-player board games, Tic-Tac-Toe and Go, and a
             single-player video game, Sokoban, are used as immersive examples
-            <span class="modified_textR3"
-              >to examine the abilities of MCTS in different cases such as
+            to examine the abilities of MCTS in different cases such as
               opponent modeling and deep exploration. Screenshots of the three
-              games are illustrated in Figure 1.</span
-            >
+              games are illustrated in Figure 1.
           </p>
 
           <div class="l-body" style="width: 100%">
@@ -254,9 +231,7 @@
             </div>
             <div class="caption" style="width: 100%; display: block">
               <b>Figure 1:</b><br />
-              Tic-Tac-Toe (left), Go (center)<span class="modified_textR3"
-                >,</span
-              >
+              Tic-Tac-Toe (left), Go (center),
               and Sokoban (right)
             </div>
           </div>
@@ -267,34 +242,31 @@
               Tic-Tac-Toe is a two-player competitive board game with a limited
               length of a gameplay. Players take turns drawing their own marker
               (usually “X” or “O”) on a $3\times3$ grid board, as presented in
-              Figure 1 (left). A player wins once three
-              <span class="modified_textR3">of their</span> placed markers can
+              Figure 1 (left). A player wins once three markers the individual places can
               be connected together vertically, horizontally, or diagonally.
-              <span class="modified_textR3">However,</span> if all squares are
+              However, if all squares are
               filled but neither player has won, the game ends in a draw. Due to
               the participation of the counterpart, MCTS is involved with the
               min-max and opponent
-              <span class="modified_textR3">modeling</span> problem.
+              modeling problem.
             </li>
             <li>
               Go is a two-player competitive board game, as illustrated in
-              Figure 1 (center)<span class="modified_textR3">, in which</span>
+              Figure 1 (center), in which
               two players take turns placing black and white stones on the
               board. The game begins with an empty board controlled by the
               player holding black stones. If a player's stones manage to
               encircle the opponent's stones,
-              <span class="modified_textR3">then</span> the surrounded stones
+              then the surrounded stones
               are removed from the board.
-              <span class="modified_textR3"
-                >The objective of Go is to control more area on the board than
+              The objective of Go is to control more area on the board than
                 the opponent by strategically placing stones.
-                <span class="modified_textR3">A</span> $7 \times 7$ board is
+                A $7 \times 7$ board is
                 used as the interactive example in this immersive article,
                 following the Tromp-Taylor rules [<a href="#rulego">6</a>],
                 which calculate a player's score by adding the number of stones
                 of its color and the number of empty points that are only
-                connected to stones of its color.</span
-              >
+                connected to stones of its color.
             </li>
             <li>
               Sokoban is a one-player puzzle game in which a player must
@@ -302,10 +274,10 @@
               game is set on a fixed board made up of different tiles, as
               demonstrated in Figure 1 (right). The player can move through
               empty spaces and push boxes
-              <span class="modified_textR3">to</span> spaces without obstacles
-              <span class="modified_textR3">like</span> walls and other fixed
+              to spaces without obstacles
+              like walls and other fixed
               boxes. In this game, the representation of the state is more
-              complex than Tic-Tac-Toe<span class="modified_textR3">,</span> and
+              complex than Tic-Tac-Toe, and
               a challenge of deep exploration with unlimited steps arises.
             </li>
           </ul>
@@ -314,19 +286,17 @@
         <section id="algorithm">
           <h2>III. Algorithm</h2>
 
-          <h3><span class="modified_textR3">Modeling</span></h3>
+          <h3>Modeling</h3>
 
           <p>
             MCTS is typically used to solve sequential decision problems, which
             are often formulated as a Markov decision process (MDP). The four
             components of an MDP are state $S$, action $A$, transition model
-            $P$<span class="modified_textR3">,</span> and reward $R$.
-            <span class="modified_textR3"
-              >An MCTS policy $\pi$ takes an action in a given state $s$ and
+            $P$, and reward $R$.
+            An MCTS policy $\pi$ takes an action in a given state $s$ and
               obtains a reward $r$ and the next state $s'$ according to the
               transition model, aiming at maximizing the long-term expected
-              reward.</span
-            >
+              reward.
             For example, in Tic-Tac-Toe, as shown in Figure 1 (left), state of
             the game is the game board, represented as nodes in the game tree.
             The marker placed by a player is considered an action taken by that
@@ -345,12 +315,11 @@
           <p>
             In Tic-Tac-Toe, the game state is represented as a $3 \times 3$
             matrix.
-            <span class="modified_textR3"
-              >The below panel presents the current state of the Tic-Tac-Toe
-              game, where unoccupied cells are symbolized by empty spaces.
+            The below panel presents the current state of the Tic-Tac-Toe
+              game, where empty spaces indicate unoccupied cells.
               Human's pieces and those of the AI are denoted by “1” and “-1”,
               respectively.
-            </span>
+            
           </p>
 
           <div class="framed">
@@ -405,7 +374,7 @@
                 button. The objective of the game is to connect three of your
                 pieces in a row, column, or diagonal.
                 <br />
-                Click <span class="modified_textR3"> the</span> “Reset game”
+                Click the “Reset game”
                 button to start a new game.
               </div>
 
@@ -458,13 +427,11 @@
                       <b>The winner is...</b>
                       <span id="show_game_over_winner">HUMAN</span>!
                       <br />
-                      <!-- <button onclick="myp5.reset()">Restart game</button> -->
                     </div>
                   </div>
 
                   <div id="show_machine_controls_area" style="display: none">
-                    <!--<b class="modified_text">AI controls:</b>-->
-                    <!--                                <b class="modified_text">AI controls:</b>-->
+
                     <div
                       style="background-color: rgb(230, 230, 230); padding: 1em"
                     >
@@ -526,14 +493,10 @@
           <p>
             Similar to Tic-Tac-Toe, Go shares a similar representation structure
             with a $7 \times 7$ matrix.
-            <span class="modified_textR3"
-              >The digit “1” represents a white stone, while “-1” represents a
-              black stone. Empty spaces are represented by “0”.</span
-            >
-            <span class="modified_textR3"
-              >The small colored rectangle on the board indicates the
-              “territory” controlled by white stones or black stones.</span
-            >
+            The digit “1” represents a white stone, while “-1” represents a
+              black stone. Empty spaces are represented by “0”.
+            The small colored rectangle on the board indicates the
+              “territory” controlled by white stones or black stones.
           </p>
           <div class="framed">
             <div class="inside">
@@ -543,7 +506,7 @@
                 area on the board than the opponent by strategically placing
                 stones.
                 <br />
-                Click <span class="modified_textR3"> the</span> “Reset game”
+                Click the “Reset game”
                 button to start a new game.
               </div>
 
@@ -601,7 +564,7 @@
           <p>
             The Sokoban game is represented by an $n \times n$ matrix, where $n$
             represents the size of the game board. The matrix uses “0”, “1”,
-            “2”, “3”, and <span class="modified_textR3"> “4” </span> to indicate
+            “2”, “3”, and “4”  to indicate
             empty spaces, walls, boxes, targets, and the player, respectively.
           </p>
 
@@ -611,11 +574,11 @@
                 Click game panel and use the W, A, S, D, or arrow keys on your
                 keyboard to move the avatar. The objective is to push all the
                 boxes to the
-                <span class="modified_textR3">targets (green points)</span> to
+                targets (green points) to
                 win the game.
                 <br />
                 Click
-                <span class="modified_textR3">the “Reset game”</span> button to
+                the “Reset game” button to
                 start a new game.
               </div>
 
@@ -729,8 +692,8 @@
           </div>
 
           <p>
-            The MCTS follows a workflow as illustrated in Figure 5
-            <span class="modified_textR3">and</span> involves four main
+            The MCTS follows a workflow, as illustrated in Figure 5,
+            and involves four main
             components: <i>Selection</i>, <i>Expansion</i>, <i>Simulation</i>,
             and <i>Backpropagation</i>. The specific four steps will be
             presented in detail in the subsequent sections. Interactive
@@ -740,8 +703,7 @@
           <h3>Selection</h3>
 
           <p>
-            <span class="modified_textR3"
-              >From the root node, which typically represents the current state
+            From the root node, which typically represents the current state
               (e.g., a game board), a specific traversal strategy is applied to
               navigate the tree and identify the final node. This node is chosen
               based on its high likelihood to an optimal solution, as determined
@@ -751,8 +713,7 @@
               dilemma considers a general problem of choosing actions that seem
               to be optimal at current state or exploring some actions that have
               not or have only rarely been sampled before. Three commonly used
-              selection strategies are described as follows.</span
-            >
+              selection strategies are described as follows.
           </p>
 
           <ul>
@@ -763,8 +724,7 @@
               the highest reward with probability $1-\epsilon$.
             </li>
             <li>
-              <span class="modified_textR3"
-                >The upper confidence bound (UCB) [<a href="#kocsis2006bandit"
+             The upper confidence bound (UCB) [<a href="#kocsis2006bandit"
                   >5</a
                 >] measures the uncertainty of the expected reward of an action.
                 Formula of UCB is $$ UCB = x_i +c\sqrt{\frac{\ln{n}}{n_i}}
@@ -782,7 +742,6 @@
                 frequently visited nodes will be chosen with higher
                 possibilities. Hence, unknown areas will be explored more
                 frequently.
-              </span>
             </li>
           </ul>
 
@@ -816,12 +775,10 @@
                 Tic-Tac-Toe game board.<br />
                 Click the “Continue” button for the Selection step in the
                 MCTS.<br />
-                <span class="modified_textR3">The currently selected node</span>
+                The currently selected node
                 is highlighted with a red border. <br />
                 In the tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -1070,7 +1027,6 @@
                       ></span>
                     </div>
                     <div id="selection_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
                       <div
                         style="
                           background-color: rgb(230, 230, 230);
@@ -1182,7 +1138,7 @@
                           id="selection_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -1209,16 +1165,14 @@
           <h3>Expansion</h3>
 
           <p>
-            <span class="modified_textR3"
-              >Expansion explores new states and adds new nodes to the tree. A
+            Expansion explores new states and adds new nodes to the tree. A
               node is expandable if it has remaining available actions. Once a
               node is selected, the algorithm expands by adding new child nodes
               according to the available actions. If the node chosen by
               Selection procedure has no available action, other paths will be
               explored to find an expandable node. The number of expanded nodes
               usually depends on the available actions and computation
-              budget.</span
-            >
+              budget.
           </p>
 
           <p>The procedure of Expansion is shown as follows.</p>
@@ -1248,14 +1202,12 @@
               <div class="eyebrow">
                 Click the “Random board” button to randomly generate a
                 Tic-Tac-Toe game board.<br />
-                Click <span class="modified_textR3">the</span> “Continue” button
+                Click the “Continue” button
                 for the Expansion step in the MCTS.<br />
                 The selected node to be expanded is highlighted with a pink
                 border. The expanded node is highlighted with a green border. In
                 the tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -1338,7 +1290,6 @@
                       ></span>
                     </p>
                     <div id="expansion_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
                       <div
                         style="
                           background-color: rgb(230, 230, 230);
@@ -1447,7 +1398,7 @@
                           id="expansion_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -1474,8 +1425,7 @@
           <h3>Simulation</h3>
 
           <p>
-            <span class="modified_textR3"
-              >Starting from the expanded node, the roll-out strategy is
+              Starting from the expanded node, the roll-out strategy is
               conducted to simulate a gameplay. The choice of simulation policy
               has a large impact on the final result. A common strategy for
               selecting actions is to use a random policy for its simplicity,
@@ -1483,12 +1433,10 @@
               The simulation step repeats until a terminal state is reached. The
               results of the simulation, such as the final state or a reward
               value, are then collected and used to update the values of the
-              node. A major concern for the policy is that of efficiency issues.
+              node. A major concern for the policy is the efficiency issues.
               Some improved ingredients have been made, such as rule-based
-              simulation and learning methods [<a href="#perez2014knowledge"
-                >8</a
-              >][<a href="#segler2018planning">4</a>] .</span
-            >
+              simulation and learning methods [<a href="#segler2018planning">4</a>]
+              [<a href="#perez2014knowledge">8</a>] .
           </p>
 
           <p>The procedure of Simulation is shown as follows.</p>
@@ -1522,13 +1470,11 @@
               <div class="eyebrow">
                 Click the “Random board” button to randomly generate a
                 Tic-Tac-Toe game board.<br />
-                Click <span class="modified_textR3">the</span> “Continue” button
+                Click the “Continue” button
                 for the Simulation step in the MCTS.<br />
                 The node being simulated is connected with a dotted line. In the
                 tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -1615,7 +1561,6 @@
                       ></span>
                     </p>
                     <div id="simulation_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
                       <div
                         style="
                           background-color: rgb(230, 230, 230);
@@ -1626,9 +1571,6 @@
                           Make random move
                         </button>
                         <br />
-                        <!--                                        <button onclick="simulation_p5.machineMctsMove(simulation_interactive)">Make-->
-                        <!--                                            MCTS move-->
-                        <!--                                        </button>-->
 
                         <button
                           onclick="simulation_p5.makeSimulationMove(simulation_interactive)"
@@ -1728,7 +1670,7 @@
                           id="simulation_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -1755,8 +1697,7 @@
           <h3>Backpropagation</h3>
 
           <p>
-            <span class="modified_textR3"
-              >Statistics will be propagated back along the visited path of the
+            Statistics will be propagated back along the visited path of the
               expanded node after simulation. The visit counts and values, such
               as reward and wins of all nodes in the path upon the expandable
               node, will be updated according to the results of the simulation.
@@ -1774,12 +1715,11 @@
               that belong to A will be incremented by one, while wins for B's
               nodes will be decremented. All updates are limited to nodes that
               trace back from the expanded node in the simulation.
-            </span>
 
             During the backpropagation phase of MCTS, the statistics gathered
             during Simulation are propagated back along the path up the tree
             from the expanded node. This involves updating the visit counts and
-            values<span class="modified_textR3"> like</span> rewards and wins,
+            values like rewards and wins,
             for all nodes along the path from the expanded node to the root node
             of the tree. Considering Tic-Tac-Toe, players A and B take turns
             making moves. When MCTS determines the next move for player A, it
@@ -1792,7 +1732,7 @@
             incremented by one. It is notable that since Tic-Tac-Toe is a
             two-player competitive game, the value update mechanism of nodes is
             different compared with the
-            <span class="modified_textR3">single-player case.</span>
+            single-player case.
             For example, wins for nodes that belong to player A will be
             incremented by one, while wins for nodes that belong to player B
             will be decremented, if player A wins the game according to the
@@ -1832,13 +1772,11 @@
               <div class="eyebrow">
                 Click the “Random board” button to randomly generate a
                 Tic-Tac-Toe game board.<br />
-                Click <span class="modified_textR3">the</span> “Continue” button
+                Click the “Continue” button
                 for the backpropagation step in MCTS.<br />
                 The node being back propagated is highlighted with a blue
                 border. In the tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -1926,7 +1864,6 @@
                       ></span>
                     </p>
                     <div id="backpropagration_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
                       <div
                         style="
                           background-color: rgb(230, 230, 230);
@@ -2048,7 +1985,7 @@
                           id="backpropagration_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -2077,7 +2014,7 @@
             Expansion, Simulation, and Backpropagation, a succinct and cohesive
             algorithm for the complete MCTS process can be constructed. Finally,
             the child node with the highest visit count is selected as the best
-            move<span class="modified_textR3">,</span>
+            move,
             since it has been selected and evaluated more often during the tree
             growth, which may result in a robust performance.
           </p>
@@ -2199,7 +2136,6 @@
                     </p>
 
                     <div class="control_panel" id="move_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
 
                       <div style="display: flex">
                         <button
@@ -2332,7 +2268,7 @@
                           id="move_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -2370,12 +2306,12 @@
         </section>
 
         <section id="practise">
-          <h2>IV. <span class="modified_textR3">Practice</span></h2>
+          <h2>IV. Practice</h2>
 
           <p>
             MCTS is a powerful algorithm that can effectively handle various
             types of games, including adversarial games
-            <span class="modified_textR3">like</span> Tic-Tac-Toe and Go, as
+            like Tic-Tac-Toe and Go, as
             well as puzzle games such as Sokoban. In the following sections, we
             will delve into how MCTS works in these three games and provide
             interactive components to illustrate its effectiveness.
@@ -2387,17 +2323,17 @@
             the board to make a move. During the AI player's turn, you can
             select one of three decision-making modes for the AI player: random,
             greedy, and MCTS. In MCTS, you can
-            <span class="modified_textR3">move</span> the slider to select the
+            move the slider to select the
             number of iterations. The higher the number of iterations is, the
             better decisions the AI player will make. In the MCTS panel on the
             right, choose “Next step” to view the
-            <span class="modified_textR3">steps of MCTS</span> at each stage or
+            steps of MCTS at each stage or
             select “Next iteration” to see the situation after each iteration,
             including Selection, Expansion, Simulation, and Backpropagation. The
             tree displays the current MCTS information. The possible future
             actions of the opponent are estimated during searching, which is
             considered as a case of opponent modeling. You can also select
-            “<span class="modified_textR3">Visualize</span> last step” to
+            “Visualize last step” to
             directly view the final step and each node's value. Finally, click
             “Make play” to take AI's action.
           </p>
@@ -2408,16 +2344,12 @@
                 Select the first player by clicking “Human” or “AI”. The
                 detailed information about MCTS will be shown in the panel
                 below. Click “Next step” and “Next iteration” to show the
-                procedure of MCTS. Click “<span class="modified_textR3"
-                  >Visualize</span
-                >
+                procedure of MCTS. Click “Visualize
                 last step” to show the final tree. Click “Make play” to make
                 AI's action.
                 <br />
                 In the tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -2458,7 +2390,6 @@
                     </p>
 
                     <div class="control_panel" id="vs_machine_controls_area">
-                      <!--<b class="modified_text">AI controls:</b>-->
 
                       <div style="display: flex">
                         <button
@@ -2589,7 +2520,7 @@
                           id="vs_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -2625,7 +2556,7 @@
           <p>
             In Sokoban, selecting “Auto play” enables the MCTS to run
             automatically. At each step, the
-            <span class="modified_textR3">MCTS</span> will select the optimal
+            MCTS will select the optimal
             solution it found. Alternatively, you can use “Make MCTS Move” to
             view each step of the search in detail on the right panel. You can
             also choose to play manually by moving the mouse to the game and
@@ -2637,19 +2568,15 @@
               <div class="eyebrow">
                 The detailed information about MCTS will be shown in the panel
                 below. Click “Next step” and “Next iteration” to show the
-                procedure of MCTS. Click “<span class="modified_textR3"
-                  >Visualize</span
-                >
+                procedure of MCTS. Click “Visualize
                 last step” to show the final tree. Click “Make play” to take
                 AI's action.<br />
                 Notably, human player can also use the W, A, S, D, or arrow keys
                 on the keyboard to move the avatar
-                <span class="modified_textR3">after AI's moves.</span>
+                after AI's moves.
                 <br />
                 In the tree panel, you can drag the canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -2863,7 +2790,7 @@
                           id="soko_mcts_btn_last_step"
                           disabled
                         >
-                          <span class="modified_textR3">Visualize</span> last
+                          Visualize last
                           step &gt;&gt;&gt;
                         </button>
                         <br />
@@ -2897,30 +2824,23 @@
           </div>
 
           <p>
-            An
-            <span class="modified_textR3"
-              >interactive example of Go is shown below. We choose $7\times7$
+              An interactive example of Go is shown below. We choose a $7\times7$
               board and follow the Tromp-Taylor rules [<a href="#rulego">6</a>]
-              for MCTS simulations same as Alpha Zero [<a
-                href="#silver2017mastering"
-                >2</a
-              >]. This is because human rules, such as Chinese rules, can not be
-              clearly implemented to a machine language which is caused by the
+              for MCTS simulations same as Alpha Zero [<a href="#silver2017mastering">2</a>]. 
+              This is because human rules, such as Chinese rules, can not be
+              clearly implemented to a machine language which is resulted from the
               need to reach an agreement on <i>dead stone removal</i> issues.
               The lack of dead stone removal when the game terminates makes
-              Tromp-Taylor rule much more easier to write Go simulator for MCTS.
-              And AI researchers can spend more time focusing on the research
+              Tromp-Taylor rule much easier to write Go simulator for MCTS.
+              AI researchers can devote more time and effort to the research
               through Tromp-Taylor rules instead of learning complex and
               ambiguous rules for months.
-            </span>
-            <!--If an area covered by a color does not reach an empty area, it will be removed. -->
-            <span class="modified_textR3">The</span> goal of this game is to
+            The goal of this game is to
             cover more area than the opponent.
-            <!-- <span class="modified_textR3">In this Go, the AI player will play black stones, while the player will play white stones. A player'score will be calculated by adding the number of its stones and the number of empty areas only surrounded by its stones.</span> -->
             The AI player can choose to play randomly or use the
-            <span class="modified_textR3">MCTS</span> algorithm to make its
+            MCTS algorithm to make its
             moves. During the construction of the
-            <span class="modified_textR3">search tree</span>, the AI player
+            search tree, the AI player
             takes into account opponent modeling, estimating the potential
             effects of the opponent's decisions on the progression of the game.
           </p>
@@ -2929,15 +2849,13 @@
             <div class="inside">
               <div class="eyebrow">
                 By adjusting the number of iterations in the
-                <span class="modified_textR3">Monte-Carlo Tree Search,</span>
+                Monte-Carlo Tree Search,
                 the AI player's playing ability will also change accordingly.
                 Notably, running MCTS with 3,000 iterations, which offers the
-                <span class="modified_textR3">strongest</span> capability, might
+                strongest capability, might
                 take around 10 seconds. In the tree panel, you can drag the
                 canvas,
-                <span class="modified_textR3"
-                  >scroll the wheel, and zoom in and out.</span
-                >
+                scroll the wheel, and zoom in and out.
                 When moving the cursor to the tree node, a detailed panel will
                 be shown in the upper left area.
               </div>
@@ -3140,11 +3058,7 @@
                           id="go_mcts_btn_last_step"
                           disabled
                         >
-                          <span class="modified_text"
-                            ><span class="modified_textR3">Visualize</span> last
-                            step</span
-                          >
-                          &gt;&gt;&gt;
+                          Visualize last step &gt;&gt;&gt;
                         </button>
                         <br />
                         <button
@@ -3158,7 +3072,7 @@
                           onclick="window.go.setButtons(true)"
                           disabled
                         >
-                          <span class="modified_text">Make play</span>
+                          Make play
                         </button>
                       </div>
 
@@ -3174,7 +3088,7 @@
               </div>
 
               <div class="caption">
-                <b>Figure 13:</b><span class="modified_text">MCTS for Go.</span>
+                <b>Figure 13:</b>MCTS for Go.
               </div>
             </div>
           </div>
@@ -3297,7 +3211,7 @@
         <!--                                </p>-->
 
         <!--                                <div id="editor-sokobangame_machine_controls_area">-->
-        <!--                                    <b class="modified_text">AI controls:</b>-->
+        <!--                                    AI controls:-->
         <!--                                    <div style="background-color: rgb(230, 230, 230); padding: 1em">-->
         <!--                                        <button onclick="mcts_sokobanGame_editor.machineRandomMove()">Make random move-->
         <!--                                        </button>-->
@@ -3369,30 +3283,25 @@
         <section id="conclusion">
           <h2>V. Conclusion</h2>
           <p>
-            <span class="modified_textR3">In</span> summary, this paper provides
+            In summary, this paper provides
             a comprehensive explanation of the basic procedure of MCTS. Four
             main components, Selection, Expansion, Simulation, and
             Backpropagation are described in detail. To fully demonstrate the
             workflow of MCTS in two-player and single-player cases, three
-            classic games, Tic-Tac-Toe, Go<span class="modified_textR3">,</span>
+            classic games, Tic-Tac-Toe, Go,
             and Sokoban are used. MCTS has been successfully applied to game AI
             areas such as Go [<a href="#silver2017mastering">2</a>] and video
             games [<a href="#perez2016general">3</a>]. Beyond these game-based
             environments, MCTS also presents its abilities in black-box
-            <span class="modified_textR3">optimization</span> [<a
+            optimization [<a
               href="#wang2020learning"
               >9</a
-            >], robotics [<a href="#best2019dec">10</a>]<span
-              class="modified_textR3"
-              >,</span
-            >
+            >], robotics [<a href="#best2019dec">10</a>],
             and real-world scheduling problems [<a href="#li2021effective">11</a
             >]. Readers are referred to [<a href="#browne2012survey">1</a>,<a
               href="#silver2017mastering"
               >2</a
-            >] for more about MCTS, its variants<span class="modified_textR3"
-              >,</span
-            >
+            >] for more about MCTS, its variants,
             and applications.
           </p>
         </section>
